@@ -27,7 +27,7 @@ class RegisterController {
             const saveCus = await inforCustomer.save();
 
             req.session.userName = req.body.fullname;
-            res.redirect('/');
+            res.redirect('back');
         } catch (err) {
             res.render('register', {
                 title: 'Đăng ký',

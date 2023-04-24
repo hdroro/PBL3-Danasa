@@ -24,6 +24,21 @@ class Account {
         });
     }
 
+    async getIdAccount() {
+        return new Promise((resolve, reject) => {
+            var query = `SELECT * FROM accounts WHERE userName = ?`;
+            db.query(query, [this.username], (err, results) => {
+                if (err) {
+                    return reject(err);
+                }
+                if (results.length === 0) {
+                    return reject(err);
+                }
+                return resolve(results[0].idUser);
+            });
+        });
+    }
+
     async save() {
         return new Promise((resolve, reject) => {
             const checkQuery = `SELECT * FROM accounts WHERE userName = ?`;
@@ -61,7 +76,7 @@ class Account {
 
     async fillInfo(){
         return new Promise((resolve, reject)=>{
-            const fetchQuery = `SELECT * FROM accounts INNER JOIN inforcustomer ON idUser = idCustomer WHERE name = ?`;
+            const fetchQuery = `SELECT * FROM accounts INNER JOIN inforcustomer ON idUser = idCustomer WHERE userName = ?`;
             db.query(fetchQuery, [this.username], (err, results) => {
                 if (err) {
                     return reject(err);

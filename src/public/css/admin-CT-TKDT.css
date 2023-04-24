@@ -11,7 +11,7 @@
     color: #1D38A1;
 }
 
-.container-admin .title-line {
+.container-admin .title-line.statistic-line {
     width: 14.5rem;
     left: -12.5rem;
 }

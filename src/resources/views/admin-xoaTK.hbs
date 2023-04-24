@@ -48,12 +48,13 @@
                                 <div class="nav-profile-text">
                                     <p class="mb-1 text-black">Xin chào Admin!</p>
                                 </div>
-
-                                <div class="nav-profile-img" style="position: relative;
-                                    top: 1rem;">
-                                    <i class="fa-solid fa-circle-user"></i>
+                            </button>
+                            <button class="logout-admin">
+                                <a href="/login/logout" class="nav-profile-img">
+                                    <i class="fa-solid fa-right-from-bracket"
+                                        style="font-size: 2rem; color: #2a4e8a;"></i>
                                     <span class="availability-status online"></span>
-                                </div>
+                                </a>
                             </button>
                             <div class="show-drop-down"></div>
                         </div>
@@ -125,7 +126,7 @@
                         </li>
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
-                            <a class="content" href="/admin/delete-cus" >Xóa tài khoản</a>
+                            <a class="content" href="/admin/delete-cus">Xóa tài khoản</a>
                         </li>
                     </ul>
                 </div>
@@ -142,11 +143,11 @@
                     <ul class="nav-link-show">
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
-                            <a class="content" href="/admin/list-schedule" >Xem lịch trình</a>
+                            <a class="content" href="/admin/list-schedule">Xem lịch trình</a>
                         </li>
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
-                            <a class="content" href="/admin/delete-schedule">Tạo lịch trình</a>
+                            <a class="content" href="/admin/create-schedule">Tạo lịch trình</a>
                         </li>
                     </ul>
                 </div>
@@ -164,73 +165,79 @@
                 </div>
 
                 <div class="content-infor-customer">
-                    <div class="content-row-1">
-                        <div class="content-left">
-                            <p>Nhập SĐT:</p>
-                            <input id="phonenumber" name="phonenumber" rules="required" type="tel" class="form-control">
+                    <form method="POST" action="" class="form-delete-acc">
+                        <div class="content-row-1">
+                            <div class="content-left">
+                                <p>Nhập SĐT:</p>
+                                <input id="phonenumber" name="phonenumber" rules="required" type="tel"
+                                    class="form-control" placeholder="0353905691" disabled>
 
-                        </div>
-                        <div class="content-right">
-                            <p>Username *</p>
-                            <input id="text" name="username" rules="required" type="text" class="form-control">
+                            </div>
+                            <div class="content-right">
+                                <p>Username *</p>
+                                <input id="text" name="username" rules="required" type="text" class="form-control"
+                                    placeholder="NVanA" disabled>
 
+                            </div>
                         </div>
-                    </div>
-                    <div class="content-row">
-                        <div class="content-text">
-                            <p>Họ và tên hành khách *</p>
-                            <input id="text" name="username" rules="required" type="text" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="content-row">
-                        <div class="content-text">
-                            <p>Số điện thoại *</p>
-                            <input id="phonenumber" name="username" rules="required" type="phonenumber"
-                                class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="content-row">
-                        <div class="content-text">
-                            <p>Email *</p>
-                            <input id="email" name="username" rules="required" type="email" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="content-row-2">
-                        <div class="content-row-2-left">
-                            <p>Tỉnh/TP *</p>
-                            <select id="province" name="province" rules="required" class="form-control">
-                                <option value="">Chọn Tỉnh/TP</option>
-                                <option value="1">Hà Nội</option>
-                                <option value="2">Hải Phòng</option>
-                                <option value="3">Đà Nẵng</option>
-                                <option value="4">TP. HCM</option>
-                            </select>
+                        <div class="content-row">
+                            <div class="content-text">
+                                <p>Họ và tên hành khách *</p>
+                                <input id="text" name="username" rules="required" type="text" class="form-control"
+                                    placeholder="Nguyễn Văn A" disabled>
+                            </div>
                         </div>
 
-                        <div class="content-row-2-right" style=" margin-right: 15rem;">
-                            <p>Quận/Huyện *</p>
-                            <select id="district" name="district" rules="required" class="form-control">
-                                <option value="">Chọn Quận/Huyện</option>
-                                <option value="1">Hải Châu</option>
-                                <option value="2">Hòa Khánh</option>
-                                <option value="3">Cẩm Lệ</option>
-                            </select>
+                        <div class="content-row">
+                            <div class="content-text">
+                                <p>Số điện thoại *</p>
+                                <input id="phonenumber" name="username" rules="required" type="phonenumber"
+                                    class="form-control" placeholder="0353905691" disabled>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="content-row">
-                        <div>
-                            <button>Remove
-                                <span>
-                                    <i class="fa-solid fa-x"
-                                        style="font-size: 1.4rem; font-weight: bolder; padding-left: .5rem;"></i>
-                                </span>
-                            </button>
+                        <div class="content-row">
+                            <div class="content-text">
+                                <p>Email *</p>
+                                <input id="email" name="username" rules="required" type="email" class="form-control"
+                                    placeholder="nva@gmail.com" disabled>
+                            </div>
                         </div>
-                    </div>
+
+                        {{!-- <div class="content-row-2">
+                            <div class="content-row-2-left">
+                                <p>Tỉnh/TP *</p>
+                                <select id="province" name="province" rules="required" class="form-control">
+                                    <option value="">Chọn Tỉnh/TP</option>
+                                    <option value="1">Hà Nội</option>
+                                    <option value="2">Hải Phòng</option>
+                                    <option value="3">Đà Nẵng</option>
+                                    <option value="4">TP. HCM</option>
+                                </select>
+                            </div>
+
+                            <div class="content-row-2-right" style=" margin-right: 15rem;">
+                                <p>Quận/Huyện *</p>
+                                <select id="district" name="district" rules="required" class="form-control">
+                                    <option value="">Chọn Quận/Huyện</option>
+                                    <option value="1">Hải Châu</option>
+                                    <option value="2">Hòa Khánh</option>
+                                    <option value="3">Cẩm Lệ</option>
+                                </select>
+                            </div>
+                        </div> --}}
+
+                        <div class="content-row">
+                            <div>
+                                <button>Remove
+                                    <span>
+                                        <i class="fa-solid fa-x"
+                                            style="font-size: 1.4rem; font-weight: bolder; padding-left: .5rem;"></i>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

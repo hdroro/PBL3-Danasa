@@ -16,7 +16,7 @@ function Validator(formSelector) {
     var validatorRules = {
 
         noSpace: function (value) {
-            return /\s/.test(value) ? "Không được nhập khoảng trống" : undefined;
+            return /\s/.test(value) ? "Không nhập khoảng trống" : undefined;
         },
 
         required: function (value) {
@@ -154,33 +154,6 @@ function Validator(formSelector) {
         if (isValid && formElement.classList.contains('pass')) {
             isValid = handleMatch();
         }
-        // Khi không có lỗi thì submit form
-        if (isValid) {
-            if (typeof _this.onSubmit === 'function') {
-                // gọi lại hàm onSubmit và trả về kèm giá trị của form
-                _this.onSubmit();
-            } else {
-                formElement.submit();
-            }
-        }
-    }
-
-    var _this = this;
-    // Xử lý hàm vi submit form
-    formElement.onsubmit = function (event) {
-        event.preventDefault();
-        var inputs = formElement.querySelectorAll('[name][rules]');
-        var isValid = true;
-        for (var input of inputs) {
-            if (!handleValidate({ target: input })) {
-                isValid = false;
-            }
-        }
-
-        if (isValid && formElement.classList.contains('pass')) {
-            isValid = handleMatch();
-        }
-
         // Khi không có lỗi thì submit form
         if (isValid) {
             if (typeof _this.onSubmit === 'function') {

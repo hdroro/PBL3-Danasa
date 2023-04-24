@@ -6,7 +6,7 @@ class ChangePasswordController{
         //     infoLogin: 'Đăng nhập', 
         // }
         // res.render('changepassword', obj);
-        const passedVariable = req.session.userName;
+        const passedVariable = req.session.nameCustomer;
         if(passedVariable != null) {
             const obj = {
                 title: 'Thay đổi mật khẩu',

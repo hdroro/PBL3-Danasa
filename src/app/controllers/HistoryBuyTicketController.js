@@ -6,7 +6,7 @@ class HistoryBuyTicketController{
         //     infoLogin: 'Đăng nhập', 
         // }
         // res.render('historybuyticket', obj);
-        const passedVariable = req.session.userName;
+        const passedVariable = req.session.nameCustomer;
         if(passedVariable != null) {
             const obj = {
                 title: 'Lịch sử đặt vé xe',

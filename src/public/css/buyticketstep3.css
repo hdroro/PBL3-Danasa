@@ -216,36 +216,43 @@
     margin-bottom: 2.5rem;
 }
 
-.container__info-customer .form {
+#customer-form{
     padding: 4rem 3rem 0;
+    margin-top:0;
+    border-radius: 5%;
+    background-color: #F1EDED;
 }
 
-.form-group--large {
+.container__info-customer .form-group--large {
     display: flex;
     justify-content: space-between;
 }
 
-.form-group--large .form-group {
+.container__info-customer .form-control {
+    font-size: 1.4rem;
+}
+
+.container__info-customer .form-group--large .form-group {
     width: 48%;
 }
 
-.form-group.form-checkbox {
+.container__info-customer .form-group.form-checkbox {
     display: flex;
 }
 
-.form-group > input#policy-rule {
+.container__info-customer .form-group > input#policy-rule {
     width: 1.8rem;
     height: 1.8rem;
 }
 
-.form-group label.policy-rule {
+.container__info-customer .form-group label.policy-rule {
     position: relative;
     top: -1.6rem;
     left: 2.6rem;
     font-size: 1.2rem;
 }
 
-.form-group span.policy-rule {
+.container__info-customer .form-group span.policy-rule {
     position: relative;
     top: -1rem;
     left: 2.6rem;

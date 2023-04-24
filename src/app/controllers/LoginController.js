@@ -6,12 +6,16 @@ class LoginController {
 
     // [GET] /home
     index(req, res) {
-        const obj = {
-            title: 'Đăng nhập',
-            infoLogin: "Đăng nhập"
-            
+        if(!req.session.userName) {
+            const obj = {
+                title: 'Đăng nhập',
+                infoLogin: "Đăng nhập"
+                
+            }
+            res.render('login', obj);
+        } else {
+            res.redirect('back');
         }
-        res.render('login', obj);
     }
 
     //[GET]/course/:slug
@@ -26,10 +30,12 @@ class LoginController {
         try {
             const account = new Account(userName, passWord);
             const authenticatedUser = await account.authenticate();
+            req.session.userName = userName;
             
             if(authenticatedUser == 1){
                 const name = await account.match();
-                req.session.userName = name;
+                // req.session.userName = name;
+                req.session.nameCustomer = name;
                 res.redirect('/');
             }
             else res.redirect('/admin/statistics');

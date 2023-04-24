@@ -2,7 +2,7 @@ class BuyTicket4Controller{
 
     // [GET] /buy-ticket-step2
     index(req, res){
-        const passedVariable = req.session.userName;
+        const passedVariable = req.session.nameCustomer;
         if(passedVariable != null) {
             const obj = {
                 title: 'Đặt vé xe',

@@ -207,6 +207,7 @@
     top: calc(100% + 0.5rem);
     color: #f33a58;
     font-weight: 500;
+    font-size: 1.4rem;
 }
 .form-group-news.invalid.title-new .form-message-news{
     left: 13%;

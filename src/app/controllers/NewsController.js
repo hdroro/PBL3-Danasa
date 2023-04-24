@@ -4,7 +4,7 @@ class NewsController {
 
     // [GET] /news
     async index(req, res) {
-        const passedVariable = req.session.userName;
+        const passedVariable = req.session.nameCustomer;
         if (passedVariable != null) {
             const obj = {
                 title: 'Tin tức',

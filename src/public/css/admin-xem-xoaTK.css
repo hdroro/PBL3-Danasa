@@ -101,8 +101,14 @@ input:focus {
 .dropdown {
     position: relative;
     margin: 0 0.5rem;
+    display: flex;
 }
 
+.logout-admin{
+    background: whitesmoke;
+    border: none;
+    cursor: pointer;
+}
 .btn-primary-notifi {
     color: inherit;
     font-size: .875rem;
@@ -361,7 +367,7 @@ ul .nav-link-show {
     padding: 3rem;
     font-size: 1.4rem;
     background: white;
-    height: 60rem;
+    height: 50rem;
     box-shadow: 1px 1px 5px #888888;
 }
 
@@ -377,11 +383,19 @@ ul .nav-link-show {
     padding-left: 2rem;
 }
 
+.content-left p,
+.content-right p,
+.content-text p{
+    font-weight: 600;
+}
+
 .content-left .form-control{
     border: none;
     background: #dde4ff;
     padding-left: 2rem;
     width: 12rem;
+    position: relative;
+    top: 0.2rem;
 }
 
 .content-right{
@@ -435,4 +449,13 @@ ul .nav-link-show {
     font-weight: 700;
     cursor: pointer;
     float: right;
+}
+
+input:disabled{
+    color: #000000;
+    font-style: italic;
+}
+
+.deleteBtn:hover{
+    opacity: 0.8;
 }
