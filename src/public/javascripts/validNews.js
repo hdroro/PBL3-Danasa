@@ -1,4 +1,4 @@
-function Validator(formSelector) {
+function ValidNews(formSelector) {
     function getParent(element, selector) {
         while (element.parentElement) {
             if (element.parentElement.matches(selector)) {
@@ -13,7 +13,7 @@ function Validator(formSelector) {
     // Quy ước tạo rule
     // - Nếu có lỗi thì return 'error message'
     // - Nếu không có lỗi thì return 'undefined'
-    var validatorRules = {
+    var validNewsRules = {
 
         noSpace: function (value) {
             return /\s/.test(value) ? "Không được nhập khoảng trống" : undefined;
@@ -22,37 +22,6 @@ function Validator(formSelector) {
         required: function (value) {
             return value ? undefined : 'Vui lòng nhập trường này'
         },
-        email: function (value) {
-            var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-            return regex.test(value) ? undefined : 'Vui lòng nhập email hợp lệ'
-        },
-
-        phonenumber: function (value) {
-            var regex = /^[0-9]{10,11}$/;
-            return regex.test(value) ? undefined : 'Vui lòng nhập số điện thoại hợp lệ';
-        },
-
-        min: function (min) {
-            return function (value) {
-                return value.length >= min ? undefined : `Vui lòng nhập ít nhất ${min} ký tự`;
-            }
-        },
-        max: function (max) {
-            return function (value) {
-                return value.length <= max ? undefined : `Vui lòng nhập tối đa ${max} ký tự`;
-            }
-        },
-        password: function (value) {
-            var regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[a-zA-Z]).{6,}$/;
-            return regex.test(value) ? undefined : 'Mật khẩu phải chứa ít nhất 6 ký tự, bao gồm chữ thường, chữ hoa, ký tự đặc biệt và số'
-        },
-
-        matchpassword: function (passwordSelector) {
-            return function (value) {
-                var passwordValue = document.querySelector(passwordSelector).value;
-                return value === passwordValue ? undefined : 'Mật khẩu nhập lại không khớp';
-            }
-        }
     }
 
     // var ruleName = 'required';
@@ -72,10 +41,10 @@ function Validator(formSelector) {
                 if (isRuleHasValue) {
                     ruleInfo = rule.split(':');
                     rule = ruleInfo[0];
-                    validatorRules
+                    validNewsRules
                 }
 
-                var ruleFunc = validatorRules[rule];
+                var ruleFunc = validNewsRules[rule];
                 if (isRuleHasValue) {
                     ruleFunc = ruleFunc(ruleInfo[1]);
                 }
@@ -102,10 +71,10 @@ function Validator(formSelector) {
             }
 
             if (errorMessage) {
-                var formGroup = getParent(e.target, '.form-group');
+                var formGroup = getParent(e.target, '.form-group-news');
                 if (formGroup) {
                     formGroup.classList.add('invalid');
-                    var formMessage = formGroup.querySelector('.form-message');
+                    var formMessage = formGroup.querySelector('.form-message-news');
                     if (formMessage) {
                         formMessage.innerText = errorMessage;
                     }
@@ -115,30 +84,16 @@ function Validator(formSelector) {
         }
         // Hàm clear message lỗi
         function handleClearError(e) {
-            var formGroup = getParent(e.target, '.form-group');
+            var formGroup = getParent(e.target, '.form-group-news');
             if (formGroup) {
                 formGroup.classList.remove('invalid');
-                var formMessage = formGroup.querySelector('.form-message');
+                var formMessage = formGroup.querySelector('.form-message-news');
                 if (formMessage) {
                     formMessage.innerText = '';
                 }
             }
         }
         // console.log(formRules);
-    }
-
-    function handleMatch() {
-        var matchpw = formElement.querySelectorAll('.match');
-        if (matchpw[0].value === matchpw[1].value) return true;
-        else {
-            var formGroup = getParent(matchpw[1], '.form-group');
-            if (formGroup) {
-                formGroup.classList.add('invalid');
-                var formMessage = formGroup.querySelector('.form-message');
-                formMessage.innerText = "Mật khẩu mới không khớp";
-            }
-            return false;
-        }
     }
     var _this = this;
     // Xử lý hàm vi submit form
@@ -150,9 +105,6 @@ function Validator(formSelector) {
             if (!handleValidate({ target: input })) {
                 isValid = false;
             }
-        }
-        if (isValid && formElement.classList.contains('pass')) {
-            isValid = handleMatch();
         }
         // Khi không có lỗi thì submit form
         if (isValid) {

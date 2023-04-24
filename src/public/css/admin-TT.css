@@ -9,7 +9,7 @@
 .frame{
     margin:0 5rem;
 }
-.frame .title{
+.frame .title-obj-news{
     color: #1D38A1;
 }
 .line2{
@@ -17,16 +17,16 @@
     height: 0.3rem;
     background-color: var(--blue-color);
 }
-.title .title-icon{
+.title-obj-news .title-icon{
     width: 3rem;
     margin-right: 0.5rem;
 }
-.title .text-title{
+.title-obj-news .text-title{
     /* font-weight: bold; */
     font-size: 20px;
     margin: 3rem 0 1rem;
 }
-.title .line2{
+.title-obj-news .line2{
     width: 18rem;
     height: 0.2rem;
     background-color: #1D38A1;
@@ -119,19 +119,19 @@
 
 }
 .frame-content .delete,
-.frame-content .update,
-.frame-content .upload{
+.frame-content .update-news,
+.frame-content .upload-news{
     text-align: right;
     position: relative;
 }
-.content-tao-tin-tuc .upload button{
+.content-tao-tin-tuc .upload-news button{
     background-color: #DDE4FF;
     border: 2px solid #9CAEF9;
     border-radius: 15px;
     padding: 1.5rem 2rem 1.5rem 2rem;
     font-weight: bold;
 }
-.content-tao-tin-tuc .upload img{
+.content-tao-tin-tuc .upload-news img{
     position: absolute;
     right: 1rem;
     width: 50px;
@@ -143,19 +143,19 @@
     margin: auto 0;
 }
 .content-xoa-tin-tuc .delete button,
-.content-sua-tin-tuc .update button{
+.content-sua-tin-tuc .update-news button{
     background-color: #DDE4FF;
     border: 2px solid #9CAEF9;
     border-radius: 15px;
     padding: 1rem 2rem;
     font-weight: bold;
 }
-.container-tao-tin-tuc .upload :hover,
+.container-tao-tin-tuc .upload-news :hover,
 .container-xoa-tin-tuc .delete :hover,
-.container-sua-tin-tuc .update :hover{
+.container-sua-tin-tuc .update-news :hover{
     cursor: pointer;
 }
-.container-sua-tin-tuc .update .icon{
+.container-sua-tin-tuc .update-news .icon{
     margin-left: 1rem;
     width: 3rem;
     font-size: 20px;
@@ -177,7 +177,7 @@
     color: rgba(0, 0, 0, 0.28);
     font-weight: 500;
 }
-.upload .fa-cloud-arrow-up{
+.upload-news .fa-cloud-arrow-up{
     background-color: #fff;
     color: #000;
 }
@@ -194,22 +194,23 @@
     text-align: unset;
 }
 .delete  .icon{
-    margin-left: 1rem;
+    margin-left: 0.5rem;
     font-weight: bolder;
 }
-.form-group{
+.form-group-news{
     position: relative;
 }
-.form-group.invalid .form-message {
+
+.form-group-news.invalid .form-message-news {
     position: absolute;
     left:0 ;
     top: calc(100% + 0.5rem);
     color: #f33a58;
     font-weight: 500;
 }
-.form-group.invalid.title-new .form-message{
+.form-group-news.invalid.title-new .form-message-news{
     left: 13%;
 }
-.form-group.invalid .form-control{
+.form-group-news.invalid .form-control-news{
     border: 1px solid #f33a58;
 }
