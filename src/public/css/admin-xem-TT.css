@@ -7,7 +7,7 @@
 .frame{
     margin:0 5rem;
 }
-.frame .title{
+.frame-obj .title-news{
     color: #1D38A1;
 }
 .line2{
@@ -15,16 +15,16 @@
     height: 0.3rem;
     background-color: var(--blue-color);
 }
-.title .title-icon{
+.title-obj-news .title-icon{
     width: 3rem;
     margin-right: 0.5rem;
 }
-.title .text-title{
+.title-obj-news .text-title{
     /* font-weight: bold; */
     font-size: 20px;
     margin: 3rem 0 1rem;
 }
-.title .line2{
+.title-obj-news .line2{
     width: 18rem;
     height: 0.2rem;
     background-color: #1D38A1;

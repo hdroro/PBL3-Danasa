@@ -154,7 +154,7 @@
         
         <div class="container-sua-tin-tuc">
             <div class="frame">
-                <div class="grid-two title">
+                <div class="grid-two title-obj-news">
                     <div>
                         <p class="text-title">
                             <i class="fa-solid fa-pen title-icon"></i>SỬA TIN TỨC
@@ -170,26 +170,26 @@
                                 <p for="ID" class="text-decor">ID:</p>
                                 <p>#N1 </p>
                             </div>
-                            <div class="form-group title-new inline">
-                                <label for="form-label title-news">Tiêu đề *:</label>
+                            <div class="form-group-news title-new inline">
+                                <label for="form-label-news title-news">Tiêu đề *:</label>
                                 <input id="title-news" name="title-news" type="text"
-                                    class="input-text-title form-control" rules="required"
-                                    value="Trạm dừng Danasa - những điểm dừng chân lý tưởng cho du khách trên hành trình" style="height: -4rem; position: relative; padding-top: 1rem;padding-left: 0;">
-                                <span class="form-message"></span>
+                                    class="input-text-title form-control-news" rules="required"
+                                    value="Trạm dừng Danasa - những điểm dừng chân lý tưởng cho du khách trên hành trình">
+                                <span class="form-message-news"></span>
                             </div>
                             <div class="frame-img-content inline">
                                 <div class="img">
                                     <img src="../assets/img/news.png" alt="">
                                 </div>
-                                <div class="form-group content-new">
-                                    <label class="form-label" for="content-news">Nội dung *</label>
-                                    <textarea class="input-text-content form-control" name="content-news"
+                                <div class="form-group-news content-new">
+                                    <label class="form-label-news" for="content-news">Nội dung *</label>
+                                    <textarea class="input-text-content form-control-news" name="content-news"
                                         id="content-news" cols="1" rows="10"
                                         rules="required">Hiểu được nhu cầu thư giãn, nghỉ ngơi của hành khách trên các hành trình dài qua nhiều tỉnh, thành phố, Danasa đã đầu tư vào hệ thống trạm dừng tại các khu vực trọng điểm...</textarea>
-                                    <span class="form-message"></span>
+                                    <span class="form-message-news"></span>
                                 </div>
                             </div>
-                            <div class="update">
+                            <div class="update-news">
                                 <button type="submit" class="font-18">Update<i
                                         class="fa-solid fa-pen-to-square icon"></i></button>
                             </div>
@@ -202,7 +202,7 @@
         </div>
     </div>
 </div>
-<script src="../assets/js/validator.js"></script>
+<script src="../../public/javascripts/validator.js"></script>
 <script>new Validator('#updateNews');</script>
 <script>
     var navLinkParents = document.querySelectorAll(".nav-link-parent");
