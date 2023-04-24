@@ -1,0 +1,280 @@
+<header class="header-admin">
+    <div class="grid">
+        <nav class="header__navbar-admin">
+            <div class="header__navbar-left-admin">
+                <div class="header__navbar-list-left-admin">
+                    <div class="pentagon-admin"></div>
+                    <div class="header__navbar-item-admin">
+                        <a href="" class="header__navbar-item-link-admin">DANASA</a>
+                    </div>
+                </div>
+            </div>
+            <div class="header__navbar-right-admin">
+                <div class="search-field">
+                    <div class="input-group">
+                        <div class="input-group-icon-left">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <input type="text" class="input-search" placeholder="Tìm kiếm">
+                    </div>
+                </div>
+
+                <div class="header__navbar-right-2">
+                    <div class="nav-item">
+                        <div class="dropdown">
+                            <button type="button"
+                                class="nav-link count-indicator dropdown-toggle btn btn-primary-notifi"
+                                fdprocessedid="6335cp" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa-solid fa-bell"></i>
+                                <span class="count-symbol bg-warning" style="font-size: 1.25rem;"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="nav-item">
+                        <div class="dropdown">
+                            <button type="button" class="nav-link count-indicator dropdown-toggle btn btn-primary-mess"
+                                fdprocessedid="6335cp" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa-solid fa-envelope"></i>
+                                <span class="count-symbol bg-warning" style="font-size: 1.25rem;"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="nav-item nav-profile">
+                        <div class="dropdown">
+                            <button type="button" class="nav-link dropdown-toggle btn btn-primary" style="position: relative;
+                                padding: 3rem 0;" aria-haspopup="true" aria-expanded="false">
+                                <div class="nav-profile-text">
+                                    <p class="mb-1 text-black">Xin chào Admin!</p>
+                                </div>
+
+                                <div class="nav-profile-img" style="position: relative;
+                                    top: 1rem;">
+                                    <i class="fa-solid fa-circle-user"></i>
+                                    <span class="availability-status online"></span>
+                                </div>
+                            </button>
+                            <div class="show-drop-down"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+<div class="container-page-admin-wrap">
+    <div class="grid" style="display: flex;">
+        <div class="sidebar">
+            <ul>
+                <div class="nav-link">
+                    <li class="nav-link-parent">
+                        <div class="item">
+                            <i class="icon-left fa-solid fa-chart-line"></i>
+                            <a href="#">Thống kê</a>
+                        </div>
+                        <i class="dropdown fa-solid fa-caret-down" href=""></i>
+                    </li>
+
+                    <ul class="nav-link-show ">
+                        <li class="nav-link-show-item">
+                            <i class="a fa-solid "></i>
+                            <a class="content" href="/admin/statistics">Doanh thu</a>
+                        </li>
+                        <li class="nav-link-show-item">
+                            <i class="fa-solid "></i>
+                            <a class="content" href="/admin/sales">Doanh số</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-link">
+                    <li class="nav-link-parent">
+                        <div class="item">
+                            <i class="icon-left fa-solid fa-newspaper"></i>
+                            <a href="#">Tin tức </a>
+                        </div>
+                        <i class="dropdown fa-solid fa-caret-down"></i>
+                    </li>
+                    <ul class="nav-link-show">
+                        <li class="nav-link-show-item">
+                            <i class="fa-solid "></i>
+                            <a class="content" href="/admin/list-news">Xem tin tức</a>
+                        </li>
+                        <li class="nav-link-show-item">
+                            <i class="fa-solid "></i>
+                            <a class="content" href="/admin/create-news">Tạo tin tức</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-link">
+                    <li class="nav-link-parent">
+                        <div class="item">
+                            <i class="icon-left fa-sharp fa-solid fa-user" style="font-size: 1.5rem;"></i>
+                            <a href="#">Tài khoản</a>
+                        </div>
+                        <i class="dropdown fa-solid fa-caret-down"></i>
+                    </li>
+
+                    <ul class="nav-link-show">
+                        <li class="nav-link-show-item">
+                            <i class="fa-solid "></i>
+                            <a class="content" href="/admin/list-cus">Xem tài khoản</a>
+                        </li>
+                        <li class="nav-link-show-item">
+                            <i class="fa-solid "></i>
+                            <a class="content" href="/admin/delete-cus" >Xóa tài khoản</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-link">
+                    <li class="nav-link-parent">
+                        <div class="item">
+                            <i class="icon-left fa-regular fa-calendar-days" style="font-size: 1.5rem;"></i>
+                            <a href="#">Lịch trình</a>
+                        </div>
+                        <i class="dropdown fa-solid fa-caret-down"></i>
+                    </li>
+
+                    <ul class="nav-link-show">
+                        <li class="nav-link-show-item">
+                            <i class="fa-solid "></i>
+                            <a class="content" href="/admin/list-schedule" >Xem lịch trình</a>
+                        </li>
+                        <li class="nav-link-show-item">
+                            <i class="fa-solid "></i>
+                            <a class="content" href="/admin/delete-schedule">Tạo lịch trình</a>
+                        </li>
+                    </ul>
+                </div>
+            </ul>
+        </div>
+        <div class="container-xem-tin-tuc">
+            <div class="frame">
+                <div class="grid-two title">
+                    <div>
+                        <p class="text-title">
+                            <i class="fa-solid fa-eye title-icon"></i>XEM TIN TỨC
+                        </p>
+                    </div>
+                    <div class="line2">
+                    </div>
+                </div>
+                <div class="content-xem-tin-tuc">
+                    <div class="table-attribute grid-full-col">
+                        <div class="id">
+                            <p>ID</p>
+                        </div>
+                        <div class="img">
+                            <p>Ảnh</p>
+                        </div>
+                        <div class="title-new" >
+                            <p style="width: 80%;height: 5rem;position: relative;top: 1.7rem;">Tiêu đề</p>
+                        </div>
+                    </div>
+                    <div class="list-new">
+                        <div class="single-new">
+                            <div id="1" class="new grid-full-col">
+                                <div class="id">
+                                    <div class="id-frame">
+                                        <p>#N1</p>
+                                    </div>
+                                </div>
+                                <div class="img">
+                                    <img src="../assets/img/news.png" alt="">
+                                </div>
+                                <div class="title-new">
+                                    <a href="">Trạm dừng Danasa - những điểm dừng chân lý tưởng cho du khách trên hành
+                                        trình</a>
+                                </div>
+                            </div>
+                            <div class="button">
+                                <i class="fa-solid fa-xmark del-btn"></i>
+                                <i class="fa-solid fa-pen-to-square icon update-btn"></i>
+                            </div>
+                        </div>
+                        <div class="single-new">
+                            <div id="2" class="new grid-full-col">
+                                <div class="id">
+                                    <div class="id-frame">
+                                        <p>#N2</p>
+                                    </div>
+                                </div>
+                                <div class="img">
+                                    <img src="../assets/img/new1.png" alt="">
+                                </div>
+                                <div class="title-new">
+                                    <a href="">Sở Giao thông vận tải TP.HCM ủng hộ có xe trung chuyển miễn phí vào bến
+                                        xe
+                                        Miền Đông mới</a>
+                                </div>
+                            </div>
+                            <div class="button">
+                                <i class="fa-solid fa-xmark del-btn"></i>
+                                <i class="fa-solid fa-pen-to-square icon update-btn"></i>
+                            </div>
+                        </div>
+                        <div class="single-new">
+                            <div id="3" class="new grid-full-col">
+                                <div class="id">
+                                    <div class="id-frame">
+                                        <p>#N3</p>
+                                    </div>
+                                </div>
+                                <div class="img">
+                                    <img src="../assets/img/new2.png" alt="">
+                                </div>
+                                <div class="title-new">
+                                    <a href="">THƯ CẢM ƠN QUÝ HÀNH KHÁCH NHÂN DỊP XUÂN QUÝ MÃO 2023</a>
+                                </div>
+                            </div>
+                            <div class="button">
+                                <i class="fa-solid fa-xmark del-btn"></i>
+                                <i class="fa-solid fa-pen-to-square icon update-btn"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="index">
+                        <ul class="page-index inline">
+                            <li class="page-item"><a href="" class="page-link arrow"><i
+                                        class="fa-solid fa-arrow-left"></i></a></li>
+                            <li class="page-item page-now"><a href="" class="page-link">1</a></li>
+                            <li class="page-item"><a href="" class="page-link">2</a></li>
+                            <li class="page-item"><a href="" class="page-link arrow"><i
+                                        class="fa-solid fa-arrow-right"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="height: 0.5rem;" class="blank">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    var navLinkParents = document.querySelectorAll(".nav-link-parent");
+
+    navLinkParents.forEach((navLinkParent) => {
+        var dropdownIcon = navLinkParent.querySelector(".dropdown");
+        navLinkParent.addEventListener("click", (event) => {
+            event.stopPropagation();
+            var navLinkShow = navLinkParent.nextElementSibling;
+            navLinkShow.classList.toggle("active");
+            dropdownIcon.classList.toggle("fa-caret-down");
+            dropdownIcon.classList.toggle("fa-caret-up");
+        });
+    });
+
+    var item = document.querySelectorAll(".nav-link-show-item");
+    item.forEach((a) => {
+        var b = a.querySelector("i");
+        a.addEventListener("click", () => {
+            b.classList.toggle("fa-caret-right");
+        })
+    })
+</script>

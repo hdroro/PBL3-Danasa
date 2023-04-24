@@ -1,0 +1,231 @@
+<header class="header-admin">
+    <div class="grid">
+        <nav class="header__navbar-admin">
+            <div class="header__navbar-left-admin">
+                <div class="header__navbar-list-left-admin">
+                    <div class="pentagon-admin"></div>
+                    <div class="header__navbar-item-admin">
+                        <a href="" class="header__navbar-item-link-admin">DANASA</a>
+                    </div>
+                </div>
+            </div>
+            <div class="header__navbar-right-admin">
+                <div class="search-field">
+                    <div class="input-group">
+                        <div class="input-group-icon-left">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <input type="text" class="input-search" placeholder="Tìm kiếm">
+                    </div>
+                </div>
+
+                <div class="header__navbar-right-2">
+                    <div class="nav-item">
+                        <div class="dropdown">
+                            <button type="button"
+                                class="nav-link count-indicator dropdown-toggle btn btn-primary-notifi"
+                                fdprocessedid="6335cp" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa-solid fa-bell"></i>
+                                <span class="count-symbol bg-warning" style="font-size: 1.25rem;"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="nav-item">
+                        <div class="dropdown">
+                            <button type="button" class="nav-link count-indicator dropdown-toggle btn btn-primary-mess"
+                                fdprocessedid="6335cp" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa-solid fa-envelope"></i>
+                                <span class="count-symbol bg-warning" style="font-size: 1.25rem;"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="nav-item nav-profile">
+                        <div class="dropdown">
+                            <button type="button" class="nav-link dropdown-toggle btn btn-primary" style="position: relative;
+                                padding: 3rem 0;" aria-haspopup="true" aria-expanded="false">
+                                <div class="nav-profile-text">
+                                    <p class="mb-1 text-black">Xin chào Admin!</p>
+                                </div>
+
+                                <div class="nav-profile-img" style="position: relative;
+                                    top: 1rem;">
+                                    <i class="fa-solid fa-circle-user"></i>
+                                    <span class="availability-status online"></span>
+                                </div>
+                            </button>
+                            <div class="show-drop-down"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+<div class="container-page-admin-wrap">
+    <div class="grid" style="display: flex;">
+        <div class="sidebar">
+            <ul>
+                <div class="nav-link">
+                    <li class="nav-link-parent">
+                        <div class="item">
+                            <i class="icon-left fa-solid fa-chart-line"></i>
+                            <a href="#">Thống kê</a>
+                        </div>
+                        <i class="dropdown fa-solid fa-caret-down" href=""></i>
+                    </li>
+
+                    <ul class="nav-link-show ">
+                        <li class="nav-link-show-item">
+                            <i class="a fa-solid "></i>
+                            <a class="content" href="/admin/statistics">Doanh thu</a>
+                        </li>
+                        <li class="nav-link-show-item">
+                            <i class="fa-solid "></i>
+                            <a class="content" href="/admin/sales">Doanh số</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-link">
+                    <li class="nav-link-parent">
+                        <div class="item">
+                            <i class="icon-left fa-solid fa-newspaper"></i>
+                            <a href="#">Tin tức </a>
+                        </div>
+                        <i class="dropdown fa-solid fa-caret-down"></i>
+                    </li>
+                    <ul class="nav-link-show">
+                        <li class="nav-link-show-item">
+                            <i class="fa-solid "></i>
+                            <a class="content" href="/admin/list-news">Xem tin tức</a>
+                        </li>
+                        <li class="nav-link-show-item">
+                            <i class="fa-solid "></i>
+                            <a class="content" href="/admin/create-news">Tạo tin tức</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-link">
+                    <li class="nav-link-parent">
+                        <div class="item">
+                            <i class="icon-left fa-sharp fa-solid fa-user" style="font-size: 1.5rem;"></i>
+                            <a href="#">Tài khoản</a>
+                        </div>
+                        <i class="dropdown fa-solid fa-caret-down" ></i>
+                    </li>
+
+                    <ul class="nav-link-show">
+                        <li class="nav-link-show-item">
+                            <i class="fa-solid "></i>
+                            <a class="content" href="/admin/list-cus">Xem tài khoản</a>
+                        </li>
+                        <li class="nav-link-show-item">
+                            <i class="fa-solid "></i>
+                            <a class="content" href="/admin/delete-cus" >Xóa tài khoản</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-link">
+                    <li class="nav-link-parent">
+                        <div class="item">
+                            <i class="icon-left fa-regular fa-calendar-days" style="font-size: 1.5rem;"></i>
+                            <a href="#">Lịch trình</a>
+                        </div>
+                        <i class="dropdown fa-solid fa-caret-down"></i>
+                    </li>
+
+                    <ul class="nav-link-show">
+                        <li class="nav-link-show-item">
+                            <i class="fa-solid "></i>
+                            <a class="content" href="/admin/list-schedule" >Xem lịch trình</a>
+                        </li>
+                        <li class="nav-link-show-item">
+                            <i class="fa-solid "></i>
+                            <a class="content" href="/admin/delete-schedule">Tạo lịch trình</a>
+                        </li>
+                    </ul>
+                </div>
+            </ul>
+        </div>
+        <div class="container-tao-tin-tuc">
+            <div class="frame">
+                <div class="grid-two title">
+                    <div>
+                        <p class="text-title">
+                            <i class="fa-solid fa-circle-plus title-icon"></i>TẠO TIN TỨC
+                        </p>
+                    </div>
+                    <div class="line2">
+                    </div>
+                </div>
+                <div class="content-tao-tin-tuc">
+                    <div class="frame-content font-16">
+                        <form action="" id="createNews">
+                            <div class="id inline">
+                                <p for="ID" class="text-decor">ID:</p>
+                                <p>#N1</p>
+                            </div>
+                            <div class="form-group title-new inline">
+                                <label for="form-label title-news">Tiêu đề *:</label>
+                                <input id="title-news" name="title-news" type="text"
+                                    class="input-text-title form-control" rules="required"
+                                    placeholder="Nhập tiêu đề ở đây" style=" height: -4rem; position: relative; padding-top: 1rem;padding-left: 0;">
+                                <span class="form-message"></span>
+                            </div>
+                            <div class="frame-img-content inline">
+                                <div class="img font-15 grid-two">
+                                    <label for="image">Thêm ảnh vào đây</label>
+                                    <img src="../assets/img/341527068_1649056535598254_6717173831489878903_n.png"
+                                        alt="">
+                                </div>
+                                <div class="form-group content-new">
+                                    <label class="form-label" for="content-news">Nội dung *</label>
+                                    <textarea class="input-text-content form-control" name="content-news"
+                                        id="content-news" cols="1" rows="10" rules="required"
+                                        placeholder="Nhập nội dung ở đây"></textarea>
+                                    <span class="form-message"></span>
+                                </div>
+                            </div>
+                            <div class="upload">
+                                <button type="submit" class="font-18">Upload <i class="fa-solid fa-cloud-arrow-up" style="background-color: #dde4ff;"></i></button>
+                                
+                                {{!-- <img src="./img/upload.png" alt=""> --}}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div style="height: 0.5rem;" class="blank">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/js/validator.js"></script>
+<script>new Validator('#createNews');</script>
+
+<script>
+    var navLinkParents = document.querySelectorAll(".nav-link-parent");
+
+    navLinkParents.forEach((navLinkParent) => {
+        var dropdownIcon = navLinkParent.querySelector(".dropdown");
+        navLinkParent.addEventListener("click", (event) => {
+            event.stopPropagation();
+            var navLinkShow = navLinkParent.nextElementSibling;
+            navLinkShow.classList.toggle("active");
+            dropdownIcon.classList.toggle("fa-caret-down");
+            dropdownIcon.classList.toggle("fa-caret-up");
+        });
+    });
+
+    var item = document.querySelectorAll(".nav-link-show-item");
+    item.forEach((a) => {
+        var b = a.querySelector("i");
+        a.addEventListener("click", () => {
+            b.classList.toggle("fa-caret-right");
+        })
+    })
+</script>
