@@ -164,5 +164,4 @@ function Validator(formSelector) {
             }
         }
     }
-
 }
