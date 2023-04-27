@@ -51,7 +51,8 @@
                             </button>
                             <button class="logout-admin">
                                 <a href="/login/logout" class="nav-profile-img">
-                                    <i class="fa-solid fa-right-from-bracket" style="font-size: 2rem; color: #2a4e8a;"></i>
+                                    <i class="fa-solid fa-right-from-bracket"
+                                        style="font-size: 2rem; color: #2a4e8a;"></i>
                                     <span class="availability-status online"></span>
                                 </a>
                             </button>
@@ -114,7 +115,7 @@
                             <i class="icon-left fa-sharp fa-solid fa-user" style="font-size: 1.5rem;"></i>
                             <a href="#">Tài khoản</a>
                         </div>
-                        <i class="dropdown fa-solid fa-caret-down" ></i>
+                        <i class="dropdown fa-solid fa-caret-down"></i>
                     </li>
 
                     <ul class="nav-link-show">
@@ -124,7 +125,7 @@
                         </li>
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
-                            <a class="content" href="/admin/delete-cus" >Xóa tài khoản</a>
+                            <a class="content" href="/admin/delete-cus">Xóa tài khoản</a>
                         </li>
                     </ul>
                 </div>
@@ -141,7 +142,7 @@
                     <ul class="nav-link-show">
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
-                            <a class="content" href="/admin/list-schedule" >Xem lịch trình</a>
+                            <a class="content" href="/admin/list-schedule">Xem lịch trình</a>
                         </li>
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
@@ -164,35 +165,37 @@
                 </div>
                 <div class="content-tao-tin-tuc">
                     <div class="frame-content font-16">
-                        <form action="" id="createNews">
+                        <form action="/admin/create-news" method="post" id="createNews" enctype="multipart/form-data">
                             <div class="id inline">
                                 <p for="ID" class="text-decor">ID:</p>
-                                <p>#N1</p>
+                                <input name="idNews" value="{{idNews}}" style="background: #dde4ff; border: none; width: 50%; font-weight: 600;">
                             </div>
                             <div class="form-group-news title-new inline">
                                 <label for="form-label-news title-news">Tiêu đề *:</label>
-                                <input id="title-news" name="title-news" type="text"
+                                <input id="title-news" name="titleNews" type="text"
                                     class="input-text-title form-control-news" rules="required"
                                     placeholder="Nhập tiêu đề ở đây">
                                 <span class="form-message-news"></span>
                             </div>
                             <div class="frame-img-content inline">
                                 <div class="img font-15 grid-two">
-                                    <label for="image">Thêm ảnh vào đây</label>
-                                    <img src="../assets/img/341527068_1649056535598254_6717173831489878903_n.png"
-                                        alt="">
+                                    <input type="file" name="image" id="image" onchange="previewImage()"
+                                        accept="image/*" style="font-size: 1.3rem;"> 
+                                        <i class="fa-solid fa-image"></i>
+                                    <img id="myImagePreview" name="urlImg">
                                 </div>
                                 <div class="form-group-news content-new">
                                     <label class="form-label-news" for="content-news">Nội dung *</label>
-                                    <textarea class="input-text-content form-control-news" name="content-news"
+                                    <textarea class="input-text-content form-control-news" name="contentNews"
                                         id="content-news" cols="1" rows="10" rules="required"
                                         placeholder="Nhập nội dung ở đây"></textarea>
                                     <span class="form-message-news"></span>
                                 </div>
                             </div>
                             <div class="upload-news">
-                                <button type="submit" class="font-18">Upload <i class="fa-solid fa-cloud-arrow-up" style="background-color: #dde4ff;"></i></button>
-                                
+                                <button type="submit" class="font-18">Upload <i class="fa-solid fa-cloud-arrow-up"
+                                        style="background-color: #dde4ff;"></i></button>
+
                                 {{!-- <img src="./img/upload.png" alt=""> --}}
                             </div>
                         </form>
@@ -228,4 +231,29 @@
             b.classList.toggle("fa-caret-right");
         })
     })
+</script>
+
+<script>
+    function previewImage() {
+        var fileInput = document.getElementById('image');
+        var imagePreview = document.getElementById('myImagePreview');
+
+        // Kiểm tra nếu người dùng đã chọn ảnh
+        if (fileInput.files && fileInput.files[0]) {
+            var reader = new FileReader();
+
+            // Đọc nội dung của file ảnh
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+
+            }
+
+            
+            // Đặt file ảnh cho FileReader đọc
+            reader.readAsDataURL(fileInput.files[0]);
+            document.querySelector('.fa-image').style.display = 'none';
+        }
+    }
+
+
 </script>

@@ -63,6 +63,8 @@
 }
 .frame-content .id p{
     margin-bottom: 1rem;
+    margin-top: 1rem;
+
 }
 .frame-content .title-new{
     background-color: #DDE4FF;
@@ -88,10 +90,10 @@
     margin-bottom: 2rem;
 }
 .frame-img-content .img{
-    border: 2px solid #DDE4FF;
+    /* border: 2px solid #DDE4FF; */
     width: 35%;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
 }
 .frame-img-content .content-new{
     border: 1px solid #DDE4FF;
@@ -112,7 +114,7 @@
 .content-new .input-text-content{
     border: none;
     width: 100%;
-    height: 200px;
+    height: 180px;
     padding: 1rem;
     word-wrap: break-word;
     max-width: 100%;
@@ -164,14 +166,14 @@
 /*ảnh vừa đủ*/
 .content-xoa-tin-tuc .frame-img-content .img img,
 .content-sua-tin-tuc .frame-img-content .img img{
-    width: 100%;
+    /* width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: contain; */
 }
 .content-tao-tin-tuc .frame-img-content .img img{
-    width: 100px;
-    height: 100px;
-    margin-top: -2rem;
+    width: 230px;
+    height: 230px;
+    border: 2px solid #dde4ff;
 }
 .frame-img-content .img label{
     color: rgba(0, 0, 0, 0.28);
@@ -215,3 +217,37 @@
 .form-group-news.invalid .form-control-news{
     border: 1px solid #f33a58;
 }
+
+.form-group-news.invalid .form-control-news:focus{
+    border: none;
+}
+
+textarea:focus{
+    border: none;
+}
+.img {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+  
+  .img input[type="file"] {
+    position: absolute;
+    height: 23rem;
+    opacity: 0;
+    width: 220px;
+  }
+  
+  .img img {
+    max-width: 100%;
+  }
+
+  .fa-image{
+    position: absolute;
+    top: 42%;
+    left: 43%;
+    font-size: 3rem;
+    color: #dde4ff;
+  }
+  
+

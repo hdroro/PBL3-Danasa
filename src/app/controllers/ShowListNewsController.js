@@ -1,34 +1,34 @@
-const account = require('../models/Account');
+const news = require('../models/News');
+
 class ShowListNewsController {
 
     // [GET] /home
-    index(req, res) {
-        res.render('admin-xemTT', {title: 'Xem tin tức'});
-        // else {
-        //     const obj = {
-        //         infoLogin: 'Đăng nhập', 
-        //     }
-        //     res.render('home', obj);
-        // }
+    async index(req, res) {
+        const newsModel = new news();
+        const obj = {
+            title: 'Xem tin tức',
+            newsList: await newsModel.loadNews()
+        };
+        res.render('admin-xemTT', obj);
     }
 
     //[GET]/updateinfo/:slug
-    show(req, res) {
-        Login.findOne();
+    async show(req, res) {
+        const idNews = req.params.idNews;
+        const new_s = new news(idNews);
+        const newss = await new_s.searchNews();
+
+        res.redirect('/admin/delete-news?idNews=' + newss.idNews + '&titleNews=' + newss.titleNews + '&contentNews=' + newss.contentNews + '&urlImg=' + newss.urlImg )
     }
 
-    //[POST] /updateinfo/success
-    checkUser(req,res,next){
-        account.findOne({
-            userName: req.body.userName,
-            passWord: req.body.passWord,
-        })
-            .then((account)=>{
-                if(account!==null) res.render('home');
-                res.send("Tên tài khoản hoặc mật khẩu không chính xác");
-            })
-            .catch(err => next(err))
+    async show_del(req, res){
+        const idNews = req.params.idNews;
+        const new_s = new news(idNews);
+        const newss = await new_s.searchNews();
+
+        res.redirect('/admin/edit-news?idNews=' + newss.idNews + '&titleNews=' + newss.titleNews + '&contentNews=' + newss.contentNews + '&urlImg=' + newss.urlImg )
     }
+    
 }
 
 module.exports = new ShowListNewsController;

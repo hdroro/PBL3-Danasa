@@ -7,6 +7,10 @@ const session = require('express-session')
 const route = require('./routes');
 const db = require('./config/db');
 
+
+
+
+
 //Connect to DB
 db.connect;
 

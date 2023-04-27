@@ -1,33 +1,47 @@
-const account = require('../models/Account');
+const news = require('../models/News');
+const path = require('path');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'src/public/img')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+  }
+})
+
+const upload = multer({ storage: storage }).single('image');
+
 class CreateNewsController {
 
     // [GET] /home
-    index(req, res) {
-        res.render('admin-taoTT', {title: 'Tạo tin tức'});
-        // else {
-        //     const obj = {
-        //         infoLogin: 'Đăng nhập', 
-        //     }
-        //     res.render('home', obj);
-        // }
+    async index(req, res) {
+        const NEWS = new news();
+        const obj = {
+            title: 'Tạo tin tức',
+            idNews: await NEWS.countNews(),
+        }
+        res.render('admin-taoTT', obj);
     }
 
-    //[GET]/updateinfo/:slug
-    show(req, res) {
-        Login.findOne();
-    }
 
+    
     //[POST] /updateinfo/success
-    checkUser(req,res,next){
-        account.findOne({
-            userName: req.body.userName,
-            passWord: req.body.passWord,
-        })
-            .then((account)=>{
-                if(account!==null) res.render('home');
-                res.send("Tên tài khoản hoặc mật khẩu không chính xác");
-            })
-            .catch(err => next(err))
+    async createNews(req,res){
+        upload(req, res, async function (err) {
+            const image = req.file.filename;
+            const { idNews, titleNews, contentNews } = req.body;
+            try {
+              const News = new news(idNews, titleNews, contentNews, image);
+              const saveNews = await News.createNews();
+              res.redirect('/admin/list-news');
+            }
+            catch (err) {
+              console.log(err);
+              res.render('admin-taoTT');
+            }
+          });
     }
 }
 

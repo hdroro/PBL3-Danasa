@@ -175,66 +175,31 @@
                         </div>
                     </div>
                     <div class="list-new">
+                        {{#each newsList}}
                         <div class="single-new">
                             <div id="1" class="new grid-full-col">
                                 <div class="id">
                                     <div class="id-frame">
-                                        <p>#N1</p>
+                                        <p name="idNews">{{idNews}}</p>
                                     </div>
                                 </div>
                                 <div class="img">
-                                    <img src="../assets/img/news.png" alt="">
+                                    <img src="{{urlImg}}" alt="" name="urlImg">
                                 </div>
                                 <div class="title-new">
-                                    <a href="">Trạm dừng Danasa - những điểm dừng chân lý tưởng cho du khách trên hành
-                                        trình</a>
+                                    <a href="" name="titleNews">{{titleNews}}</a>
                                 </div>
                             </div>
                             <div class="button">
-                                <i class="fa-solid fa-xmark del-btn"></i>
-                                <i class="fa-solid fa-pen-to-square icon update-btn"></i>
+                                <a class="delete-button" href="/admin/list-news/{{idNews}}">
+                                    <i class="fa-solid fa-xmark del-btn"></i>
+                                </a>
+                                <a class="update-button" href="/admin/edit-news/{{idNews}}">
+                                    <i class="fa-solid fa-pen-to-square icon update-btn"></i>
+                                </a>
                             </div>
                         </div>
-                        <div class="single-new">
-                            <div id="2" class="new grid-full-col">
-                                <div class="id">
-                                    <div class="id-frame">
-                                        <p>#N2</p>
-                                    </div>
-                                </div>
-                                <div class="img">
-                                    <img src="../assets/img/new1.png" alt="">
-                                </div>
-                                <div class="title-new">
-                                    <a href="">Sở Giao thông vận tải TP.HCM ủng hộ có xe trung chuyển miễn phí vào bến
-                                        xe
-                                        Miền Đông mới</a>
-                                </div>
-                            </div>
-                            <div class="button">
-                                <i class="fa-solid fa-xmark del-btn"></i>
-                                <i class="fa-solid fa-pen-to-square icon update-btn"></i>
-                            </div>
-                        </div>
-                        <div class="single-new">
-                            <div id="3" class="new grid-full-col">
-                                <div class="id">
-                                    <div class="id-frame">
-                                        <p>#N3</p>
-                                    </div>
-                                </div>
-                                <div class="img">
-                                    <img src="../assets/img/new2.png" alt="">
-                                </div>
-                                <div class="title-new">
-                                    <a href="">THƯ CẢM ƠN QUÝ HÀNH KHÁCH NHÂN DỊP XUÂN QUÝ MÃO 2023</a>
-                                </div>
-                            </div>
-                            <div class="button">
-                                <i class="fa-solid fa-xmark del-btn"></i>
-                                <i class="fa-solid fa-pen-to-square icon update-btn"></i>
-                            </div>
-                        </div>
+                        {{/each}}
                     </div>
                     <div class="index">
                         <ul class="page-index inline">

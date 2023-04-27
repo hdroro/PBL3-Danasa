@@ -1,33 +1,32 @@
-const account = require('../models/Account');
+const news = require('../models/News');
 class DeleteNewsController {
 
     // [GET] /home
     index(req, res) {
-        res.render('admin-xoaTT', {title: 'Xóa tin tức'});
-        // else {
-        //     const obj = {
-        //         infoLogin: 'Đăng nhập', 
-        //     }
-        //     res.render('home', obj);
-        // }
+        const obj = {
+            title: 'Xóa tin tức',
+            idNews: req.query.idNews,
+            titleNews: req.query.titleNews,
+            contentNews: req.query.contentNews,
+            urlImg: req.query.urlImg,
+        }
+        console.log(obj)
+        res.render('admin-xoaTT', obj);
     }
 
     //[GET]/updateinfo/:slug
-    show(req, res) {
-        Login.findOne();
-    }
+    async delete(req, res) {
+        try {
+            const { idNews, titleNews, contentNews, urlImg } = req.query;
+            const news_delete = new news(idNews, titleNews, contentNews, urlImg);
+            await news_delete.deleteNews();
 
-    //[POST] /updateinfo/success
-    checkUser(req,res,next){
-        account.findOne({
-            userName: req.body.userName,
-            passWord: req.body.passWord,
-        })
-            .then((account)=>{
-                if(account!==null) res.render('home');
-                res.send("Tên tài khoản hoặc mật khẩu không chính xác");
-            })
-            .catch(err => next(err))
+            res.redirect('/admin/list-news')
+
+        }
+        catch(err){
+            console.log(err);
+        }
     }
 }
 
