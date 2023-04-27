@@ -3,14 +3,19 @@ const {mutipleMongooseToObject} = require('../../util/mongoose')
 class ShowListCusController {
 
     // [GET] /home
-    index(req, res) {
-        res.render('admin-xemTK', {title: 'Xem tài khoản khách hàng'});
-        // else {
-        //     const obj = {
-        //         infoLogin: 'Đăng nhập', 
-        //     }
-        //     res.render('home', obj);
-        // }
+    async index(req, res) {
+        try {
+            const ac = new account();
+            const obj = {};
+            const accountList = await ac.getAllAccount();
+            res.render('admin-xemTK', {
+                accountList: accountList,
+                title: 'Xem tài khoản khách hàng',
+            });
+        }
+        catch(err) {
+            console.log(err);
+        }
     }
 
     //[GET]/updateinfo/:slug

@@ -85,5 +85,69 @@ class Account {
             });
         })
     }
+
+    // async getPassword() {
+    //     return new Promise((resolve, reject)=>{
+    //         const fetchQuery = `SELECT * FROM accounts WHERE userName = ?`;
+    //         db.query(fetchQuery, [this.username], (err, results) => {
+    //             if (err) {
+    //                 return reject(err);
+    //             }
+    //             return resolve(results[0].passWord);
+    //         });
+    //     })
+    // }
+
+    async checkPassword(password) {
+        return new Promise((resolve, reject)=>{
+            const fetchQuery = `SELECT * FROM accounts WHERE userName = ? and passWord = ?`;
+            db.query(fetchQuery, [this.username, password], (err, results) => {
+                if (err) {
+                    return reject(err);
+                }
+                if (results.length === 0) {
+                    return reject(err);
+                }
+                return resolve(results[0]);
+            });
+        })
+    }
+
+    async updatePassword(newPassword) {
+        return new Promise((resolve, reject)=>{
+            const fetchQuery = `UPDATE accounts SET passWord = ? WHERE userName = ?`;
+            db.query(fetchQuery, [newPassword, this.username], (err, results) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(results);
+            });
+        })
+    }
+
+    async getAllAccount() {
+        return new Promise((resolve, reject)=>{
+            const fetchQuery = `select * FROM accounts INNER JOIN inforcustomer ON idUser = idCustomer`;
+            db.query(fetchQuery, (err, results) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(results);
+            });
+        })
+    }
+
+    async deleteAccount(username) {
+        return new Promise((resolve, reject) => {
+            var query = `DELETE FROM accounts WHERE userName = ?`;
+            db.query(query, [username], (err, results) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(results);
+            });
+        })
+    }
+
 }
 module.exports = Account;

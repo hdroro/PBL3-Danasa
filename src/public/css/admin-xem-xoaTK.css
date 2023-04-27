@@ -367,23 +367,34 @@ ul .nav-link-show {
     padding: 3rem;
     font-size: 1.4rem;
     background: white;
-    height: 50rem;
+    height: 67rem;
     box-shadow: 1px 1px 5px #888888;
 }
 
 .content-row-1{
     display: flex;
     font-size: 1.4rem;
-    justify-content: space-between;
+    flex-direction: column;
+    /* justify-content: space-between; */
 }
 
 .content-left{
     display: flex;
-    background: #dde4ff;
-    padding-left: 2rem;
+    /* background: #dde4ff; */
+    /* padding-left: 2rem; */
+    /* margin-right: 2rem; */
 }
 
-.content-left p,
+.but-search__phone-number {
+    width: 10rem;
+    border: solid 1px #9CAEF9;
+    background: #dde4ff;
+    font-weight: 500;
+    cursor: pointer;
+    margin-left: 2rem;
+}
+
+.content-row-1 p,
 .content-right p,
 .content-text p{
     font-weight: 600;
@@ -392,8 +403,8 @@ ul .nav-link-show {
 .content-left .form-control{
     border: none;
     background: #dde4ff;
-    padding-left: 2rem;
-    width: 12rem;
+    /* padding-left: 2rem; */
+    width: 45rem;
     position: relative;
     top: 0.2rem;
 }
