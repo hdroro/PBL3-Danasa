@@ -163,7 +163,7 @@
                     <div class="line2">
                     </div>
                 </div>
-                <form class="delete-news-form" method="POST" action="/admin/delete-news/delete?idNews={{idNews}}">
+                <form class="delete-news-form" method="POST" action="/admin/delete-news/delete?idNews={{idNews}}" id="delete-form__news">
                     <div class="content-xoa-tin-tuc">
                         <div class="frame-content font-16">
                             <div class="id inline">
@@ -184,7 +184,7 @@
                                 </div>
                             </div>
                             <div class="delete">
-                                <button type="submit" class="font-18">Remove<i
+                                <button type="submit" class="form-submit">Remove<i
                                         class="fa-solid fa-xmark icon"></i></button>
                             </div>
                         </div>
@@ -199,6 +199,17 @@
 
 
 <script>
+
+    var DelBtn = document.querySelector('.form-submit');
+    var DelForm = document.getElementById('delete-form__news');
+    var id = DelBtn.id;
+    DelBtn.onclick = function(){
+        if(window.confirm('Bạn có chắc chắn muốn xóa tin tức này không ?')){
+            DelForm.method = 'POST';
+            DelForm.action = `/admin/delete-news/delete?idNews={{idNews}}`;
+            DelForm.submit();
+        }
+    }
 
     var navLinkParents = document.querySelectorAll(".nav-link-parent");
 

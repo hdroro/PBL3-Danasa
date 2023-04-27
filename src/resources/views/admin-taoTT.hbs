@@ -168,7 +168,7 @@
                         <form action="/admin/create-news" method="post" id="createNews" enctype="multipart/form-data">
                             <div class="id inline">
                                 <p for="ID" class="text-decor">ID:</p>
-                                <input name="idNews" value="{{idNews}}" style="background: #dde4ff; border: none; width: 50%; font-weight: 600;">
+                                <input name="idNews" value="{{idNews}}" style="background: #dde4ff; border: none; width: 50%; font-weight: 600;" readonly>
                             </div>
                             <div class="form-group-news title-new inline">
                                 <label for="form-label-news title-news">Tiêu đề *:</label>
@@ -193,7 +193,7 @@
                                 </div>
                             </div>
                             <div class="upload-news">
-                                <button type="submit" class="font-18">Upload <i class="fa-solid fa-cloud-arrow-up"
+                                <button type="submit" class="form-submit">Upload <i class="fa-solid fa-cloud-arrow-up"
                                         style="background-color: #dde4ff;"></i></button>
 
                                 {{!-- <img src="./img/upload.png" alt=""> --}}

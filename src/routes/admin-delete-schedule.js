@@ -5,6 +5,7 @@ const deleteScheduleController = require('../app/controllers/DeleteScheduleContr
 
 // router.get('/:slug',loginController.login);
 // router.get('/:slug',showListCusController.show);
-router.get('/delete-schedule', deleteScheduleController.index);
+router.get('/delete-schedule/:id', deleteScheduleController.index);
+router.post('/delete-schedule/:id',deleteScheduleController.delete);
 
 module.exports = router;

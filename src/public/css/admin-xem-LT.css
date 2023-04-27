@@ -127,6 +127,7 @@
 }
 
 .icon-delete, .icon-edit {
+    text-decoration: none;
     cursor: pointer;
 }
 

@@ -163,21 +163,17 @@
             </div>
 
             <div class="container-create__schedule">
-                <form method="POST" action="" id="create-form__schedule" class="form">
+                <form method="POST" action="/admin/edit-schedule/:id?_method=PATCH" id="create-form__schedule" class="form">
                     <div class="form-group--large">
                         <div class="form-group width-item-35">
                             <label for="id-schedule" class="form-label form-schedule">ID :</label>
                             <input id="id-schedule" name="id-schedule" type="text" class="form-control-schedule"
-                                placeholder="123456" disabled>
+                                 value="{{schedule.idSchedule}}" disabled>
                             <!-- <span class="form-message"></span> -->
                         </div>
                         <div class="form-group width-item-35">
                             <label for="route" class="form-label form-schedule">Tuyến :</label>
-                            <select id="route" name="route" class="form-control-schedule" disabled>
-                                <option value="0">Chọn tuyến</option>
-                                <option value="1">Hồ Chí Minh - Đà Nẵng</option>
-                                <option value="2">Hà Nội - Đà Nẵng</option>
-                            </select>
+                            <input id="route" name="route" class="form-control-schedule" value="{{schedule.firstProvince}} - {{schedule.secondProvince}}" disabled>
                             <span class="form-message"></span>
                         </div>
                     </div>
@@ -185,53 +181,41 @@
                     <div class="form-group--large">
                         <div class="form-group width-item-35">
                             <label for="start-province" class="form-label form-schedule">Tỉnh đi :</label>
-                            <select id="start-province" name="start-province" class="form-control-schedule" disabled>
-                                <option value="0">Chọn tỉnh đi</option>
-                                <option value="1">Hồ Chí Minh</option>
-                                <option value="2">Đà Nẵng</option>
-                            </select>
+                            <input id="start-province" name="start-province" class="form-control-schedule" disabled value="{{schedule.startProvince}}">
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group width-item-35">
                             <label for="end-province" class="form-label form-schedule">Tỉnh đến :</label>
-                            <input id="end-province" name="end-province" type="text" class="form-control-schedule"
-                                placeholder="Đà Nẵng" disabled>
+                            <input id="end-province" name="end-province" type="text" class="form-control-schedule" value="{{schedule.endProvince}}" disabled>
                         </div>
                     </div>
 
                     <div class="form-group--large">
                         <div class="form-group width-item-35">
                             <label for="start-station" class="form-label form-schedule">Bến đi :</label>
-                            <select id="start-station" name="start-station" class="form-control-schedule" disabled>
-                                <option value="0">Chọn bến đi</option>
-                                <option value="1">BX Miền Tây</option>
-                                <option value="2">BX Miền Đông</option>
-                            </select>
+                            <input id="start-station" name="start-station" class="form-control-schedule" disabled value="{{schedule.startStation}}">
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group width-item-35">
                             <label for="end-station" class="form-label form-schedule">Bến đến :</label>
-                            <select id="end-station" name="end-station" class="form-control-schedule" disabled>
-                                <option value="0">Chọn bến đến</option>
-                                <option value="1">BX trung tâm Đà Nẵng</option>
-                            </select>
+                            <input id="end-station" name="end-station" class="form-control-schedule" disabled value="{{schedule.endStation}}">
                             <span class="form-message"></span>
                         </div>
                     </div>
-
+                    <p class="form-message-time" style="font-size: 12px;margin: 0 0 1rem;color: #f33a58;">* Thời gian có thể chỉnh sửa {{schedule.timeLength}}</p>
                     <div class="form-group--large">
                         <div class="form-group width-item-28">
                             <label for="start-time" class="form-label form-schedule">Thời gian khởi hành *:</label>
-                            <input id="start-time" name="start-time" type="time" class="form-control-schedule" rules="required">
+                            <input id="start-time" name="start-time" type="time" class="form-control-schedule" rules="required" value="{{schedule.start}}">
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group width-item-28">
                             <label for="end-time" class="form-label form-schedule">Thời gian cập bến :</label>
-                            <input id="end-time" name="end-time" type="time" class="form-control-schedule" disabled>
+                            <input id="end-time" name="end-time" type="time" class="form-control-schedule" disabled value="{{schedule.end}}">
                         </div>
                         <div class="form-group width-item-28">
                             <label for="start-date" class="form-label form-schedule">Ngày khởi hành *:</label>
-                            <input id="start-date" name="start-date" type="date" class="form-control-schedule" rules="required">
+                            <input id="start-date" name="start-date" type="date" class="form-control-schedule" rules="required" value="{{schedule.day}}">
                             <span class="form-message"></span>
                         </div>
                     </div>
@@ -239,32 +223,24 @@
                     <div class="form-group--large">
                         <div class="form-group width-item-28">
                             <label for="price" class="form-label form-schedule">Giá *:</label>
-                            <input id="price" name="price" type="text" class="form-control-schedule" rules="required|noSpace">
+                            <input id="price" name="price" type="text" class="form-control-schedule" rules="required|noSpace|integer" value="{{schedule.price}}">
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group width-item-28">
                             <label for="type-coach" class="form-label form-schedule">Loại xe :</label>
-                            <select id="type-coach" name="type-coach" class="form-control-schedule" disabled>
-                                <option value="0">Chọn loại xe</option>
-                                <option value="1">Giường nằm</option>
-                                <option value="2">Limousine</option>
-                            </select>
+                            <input id="type-coach" name="type-coach" class="form-control-schedule" disabled value="{{schedule.typeName}}">
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group width-item-28">
                             <label for="license-plate" class="form-label form-schedule">Biển số xe :</label>
-                            <select id="license-plate" name="license-plate" class="form-control-schedule" disabled>
-                                <option value="0">Chọn biển số xe</option>
-                                <option value="1">43B-028.15</option>
-                                <option value="2">43B-028.25</option>
-                            </select>
+                            <input id="license-plate" name="license-plate" class="form-control-schedule" disabled value="{{schedule.licensePlate}}">
                             <span class="form-message"></span>
                         </div>
                     </div>
 
                     <div class="sub-info__schedule">
-                        <div class="duration">Thời gian dự kiến: 19 tiếng</div>
-                        <div class="number-seat">Số lượng: 22 ghế</div>
+                        <div class="duration">Thời gian dự kiến: {{schedule.hours}} tiếng</div>
+                        <div class="number-seat">Số lượng: {{schedule.numberOfSeat}} ghế</div>
                     </div>
 
                     <div class="message-error"></div>
@@ -285,6 +261,8 @@
 </div>
 
 <script>
+
+    
 
     var navLinkParents = document.querySelectorAll(".nav-link-parent");
 

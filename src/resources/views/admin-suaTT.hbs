@@ -164,7 +164,7 @@
                     <div class="line2">
                     </div>
                 </div>
-                <form class="edit-news-form" method="POST" action="/admin/edit-news/edit?idNews={{idNews}}&titleNews={{titleNews}}&contentNews={{contentNews}}&urlImg={{urlImg}}">
+                <form id="update-form__news" class="edit-news-form" method="POST" action="/admin/edit-news/edit?idNews={{idNews}}&titleNews={{titleNews}}&contentNews={{contentNews}}&urlImg={{urlImg}}">
                     <div class="content-sua-tin-tuc">
                         <div class="frame-content font-16">
                             <form action="" id="updateNews">
@@ -196,7 +196,7 @@
                                     </div>
                                 </div>
                                 <div class="update-news">
-                                    <button type="submit" class="font-18">Update<i
+                                    <button type="submit" class="form-submit">Update<i
                                             class="fa-solid fa-pen-to-square icon"></i></button>
                                 </div>
                             </form>
@@ -212,6 +212,19 @@
 <script src="../../public/javascripts/validator.js"></script>
 <script>new Validator('#updateNews');</script>
 <script>
+
+
+    var UpdateBtn = document.querySelector('.form-submit');
+    var UpdateForm = document.getElementById('update-form__news');
+    var id = UpdateBtn.id;
+    UpdateBtn.onclick = function(){
+        if(window.confirm('Bạn có chắc chắn muốn cập nhật tin tức này không ?')){
+            UpdateForm.method = 'POST';
+            UpdateForm.action = `/admin/edit-news/edit?idNews={{idNews}}&titleNews={{titleNews}}&contentNews={{contentNews}}&urlImg={{urlImg}}`;
+            UpdateForm.submit();
+        }
+    }
+
     var navLinkParents = document.querySelectorAll(".nav-link-parent");
 
     navLinkParents.forEach((navLinkParent) => {
@@ -235,6 +248,8 @@
 </script>
 
 <script>
+
+
     function previewImage() {
         var fileInput = document.getElementById('image');
         var imagePreview = document.getElementById('myImagePreview');

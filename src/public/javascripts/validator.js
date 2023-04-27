@@ -52,7 +52,10 @@ function Validator(formSelector) {
                 var passwordValue = document.querySelector(passwordSelector).value;
                 return value === passwordValue ? undefined : 'Mật khẩu nhập lại không khớp';
             }
-        }
+        },
+        integer: function(value){
+            return !isNaN(value) ? undefined : 'Nhập sai định dạng số';
+        },
     }
 
     // var ruleName = 'required';

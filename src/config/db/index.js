@@ -6,5 +6,11 @@ const connection = mysql.createConnection({
   password: 'sa123',
   database: 'danasa'
 });
-
+connection.connect((err) => {
+  if (err) {
+    console.log(err)
+    return
+  }
+  console.log('Database connected')
+})
 module.exports = connection;
