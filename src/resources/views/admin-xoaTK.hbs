@@ -167,40 +167,57 @@
                 <div class="content-infor-customer">
                     <form method="POST" action="" class="form-delete-acc">
                         <div class="content-row-1">
+                            <p>Nhập SĐT:</p>
                             <div class="content-left">
-                                <p>Nhập SĐT:</p>
                                 <input id="phonenumber" name="phonenumber" rules="required" type="tel"
-                                    class="form-control" placeholder="0353905691" disabled>
+                                    class="form-control" value="{{phonenumber}}">
 
+                                <button type="button" name="but-search__phone-number" class="but-search__phone-number  but">Tìm kiếm
+                                </button>
                             </div>
-                            <div class="content-right">
+                            {{!-- <div class="content-right">
                                 <p>Username *</p>
                                 <input id="text" name="username" rules="required" type="text" class="form-control"
                                     placeholder="NVanA" disabled>
 
-                            </div>
+                            </div> --}}
+                            
+                            
                         </div>
+
+                        <div class="content-row">
+                            <div class="" style="font-size: 1.4rem; color: red;">{{message}}</div>
+                        </div>
+
                         <div class="content-row">
                             <div class="content-text">
-                                <p>Họ và tên hành khách *</p>
-                                <input id="text" name="username" rules="required" type="text" class="form-control"
-                                    placeholder="Nguyễn Văn A" disabled>
+                                <p>Username </p>
+                                <input id="text" name="username" rules="required" type="text" class="form-control" value="{{username}}"
+                                     disabled>
                             </div>
                         </div>
 
                         <div class="content-row">
                             <div class="content-text">
-                                <p>Số điện thoại *</p>
-                                <input id="phonenumber" name="username" rules="required" type="phonenumber"
-                                    class="form-control" placeholder="0353905691" disabled>
+                                <p>Họ và tên hành khách </p>
+                                <input id="text" name="name" rules="required" type="text" class="form-control" value="{{name}}"
+                                     disabled>
                             </div>
                         </div>
 
                         <div class="content-row">
                             <div class="content-text">
-                                <p>Email *</p>
-                                <input id="email" name="username" rules="required" type="email" class="form-control"
-                                    placeholder="nva@gmail.com" disabled>
+                                <p>Số điện thoại </p>
+                                <input id="phonenumber" name="phonenumber" rules="required" type="phonenumber" value="{{phonenumber}}"
+                                    class="form-control"  disabled>
+                            </div>
+                        </div>
+
+                        <div class="content-row">
+                            <div class="content-text">
+                                <p>Email </p>
+                                <input id="email" name="email" rules="required" type="email" class="form-control" value="{{email}}"
+                                     disabled>
                             </div>
                         </div>
 
@@ -227,9 +244,10 @@
                             </div>
                         </div> --}}
 
+
                         <div class="content-row">
                             <div>
-                                <button>Remove
+                                <button class="but-delete-acc">Remove
                                     <span>
                                         <i class="fa-solid fa-x"
                                             style="font-size: 1.4rem; font-weight: bolder; padding-left: .5rem;"></i>
@@ -238,11 +256,15 @@
                             </div>
                         </div>
                     </form>
+
+                    
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+{{!-- <form class="form-search-cus" method="POST" action=""></form> --}}
 
 <script>
     var navLinkParents = document.querySelectorAll(".nav-link-parent");
@@ -265,4 +287,35 @@
             b.classList.toggle("fa-caret-right");
         })
     })
+
+    const butSearchPhoneNumber = document.querySelector('.but-search__phone-number');
+    const inputPhoneNumber = document.querySelector('input[name="phonenumber"]');
+    const formDelete = document.querySelector('.form-delete-acc');
+    const butDeleteAccount = document.querySelector('.but-delete-acc');
+    const allInput = document.querySelectorAll('.form-control');
+    console.log(allInput);
+
+    // console.log(formDelete)
+    butSearchPhoneNumber.onclick = function() {
+        // const phoneNumber = inputPhoneNumber.value;
+        formDelete.action = '/admin/delete-cus/search';
+        formDelete.submit();
+    }
+
+    butDeleteAccount.onclick = function(e) {
+        e.preventDefault();
+        const check = Array.from(allInput).every(input => {
+            return input.value;
+        });
+        if(check) {
+            const answer = window.confirm("Bạn có chắc chắn muốn xóa tài khoản?");
+            if (answer) {
+                formDelete.action = '/admin/delete-cus/delete?_method=DELETE'
+                formDelete.submit();
+            }
+            else {
+                
+            }
+        }
+    } 
 </script>

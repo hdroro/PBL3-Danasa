@@ -3,6 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const handlebars = require('express-handlebars');
 const session = require('express-session')
+const methodOverride = require('method-override'); 
 
 const route = require('./routes');
 const db = require('./config/db');
@@ -29,6 +30,7 @@ app.use(session({secret: 'Your_Secret_Key', resave: true, saveUninitialized: tru
 // app.use(morgan('combined'));
 
 //Template engine
+app.use(methodOverride('_method'));
 app.engine('hbs', handlebars.engine({
   extname: '.hbs'
 }));

@@ -58,6 +58,48 @@ class InforCustomer {
             });
         })
     }
+
+    async getInfoByPhoneNumber(phoneNumber) {
+        return new Promise((resolve, reject) => {
+            var query = `SELECT * FROM inforcustomer INNER JOIN accounts ON idUser = idCustomer WHERE phoneNumber = ?`;
+            db.query(query, [phoneNumber], (err, results) => {
+                if (err) {
+                    return reject(err);
+                }
+                if(results.length === 0) {
+                    return reject(err);
+                }
+                return resolve(results[0]);
+            });
+        })
+    }
+
+    async getInfoByIdCustomer(id) {
+        return new Promise((resolve, reject) => {
+            var query = `SELECT * FROM inforcustomer INNER JOIN accounts ON idUser = idCustomer WHERE idCustomer = ?`;
+            db.query(query, [id], (err, results) => {
+                if (err) {
+                    return reject(err);
+                }
+                if(results.length === 0) {
+                    return reject(err);
+                }
+                return resolve(results[0]);
+            });
+        })
+    }
+
+    async deleteInfo(phonenumber) {
+        return new Promise((resolve, reject) => {
+            var query = `DELETE FROM inforcustomer WHERE phoneNumber = ?`;
+            db.query(query, [phonenumber], (err, results) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(results);
+            });
+        })
+    }
 }
 
 module.exports = InforCustomer;
