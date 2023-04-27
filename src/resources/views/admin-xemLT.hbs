@@ -192,121 +192,30 @@
                         <div class="tbhead-delete tbhead-item"></div>
                         <div class="tbhead-edit tbhead-item"></div>
                     </div>
-
-                    <div class="table-body__schedule">
+                    {{#each schedule}}
+                    <div id="{{this.idSchedule}}" class="table-body__schedule">
                         <div class="section-item start">
-                            <div class="section-subitem">Đà Nẵng</div>
-                            <div class="section-subitem italic">BX trung tâm Đà Nẵng</div>
+                            <div class="section-subitem">{{this.startProvince}}</div>
+                            <div class="section-subitem italic">{{this.startStation}}</div>
                         </div>
                         <div class="section-item end">
-                            <div class="section-subitem ">Hồ Chí Minh</div>
-                            <div class="section-subitem italic">BX Miền Tây</div>
+                            <div class="section-subitem ">{{this.endProvince}}</div>
+                            <div class="section-subitem italic">{{this.endStation}}</div>
                         </div>
                         <div class="section-item time">
-                            <div class="section-subitem">7h00 - 2h00</div>
-                            <div class="section-subitem italic">17/03/2023</div>
+                            <div class="section-subitem">{{this.start}} - {{this.end}}</div>
+                            <div class="section-subitem italic">{{this.day}}</div>
                         </div>
-                        <div class="section-item price">365 000</div>
-                        <div class="section-item license-plate">43B-02815</div>
-                        <div class="section-item icon-delete">
+                        <div class="section-item price">{{this.price}}</div>
+                        <div class="section-item license-plate">{{this.licensePlate}}</div>
+                        <a href="/admin/delete-schedule/{{this.idSchedule}}" class="section-item icon-delete">
                             <i class="fa-solid fa-x"></i>
-                        </div>
-                        <div class="section-item icon-edit">
+                        </a>
+                        <a href="/admin/edit-schedule/{{this.idSchedule}}" class="section-item icon-edit">
                             <i class="fa-solid fa-pen-to-square"></i>
-                        </div>
+                        </a>
                     </div>
-
-                    <div class="table-body__schedule">
-                        <div class="section-item start">
-                            <div class="section-subitem">Đà Nẵng</div>
-                            <div class="section-subitem italic">BX trung tâm Đà Nẵng</div>
-                        </div>
-                        <div class="section-item end">
-                            <div class="section-subitem ">Hồ Chí Minh</div>
-                            <div class="section-subitem italic">BX Miền Tây</div>
-                        </div>
-                        <div class="section-item time">
-                            <div class="section-subitem">7h00 - 2h00</div>
-                            <div class="section-subitem italic">17/03/2023</div>
-                        </div>
-                        <div class="section-item price">365 000</div>
-                        <div class="section-item license-plate">43B-02815</div>
-                        <div class="section-item icon-delete">
-                            <i class="fa-solid fa-x"></i>
-                        </div>
-                        <div class="section-item icon-edit">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </div>
-                    </div>
-
-                    <div class="table-body__schedule">
-                        <div class="section-item start">
-                            <div class="section-subitem">Đà Nẵng</div>
-                            <div class="section-subitem italic">BX trung tâm Đà Nẵng</div>
-                        </div>
-                        <div class="section-item end">
-                            <div class="section-subitem ">Hồ Chí Minh</div>
-                            <div class="section-subitem italic">BX Miền Tây</div>
-                        </div>
-                        <div class="section-item time">
-                            <div class="section-subitem">7h00 - 2h00</div>
-                            <div class="section-subitem italic">17/03/2023</div>
-                        </div>
-                        <div class="section-item price">365 000</div>
-                        <div class="section-item license-plate">43B-02815</div>
-                        <div class="section-item icon-delete">
-                            <i class="fa-solid fa-x"></i>
-                        </div>
-                        <div class="section-item icon-edit">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </div>
-                    </div>
-
-                    <div class="table-body__schedule">
-                        <div class="section-item start">
-                            <div class="section-subitem">Đà Nẵng</div>
-                            <div class="section-subitem italic">BX trung tâm Đà Nẵng</div>
-                        </div>
-                        <div class="section-item end">
-                            <div class="section-subitem ">Hồ Chí Minh</div>
-                            <div class="section-subitem italic">BX Miền Tây</div>
-                        </div>
-                        <div class="section-item time">
-                            <div class="section-subitem">7h00 - 2h00</div>
-                            <div class="section-subitem italic">17/03/2023</div>
-                        </div>
-                        <div class="section-item price">365 000</div>
-                        <div class="section-item license-plate">43B-02815</div>
-                        <div class="section-item icon-delete">
-                            <i class="fa-solid fa-x"></i>
-                        </div>
-                        <div class="section-item icon-edit">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </div>
-                    </div>
-
-                    <div class="table-body__schedule">
-                        <div class="section-item start">
-                            <div class="section-subitem">Đà Nẵng</div>
-                            <div class="section-subitem italic">BX trung tâm Đà Nẵng</div>
-                        </div>
-                        <div class="section-item end">
-                            <div class="section-subitem ">Hồ Chí Minh</div>
-                            <div class="section-subitem italic">BX Miền Tây</div>
-                        </div>
-                        <div class="section-item time">
-                            <div class="section-subitem">7h00 - 2h00</div>
-                            <div class="section-subitem italic">17/03/2023</div>
-                        </div>
-                        <div class="section-item price">365 000</div>
-                        <div class="section-item license-plate">43B-02815</div>
-                        <div class="section-item icon-delete">
-                            <i class="fa-solid fa-x"></i>
-                        </div>
-                        <div class="section-item icon-edit">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </div>
-                    </div>
+                    {{/each}}
                 </div>
 
                 <div class="index">

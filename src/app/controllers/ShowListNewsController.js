@@ -3,6 +3,8 @@ class ShowListNewsController {
 
     // [GET] /home
     index(req, res) {
+        req.session.stations.destroy();
+        res.json(req.session.stations);
         res.render('admin-xemTT', {title: 'Xem tin tức'});
         // else {
         //     const obj = {

@@ -5,6 +5,8 @@ const editScheduleController = require('../app/controllers/EditScheduleControlle
 
 // router.get('/:slug',loginController.login);
 // router.get('/:slug',showListCusController.show);
-router.get('/edit-schedule', editScheduleController.index);
+router.get('/edit-schedule/:id', editScheduleController.index);
+router.post('/edit-schedule/:id', editScheduleController.edit);
+
 
 module.exports = router;
