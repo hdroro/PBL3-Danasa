@@ -168,7 +168,8 @@
                         <form action="/admin/create-news" method="post" id="createNews" enctype="multipart/form-data">
                             <div class="id inline">
                                 <p for="ID" class="text-decor">ID:</p>
-                                <input name="idNews" value="{{idNews}}" style="background: #dde4ff; border: none; width: 50%; font-weight: 600;" readonly>
+                                <input name="idNews" value="{{idNews}}"
+                                    style="background: #dde4ff; border: none; width: 50%; font-weight: 600;" readonly>
                             </div>
                             <div class="form-group-news title-new inline">
                                 <label for="form-label-news title-news">Tiêu đề *:</label>
@@ -180,8 +181,8 @@
                             <div class="frame-img-content inline">
                                 <div class="img font-15 grid-two">
                                     <input type="file" name="image" id="image" onchange="previewImage()"
-                                        accept="image/*" style="font-size: 1.3rem;"> 
-                                        <i class="fa-solid fa-image"></i>
+                                        accept="image/*" style="font-size: 1.3rem;">
+                                    <i class="fa-solid fa-image"></i>
                                     <img id="myImagePreview" name="urlImg">
                                 </div>
                                 <div class="form-group-news content-new">
@@ -193,8 +194,10 @@
                                 </div>
                             </div>
                             <div class="upload-news">
-                                <button type="submit" class="form-submit">Upload <i class="fa-solid fa-cloud-arrow-up"
-                                        style="background-color: #dde4ff;"></i></button>
+                                <button type="submit">Upload
+                                    <i class="fa-solid fa-cloud-arrow-up" style="background-color: #dde4ff;">
+                                    </i>
+                                </button>
 
                                 {{!-- <img src="./img/upload.png" alt=""> --}}
                             </div>
@@ -211,6 +214,22 @@
 <script>new Validator('#createNews');</script>
 
 <script>
+
+    const form = document.querySelector('form');
+    const fileInput = document.querySelector('input[type=file]');
+    const submitBtn = document.querySelector('button[type=submit]');
+    const titleInput = document.querySelector('input[name=titleNews]');
+    const contentInput = document.querySelector('textarea[name=contentNews]');
+
+    submitBtn.addEventListener('click', (event) => {
+        if (fileInput.files.length === 0 && (!((titleInput.value.trim() === '' || contentInput.value.trim() === '')))) {
+            event.preventDefault(); 
+            if (window.confirm('Bạn chưa chọn ảnh, bạn có muốn tiếp tục upload tin tức này không ?')) {
+                form.submit();
+            }
+        }
+    });
+
     var navLinkParents = document.querySelectorAll(".nav-link-parent");
 
     navLinkParents.forEach((navLinkParent) => {
@@ -248,7 +267,7 @@
 
             }
 
-            
+
             // Đặt file ảnh cho FileReader đọc
             reader.readAsDataURL(fileInput.files[0]);
             document.querySelector('.fa-image').style.display = 'none';

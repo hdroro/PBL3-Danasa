@@ -15,25 +15,24 @@ class EditNewsController {
     }
 
     async edit(req, res) {
+        const { idNews, titleNews, contentNews } = req.body;
+        const oldImage = req.body.oldImage;
+        let newImage = oldImage;
+        if (req.body.image != '') {
+            newImage = req.body.image;
+        }
         try {
-            const { idNews, titleNews, contentNews, image } = req.body;
-            console.log(req.body.urlImg)
-            console.log(req.body)
-            const news_edit = new news(idNews, titleNews, contentNews, image);
-            console.log(image)
-            if(news_edit.urlImg === null){
-                news_edit.urlImg = req.body.image;
-            }
+            const news_edit = new news(idNews, titleNews, contentNews, newImage);
             console.log(news_edit)
             await news_edit.editNews();
 
             res.redirect('/admin/list-news')
         }
-        catch(err){
+        catch (err) {
             console.log(err);
         }
     }
-    
+
 }
 
 module.exports = new EditNewsController;

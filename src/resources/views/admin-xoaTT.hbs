@@ -209,6 +209,9 @@
             DelForm.action = `/admin/delete-news/delete?idNews={{idNews}}`;
             DelForm.submit();
         }
+        else{
+            return false;
+        }
     }
 
     var navLinkParents = document.querySelectorAll(".nav-link-parent");

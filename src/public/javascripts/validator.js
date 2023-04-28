@@ -53,9 +53,17 @@ function Validator(formSelector) {
                 return value === passwordValue ? undefined : 'Mật khẩu nhập lại không khớp';
             }
         },
-        integer: function(value){
+        integer: function (value) {
             return !isNaN(value) ? undefined : 'Nhập sai định dạng số';
         },
+
+        imageRequired: function () {
+            const fileInput = document.querySelector('input[type=file]');
+            if (fileInput && fileInput.files.length > 0) {
+                return undefined; // người dùng đã chọn ảnh
+            }
+            return 'Vui lòng chọn ảnh';
+        }
     }
 
     // var ruleName = 'required';

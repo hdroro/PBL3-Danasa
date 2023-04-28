@@ -164,66 +164,94 @@
                     <div class="line2">
                     </div>
                 </div>
-                <form id="update-form__news" class="edit-news-form" method="POST" action="/admin/edit-news/edit?idNews={{idNews}}&titleNews={{titleNews}}&contentNews={{contentNews}}&urlImg={{urlImg}}">
-                    <div class="content-sua-tin-tuc">
-                        <div class="frame-content font-16">
-                            <form action="" id="updateNews">
-                                <div class="id inline">
-                                    <p for="ID" class="text-decor">ID:</p>
-                                    <input name="idNews" style="background: #dde4ff; border: none; width: 50%; font-weight: 600;" value="{{idNews}}" readonly>
+                <div class="content-sua-tin-tuc">
+                    <div class="frame-content font-16">
+                        <form class="edit-news-form" method="POST"
+                            action="/admin/edit-news/edit?idNews={{idNews}}&titleNews={{titleNews}}&contentNews={{contentNews}}&urlImg={{urlImg}}"
+                            id="update-form__news">
+                            <div class="id inline">
+                                <p for="ID" class="text-decor">ID:</p>
+                                <input name="idNews"
+                                    style="background: #dde4ff; border: none; width: 50%; font-weight: 600;"
+                                    value="{{idNews}}" readonly>
 
+                            </div>
+                            <div class="form-group-news title-new inline">
+                                <label for="form-label-news title-news">Tiêu đề *:</label>
+                                <input id="title-news" name="titleNews" type="text"
+                                    class="input-text-title form-control-news" rules="required" value="{{titleNews}}"
+                                    rules="required|phonenumber">
+                                <span id="message1" class="form-message-news"
+                                    style="position: absolute; top: 6rem; font-size: 1.2rem; font-weight: 100; color: red;"></span>
+                            </div>
+                            <div class="frame-img-content inline">
+                                <div class="img">
+                                    <input type="file" name="image" id="image" onchange="previewImage()"
+                                        accept="image/*" style="font-size: 1.3rem;">
+                                    <input type="hidden" name="oldImage" value="{{urlImg}}">
+                                    <img id="myImagePreview" name="urlImg" src="/img/{{urlImg}}"
+                                        style="width: 230px;height: 230px; border: 2px solid #dde4ff;">
                                 </div>
-                                <div class="form-group-news title-new inline">
-                                    <label for="form-label-news title-news">Tiêu đề *:</label>
-                                    <input id="title-news" name="titleNews" type="text"
-                                        class="input-text-title form-control-news" rules="required"
-                                        value="{{titleNews}}">
-                                    <span class="form-message-news"></span>
+                                <div class="form-group-news content-new">
+                                    <label class="form-label-news" for="content-news">Nội dung *</label>
+                                    <textarea class="input-text-content form-control-news" name="contentNews"
+                                        id="content-news" cols="1" rows="10" rules="required">{{contentNews}}</textarea>
+                                    <span id="message2" class="form-message-news"
+                                        style="position: absolute; top: 24rem; font-size: 1.2rem; font-weight: 100; color: red; left: 0;"></span>
                                 </div>
-                                <div class="frame-img-content inline">
-                                    <div class="img">
-                                       <input type="file" name="image" id="image" onchange="previewImage()"
-                                        accept="image/*" style="font-size: 1.3rem;"> 
-                                        {{!-- <i class="fa-solid fa-image"></i> --}}
-                                        <img id="myImagePreview" name="urlImg" src="/img/{{urlImg}}" style="width: 230px;height: 230px; border: 2px solid #dde4ff;"> 
-                                    </div>
-                                    <div class="form-group-news content-new">
-                                        <label class="form-label-news" for="content-news">Nội dung *</label>
-                                        <textarea class="input-text-content form-control-news" name="contentNews"
-                                            id="content-news" cols="1" rows="10"
-                                            rules="required">{{contentNews}}</textarea>
-                                        <span class="form-message-news"></span>
-                                    </div>
-                                </div>
-                                <div class="update-news">
-                                    <button type="submit" class="form-submit">Update<i
-                                            class="fa-solid fa-pen-to-square icon"></i></button>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                            <div class="update-news">
+                                <button type="submit" class="form-submit">Update<i
+                                        class="fa-solid fa-pen-to-square icon"></i></button>
+                            </div>
+                        </form>
                     </div>
-                </form>
-                <div style="height: 0.5rem;" class="blank">
                 </div>
             </div>
         </div>
     </div>
 </div>
 <script src="../../public/javascripts/validator.js"></script>
-<script>new Validator('#updateNews');</script>
+<script>new Validator('#update-form__news');</script>
 <script>
+    const titleInput = document.querySelector('input[name=titleNews]');
+    const titleMessage = document.querySelector('.form-message-news');
+    const contentInput = document.querySelector('textarea[name=contentNews]');
+    const contentMessage = contentInput.parentNode.querySelector('.form-message-news');
+    const UpdateBtn = document.querySelector('button[type=submit]');
 
 
-    var UpdateBtn = document.querySelector('.form-submit');
-    var UpdateForm = document.getElementById('update-form__news');
-    var id = UpdateBtn.id;
-    UpdateBtn.onclick = function(){
-        if(window.confirm('Bạn có chắc chắn muốn cập nhật tin tức này không ?')){
-            UpdateForm.method = 'POST';
-            UpdateForm.action = `/admin/edit-news/edit?idNews={{idNews}}&titleNews={{titleNews}}&contentNews={{contentNews}}&urlImg={{urlImg}}`;
-            UpdateForm.submit();
+    titleInput.addEventListener('input', (event) => {
+        if (titleInput.value.trim() === '' ) {
+            titleMessage.innerText = 'Vui lòng điền đầy đủ thông tin';
+            UpdateBtn.disabled = true;
+        } else {
+            titleMessage.innerText = '';
+            UpdateBtn.disabled = false;
         }
-    }
+    });
+
+    contentInput.addEventListener('input', (event) => {
+        if (contentInput.value.trim() === '' ) {
+            contentMessage.innerText = 'Vui lòng điền đầy đủ thông tin';
+            UpdateBtn.disabled = true;
+        } else {
+            contentMessage.innerText = '';
+            UpdateBtn.disabled = false;
+        }
+    });
+
+
+    const form = document.querySelector('form');
+
+    UpdateBtn.addEventListener('click', (event) => {
+        if (!((titleInput.value.trim() === '' || contentInput.value.trim() === ''))) {
+            event.preventDefault(); 
+            if (window.confirm('Bạn có chắc chắn là update tin tức này không ?')) {
+                form.submit();
+            }
+        }
+    });
 
     var navLinkParents = document.querySelectorAll(".nav-link-parent");
 
@@ -247,28 +275,22 @@
     })
 </script>
 
+
+
 <script>
-
-
     function previewImage() {
         var fileInput = document.getElementById('image');
         var imagePreview = document.getElementById('myImagePreview');
 
-        // Kiểm tra nếu người dùng đã chọn ảnh
         if (fileInput.files && fileInput.files[0]) {
             var reader = new FileReader();
 
-            // Đọc nội dung của file ảnh
             reader.onload = function (e) {
                 imagePreview.src = e.target.result;
 
             }
-
-            
-            // Đặt file ảnh cho FileReader đọc
             reader.readAsDataURL(fileInput.files[0]);
             document.querySelector('.fa-image').style.display = 'none';
         }
     }
-
 </script>
