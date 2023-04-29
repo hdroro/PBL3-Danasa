@@ -1,15 +1,15 @@
-const account = require('../models/Account');
-class DetailStaticsController {
+const sales = require('../models/Sales');
+
+class DetailSalesMonthController {
 
     // [GET] /home
-    index(req, res) {
-        res.render('admin-CT-TKDT', {title: 'Chi tiết thống kê doanh thu'});
-        // else {
-        //     const obj = {
-        //         infoLogin: 'Đăng nhập', 
-        //     }
-        //     res.render('home', obj);
-        // }
+    async index(req, res) {
+        const salesModel = new sales();
+        const obj = {
+            title: 'Chi tiết thống kê doanh số theo tháng',
+            newsListSales: await salesModel.listSales_month_arranged()
+        }
+        res.render('admin-CT-TKDS-thang', obj);
     }
 
     //[GET]/updateinfo/:slug
@@ -31,4 +31,4 @@ class DetailStaticsController {
     }
 }
 
-module.exports = new DetailStaticsController;
+module.exports = new DetailSalesMonthController;

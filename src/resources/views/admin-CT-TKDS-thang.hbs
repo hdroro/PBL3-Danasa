@@ -158,14 +158,13 @@
         <div class="container-admin">
             <div class="title-admin">
                 <i class="fa-solid fa-chart-line statistic-icon"></i>
-                <div class="title-content">DOANH THU</div>
+                <div class="title-content">DOANH SỐ</div>
                 <div class="title-line statistic-line"></div>
             </div>
 
             <div class="container-header">
-                <div class="heading">DOANH THU TRONG THÁNG</div>
+                <div class="heading">DOANH SỐ TRONG THÁNG</div>
                 <select name="" id="" class="type-sort" style="background-color: white;">
-                    <option value="0">Lựa chọn</option>
                     <option value="1">Giảm dần</option>
                     <option value="2">Tăng dần</option>
                 </select>
@@ -176,51 +175,15 @@
                     <div class="table-head__schedule">
                         <div class="tbhead-stt tbhead-item">STT</div>
                         <div class="tbhead-route tbhead-item">Tuyến</div>
-                        <div class="tbhead-revenue tbhead-item">Doanh thu</div>
+                        <div class="tbhead-revenue tbhead-item">Doanh số</div>
                     </div>
-
+                    {{#each newsListSales}}
                     <div class="table-body__schedule">
-                        <div class="section-item stt">1</div>
-                        <div class="section-item route">TP.HCM - Đà Nẵng</div>
-                        <div class="section-item revenue">3 020 000</div>
+                        <div class="section-item stt">{{STT}}</div>
+                        <div class="section-item route">{{firstProvince_month}} - {{secondProvince_month}}</div>
+                        <div class="section-item revenue">{{totalTicket_month}} vé</div>
                     </div>
-
-                    <div class="table-body__schedule">
-                        <div class="section-item stt">2</div>
-                        <div class="section-item route">TP.HCM - Đà Nẵng</div>
-                        <div class="section-item revenue">3 020 000</div>
-                    </div>
-
-                    <div class="table-body__schedule">
-                        <div class="section-item stt">3</div>
-                        <div class="section-item route">TP.HCM - Đà Nẵng</div>
-                        <div class="section-item revenue">3 020 000</div>
-                    </div>
-
-                    <div class="table-body__schedule">
-                        <div class="section-item stt">4</div>
-                        <div class="section-item route">TP.HCM - Đà Nẵng</div>
-                        <div class="section-item revenue">3 020 000</div>
-                    </div>
-
-                    <div class="table-body__schedule">
-                        <div class="section-item stt">5</div>
-                        <div class="section-item route">TP.HCM - Đà Nẵng</div>
-                        <div class="section-item revenue">3 020 000</div>
-                    </div>
-
-                    <div class="table-body__schedule">
-                        <div class="section-item stt">6</div>
-                        <div class="section-item route">TP.HCM - Đà Nẵng</div>
-                        <div class="section-item revenue">3 020 000</div>
-                    </div>
-
-                    <div class="table-body__schedule">
-                        <div class="section-item stt">7</div>
-                        <div class="section-item route">TP.HCM - Đà Nẵng</div>
-                        <div class="section-item revenue">3 020 000</div>
-                    </div>
-
+                    {{/each}}
                 </div>
 
                 <div class="index">
@@ -238,10 +201,7 @@
 
         <!-- </div> -->
     </div>
-
-
 </div>
-
 
 
 <script>

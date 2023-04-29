@@ -16,7 +16,6 @@ class BuyTicket2Controller{
             }
             res.render('buyticketstep2', obj);
         }
-        // res.render('buyticketstep2');
     }
 
     //[GET]/buy-ticket-step2/:slug

@@ -51,7 +51,8 @@
                             </button>
                             <button class="logout-admin">
                                 <a href="/login/logout" class="nav-profile-img">
-                                    <i class="fa-solid fa-right-from-bracket" style="font-size: 2rem; color: #2a4e8a;"></i>
+                                    <i class="fa-solid fa-right-from-bracket"
+                                        style="font-size: 2rem; color: #2a4e8a;"></i>
                                     <span class="availability-status online"></span>
                                 </a>
                             </button>
@@ -126,7 +127,7 @@
                         </li>
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
-                            <a class="content" href="/admin/delete-cus" >Xóa tài khoản</a>
+                            <a class="content" href="/admin/delete-cus">Xóa tài khoản</a>
                         </li>
                     </ul>
                 </div>
@@ -143,7 +144,7 @@
                     <ul class="nav-link-show">
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
-                            <a class="content" href="/admin/list-schedule" >Xem lịch trình</a>
+                            <a class="content" href="/admin/list-schedule">Xem lịch trình</a>
                         </li>
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
@@ -158,69 +159,34 @@
         <div class="container-admin">
             <div class="title-admin">
                 <i class="fa-solid fa-chart-line statistic-icon"></i>
-                <div class="title-content">DOANH SỐ</div>
+                <div class="title-content">DOANH THU</div>
                 <div class="title-line statistic-line"></div>
             </div>
 
             <div class="container-header">
-                <div class="heading">DOANH SỐ TRONG THÁNG</div>
-                <select name="" id="" class="type-sort" style="background-color: white;">
-                    <option value="0">Lựa chọn</option>
+                <div class="heading">DOANH THU TRONG THÁNG</div>
+                <select name="" id="sortData" class="type-sort" style="background-color: white;" onchange="loadData()">
                     <option value="1">Giảm dần</option>
                     <option value="2">Tăng dần</option>
                 </select>
             </div>
 
+            
+
             <div class="container-table">
-                <div class="table__schedule">
+                <div class="table__schedule" id="dataList">
                     <div class="table-head__schedule">
                         <div class="tbhead-stt tbhead-item">STT</div>
                         <div class="tbhead-route tbhead-item">Tuyến</div>
-                        <div class="tbhead-revenue tbhead-item">Doanh số</div>
+                        <div class="tbhead-revenue tbhead-item">Doanh thu</div>
                     </div>
-
+                    {{#each newsListStatistics}}
                     <div class="table-body__schedule">
-                        <div class="section-item stt">1</div>
-                        <div class="section-item route">TP.HCM - Đà Nẵng</div>
-                        <div class="section-item revenue">65 vé</div>
+                        <div class="section-item stt">{{STT}}</div>
+                        <div class="section-item route">{{firstProvince_month}} - {{secondProvince_month}}</div>
+                        <div class="section-item revenue">{{totalPrice_month}} VNĐ</div>
                     </div>
-
-                    <div class="table-body__schedule">
-                        <div class="section-item stt">2</div>
-                        <div class="section-item route">TP.HCM - Đà Nẵng</div>
-                        <div class="section-item revenue">65 vé</div>
-                    </div>
-
-                    <div class="table-body__schedule">
-                        <div class="section-item stt">3</div>
-                        <div class="section-item route">TP.HCM - Đà Nẵng</div>
-                        <div class="section-item revenue">60 vé</div>
-                    </div>
-
-                    <div class="table-body__schedule">
-                        <div class="section-item stt">4</div>
-                        <div class="section-item route">TP.HCM - Đà Nẵng</div>
-                        <div class="section-item revenue">57 vé</div>
-                    </div>
-
-                    <div class="table-body__schedule">
-                        <div class="section-item stt">5</div>
-                        <div class="section-item route">TP.HCM - Đà Nẵng</div>
-                        <div class="section-item revenue">55 vé</div>
-                    </div>
-
-                    <div class="table-body__schedule">
-                        <div class="section-item stt">6</div>
-                        <div class="section-item route">TP.HCM - Đà Nẵng</div>
-                        <div class="section-item revenue">48 vé</div>
-                    </div>
-
-                    <div class="table-body__schedule">
-                        <div class="section-item stt">7</div>
-                        <div class="section-item route">TP.HCM - Đà Nẵng</div>
-                        <div class="section-item revenue">46 vé</div>
-                    </div>
-
+                    {{/each}}
                 </div>
 
                 <div class="index">
@@ -238,7 +204,10 @@
 
         <!-- </div> -->
     </div>
+
+
 </div>
+
 
 
 <script>

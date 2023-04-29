@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const detailSalesController = require('../app/controllers/DetailSalesController');
+const detailSalesQuarterController = require('../app/controllers/DetailSalesQuarterController');
 
 // router.get('/:slug',loginController.login);
 // router.get('/:slug',showListCusController.show);
-router.get('/detail-sales', detailSalesController.index);
+router.get('/detail-sales-quy', detailSalesQuarterController.index);
 
 module.exports = router;

@@ -18,14 +18,17 @@ const showlistschedule = require('./admin-show-list-schedule');
 const deleteschedule = require('./admin-delete-schedule');
 const createschedule = require('./admin-create-schedule');
 const editschedule = require('./admin-edit-schedule');
-const detailstatistics = require('./admin-ct-tkdt');
-const detailSales = require('./admin-ct-tkds');
+const detailstatistics_quarter = require('./admin-ct-tkdt-quy');
+const detailstatistics_month = require('./admin-ct-tkdt-thang');
+const detailSales_month = require('./admin-ct-tkds-thang');
+const detailSales_quarter = require('./admin-ct-tkds-quy');
 const showlistnews = require('./admin-show-news');
 const createnews = require('./admin-create-news');
 const editnews = require('./admin-edit-news');
 const deletenews = require('./admin-delete-news');
 const sales = require('./admin-sales');
 const statistics = require('./admin-statistics');
+
 
 const { register } = require('../app/controllers/RegisterController');
 
@@ -37,8 +40,10 @@ function route(app) {
     app.use('/admin', editnews);
     app.use('/admin', createnews);
     app.use('/admin', showlistnews);
-    app.use('/admin', detailSales);
-    app.use('/admin', detailstatistics);
+    app.use('/admin', detailSales_month);
+    app.use('/admin', detailSales_quarter);
+    app.use('/admin', detailstatistics_month);
+    app.use('/admin', detailstatistics_quarter);
     app.use('/admin', editschedule);
     app.use('/admin', createschedule);
     app.use('/admin', deleteschedule);
