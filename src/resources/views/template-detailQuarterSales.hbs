@@ -1,0 +1,14 @@
+<div class="table__schedule" id="dataList">
+    <div class="table-head__schedule">
+        <div class="tbhead-stt tbhead-item">STT</div>
+        <div class="tbhead-route tbhead-item">Tuyến</div>
+        <div class="tbhead-revenue tbhead-item">Doanh thu</div>
+    </div>
+    {{#each newsListSales}}
+    <div class="table-body__schedule">
+        <div class="section-item stt">{{STT}}</div>
+        <div class="section-item route">{{firstProvince}} - {{secondProvince}}</div>
+        <div class="section-item revenue">{{totalTicket}} vé</div>
+    </div>
+    {{/each}}
+</div>

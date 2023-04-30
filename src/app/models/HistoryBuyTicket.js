@@ -26,6 +26,9 @@ class HistoryBuyTicket {
                 if (err) {
                     return reject(err);
                 }
+                if (results.length === 0) {
+                    return reject(err);
+                }
                 else {
                     const history = await Promise.all(results.map(async historyItem => {
                         const startStation = await this.getStation(historyItem.idStartStation);

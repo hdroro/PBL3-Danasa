@@ -46,25 +46,25 @@ class SalesController {
             title: 'Thống kê doanh số',
             total: await doanhso.totalSales(),
 
-            total_year: await doanhso.totalSales_year(),
+            total_year: await doanhso.totalSales_year() === "NaN" ? "0" :  await doanhso.totalSales_year(),
             salesRate_year: prevYear === 0? "0" : Math.abs(await (curYear - prevYear )/(prevYear)).toFixed(2),
             trendIcon_year: trendIcon_updown_year,
 
-            total_quarter: await doanhso.totalSales_quarter(),
+            total_quarter: await doanhso.totalSales_quarter() === "NaN" ? "0" : await doanhso.totalSales_quarter(),
             salesRate_quarter: prevQuarter === 0? "0" : Math.abs(await (curQuarter - prevQuarter )/(prevQuarter)).toFixed(2),
             trendIcon_quarter: trendIcon_updown_quarter,
 
-            total_month:  await doanhso.totalSales_month(),
+            total_month: await doanhso.totalSales_month() === "NaN" ? "0" :  await doanhso.totalSales_month(),
             salesRate_month: prevMonth === 0? "0" : await Math.abs((curMonth - prevMonth )/(prevMonth)).toFixed(2),
             trendIcon_month: trendIcon_updown_month,
             
-            firstProvince:  arrange_quarter.firstProvince,
-            secondProvince:  arrange_quarter.secondProvince,
-            totalTicket: (parseInt(arrange_quarter.totalTicket)).toLocaleString(),
+            firstProvince: arrange_quarter !== null ? arrange_quarter.firstProvince : '-',
+            secondProvince: arrange_quarter !== null ? arrange_quarter.secondProvince : '-',
+            totalTicket: arrange_quarter !== null ? (parseInt(arrange_quarter.totalTicket)).toLocaleString() : '0',
 
-            firstProvince_month: arrange_month.firstProvince,
-            secondProvince_month: arrange_month.secondProvince,
-            totalTicket_month: (parseInt(arrange_month.totalTicket)).toLocaleString(),
+            firstProvince_month: arrange_month !== null ? arrange_month.firstProvince : '-',
+            secondProvince_month: arrange_month !== null ? arrange_month.secondProvince : '-',
+            totalTicket_month: arrange_month !== null ? (parseInt(arrange_month.totalTicket)).toLocaleString() : '0',
         }
         res.render('admin-TKDS', obj);
     }

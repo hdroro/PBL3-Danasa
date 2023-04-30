@@ -4,14 +4,48 @@ const schedule = require('../models/Schedule');
 
 
 class Statistics {
-
-    async listStatistics_month_arrangedESC(sortData) {
+    async listStatistics_quarter_arrangedASC() {
         return new Promise((resolve, reject) => {
-            const statistic_month_arranged = `SELECT firstProvince, secondProvince, SUM(price)  as totalPrice 
-                                                FROM tickets INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule \
-                                                INNER JOIN coachs ON coachs.idCoach = schedules.idCoach \
-                                                INNER JOIN routes ON routes.idRoute = coachs.idRoute \ 
-                                                WHERE MONTH(startTime) = MONTH(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE())\ 
+            const statistic_quarter_arranged = `SELECT firstProvince, secondProvince, SUM(price) as totalPrice
+                                                FROM tickets 
+                                                INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
+                                                INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
+                                                INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
+                                                WHERE quarter(startTime) = quarter(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) 
+                                                GROUP BY firstProvince, secondProvince
+                                                ORDER BY totalPrice ASC`
+            db.query(statistic_quarter_arranged, (err, results) => {
+                if (err) {
+                    return reject(err);
+                }
+                else if(results.length === 0){
+                    return resolve(null);
+                }
+                let STT = 0;
+                const statistics = results.map(statisticsItem => {
+                    STT++;
+                    return {
+                        STT: STT,
+                        firstProvince: statisticsItem.firstProvince,
+                        secondProvince: statisticsItem.secondProvince,
+                        totalPrice: parseInt(statisticsItem.totalPrice).toLocaleString(),
+                    };
+                });
+                console.log(statistics)
+                return resolve(statistics);
+            })
+        })
+    }
+    
+
+    async listStatistics_month_arrangedASC(sortData) {
+        return new Promise((resolve, reject) => {
+            const statistic_month_arranged = `SELECT firstProvince, secondProvince, SUM(price) as totalPrice
+                                                FROM tickets 
+                                                INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
+                                                INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
+                                                INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
+                                                WHERE MONTH(startTime) = MONTH(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) 
                                                 GROUP BY firstProvince, secondProvince
                                                 ORDER BY totalPrice ASC` 
 
@@ -19,7 +53,9 @@ class Statistics {
                 if (err) {
                     return reject(err);
                 }
-                
+                if(results.length === 0){
+                    return reject(err);
+                }
                 let STT = 0;
                 const statistics = results.map(statisticsItem => {
                     STT++;
@@ -43,6 +79,9 @@ class Statistics {
                 if (err) {
                     return reject(err);
                 }
+                else if(results.length === 0){
+                    return reject(new Error('No data found'));
+                }
                 return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString());
             })
         })
@@ -55,6 +94,9 @@ class Statistics {
                 if (err) {
                     return reject(err);
                 }
+                else if(results.length === 0){
+                    return reject(new Error('No data found for this year'));
+                }
                 return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString());
             })
         })
@@ -66,6 +108,9 @@ class Statistics {
             db.query(total, (err, results) => {
                 if (err) {
                     return reject(err);
+                }
+                else if(results.length === 0){
+                    return reject(new Error('No data found for this year'));
                 }
                 return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString());
             })
@@ -80,6 +125,9 @@ class Statistics {
                 if (err) {
                     return reject(err);
                 }
+                else if(results.length === 0){
+                    return reject(new Error('No data found for this quarter'));
+                }
                 return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString());
             })
         })
@@ -91,6 +139,9 @@ class Statistics {
             db.query(total, (err, results) => {
                 if (err) {
                     return reject(err);
+                }
+                else if(results.length === 0){
+                    return reject(new Error('No data found for this quarter'));
                 }
                 return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString());
             })
@@ -105,6 +156,9 @@ class Statistics {
                 if (err) {
                     return reject(err);
                 }
+                else if(results.length === 0){
+                    return reject(new Error('No data found for this month'));
+                }
                 return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString());
             })
         })
@@ -117,6 +171,9 @@ class Statistics {
                 if (err) {
                     return reject(err);
                 }
+                else if(results.length === 0){
+                    return reject(new Error('No data found for this month'));
+                }
                 return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString());
             })
         })
@@ -125,17 +182,21 @@ class Statistics {
     /*---------------*/
     async totalStatistics_quarter_arranged() {
         return new Promise((resolve, reject) => {
-            const statistic_quarter_arranged = `SELECT firstProvince, secondProvince, SUM(price)  as totalPrice 
-                                                FROM tickets INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule \
-                                                INNER JOIN coachs ON coachs.idCoach = schedules.idCoach \
-                                                INNER JOIN routes ON routes.idRoute = coachs.idRoute \ 
-                                                WHERE quarter(startTime) = quarter(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) \ 
+            const statistic_quarter_arranged = `SELECT firstProvince, secondProvince, SUM(price) as totalPrice
+                                                FROM tickets 
+                                                INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
+                                                INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
+                                                INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
+                                                WHERE quarter(startTime) = quarter(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) 
                                                 GROUP BY firstProvince, secondProvince
                                                 ORDER BY totalPrice desc
                                                 LIMIT 1`;
             db.query(statistic_quarter_arranged, (err, results) => {
                 if (err) {
                     return reject(err);
+                }
+                else if(results.length === 0){
+                    return resolve(null);
                 }
                 return resolve(results[0]);
             })
@@ -145,17 +206,21 @@ class Statistics {
     /*---------------*/
     async totalStatistics_month_arranged() {
         return new Promise((resolve, reject) => {
-            const statistic_month_arranged = `SELECT firstProvince, secondProvince, SUM(price)  as totalPrice 
-                                                FROM tickets INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule \
-                                                INNER JOIN coachs ON coachs.idCoach = schedules.idCoach \
-                                                INNER JOIN routes ON routes.idRoute = coachs.idRoute \ 
-                                                WHERE MONTH(startTime) = MONTH(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE())\ 
+            const statistic_month_arranged = `SELECT firstProvince, secondProvince, SUM(price) as totalPrice
+                                                FROM tickets 
+                                                INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
+                                                INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
+                                                INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
+                                                WHERE MONTH(startTime) = MONTH(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) 
                                                 GROUP BY firstProvince, secondProvince
                                                 ORDER BY totalPrice desc
                                                 LIMIT 1`;
             db.query(statistic_month_arranged, (err, results) => {
                 if (err) {
                     return reject(err);
+                }
+                else if(results.length === 0){
+                    return resolve(null);
                 }
                 return resolve(results[0]);
             })
@@ -165,16 +230,20 @@ class Statistics {
     /*---------------*/
     async listStatistics_quarter_arranged() {
         return new Promise((resolve, reject) => {
-            const statistic_quarter_arranged = `SELECT firstProvince, secondProvince, SUM(price)  as totalPrice 
-                                                FROM tickets INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule \
-                                                INNER JOIN coachs ON coachs.idCoach = schedules.idCoach \
-                                                INNER JOIN routes ON routes.idRoute = coachs.idRoute \ 
-                                                WHERE quarter(startTime) = quarter(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE())\ 
+            const statistic_quarter_arranged = `SELECT firstProvince, secondProvince, SUM(price) as totalPrice
+                                                FROM tickets 
+                                                INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
+                                                INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
+                                                INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
+                                                WHERE quarter(startTime) = quarter(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) 
                                                 GROUP BY firstProvince, secondProvince
                                                 ORDER BY totalPrice desc`
             db.query(statistic_quarter_arranged, (err, results) => {
                 if (err) {
                     return reject(err);
+                }
+                else if(results.length === 0){
+                    return resolve(null);
                 }
                 let STT = 0;
                 const statistics = results.map(statisticsItem => {
@@ -194,19 +263,23 @@ class Statistics {
     /*---------------*/
     async listStatistics_month_arranged() {
         return new Promise((resolve, reject) => {
-            const statistic_month_arranged = `SELECT firstProvince, secondProvince, SUM(price)  as totalPrice 
-                                                FROM tickets INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule \
-                                                INNER JOIN coachs ON coachs.idCoach = schedules.idCoach \
-                                                INNER JOIN routes ON routes.idRoute = coachs.idRoute \ 
-                                                WHERE MONTH(startTime) = MONTH(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE())\ 
-                                                GROUP BY firstProvince, secondProvince
-                                                ORDER BY totalPrice desc`
+            const statistic_month_arranged = `SELECT firstProvince, secondProvince, SUM(price) as totalPrice
+                                            FROM tickets 
+                                            INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
+                                            INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
+                                            INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
+                                            WHERE MONTH(startTime) = MONTH(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) 
+                                            GROUP BY firstProvince, secondProvince
+                                            ORDER BY totalPrice desc`
 
             db.query(statistic_month_arranged, (err, results) => {
                 if (err) {
                     return reject(err);
                 }
-                
+                else if(results.length === 0){
+                    return resolve(null);
+                }
+                if(results.length === 0) return reject(new Error('No records found.'));
                 let STT = 0;
                 const statistics = results.map(statisticsItem => {
                     STT++;

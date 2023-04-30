@@ -11,22 +11,30 @@ class DetailStaticsQuarterController {
         res.render('admin-CT-TKDT-quy', obj);
     }
 
-    //[GET]/updateinfo/:slug
-    show(req, res) {
-        Login.findOne();
-    }
-
-    //[POST] /updateinfo/success
-    checkUser(req,res,next){
-        account.findOne({
-            userName: req.body.userName,
-            passWord: req.body.passWord,
-        })
-            .then((account)=>{
-                if(account!==null) res.render('home');
-                res.send("Tên tài khoản hoặc mật khẩu không chính xác");
-            })
-            .catch(err => next(err))
+    async loadData(req, res){
+        try {
+            const statisticsModel = new statistics();
+            var sortData = req.query.sortData;
+            console.log(sortData)
+            var obj;
+            if (sortData === "1") {
+                obj = {
+                    // title: 'Chi tiết thống kê doanh thu theo quý',
+                    newsListStatistics: await statisticsModel.listStatistics_quarter_arranged(sortData)
+                }
+            }
+            else {
+                obj = {
+                    // title: 'Chi tiết thống kê doanh thu theo quý',
+                    newsListStatistics: await statisticsModel.listStatistics_quarter_arrangedASC(sortData)
+                }
+            }
+            console.log(obj)
+            res.render('template-detailQuarterStatistics', obj);
+        }
+        catch (err) {
+            res.render('template-detailQuarterStatistics');
+        }
     }
 }
 
