@@ -1,0 +1,14 @@
+<div class="table__schedule">
+    <div class="table-head__schedule">
+        <div class="tbhead-stt tbhead-item">STT</div>
+        <div class="tbhead-route tbhead-item">Tuyến</div>
+        <div class="tbhead-revenue tbhead-item">Doanh thu</div>
+    </div>
+    {{#each newsListStatistics}}
+    <div class="table-body__schedule">
+        <div class="section-item stt">{{STT}}</div>
+        <div class="section-item route">{{firstProvince_month}} - {{secondProvince_month}}</div>
+        <div class="section-item revenue">{{totalPrice_month}} VNĐ</div>
+    </div>
+    {{/each}}
+</div>

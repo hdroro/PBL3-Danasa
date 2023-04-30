@@ -107,14 +107,14 @@
                             <option value="2">18h - 24h</option>
                         </select>
                     </div>
-
+                    {{#each historyList}}
                     <div class="container__content-route-history">
                         <div class="header-time">
-                            13:00
+                            {{startTime}}
                             <i class="fa-solid fa-arrow-right"></i>
-                            8:00
+                            {{endTime}}
                             <span class="date-go">
-                                23/03/2023
+                                {{startDate}}
                             </span>
                             <div class="utilities">
                                 <i class="fa-sharp fa-solid fa-mug-hot"></i>
@@ -126,113 +126,30 @@
                             <div class="route-line-list">
                                 <div class="route-line goFrom">
                                     <i class="fa-solid fa-circle-dot"></i>
-                                    Bến xe Trung Tâm Đà Nẵng
-                                    <div class="route">Xe tuyến: 970km - 19 tiếng</div>
+                                    {{startStation}}
+                                    <div class="route">Xe tuyến: {{distance}} km - {{hour}} tiếng</div>
                                 </div>
 
                                 <div class="route-line destination">
                                     <i class="fa-solid fa-location-dot"></i>
-                                    Bến xe Miền Đông mới
+                                    {{endStation}}
                                 </div>
                             </div>
                         </div>
 
                         <div class="info-ticket">
                             <div class="info-slot" style="color: #676161;">
-                                Số ghế: <span style="color: black; font-weight: 600;">A08</span>
+                                Số ghế: <span style="color: black; font-weight: 600;">{{nameSeat}}</span>
                             </div>
 
                             <div class="price-ticket">
                                 <span class="title-money">TỔNG TIỀN</span>
                                 <span class="price"
-                                    style="color: #4B8EFA; font-weight: 600; padding-left: 10px;">395.000đ</span>
+                                    style="color: #4B8EFA; font-weight: 600; padding-left: 10px;">{{Totalprice}}đ</span>
                             </div>
                         </div>
                     </div>
-
-                    <div class="container__content-route-history">
-                        <div class="header-time">
-                            19:00
-                            <i class="fa-solid fa-arrow-right"></i>
-                            14:00
-                            <span class="date-go">
-                                10/12/2022
-                            </span>
-                            <div class="utilities">
-                                <i class="fa-sharp fa-solid fa-mug-hot"></i>
-                                <i class="fa-solid fa-bed"></i>
-                                <i class="fa-sharp fa-solid fa-wifi"></i>
-                            </div>
-                        </div>
-                        <div class="route-line-container">
-                            <div class="route-line-list">
-                                <div class="route-line goFrom">
-                                    <i class="fa-solid fa-circle-dot"></i>
-                                    Bến xe Trung Tâm Đà Nẵng
-                                    <div class="route">Xe tuyến: 970km - 19 tiếng</div>
-                                </div>
-
-                                <div class="route-line destination">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    Bến xe Miền Tây mới
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="info-ticket">
-                            <div class="info-slot" style="color: #676161;">
-                                Số ghế: <span style="color: black; font-weight: 600;">A02</span>
-                            </div>
-
-                            <div class="price-ticket">
-                                <span class="title-money">TỔNG TIỀN</span>
-                                <span class="price"
-                                    style="color: #4B8EFA; font-weight: 600; padding-left: 10px;">395.000đ</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="container__content-route-history">
-                        <div class="header-time">
-                            11:00
-                            <i class="fa-solid fa-arrow-right"></i>
-                            6:00
-                            <span class="date-go">
-                                06/07/2021
-                            </span>
-                            <div class="utilities">
-                                <i class="fa-sharp fa-solid fa-mug-hot"></i>
-                                <i class="fa-solid fa-bed"></i>
-                                <i class="fa-sharp fa-solid fa-wifi"></i>
-                            </div>
-                        </div>
-                        <div class="route-line-container">
-                            <div class="route-line-list">
-                                <div class="route-line goFrom">
-                                    <i class="fa-solid fa-circle-dot"></i>
-                                    Bến xe An Sương
-                                    <div class="route">Xe tuyến: 970km - 19 tiếng</div>
-                                </div>
-
-                                <div class="route-line destination">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    Bến xe Trung Tâm Đà Nẵng
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="info-ticket">
-                            <div class="info-slot" style="color: #676161;">
-                                Số ghế: <span style="color: black; font-weight: 600;">B10</span>
-                            </div>
-
-                            <div class="price-ticket">
-                                <span class="title-money">TỔNG TIỀN</span>
-                                <span class="price"
-                                    style="color: #4B8EFA; font-weight: 600; padding-left: 10px;">395.000đ</span>
-                            </div>
-                        </div>
-                    </div>
+                    {{/each}}
                 </div>
             </div>
         </div>

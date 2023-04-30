@@ -34,6 +34,8 @@ const { register } = require('../app/controllers/RegisterController');
 
 function route(app) {
 
+    
+
     app.use('/admin', statistics);
     app.use('/admin', sales);
     app.use('/admin', deletenews);

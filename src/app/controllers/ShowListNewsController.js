@@ -12,18 +12,6 @@ class ShowListNewsController {
         };
         res.render('admin-xemTT', obj);
     }
-    // index(req, res) {
-    //     req.session.stations.destroy();
-    //     res.json(req.session.stations);
-    //     res.render('admin-xemTT', {title: 'Xem tin tức'});
-    //     // else {
-    //     //     const obj = {
-    //     //         infoLogin: 'Đăng nhập', 
-    //     //     }
-    //     //     res.render('home', obj);
-    //     // }
-
-    // }
 
     //[GET]/updateinfo/:slug
     async show(req, res) {

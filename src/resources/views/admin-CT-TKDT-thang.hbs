@@ -171,8 +171,6 @@
                 </select>
             </div>
 
-            
-
             <div class="container-table">
                 <div class="table__schedule" id="dataList">
                     <div class="table-head__schedule">
@@ -188,7 +186,6 @@
                     </div>
                     {{/each}}
                 </div>
-
                 <div class="index">
                     <ul class="page-index inline">
                         <li class="page-item"><a href="" class="page-link arrow"><i
@@ -201,12 +198,23 @@
                 </div>
             </div>
         </div>
-
-        <!-- </div> -->
     </div>
-
-
 </div>
+
+
+<script>
+    function loadData() {
+        var sortData = document.getElementById('sortData').value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById('dataList').innerHTML = this.responseText;
+            }
+        };
+        xhttp.open('GET', '/admin/loadData?sortData=' + sortData, true);
+        xhttp.send();
+    }
+</script>
 
 
 

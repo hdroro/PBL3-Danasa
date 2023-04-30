@@ -4,6 +4,7 @@ const schedule = require('./Schedule');
 
 
 class Sales {
+
     async totalSales() {
         return new Promise((resolve, reject) => {
             const total = `SELECT COUNT(idTicket) FROM tickets INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule`;

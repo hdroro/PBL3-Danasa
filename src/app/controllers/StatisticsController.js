@@ -8,6 +8,8 @@ class StatisticsController {
         const curYear = parseInt(totalStatisticsYear.replace(/,/g, ""));
         const totalStatisticsYear_Previous = await doanhthu.totalStatisctics_yearPrevious();
         const prevYear = parseInt(totalStatisticsYear_Previous.replace(/,/g, ""));
+        console.log(prevYear)
+        
         var trendIcon_updown_year;
         if(await (curYear - prevYear )/(prevYear) < 0){
             trendIcon_updown_year = 'fa-caret-down'
@@ -46,25 +48,26 @@ class StatisticsController {
             title: 'Thống kê doanh thu',
             total: await doanhthu.totalStatisctics(),
 
+            
             total_year: await doanhthu.totalStatisctics_year(),
-            statisticsRate_year: Math.abs(await (curYear - prevYear )/(prevYear)).toFixed(2),
+            statisticsRate_year: isNaN(prevYear) ? "0": Math.abs(await (curYear - prevYear )/(prevYear)).toFixed(2),
             trendIcon_year: trendIcon_updown_year,
 
             total_quarter: await doanhthu.totalStatisctics_quarter(),
-            statisticsRate_quarter: Math.abs(await (curQuarter - prevQuarter )/(prevQuarter)).toFixed(2),
+            statisticsRate_quarter: isNaN(prevQuarter) ? "0":  Math.abs(await (curQuarter - prevQuarter )/(prevQuarter)).toFixed(2),
             trendIcon_quarter: trendIcon_updown_quarter,
 
             total_month:  await doanhthu.totalStatisctics_month(),
-            statisticsRate_month: await Math.abs((curMonth - prevMonth )/(prevMonth)).toFixed(2),
+            statisticsRate_month: isNaN(prevMonth) ? "0": await Math.abs((curMonth - prevMonth )/(prevMonth)).toFixed(2),
             trendIcon_month: trendIcon_updown_month,
             
             firstProvince:  arrange_quarter.firstProvince,
             secondProvince:  arrange_quarter.secondProvince,
-            totalPrice: (parseInt(arrange_quarter.totalPrice) * 1000).toLocaleString(),
+            totalPrice: (parseInt(arrange_quarter.totalPrice)).toLocaleString(),
 
             firstProvince_month: arrange_month.firstProvince,
             secondProvince_month: arrange_month.secondProvince,
-            totalPrice_month: (parseInt(arrange_month.totalPrice) * 1000).toLocaleString(),
+            totalPrice_month: (parseInt(arrange_month.totalPrice)).toLocaleString(),
         }
         res.render('admin-TKDT', obj);
     }

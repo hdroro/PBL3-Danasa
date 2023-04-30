@@ -4,6 +4,38 @@ const schedule = require('../models/Schedule');
 
 
 class Statistics {
+
+    async listStatistics_month_arrangedESC(sortData) {
+        return new Promise((resolve, reject) => {
+            const statistic_month_arranged = `SELECT firstProvince, secondProvince, SUM(price)  as totalPrice 
+                                                FROM tickets INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule \
+                                                INNER JOIN coachs ON coachs.idCoach = schedules.idCoach \
+                                                INNER JOIN routes ON routes.idRoute = coachs.idRoute \ 
+                                                WHERE MONTH(startTime) = MONTH(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE())\ 
+                                                GROUP BY firstProvince, secondProvince
+                                                ORDER BY totalPrice ASC` 
+
+            db.query(statistic_month_arranged, (err, results) => {
+                if (err) {
+                    return reject(err);
+                }
+                
+                let STT = 0;
+                const statistics = results.map(statisticsItem => {
+                    STT++;
+                    return {
+                        STT: STT,
+                        firstProvince_month: statisticsItem.firstProvince,
+                        secondProvince_month: statisticsItem.secondProvince,
+                        totalPrice_month: parseInt(statisticsItem.totalPrice).toLocaleString(),
+                    };
+                });
+
+                return resolve(statistics);
+            })
+        })
+    }
+
     async totalStatisctics() {
         return new Promise((resolve, reject) => {
             const total = `SELECT SUM(price) FROM tickets INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule`;
@@ -11,7 +43,7 @@ class Statistics {
                 if (err) {
                     return reject(err);
                 }
-                return resolve((parseInt(results[0]['SUM(price)']) * 1000).toLocaleString());
+                return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString());
             })
         })
     }
@@ -23,7 +55,7 @@ class Statistics {
                 if (err) {
                     return reject(err);
                 }
-                return resolve((parseInt(results[0]['SUM(price)']) * 1000).toLocaleString());
+                return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString());
             })
         })
     }
@@ -35,7 +67,7 @@ class Statistics {
                 if (err) {
                     return reject(err);
                 }
-                return resolve((parseInt(results[0]['SUM(price)']) * 1000).toLocaleString());
+                return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString());
             })
         })
     }
@@ -48,7 +80,7 @@ class Statistics {
                 if (err) {
                     return reject(err);
                 }
-                return resolve((parseInt(results[0]['SUM(price)']) * 1000).toLocaleString());
+                return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString());
             })
         })
     }
@@ -60,7 +92,7 @@ class Statistics {
                 if (err) {
                     return reject(err);
                 }
-                return resolve((parseInt(results[0]['SUM(price)']) * 1000).toLocaleString());
+                return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString());
             })
         })
     }
@@ -73,7 +105,7 @@ class Statistics {
                 if (err) {
                     return reject(err);
                 }
-                return resolve((parseInt(results[0]['SUM(price)']) * 1000).toLocaleString());
+                return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString());
             })
         })
     }
@@ -85,7 +117,7 @@ class Statistics {
                 if (err) {
                     return reject(err);
                 }
-                return resolve((parseInt(results[0]['SUM(price)']) * 1000).toLocaleString());
+                return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString());
             })
         })
     }
@@ -151,7 +183,7 @@ class Statistics {
                         STT: STT,
                         firstProvince: statisticsItem.firstProvince,
                         secondProvince: statisticsItem.secondProvince,
-                        totalPrice: parseInt(statisticsItem.totalPrice * 1000).toLocaleString(),
+                        totalPrice: parseInt(statisticsItem.totalPrice).toLocaleString(),
                     };
                 });
                 return resolve(statistics);
@@ -182,7 +214,7 @@ class Statistics {
                         STT: STT,
                         firstProvince_month: statisticsItem.firstProvince,
                         secondProvince_month: statisticsItem.secondProvince,
-                        totalPrice_month: parseInt(statisticsItem.totalPrice * 1000).toLocaleString(),
+                        totalPrice_month: parseInt(statisticsItem.totalPrice).toLocaleString(),
                     };
                 });
 

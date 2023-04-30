@@ -12,10 +12,6 @@ class DetailSalesMonthController {
         res.render('admin-CT-TKDS-thang', obj);
     }
 
-    //[GET]/updateinfo/:slug
-    show(req, res) {
-        Login.findOne();
-    }
 
     //[POST] /updateinfo/success
     checkUser(req,res,next){

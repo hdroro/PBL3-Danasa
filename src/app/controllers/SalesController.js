@@ -47,15 +47,15 @@ class SalesController {
             total: await doanhso.totalSales(),
 
             total_year: await doanhso.totalSales_year(),
-            salesRate_year: Math.abs(await (curYear - prevYear )/(prevYear)).toFixed(2),
+            salesRate_year: prevYear === 0? "0" : Math.abs(await (curYear - prevYear )/(prevYear)).toFixed(2),
             trendIcon_year: trendIcon_updown_year,
 
             total_quarter: await doanhso.totalSales_quarter(),
-            salesRate_quarter: Math.abs(await (curQuarter - prevQuarter )/(prevQuarter)).toFixed(2),
+            salesRate_quarter: prevQuarter === 0? "0" : Math.abs(await (curQuarter - prevQuarter )/(prevQuarter)).toFixed(2),
             trendIcon_quarter: trendIcon_updown_quarter,
 
             total_month:  await doanhso.totalSales_month(),
-            salesRate_month: await Math.abs((curMonth - prevMonth )/(prevMonth)).toFixed(2),
+            salesRate_month: prevMonth === 0? "0" : await Math.abs((curMonth - prevMonth )/(prevMonth)).toFixed(2),
             trendIcon_month: trendIcon_updown_month,
             
             firstProvince:  arrange_quarter.firstProvince,
