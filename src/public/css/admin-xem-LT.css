@@ -191,3 +191,6 @@
 .page-now .page-link{
     color: #fff;
 }
+.disable-page{
+    cursor: default;
+}

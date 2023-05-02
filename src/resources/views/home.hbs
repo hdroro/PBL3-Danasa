@@ -91,22 +91,18 @@
                                 <span class="searchTicket__item__title">Tỉnh đi</span>
                                 <!-- <h3 data-point-target="pointUp">Chọn bến lên</h3> -->
                                 <input id="select_origin" placeholder="Chọn điểm đi" type="search" autocomplete="off"
-                                    class="select-place select-place-list-item">
+                                    class="select-place startProvince select-place-list-item">
                                 <div class="data-list-container hide-left" id="choose-item">
                                     <ul class="place-list" style="list-style: none;">
                                         <li class="place-list-item">
-                                            <button class="select-place-item list-item">TP. Hồ Chí Minh</button>
-                                            <button class="select-place-item list-item">Đà Nẵng</button>
-                                            <button class="select-place-item list-item">Hà Nội</button>
-                                            <button class="select-place-item list-item">Huế</button>
-                                            <button class="select-place-item list-item">Quảng Trị</button>
-                                            <button class="select-place-item list-item">Quảng Bình</button>
+                                            {{#each provinces}}
+                                            <button idPro="{{this.idProvince}}" class="select-place-item list-item">{{this.provinceName}}</button>
+                                            {{/each}}
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-
                         <div class="searchTicket__item">
                             <div class="searchTicket__item-left">
                                 <span class="favicon icon-location">
@@ -118,16 +114,13 @@
                                 <span class="searchTicket__item__title">Tỉnh đến</span>
                                 <!-- <h3 data-point-target="pointUp">Chọn bến lên</h3> -->
                                 <input id="select_origin" placeholder="Chọn điểm đến" type="search" autocomplete="off"
-                                    class="select-place" data-v-27210c0a="">
+                                    class="select-place endProvince" data-v-27210c0a="">
                                 <div class="data-list-container hide-left" id="choose-item">
                                     <ul class="place-list" style="list-style: none;">
                                         <li class="place-list-item">
-                                            <button class="select-place-item list-item">TP. Hồ Chí Minh</button>
-                                            <button class="select-place-item list-item">Đà Nẵng</button>
-                                            <button class="select-place-item list-item">Hà Nội</button>
-                                            <button class="select-place-item list-item">Huế</button>
-                                            <button class="select-place-item list-item">Quảng Trị</button>
-                                            <button class="select-place-item list-item">Quảng Bình</button>
+                                            {{#each provinces}}
+                                            <button idPro="{{this.idProvince}}" class="select-place-item list-item">{{this.provinceName}}</button>
+                                            {{/each}}
                                         </li>
                                     </ul>
                                 </div>
@@ -145,7 +138,7 @@
                             <div class="searchTicket__item-right">
                                 <span class="searchTicket__item__title" style="margin-left: -.7rem;">Ngày khởi
                                     hành</span>
-                                <input type="date" pattern="\d{2}/\d{2}/\d{4}" style="text-transform:uppercase;">
+                                <input class="ticket-date" type="date" pattern="\d{2}/\d{2}/\d{4}" style="text-transform:uppercase;">
                                 <!-- <input class="ticket-date" readonly="readOnly"> -->
                             </div>
                         </div>
@@ -155,7 +148,7 @@
                                 <span class="favicon icon-search">
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                 </span>
-                                <a href="./buy-ticket-step2" style="text-decoration: none; color:white">Tìm chuyến</a>
+                                <a class="searchBtn" style="text-decoration: none; color:white">Tìm chuyến</a>
                             </button>
                         </div>
                     </div>
@@ -405,7 +398,15 @@
 <script>
     const inputList = document.querySelectorAll('.searchTicket__item-right');
     const dataListContainerList = document.querySelectorAll('.hide-left');
+    var startProvince = document.querySelector('.startProvince');
+    var EndProvince = document.querySelector('.endProvince');
+    var searchBtn = document.querySelector('.searchBtn');
+    var ticket__date = document.querySelector('.ticket-date');
 
+    searchBtn.onclick = function(){
+        searchBtn.href=`./buy-ticket-step2?start=${startProvince.value}&end=${EndProvince.value}&time=${ticket__date.valueAsDate}`;
+        searchBtn.click();
+    }
     inputList.forEach((input, index) => {
         const dataListContainer = dataListContainerList[index];
         const dataItem = dataListContainer.querySelectorAll('button');

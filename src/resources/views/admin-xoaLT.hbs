@@ -163,6 +163,9 @@
 
             <div class="container-create__schedule">
                 <form id="create-form__schedule" class="form">
+                    <div class="message-error">
+                        <p>Lưu ý: {{message}}</p>
+                    </div>
                     <div class="form-group--large">
                         <div class="form-group width-item-35">
                             <label for="id-schedule" class="form-label form-schedule">ID :</label>
@@ -265,7 +268,9 @@
     var DelForm = document.getElementById('create-form__schedule');
     var id = DelBtn.id;
     DelBtn.onclick = function(){
-        if(window.confirm('Bạn có chắc chắn muốn xóa lịch trình này không ?')){
+        var message ='';
+        if ({{impact}}) message = 'Sẽ xóa lịch trình phía sau nó. ';
+        if(window.confirm(`${message}Bạn có chắc chắn muốn xóa lịch trình này không ?`)){
             DelForm.method = 'POST';
             DelForm.action = `/admin/delete-schedule/${id}`;
             DelForm.submit();

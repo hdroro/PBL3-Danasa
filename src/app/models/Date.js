@@ -17,5 +17,9 @@ class MyDate extends Date{
         var hour = change(this.getHours());
         return `${hour}:${second}`;
     }
+    toMyLocaleDateString(){
+        var date = this.toLocaleDateString().split('/');
+        return `${change(date[1])}/${change(date[0])}/${date[2]}`;
+    }
 }
 module.exports = MyDate;

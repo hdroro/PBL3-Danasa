@@ -1,4 +1,5 @@
 const schedulePublic= require('../models/SchedulePublic');
+const Schedule = require('../models/Schedule');
 const MyDate = require('../models/Date');
 
 class DeleteCusController {
@@ -28,20 +29,45 @@ class DeleteCusController {
             info.startProvince = req.session.provinces.find(province => province.idProvince === info.idStartProvince).provinceName;
             info.endProvince = req.session.provinces.find(province => province.idProvince === info.idEndProvince).provinceName;
             //res.json(info);
+            var query = `select * from schedules as sch join directedroutes as dr on sch.idDirectedRoute = dr.iddirectedroutes where sch.idCoach = ${info.idCoach} and sch.startTime > '${info.day} ${info.start}'`
+            return new Schedule().getSchedulesByCondition(query);
+        })
+        .then((schedules) => {
+            var message = 'Xóa không ảnh hưởng đến chuyến phía sau.';
+            var impact = false;
+            if(schedules.length > 0) {
+                req.session.IDBehind = schedules[0].idSchedule;
+                impact = true;
+                message = `Xóa sẽ xóa luôn chuyến phía sau (ID = ${req.session.IDBehind})`;
+            }
+            else {
+                req.session.IDBehind = 0;
+            }
             res.render('admin-xoaLT', {
-                    schedule: info,
-                    title: 'Xóa lịch trình',
-                });
+                schedule: info,
+                title: 'Xóa lịch trình',
+                message: message,
+                impact: impact,
+            });
         })
         .catch(next);
     }
 
     delete(req,res,next){
+        if(req.session.IDBehind > 0){
+            Promise.all([schedulePublic.deleteSchedule(req.params.id),schedulePublic.deleteSchedule(req.session.IDBehind)])
+                .then(([])=>{
+                    res.redirect('/admin/list-schedule');
+                })
+                .catch(next);
+        }
+        else{
         schedulePublic.deleteSchedule(req.params.id)
             .then(()=>{
                 res.redirect('/admin/list-schedule');
             })
             .catch(next);
+        }
     }
 }
 module.exports = new DeleteCusController;

@@ -22,6 +22,9 @@ function Validator(formSelector) {
         required: function (value) {
             return value ? undefined : 'Vui lòng nhập trường này'
         },
+        select: function(value){
+            return value>0 ? undefined : 'Vui lòng nhập trường này'
+        },
         email: function (value) {
             var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
             return regex.test(value) ? undefined : 'Vui lòng nhập email hợp lệ'

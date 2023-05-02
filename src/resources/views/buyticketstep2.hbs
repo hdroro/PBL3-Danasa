@@ -108,8 +108,8 @@
 
                     <div class="steps-line">
                         <div class="step-circle">
-                            <div class="step-circle-third">
-                                <div class="text">3</div>
+                            <div class="step-circle-third" style="background-color:#FFF">
+                                <div class="text" style="color: #4B8EFA;">3</div>
                                 <div class="title-active">
                                     <span id="step-2">
                                         Thông tin hành khách
@@ -134,38 +134,45 @@
 
                 </div>
                 <div class="container__content-lineStraight">
-                    <div class="step-line step-line-first"></div>
+                    <div class="step-line step-line-first first-line"></div>
                 </div>
 
                 <div class="container__content-step-1">
                     <div class="container__content-step-1-filter">
                         <div class="custom-filter-container">
-                            <select class="filter-select" name="" id="">
-                                <option value="0" selected="selected" style="display: none;">Loại xe</option>
-                                <option value="1">Giường nằm</option>
-                                <option value="2">Ghế ngồi</option>
+                            <select class="filter-select typeCoach" name="" id="">
+                                <option value="-1">Loại xe</option>
+                                <option value="0">All</option>
+                                {{#each types}}
+                                <option value="{{this.idType}}">{{this.typeName}}</option>
+                                {{/each}}
                             </select>
-
-                            <select class="filter-select" name="" id="">
-                                <option value="0" selected="selected" style="display: none;">Giờ</option>
+                            <select class="filter-select awhile-time" name="" id="" >
+                                <option value="-1">Giờ</option>
+                                <option value="0">All</option>
                                 <option value="1">0h - 6h</option>
                                 <option value="2">6h - 12h</option>
-                                <option value="2">12h - 18h</option>
-                                <option value="2">18h - 24h</option>
+                                <option value="3">12h - 18h</option>
+                                <option value="4">18h - 24h</option>
                             </select>
+                            <script>
+                                var typeCoach = document.querySelector('.typeCoach');
+                                var awhile__time = document.querySelector('.awhile-time');
+                                typeCoach.value = {{typeCBB}};
+                                awhile__time.value = {{awhileCBB}};
+                            </script>
                         </div>
                     </div>
                 </div>
                 <h2 class="trip-info">
-                    Chọn giờ lên xe đi TP. Hồ Chí Minh từ Đà Nẵng phù hợp </h2>
+                    Chọn giờ lên xe đi {{endProvince}} từ {{startProvince}} phù hợp </h2>
             </div>
-
-
+            {{#each schedule}}
             <div class="container__content-route-option">
                 <div class="header-time">
-                    13:00
+                    {{this.start}}
                     <i class="fa-solid fa-arrow-right"></i>
-                    8:00
+                    {{this.end}}
                     <div class="utilities">
                         <i class="fa-sharp fa-solid fa-mug-hot"></i>
                         <i class="fa-solid fa-bed"></i>
@@ -174,149 +181,32 @@
                 </div>
 
                 <div class="label">
-                    395.000đ
+                    {{this.price}}đ
                     <span class="dot"></span>
-                    Giường
+                    {{this.typeName}}
                     <span class="dot"></span>
-                    Còn 1 chỗ
+                    Còn {{this.haveSeat}} chỗ
                 </div>
                 <div class="route-line-container">
                     <div class="route-line-list">
                         <div class="route-line goFrom">
                             <i class="fa-solid fa-circle-dot"></i>
-                            Bến xe Trung Tâm Đà Nẵng
-                            <div class="route">Xe tuyến: 970km - 19 tiếng</div>
+                            {{this.startStation}}
+                            <div class="route">Xe tuyến: {{this.distance}}km - {{this.hours}} tiếng</div>
                         </div>
 
                         <div class="route-line destination">
                             <i class="fa-solid fa-location-dot"></i>
-                            Bến xe Miền Đông mới
+                            {{this.endStation}}
                         </div>
                     </div>
 
                     <div class="action-choose">
-                        <input type="radio" name="choose" value="go">
+                        <input type="radio" name="choose" value="{{this.idSchedule}}">
                     </div>
                 </div>
             </div>
-
-            <div class="container__content-route-option">
-                <div class="header-time">
-                    15:00
-                    <i class="fa-solid fa-arrow-right"></i>
-                    11:00
-                    <div class="utilities">
-                        <i class="fa-sharp fa-solid fa-mug-hot"></i>
-                        <i class="fa-solid fa-bed"></i>
-                        <i class="fa-sharp fa-solid fa-wifi"></i>
-                    </div>
-                </div>
-
-                <div class="label">
-                    395.000đ
-                    <span class="dot"></span>
-                    Giường
-                    <span class="dot"></span>
-                    Còn 5 chỗ
-                </div>
-                <div class="route-line-container">
-                    <div class="route-line-list">
-                        <div class="route-line goFrom">
-                            <i class="fa-solid fa-circle-dot"></i>
-                            Bến xe Trung Tâm Đà Nẵng
-                            <div class="route">Xe tuyến: 970km - 19 tiếng</div>
-                        </div>
-
-                        <div class="route-line destination">
-                            <i class="fa-solid fa-location-dot"></i>
-                            Bến xe Miền Tây
-                        </div>
-                    </div>
-
-                    <div class="action-choose">
-                        <input type="radio" name="choose" value="go">
-                    </div>
-                </div>
-            </div>
-
-            <div class="container__content-route-option">
-                <div class="header-time">
-                    19:00
-                    <i class="fa-solid fa-arrow-right"></i>
-                    14:00
-                    <div class="utilities">
-                        <i class="fa-sharp fa-solid fa-mug-hot"></i>
-                        <i class="fa-solid fa-bed"></i>
-                        <i class="fa-sharp fa-solid fa-wifi"></i>
-                    </div>
-                </div>
-
-                <div class="label">
-                    395.000đ
-                    <span class="dot"></span>
-                    Giường
-                    <span class="dot"></span>
-                    Còn 8 chỗ
-                </div>
-                <div class="route-line-container">
-                    <div class="route-line-list">
-                        <div class="route-line goFrom">
-                            <i class="fa-solid fa-circle-dot"></i>
-                            Bến xe Trung Tâm Đà Nẵng
-                            <div class="route">Xe tuyến: 970km - 19 tiếng</div>
-                        </div>
-
-                        <div class="route-line destination">
-                            <i class="fa-solid fa-location-dot"></i>
-                            Bến xe An Sương
-                        </div>
-                    </div>
-
-                    <div class="action-choose">
-                        <input type="radio" name="choose" value="go">
-                    </div>
-                </div>
-            </div>
-
-            <div class="container__content-route-option">
-                <div class="header-time">
-                    21:00
-                    <i class="fa-solid fa-arrow-right"></i>
-                    17:00
-                    <div class="utilities">
-                        <i class="fa-sharp fa-solid fa-mug-hot"></i>
-                        <i class="fa-solid fa-bed"></i>
-                        <i class="fa-sharp fa-solid fa-wifi"></i>
-                    </div>
-                </div>
-
-                <div class="label">
-                    395.000đ
-                    <span class="dot"></span>
-                    Giường
-                    <span class="dot"></span>
-                    Còn 1 chỗ
-                </div>
-                <div class="route-line-container">
-                    <div class="route-line-list">
-                        <div class="route-line goFrom">
-                            <i class="fa-solid fa-circle-dot"></i>
-                            Bến xe Trung Tâm Đà Nẵng
-                            <div class="route">Xe tuyến: 970km - 19 tiếng</div>
-                        </div>
-
-                        <div class="route-line destination">
-                            <i class="fa-solid fa-location-dot"></i>
-                            Bến xe An Sương
-                        </div>
-                    </div>
-
-                    <div class="action-choose">
-                        <input type="radio" name="choose" value="go">
-                    </div>
-                </div>
-            </div>
-
+            {{/each}}
         </div>
     </div>
 
@@ -416,3 +306,24 @@
         <div class="line-straight-footer"></div>
     </footer>
 </div>
+<a class="changeFilter"></a>
+<script>
+    var typeCoach = document.querySelector('.typeCoach');
+    var awhile__time = document.querySelector('.awhile-time');
+    var a = document.querySelector('.changeFilter');
+    var button = document.querySelectorAll('.action-choose');
+    for( var btn of button){
+        btn.onclick = function(e){
+            a.href = `/buy-ticket-step-3/${e.target.value}`;
+            a.click();
+        }
+    }
+    awhile__time.onchange = function(){
+        a.href = `./buy-ticket-step2?start={{startProvince}}&end={{endProvince}}&time={{timeQuery}}&type=${typeCoach.value}&awhile=${awhile__time.value}`;
+        a.click();
+    };
+    typeCoach.onchange = function(){
+        a.href = `./buy-ticket-step2?start={{startProvince}}&end={{endProvince}}&time={{timeQuery}}&type=${typeCoach.value}&awhile=${awhile__time.value}`;
+        a.click();
+    };
+</script>

@@ -4,14 +4,9 @@ const morgan = require('morgan');
 const handlebars = require('express-handlebars');
 const session = require('express-session')
 const methodOverride = require('method-override'); 
-
+//const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const route = require('./routes');
 const db = require('./config/db');
-
-
-
-
-
 //Connect to DB
 db.connect;
 
@@ -22,7 +17,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({
   extended: true
 }));
-
+//app.use(fetch);
 app.use(session({secret: 'Your_Secret_Key', resave: true, saveUninitialized: true}))
 // app.use(express.json);
 

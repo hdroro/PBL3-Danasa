@@ -6,5 +6,4 @@ const showListScheduleController = require('../app/controllers/ShowListScheduleC
 // router.get('/:slug',loginController.login);
 // router.get('/:slug',showListCusController.show);
 router.get('/list-schedule', showListScheduleController.index);
-
 module.exports = router;
