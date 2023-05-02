@@ -66,7 +66,7 @@ class DeleteCusController {
             const infocus = await cus.getInfoByPhoneNumber(phonenumber);
             const username = infocus.userName;
             const acc = new account();
-            await cus.deleteInfo(phonenumber);
+            // await cus.deleteInfo(phonenumber);
             await acc.deleteAccount(username);
             res.render('admin-xoaTK', {
                 title: 'Xóa tài khoản',
