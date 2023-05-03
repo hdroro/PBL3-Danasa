@@ -1,25 +1,10 @@
-{{#if success}}
-<div class="toast-message success">{{success}}</div>
-{{/if}}
-
-<script>
-    const toastMessage = document.querySelector('.toast-message');
-    if (toastMessage) {
-        toastMessage.classList.add('show');
-        setTimeout(() => {
-            toastMessage.classList.remove('show');
-        }, 5000);
-    }
-
-</script>
-
 <div class="app" style="background-color: #F5F5F5;">
     <header class="header">
         <div class="grid">
             <nav class="header__navbar">
                 <ul class="header__navbar-list-left">
                     <li class="header__navbar-item">
-                        <a href="./" class="header__navbar-item-link">DANASA
+                        <a href="/" class="header__navbar-item-link">DANASA
                         </a>
                     </li>
                     <div class="pentagon"></div>
@@ -149,14 +134,6 @@
                                         style="padding-top: .5rem; font-size: 1.7rem;"></i>
                                 </span>
                             </div>
-
-                            {{!-- <div class="searchTicket__item-right">
-                                <span class="searchTicket__item__title" style="margin-left: -.7rem;">Ngày khởi
-                                    hành</span>
-                                <input type="date" pattern="\d{2}/\d{2}/\d{4}" style="text-transform:uppercase;"
-                                    name="date" id="datePicker" value="{{date}}">
-                            </div>
-                            </div> --}}
 
                             <div class="searchTicket__item-right">
                                 <span class="searchTicket__item__title" style="margin-left: -.7rem;">Ngày khởi
@@ -419,13 +396,6 @@
 
 
 <script>
-
-    const datePicker = document.getElementById('datePicker');
-    datePicker.addEventListener('change', function () {
-        const selectedDate = datePicker.value;
-        datePicker.setAttribute('value', selectedDate);
-    });
-
     const inputList = document.querySelectorAll('.searchTicket__item-right');
     const dataListContainerList = document.querySelectorAll('.hide-left');
     var startProvince = document.querySelector('.startProvince');
@@ -441,25 +411,19 @@
         const dataListContainer = dataListContainerList[index];
         const dataItem = dataListContainer.querySelectorAll('button');
 
-        input.addEventListener('click', (event) => {
-            event.preventDefault();
-        })
-
-        input.addEventListener('mousedown', (event) => {
+        input.addEventListener('mousedown', () => {
             dataListContainer.style.display = 'block';
         });
 
         dataItem.forEach(item => {
-            item.addEventListener('click', (event) => {
+            item.addEventListener('click', () => {
                 const inputField = input.querySelector('input');
                 inputField.value = item.textContent;
-                inputField.setAttribute('value', item.textContent);
                 dataListContainer.style.display = 'none';
             })
         })
 
         document.addEventListener('mousedown', (event) => {
-            event.preventDefault();
             if (!input.contains(event.target) && !dataListContainer.contains(event.target)) {
                 dataListContainer.style.display = 'none';
             }

@@ -31,7 +31,6 @@ class Statistics {
                         totalPrice: parseInt(statisticsItem.totalPrice).toLocaleString(),
                     };
                 });
-                console.log(statistics)
                 return resolve(statistics);
             })
         })
