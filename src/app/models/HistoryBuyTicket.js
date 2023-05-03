@@ -381,7 +381,6 @@ class HistoryBuyTicket {
                 if (results.length === 0) {
                     return reject(err);
                 }
-                // console.log(results[0])
                 return resolve(results[0]);
             });
         });
