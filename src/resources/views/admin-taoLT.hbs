@@ -307,6 +307,8 @@
     var cbbRoute = document.querySelector('#route');
     var aLink = document.querySelector('.changeLink');
     var message = document.querySelector('.message-error');
+    const today = new Date().toISOString().split('T')[0];
+    startDay.setAttribute('min', today);
     //cbbRoute.value = {{idRoute}};
     var hours = 0;
     cbbRoute.onchange = function(){

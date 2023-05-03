@@ -20,7 +20,7 @@ class EditScheduleController {
         new Coach().GetIDCoach(id)
             .then((idCoachs)=>{
                 var idCoach = idCoachs["idCoach"];
-                return schedulePublic.getSchedule(`SELECT * FROM (((danasa.schedules as sch join danasa.directedroutes as dr on idDirectedRoute = iddirectedroutes) join danasa.coachs as s on s.idCoach = sch.idCoach) join danasa.typeofcoachs as tp on s.idType = tp.idType) join danasa.routes as r on r.idRoute = dr.idRoute where sch.idCoach = ${idCoach} order by sch.idSchedule`)
+                return schedulePublic.getSchedule(`SELECT * FROM (((danasa.schedules as sch join danasa.directedroutes as dr on idDirectedRoute = iddirectedroutes) join danasa.coachs as s on s.idCoach = sch.idCoach) join danasa.typeofcoachs as tp on s.idType = tp.idType) join danasa.routes as r on r.idRoute = dr.idRoute where sch.idCoach = ${idCoach} and sch.isDeleted = 0 order by sch.idSchedule`)
             })
             .then((schedules) => {
                 var indexSch;
@@ -175,7 +175,7 @@ class EditScheduleController {
         new Coach().GetIDCoach(id)
             .then((idCoachs)=>{
                 var idCoach = idCoachs["idCoach"];
-                return schedulePublic.getSchedule(`SELECT * FROM (((danasa.schedules as sch join danasa.directedroutes as dr on idDirectedRoute = iddirectedroutes) join danasa.coachs as s on s.idCoach = sch.idCoach) join danasa.typeofcoachs as tp on s.idType = tp.idType) join danasa.routes as r on r.idRoute = dr.idRoute where sch.idCoach = ${idCoach} order by sch.idSchedule`)
+                return schedulePublic.getSchedule(`SELECT * FROM (((danasa.schedules as sch join danasa.directedroutes as dr on idDirectedRoute = iddirectedroutes) join danasa.coachs as s on s.idCoach = sch.idCoach) join danasa.typeofcoachs as tp on s.idType = tp.idType) join danasa.routes as r on r.idRoute = dr.idRoute where sch.idCoach = ${idCoach} and sch.isDeleted = 0 order by sch.idSchedule`)
             })
             .then((schedules) => {
                 var indexSch;

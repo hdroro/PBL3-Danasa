@@ -402,7 +402,8 @@
     var EndProvince = document.querySelector('.endProvince');
     var searchBtn = document.querySelector('.searchBtn');
     var ticket__date = document.querySelector('.ticket-date');
-
+    const today = new Date().toISOString().split('T')[0];
+    ticket__date.setAttribute('min', today);
     searchBtn.onclick = function(){
         searchBtn.href=`./buy-ticket-step2?start=${startProvince.value}&end=${EndProvince.value}&time=${ticket__date.valueAsDate}`;
         searchBtn.click();

@@ -19,8 +19,8 @@ class BuyTicket2Controller{
         var idEnd,idStart,typesName;
         var info = [];
         var awhile = [{min: 0, max: 24},{min: 0,max: 6,},{min: 6,max: 12,},{min: 12,max: 18,},{min: 18,max: 24,}]
-        var query = 'SELECT * FROM (((danasa.schedules as sch join danasa.directedroutes as dr on idDirectedRoute = iddirectedroutes) join danasa.coachs as s on s.idCoach = sch.idCoach) join danasa.typeofcoachs as tp on s.idType = tp.idType) join routes as r on dr.idRoute = r.idRoute';
-        var queryCount = 'SELECT t.idSchedule, count(t.idSchedule) as SL FROM tickets as t join schedules as sch on t.idSchedule = sch.idSchedule group by t.idSchedule;';
+        var query = 'SELECT * FROM (((danasa.schedules as sch join danasa.directedroutes as dr on idDirectedRoute = iddirectedroutes) join danasa.coachs as s on s.idCoach = sch.idCoach) join danasa.typeofcoachs as tp on s.idType = tp.idType) join routes as r on dr.idRoute = r.idRoute where sch.isDeleted = 0';
+        var queryCount = 'SELECT t.idSchedule, count(t.idSchedule) as SL FROM tickets as t join schedules as sch on t.idSchedule = sch.idSchedule where sch.isDeleted = 0 group by t.idSchedule;';
         Promise.all([new Station().getStation(),new Province().getProvince(),new Type().getTypeOfCoach()])
             .then(([stations,provinces,types])=>{
                 req.session.stations = stations;
@@ -28,7 +28,7 @@ class BuyTicket2Controller{
                 typesName = types;
                 if(start!==""){
                     idStart = req.session.provinces.find(province=>province.provinceName === start).idProvince;
-                    query += ` where dr.idStartProvince = ${idStart}`;
+                    query += ` and dr.idStartProvince = ${idStart}`;
                     if(end!==""){
                         idEnd = req.session.provinces.find(province=>province.provinceName === end).idProvince;
                         query += ` and dr.idEndProvince = ${idEnd}`;
@@ -38,7 +38,7 @@ class BuyTicket2Controller{
                     }
                 }
                 else{
-                    query += ` where dr.idStartProvince = 0`;
+                    query += ` and dr.idStartProvince = 0`;
                     if(end!==""){
                         idEnd = req.session.provinces.find(province=>province.provinceName === end).idProvince;
                         query += ` and dr.idEndProvince = ${idEnd}`;

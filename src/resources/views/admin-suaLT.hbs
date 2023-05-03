@@ -260,22 +260,76 @@
 
 
 </div>
+{{!-- MODAL UPDATE SCHEDULE --}}
+<div id="id01" class="modal" style="cursor: pointer;">
+    <span id="closeIcon" class="close" onclick="document.getElementById('id01').style.display='none'" title="Close Modal">&times;</span>
+    <form class="modal-content">
+        <div class="container-modal">
+            <h1><i class="fa-solid fa-pen title-icon" style="padding-right: 1.2rem; font-size: 2.5rem;"></i>Update Schedule</h1>
+            <p>Bạn có chắc chắn muốn cập nhật lịch trình này ?</p>
+            <div class="clearfix">
+                <button type="button" class="cancelbtn" id="cancelBtn">Cancel</button>
+                <button type="button" class="okbtn" id="okBtn">OK</button>
+            </div>
+        </div>
+    </form>
+</div>
+{{!-- XỬ LÝ SỰ KIỆN Ở MODAL --}}
+<script>
+    // GET THE MODAL
+    var UpBtn = document.querySelector('button[type=submit]');
+    UpBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            document.getElementById('id01').style.display = 'block';
+    });
+    var modal = document.getElementById('id01');
+    var form = document.querySelector('#update-form__schedule');
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            closeModal()
+        }
+    }
+
+    var cancel = document.getElementById('cancelBtn');
+    cancel.addEventListener('click', event => {
+        event.stopPropagation();
+        closeModal()
+    })
+
+    var ok = document.getElementById('okBtn');
+    ok.addEventListener('click', event => {
+        event.stopPropagation();
+        form.method = 'POST';
+        form.action = `/admin/edit-schedule/{{schedule.idSchedule}}?_method=PATCH`;
+        form.submit();
+    })
+
+    function closeModal() {
+        modal.classList.add("fade-out");
+        setTimeout(function () {
+            modal.style.display = "none";
+            modal.classList.remove("fade-out");
+        }, 500);
+    }
+
+</script>
+
 
 <script>
     var navLinkParents = document.querySelectorAll(".nav-link-parent");
     var UpBtn = document.querySelector('.form-submit');
-    var UpForm = document.querySelector('#update-form__schedule');
     console.log(UpForm);
     var id = UpBtn.id;
     var startTime = document.querySelector('#start-time');
     var endTime = document.querySelector('#end-time');
+    var startDay = document.querySelector('#start-date');
+    const today = new Date().toISOString().split('T')[0];
+    startDay.setAttribute('min', today);
     startTime.onchange = function(){
         var start = startTime.valueAsDate;
         start.setHours(start.getHours()+{{schedule.hours}});
         endTime.valueAsDate = start;
     }
-    UpForm.method = 'POST';
-    UpForm.action = `/admin/edit-schedule/${id}?_method=PATCH`;
     /*
     UpForm.submit = function(e){
         var rs = window.confirm('Bạn có chắc chắn muốn cập nhật lịch trình này không ?');

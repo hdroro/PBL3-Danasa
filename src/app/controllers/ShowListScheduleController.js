@@ -17,16 +17,16 @@ class ShowListScheduleController {
         const start = (page - 1) * perPage;
         const end = page * perPage;
         var awhile = [{min: 0, max: 24},{min: 0,max: 6,},{min: 6,max: 12,},{min: 12,max: 18,},{min: 18,max: 24,}]
-        var query = 'SELECT * FROM ((danasa.schedules as sch join danasa.directedroutes as dr on idDirectedRoute = iddirectedroutes) join danasa.coachs as s on s.idCoach = sch.idCoach) join danasa.typeofcoachs as tp on s.idType = tp.idType';
+        var query = 'SELECT * FROM ((danasa.schedules as sch join danasa.directedroutes as dr on idDirectedRoute = iddirectedroutes) join danasa.coachs as s on s.idCoach = sch.idCoach) join danasa.typeofcoachs as tp on s.idType = tp.idType where sch.isDeleted = 0';
         if(idProvinceStart && idProvinceStart > 0){
-            query += ` where dr.idStartProvince = ${idProvinceStart}`;
+            query += ` and dr.idStartProvince = ${idProvinceStart}`;
             if(idProvinceEnd && idProvinceEnd > 0){
                 query += ` and dr.idEndProvince = ${idProvinceEnd}`;
             }
         }
         else{
             if(idProvinceEnd && idProvinceEnd > 0){
-                query += ` where dr.idEndProvince = ${idProvinceEnd}`;
+                query += ` and dr.idEndProvince = ${idProvinceEnd}`;
             }
         }
         query += ' order by sch.idSchedule'

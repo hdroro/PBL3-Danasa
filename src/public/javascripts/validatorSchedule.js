@@ -159,14 +159,14 @@ function ValidatorSchedule(formSelector) {
         }
         // Khi không có lỗi thì submit form
         if (isValid) {
-            if(window.confirm('Bạn có chắc chắn muốn cập nhật lịch trình này không ?')){
+            //if(window.confirm('Bạn có chắc chắn muốn cập nhật lịch trình này không ?')){
                 if (typeof _this.onSubmit === 'function') {
                     // gọi lại hàm onSubmit và trả về kèm giá trị của form
                     _this.onSubmit();
                 } else {
                     formElement.submit();
                 }
-            }
+            //}
         }
     }
 }
