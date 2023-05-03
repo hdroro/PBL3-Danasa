@@ -9,6 +9,21 @@ class Account {
         this.idRole = 1;
     }
 
+    async checkUsername() {
+        return new Promise((resolve, reject) => {
+            var query = `SELECT * FROM accounts WHERE userName = ?`;
+            db.query(query, [this.username], (err, results) => {
+                if (err) {
+                    return reject(err);
+                }
+                if (results.length === 0) {
+                    return reject(err);
+                }
+                return resolve(results);
+            });
+        });
+    }
+
     async authenticate() {
         return new Promise((resolve, reject) => {
             var query = `SELECT * FROM accounts WHERE userName = ? AND passWord = ?`;

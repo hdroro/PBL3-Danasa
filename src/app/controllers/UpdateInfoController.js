@@ -29,34 +29,38 @@ class LoginController {
     //[POST] /updateinfo/success
     async update(req, res) {
         try {
-            // const passedVariable = req.session.nameCustomer;
+            const passedVariable = req.session.nameCustomer;
             const accountUser = new account(req.session.userName);
             const idUser = await accountUser.getIdAccount();
-            // const customer_1 = new customer(0, "", passedVariable, "");
-            // const idCus = await customer_1.search(); 
             const idCus = idUser;
 
             const { name, email, sdt } = req.body;
-            const customerInfo = new customer(idCus, sdt, name, email);
-            await customerInfo.checkExistedPhonenumber(sdt);
-            await customerInfo.update({idCus, sdt, name, email });
+            const customerInfo = new customer();
+            const infoCus= await customerInfo.getInfoByIdCustomer(idUser);
+            await customerInfo.checkExistedPhonenumber(sdt, infoCus.phoneNumber);
+            await customerInfo.update(name, sdt, email, idCus);
             req.session.nameCustomer = name;
             res.render('updateinfo', {
                 message: 'Cập nhật thành công!',
+                title: 'Thông tin cá nhân',
+                infoLogin: name,
+                name: name,
+                phoneNumber: sdt,
+                email: email,
             });
         } catch (err) {
-            // console.error(err);
-            // res.send('Lỗi server');
+            console.log(err);
             const passedVariable = req.session.nameCustomer;
-            const username = new account(req.session.userName);
-            const inforCustomer = await username.fillInfo();
+            // const username = new account(req.session.userName);
+            // const inforCustomer = await username.fillInfo();
+            const { name, email, sdt } = req.body;
             res.render('updateinfo', {
                 message: 'Số điện thoại đã tồn tại!',
                 title: 'Thông tin cá nhân',
                 infoLogin: passedVariable,
-                name: inforCustomer.name,
-                email: inforCustomer.email,
-                phoneNumber: inforCustomer.phoneNumber,
+                name: name,
+                email: email,
+                phoneNumber: sdt,
             })
         }
     }

@@ -31,34 +31,36 @@ const statistics = require('./admin-statistics');
 
 const { register } = require('../app/controllers/RegisterController');
 
+const authMiddleware = require('../middleware/auth');
+
 function route(app) {
 
     
 
-    app.use('/admin', statistics);
-    app.use('/admin', sales);
-    app.use('/admin', deletenews);
-    app.use('/admin', editnews);
-    app.use('/admin', createnews);
-    app.use('/admin', showlistnews);
-    app.use('/admin', detailSales_month);
-    app.use('/admin', detailSales_quarter);
-    app.use('/admin', detailstatistics_month);
-    app.use('/admin', detailstatistics_quarter);
-    app.use('/admin', editschedule);
-    app.use('/admin', createschedule);
-    app.use('/admin', deleteschedule);
-    app.use('/admin', showlistschedule);
-    app.use('/admin', deletecus);
-    app.use('/admin', showlistcus);
+    app.use('/admin', authMiddleware.auth ,statistics);
+    app.use('/admin', authMiddleware.auth, sales);
+    app.use('/admin', authMiddleware.auth, deletenews);
+    app.use('/admin', authMiddleware.auth, editnews);
+    app.use('/admin', authMiddleware.auth, createnews);
+    app.use('/admin', authMiddleware.auth, showlistnews);
+    app.use('/admin', authMiddleware.auth, detailSales_month);
+    app.use('/admin', authMiddleware.auth, detailSales_quarter);
+    app.use('/admin', authMiddleware.auth, detailstatistics_month);
+    app.use('/admin', authMiddleware.auth, detailstatistics_quarter);
+    app.use('/admin', authMiddleware.auth, editschedule);
+    app.use('/admin', authMiddleware.auth, createschedule);
+    app.use('/admin', authMiddleware.auth, deleteschedule);
+    app.use('/admin', authMiddleware.auth, showlistschedule);
+    app.use('/admin', authMiddleware.auth, deletecus);
+    app.use('/admin', authMiddleware.auth, showlistcus);
 
     app.use('/', homeRouter);
-    app.use('/updateinfo', updateinfoRouter);
-    app.use('/change-password', changepasswordRouter);
+    app.use('/updateinfo', authMiddleware.auth, updateinfoRouter);
+    app.use('/change-password', authMiddleware.auth, changepasswordRouter);
     app.use('/contact', contactRouter);
-    app.use('/history-buy-ticket', historybuyticketRouter);
-    app.use('/buy-ticket-step4', buyticketstep4Router);
-    app.use('/buy-ticket-step3', buyticketstep3Router);
+    app.use('/history-buy-ticket', authMiddleware.auth, historybuyticketRouter);
+    app.use('/buy-ticket-step4', authMiddleware.auth, buyticketstep4Router);
+    app.use('/buy-ticket-step3', authMiddleware.auth, buyticketstep3Router);
     app.use('/buy-ticket-step2', buyticketstep2Router);
     app.use('/register', registerRouter);
     app.use('/login', loginRouter);

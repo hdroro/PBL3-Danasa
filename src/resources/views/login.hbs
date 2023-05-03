@@ -200,3 +200,13 @@
         <div class="line-straight-footer"></div>
     </footer>
 </div>
+
+<script>
+    const allInputs = document.querySelectorAll('.form-control-login');
+    const messageError = document.querySelector('.message-error');
+    allInputs.forEach(input => {
+        input.addEventListener('input', function() {
+            messageError.innerHTML = "";
+        })
+    })
+</script>

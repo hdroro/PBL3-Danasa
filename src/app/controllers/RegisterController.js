@@ -20,11 +20,24 @@ class RegisterController {
     async checkUser(req,res,next){
         const { username, password, phonenumber, fullname, email } = req.body;
         try {
+            const infoCus = new customer();
+            await infoCus.checkPhonenumber(phonenumber);
+        }
+        catch(err) {
+            res.render('register', {
+                title: 'Đăng ký',
+                infoLogin: "Đăng nhập",
+                message: "Số điện thoại đã tồn tại",
+            });
+            return;
+        }
+
+        try {
             const account = new Account(username, password);
             const saveAcc = await account.save();
 
             const inforCustomer = new customer(saveAcc, phonenumber, fullname, email);
-            const saveCus = await inforCustomer.save();
+            const saveCus = await inforCustomer.save()
 
             req.session.userName = req.body.fullname;
             res.redirect('back');
@@ -32,7 +45,7 @@ class RegisterController {
             res.render('register', {
                 title: 'Đăng ký',
                 infoLogin: "Đăng nhập",
-                message: "Tài khoản đã tồn tại"
+                message: "Tên tài khoản đã tồn tại",
             });
         }
     }

@@ -35,10 +35,10 @@ class InforCustomer {
         });
     }
 
-    async update() {
+    async update(name, phoneNumber, email, idCustomer) {
         return new Promise((resolve, reject) => {
             var query = `UPDATE inforcustomer SET name = ?, phoneNumber = ?, email = ? WHERE idCustomer = ?`;
-            db.query(query, [this.name, this.phoneNumber, this.email, this.idCustomer], (err, results) => {
+            db.query(query, [name, phoneNumber, email, idCustomer], (err, results) => {
                 if (err) {
                     return reject(err);
                 }
@@ -101,8 +101,21 @@ class InforCustomer {
         })
     }
 
-    async checkExistedPhonenumber(phonenumber) {
-        return new Promise((resolve, reject) => {
+    async checkExistedPhonenumber(phonenumber, old) {
+        return new Promise(async (resolve, reject) => {
+            var query = `select * FROM inforcustomer WHERE phoneNumber = ? except select * from inforcustomer where phoneNumber = ?`;
+            db.query(query, [phonenumber, old], (err, results) => {
+                if (err) {
+                    return reject(err);
+                }
+                if(results.length !== 0) return reject(err);
+                return resolve(results);
+            });
+        })
+    }
+
+    async checkPhonenumber(phonenumber) {
+        return new Promise(async (resolve, reject) => {
             var query = `select * FROM inforcustomer WHERE phoneNumber = ?`;
             db.query(query, [phonenumber], (err, results) => {
                 if (err) {
