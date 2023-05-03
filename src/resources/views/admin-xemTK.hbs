@@ -51,7 +51,8 @@
                             </button>
                             <button class="logout-admin">
                                 <a href="/login/logout" class="nav-profile-img">
-                                    <i class="fa-solid fa-right-from-bracket" style="font-size: 2rem; color: #2a4e8a;"></i>
+                                    <i class="fa-solid fa-right-from-bracket"
+                                        style="font-size: 2rem; color: #2a4e8a;"></i>
                                     <span class="availability-status online"></span>
                                 </a>
                             </button>
@@ -124,7 +125,7 @@
                         </li>
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
-                            <a class="content" href="/admin/delete-cus" >Xóa tài khoản</a>
+                            <a class="content" href="/admin/delete-cus">Xóa tài khoản</a>
                         </li>
                     </ul>
                 </div>
@@ -141,7 +142,7 @@
                     <ul class="nav-link-show">
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
-                            <a class="content" href="/admin/list-schedule" >Xem lịch trình</a>
+                            <a class="content" href="/admin/list-schedule">Xem lịch trình</a>
                         </li>
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
@@ -230,26 +231,20 @@
                         </div>
                     </div>
                     {{/each}}
-
-                    
-
                 </div>
 
                 <div class="index">
                     <ul class="page-index inline">
                         <li class="page-item">
-                            <a href="" class="page-link arrow">
+                            <a href="/admin/list-cus?page={{prev}}" class="page-link arrow">
                                 <i class="fa-solid fa-arrow-left"></i>
                             </a>
                         </li>
                         <li class="page-item page-now">
-                            <a href="" class="page-link">1</a>
+                            <a href="/admin/list-cus?page={{current}}" class="page-link">{{current}}</a>
                         </li>
                         <li class="page-item">
-                            <a href="" class="page-link">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a href="" class="page-link arrow">
+                            <a href="/admin/list-cus?page={{next}}" class="page-link arrow">
                                 <i class="fa-solid fa-arrow-right"></i>
                             </a>
                         </li>
@@ -285,7 +280,7 @@
     const btnDeletes = document.querySelectorAll('.deleteBtn');
     btnDeletes.forEach(btnDelete => {
         const idCus = btnDelete.dataset.id;
-        btnDelete.onclick = function(e) {
+        btnDelete.onclick = function (e) {
             location.href = `/admin/delete-cus/${idCus}`;
         }
     })

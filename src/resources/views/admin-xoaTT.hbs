@@ -163,12 +163,15 @@
                     <div class="line2">
                     </div>
                 </div>
-                <form class="delete-news-form" method="POST" action="/admin/delete-news/delete?idNews={{idNews}}" id="delete-form__news">
+                <form class="delete-news-form" method="POST" action="/admin/delete-news/delete?idNews={{idNews}}"
+                    id="delete-form__news">
                     <div class="content-xoa-tin-tuc">
                         <div class="frame-content font-16">
                             <div class="id inline">
                                 <p for="ID" class="text-decor">ID:</p>
-                                <input name="idNews"  style="background: #dde4ff; border: none; width: 50%; font-weight: 600;" value="{{idNews}}" disabled>
+                                <input name="idNews"
+                                    style="background: #dde4ff; border: none; width: 50%; font-weight: 600;"
+                                    value="{{idNews}}" disabled>
                             </div>
                             <div class="title-new inline">
                                 <p>Tiêu đề *:</p>
@@ -197,23 +200,68 @@
     </div>
 </div>
 
+{{!-- MODAL DELETE NEWS --}}
+<div id="id01" class="modal">
+    <span id="clodeIcon" class="close" onclick="document.getElementById('id01').style.display='none'" title="Close Modal">&times;</span>
+    <form class="modal-content">
+        <div class="container-modal">
+            <h1> <i class="fa-solid fa-trash-can title-icon"
+                    style="padding-right: 1.2rem; font-size: 2.5rem;"></i>Delete News</h1>
+            <p>Bạn có chắc chắn muốn xóa tin tức này ?</p>
+            <div class="clearfix">
+                <button type="button" class="cancelbtn" id="cancelBtn" onclick="cancelBtn()">Cancel</button>
+                <button type="button" class="okbtn" id="okBtn" onclick="okBtn()">OK</button>
+            </div>
+        </div>
+    </form>
+</div>
 
+
+{{!-- XỬ LÝ SỰ KIỆN Ở MODAL --}}
 <script>
+    // GET THE MODAL
+    const form = document.querySelector('form');
+    var modal = document.getElementById('id01');
 
-    var DelBtn = document.querySelector('.form-submit');
-    var DelForm = document.getElementById('delete-form__news');
-    var id = DelBtn.id;
-    DelBtn.onclick = function(){
-        if(window.confirm('Bạn có chắc chắn muốn xóa tin tức này không ?')){
-            DelForm.method = 'POST';
-            DelForm.action = `/admin/delete-news/delete?idNews={{idNews}}`;
-            DelForm.submit();
-        }
-        else{
-            return false;
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            closeModal()
         }
     }
 
+    var cancel = document.getElementById('cancelBtn');
+    cancel.addEventListener('click', event => {
+        event.stopPropagation();
+        closeModal()
+    })
+
+    var ok = document.getElementById('okBtn');
+    ok.addEventListener('click', event => {
+        event.stopPropagation();
+        form.submit();
+    })
+
+    function closeModal() {
+        modal.classList.add("fade-out");
+        setTimeout(function () {
+            modal.style.display = "none";
+            modal.classList.remove("fade-out");
+        }, 500);
+    }
+
+</script>
+
+<script>
+    var DelBtn = document.querySelector('.form-submit');
+    DelBtn.onclick = function () {
+        event.preventDefault();
+        document.getElementById('id01').style.display = 'block';
+
+    }
+</script>
+
+{{!-- XỬ LÝ TOGGLE ICON Ở SIDEBAR --}}
+<script>
     var navLinkParents = document.querySelectorAll(".nav-link-parent");
 
     navLinkParents.forEach((navLinkParent) => {

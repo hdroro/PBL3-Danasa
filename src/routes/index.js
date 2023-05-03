@@ -28,7 +28,7 @@ const editnews = require('./admin-edit-news');
 const deletenews = require('./admin-delete-news');
 const sales = require('./admin-sales');
 const statistics = require('./admin-statistics');
-
+const modalRouter = require('./modal')
 
 const { register } = require('../app/controllers/RegisterController');
 
@@ -53,6 +53,7 @@ function route(app) {
     app.use('/admin', deletecus);
     app.use('/admin', showlistcus);
 
+    app.use('/modal', modalRouter)
     app.use('/', homeRouter);
     app.use('/updateinfo', updateinfoRouter);
     app.use('/change-password', changepasswordRouter);

@@ -212,7 +212,7 @@
     font-size: 1.4rem;
 }
 .form-group-news.invalid.title-new .form-message-news{
-    left: 13%;
+    left: 1%;
 }
 .form-group-news.invalid .form-control-news{
     border: 1px solid #f33a58;
@@ -222,7 +222,7 @@
     border: none;
 }
 
-textarea:focus{
+.input-text-content:focus{
     border: none;
 }
 .img {

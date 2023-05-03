@@ -1,36 +1,44 @@
 const account = require('../models/Account');
-const {mutipleMongooseToObject} = require('../../util/mongoose')
+const { mutipleMongooseToObject } = require('../../util/mongoose')
 class ShowListCusController {
 
     // [GET] /home
     async index(req, res) {
         try {
+            const page = parseInt(req.query.page) || 1;
+            const perPage = 5;
+            const start = (page - 1) * perPage;
+            const end = page * perPage;
             const ac = new account();
-            const obj = {};
             const accountList = await ac.getAllAccount();
+            const prev = page === 1 ? 1 : page - 1;
+            const lastPage = Math.ceil(accountList.length / perPage);
+            const next = page === lastPage ? lastPage : page + 1;
             res.render('admin-xemTK', {
-                accountList: accountList,
+                accountList: Array.from(accountList).slice(start, end),
                 title: 'Xem tài khoản khách hàng',
+                current: page,
+                next: next,
+                prev: prev
             });
         }
-        catch(err) {
+        catch (err) {
             console.log(err);
         }
     }
-
     //[GET]/updateinfo/:slug
     show(req, res) {
         Login.findOne();
     }
 
     //[POST] /updateinfo/success
-    checkUser(req,res,next){
+    checkUser(req, res, next) {
         account.findOne({
             userName: req.body.userName,
             passWord: req.body.passWord,
         })
-            .then((account)=>{
-                if(account!==null) res.render('home');
+            .then((account) => {
+                if (account !== null) res.render('home');
                 res.send("Tên tài khoản hoặc mật khẩu không chính xác");
             })
             .catch(err => next(err))

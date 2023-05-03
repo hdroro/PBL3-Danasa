@@ -86,7 +86,18 @@
   right: -7%;
   top: 174%;
   display: none;
+  border-radius: 2px;
   animation: fadeIn ease-in 0.2s;
+}
+
+.li-dropdown a {
+  text-decoration: none;
+  color: black;
+  font-size: 1.4rem;
+}
+
+.li-dropdown a:hover {
+  color: var(--text-color)#0077cc;
 }
 
 .menu-show-container .user {
@@ -294,7 +305,7 @@ input[type="date"] {
 }
 
 
-.grid-two-inline .fa-solid ,
+.grid-two-inline .fa-solid,
 .li-dropdown .fa-solid,
 .fa-bus,
 .icon-media,

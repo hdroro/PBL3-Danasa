@@ -70,7 +70,6 @@ class StatisticsController {
         }
         res.render('admin-TKDT', obj);
     }
-
 }
 
 module.exports = new StatisticsController;

@@ -8,7 +8,7 @@ const methodOverride = require('method-override');
 const route = require('./routes');
 const db = require('./config/db');
 
-
+const flash = require('connect-flash');
 
 
 
@@ -25,6 +25,8 @@ app.use(express.urlencoded({
 
 app.use(session({secret: 'Your_Secret_Key', resave: true, saveUninitialized: true}))
 // app.use(express.json);
+
+app.use(flash());
 
 //HTTP logger
 // app.use(morgan('combined'));

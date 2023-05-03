@@ -3,10 +3,21 @@ class DetailStaticsMonthController {
 
     async index(req, res) {
         try{
+            const page = parseInt(req.query.page) || 1;
+            const perPage = 5;
+            const start = (page - 1) * perPage;
+            const end = page * perPage;
             const statisticModel = new statistics();
+            const listStatistics = await statisticModel.listStatistics_month_arranged();
+            const prev = page === 1 ? 1 : page - 1;
+            const lastPage = Math.ceil(listStatistics.length / perPage);
+            const next = page === lastPage ? lastPage : page + 1;
             const obj = {
                 title: 'Chi tiết thống kê doanh thu theo tháng',
-                newsListStatistics: await statisticModel.listStatistics_month_arranged()
+                newsListStatistics: Array.from(listStatistics).slice(start, end),
+                current: page,
+                next: next,
+                prev: prev
             };
             res.render('admin-CT-TKDT-thang', obj);
         }

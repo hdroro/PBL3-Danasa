@@ -30,28 +30,28 @@
                             <div class="button">
                                 <ul>
                                     <li class="li-dropdown">
-                                        <i class="fa-solid fa-clock-rotate-left"></i>
+                                        <i class="fa-solid fa-clock-rotate-left" style="color:var(--text-color)"></i>
                                         <span>
-                                            <a href="/history-buy-ticket" style="text-decoration: none; color: black">
+                                            <a class="itemm" href="/history-buy-ticket">
                                                 Lịch sử đặt vé
                                             </a>
                                         </span>
                                     </li>
                                     <li class="li-dropdown">
-                                        <i class="fa-solid fa-user-large"></i>
-                                        <span><a href="/updateinfo" style="text-decoration: none; color: black">
+                                        <i class="fa-solid fa-user-large" style="color:var(--text-color)"></i>
+                                        <span><a href="/updateinfo">
                                                 Thông tin cá nhân
                                             </a></span>
                                     </li>
                                     <li class="li-dropdown">
-                                        <i class="fa-solid fa-user-pen"></i>
-                                        <span><a href="/change-password" style="text-decoration: none; color: black">
+                                        <i class="fa-solid fa-user-pen" style="color:var(--text-color)"></i>
+                                        <span><a href="/change-password">
                                                 Thay đổi mật khẩu
                                             </a></span>
                                     </li>
                                     <li class="li-dropdown">
-                                        <i class="fa-solid fa-right-from-bracket"></i>
-                                        <span><a href="/login/logout" style="text-decoration: none; color: black">
+                                        <i class="fa-solid fa-right-from-bracket" style="color:var(--text-color)"></i>
+                                        <span><a href="/login/logout">
                                                 Đăng xuất
                                             </a></span>
                                     </li>
@@ -79,78 +79,84 @@
             </div>
             <div class="contain__ticketseller-head">
                 <i class="fa-solid fa-clock-rotate-left"></i>
-                <h2>LỊCH SỬ ĐẶT VÉ</h2>
+                <h2>
+                    <a href="/history-buy-ticket" style="text-decoration: none;color: #4b8efa;">LỊCH SỬ ĐẶT VÉ</a>
+                </h2>
                 <div class="line-straight"> </div>
             </div>
             <div class="container__content-choose">
                 <div class="container__content-choose-filter">
                     <div class="custom-choose-filter-container">
-                        <select class="filter-select" name="" id="" fdprocessedid="jxlvcl">
+                        <select class="filter-select" name="" id="searchByStartProvince" fdprocessedid="jxlvcl"
+                            onchange="loadDataStartProvince()">
                             <option value="0" selected="selected" style="display: none;">Tỉnh đi</option>
-                            <option value="1">Đà Nẵng</option>
-                            <option value="2">TP. Hồ Chí Minh</option>
-                            <option value="2">Quảng Trị</option>
+                            {{#each listStartProvince}}
+                            <option value="{{id_start}}">{{startProvinceName}}</option>
+                            {{/each}}
                         </select>
 
-                        <select class="filter-select" name="" id="" fdprocessedid="jxlvcl">
+                        <select class="filter-select" name="" id="searchByEndProvince" fdprocessedid="jxlvcl"
+                            onchange="loadDataEndProvince()">
                             <option value="0" selected="selected" style="display: none;">Tỉnh đến</option>
-                            <option value="1">Đà Nẵng</option>
-                            <option value="2">TP. Hồ Chí Minh</option>
-                            <option value="2">Quảng Trị</option>
+                            {{#each listEndProvince}}
+                            <option value="{{id_end}}">{{endProvinceName}}</option>
+                            {{/each}}
                         </select>
 
-                        <select class="filter-select" name="" id="" fdprocessedid="14b6h">
+                        <select class="filter-select" name="" id="searchByTime" fdprocessedid="14b6h"
+                            onchange="loadDataTime()">
                             <option value="0" selected="selected" style="display: none;">Thời gian</option>
-                            <option value="1">0h - 6h</option>
-                            <option value="2">6h - 12h</option>
-                            <option value="2">12h - 18h</option>
-                            <option value="2">18h - 24h</option>
+                            {{#each listTimeStart}}
+                            <option value="{{id_time}}">{{startTime}}</option>
+                            {{/each}}
                         </select>
                     </div>
                     <h1 style="padding: 2rem 40rem; text-align: center;  color: #f21036;">{{message}}</h1>
-                    {{#each historyList}}
-                    <div class="container__content-route-history">
-                        <div class="header-time">
-                            {{startTime}}
-                            <i class="fa-solid fa-arrow-right"></i>
-                            {{endTime}}
-                            <span class="date-go">
-                                {{startDate}}
-                            </span>
-                            <div class="utilities">
-                                <i class="fa-sharp fa-solid fa-mug-hot"></i>
-                                <i class="fa-solid fa-bed"></i>
-                                <i class="fa-sharp fa-solid fa-wifi"></i>
-                            </div>
-                        </div>
-                        <div class="route-line-container">
-                            <div class="route-line-list">
-                                <div class="route-line goFrom">
-                                    <i class="fa-solid fa-circle-dot"></i>
-                                    {{startStation}}
-                                    <div class="route">Xe tuyến: {{distance}} km - {{hour}} tiếng</div>
-                                </div>
-
-                                <div class="route-line destination">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    {{endStation}}
+                    <div class="list-history" id="dataList">
+                        {{#each historyList}}
+                        <div class="container__content-route-history">
+                            <div class="header-time">
+                                {{startTime}}
+                                <i class="fa-solid fa-arrow-right"></i>
+                                {{endTime}}
+                                <span class="date-go">
+                                    {{startDate}}
+                                </span>
+                                <div class="utilities">
+                                    <i class="fa-sharp fa-solid fa-mug-hot"></i>
+                                    <i class="fa-solid fa-bed"></i>
+                                    <i class="fa-sharp fa-solid fa-wifi"></i>
                                 </div>
                             </div>
-                        </div>
+                            <div class="route-line-container">
+                                <div class="route-line-list">
+                                    <div class="route-line goFrom">
+                                        <i class="fa-solid fa-circle-dot"></i>
+                                        {{startStation}}
+                                        <div class="route">Xe tuyến: {{distance}} km - {{hour}} tiếng</div>
+                                    </div>
 
-                        <div class="info-ticket">
-                            <div class="info-slot" style="color: #676161;">
-                                Số ghế: <span style="color: black; font-weight: 600;">{{nameSeat}}</span>
+                                    <div class="route-line destination">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                        {{endStation}}
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="price-ticket">
-                                <span class="title-money">TỔNG TIỀN</span>
-                                <span class="price"
-                                    style="color: #4B8EFA; font-weight: 600; padding-left: 10px;">{{Totalprice}}đ</span>
+                            <div class="info-ticket">
+                                <div class="info-slot" style="color: #676161;">
+                                    Số ghế: <span style="color: black; font-weight: 600;">{{nameSeat}}</span>
+                                </div>
+
+                                <div class="price-ticket">
+                                    <span class="title-money">TỔNG TIỀN</span>
+                                    <span class="price"
+                                        style="color: #4B8EFA; font-weight: 600; padding-left: 10px;">{{Totalprice}}đ</span>
+                                </div>
                             </div>
                         </div>
+                        {{/each}}
                     </div>
-                    {{/each}}
                 </div>
             </div>
         </div>
@@ -252,3 +258,39 @@
         <div class="line-straight-footer"></div>
     </footer>
 </div>
+
+<script>
+    function loadDataStartProvince() {
+        var endProvinceSelect = document.getElementById("searchByEndProvince");
+        var timeSelect = document.getElementById("searchByTime");
+        endProvinceSelect.selectedIndex = 0;
+        timeSelect.selectedIndex = 0;
+        var sortData_start_province = document.getElementById('searchByStartProvince').value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById('dataList').innerHTML = this.responseText;
+            }
+        };
+        xhttp.open('GET', '/history-buy-ticket/loadData-search-by-start-province?sortData=' + sortData_start_province, true);
+        xhttp.send();
+    }
+</script>
+
+<script>
+    function loadDataEndProvince() {
+        var startProvinceSelect = document.getElementById("searchByStartProvince");
+        var timeSelect = document.getElementById("searchByTime");
+        startProvinceSelect.selectedIndex = 0;
+        timeSelect.selectedIndex = 0;
+        var sortData_end_province = document.getElementById('searchByEndProvince').value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById('dataList').innerHTML = this.responseText;
+            }
+        };
+        xhttp.open('GET', '/history-buy-ticket/loadData-search-by-end-province?sortData=' + sortData_end_province, true);
+        xhttp.send();
+    }
+</script>

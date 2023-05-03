@@ -4,15 +4,26 @@ class DetailSalesQuarterController {
 
     // [GET] /home
     async index(req, res) {
+        const page = parseInt(req.query.page) || 1;
+        const perPage = 5;
+        const start = (page - 1) * perPage;
+        const end = page * perPage;
         const salesModel = new sales();
+        const listSales = await salesModel.listSales_quarter_arranged();
+        const prev = page === 1 ? 1 : page - 1;
+        const lastPage = Math.ceil(listSales.length / perPage);
+        const next = page === lastPage ? lastPage : page + 1;
         const obj = {
             title: 'Chi tiết thống kê doanh số theo quý',
-            newsListSales: await salesModel.listSales_quarter_arranged()
-        }
+            newsListSales: Array.from(listSales).slice(start, end),
+            current: page,
+            next: next,
+            prev: prev
+        };
         res.render('admin-CT-TKDS-quy', obj);
     }
 
-    async loadData(req, res){
+    async loadData(req, res) {
         try {
             const salesModel = new sales();
             var sortData = req.query.sortData;

@@ -10,7 +10,6 @@ class EditNewsController {
             contentNews: req.query.contentNews,
             urlImg: req.query.urlImg,
         }
-        console.log(obj)
         res.render('admin-suaTT', obj);
     }
 

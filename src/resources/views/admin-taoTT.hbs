@@ -198,8 +198,6 @@
                                     <i class="fa-solid fa-cloud-arrow-up" style="background-color: #dde4ff;">
                                     </i>
                                 </button>
-
-                                {{!-- <img src="./img/upload.png" alt=""> --}}
                             </div>
                         </form>
                     </div>
@@ -210,6 +208,22 @@
         </div>
     </div>
 </div>
+
+{{!-- MODAL CREATE NEWS --}}
+<div id="id01" class="modal" >
+    <span id="closeIcon" class="close" onclick="document.getElementById('id01').style.display='none'" title="Close Modal">&times;</span>
+    <form class="modal-content" >
+        <div class="container-modal">
+            <h1><i class="fa-solid fa-circle-plus title-icon" style="padding-right: 1.2rem; font-size: 2.5rem;"></i>Create News</h1>
+            <p>Bạn chưa chọn ảnh, bạn có muốn tiếp tục tạo tin tức này không ?</p>
+            <div class="clearfix">
+                <button type="button" class="cancelbtn" id="cancelBtn" onclick="cancelBtn()">Cancel</button>
+                <button type="button" class="okbtn" id="okBtn" onclick="okBtn()">OK</button>
+            </div>
+        </div>
+    </form>
+</div>
+
 <script src="../assets/js/validator.js"></script>
 <script>new Validator('#createNews');</script>
 
@@ -224,9 +238,7 @@
     submitBtn.addEventListener('click', (event) => {
         if (fileInput.files.length === 0 && (!((titleInput.value.trim() === '' || contentInput.value.trim() === '')))) {
             event.preventDefault(); 
-            if (window.confirm('Bạn chưa chọn ảnh, bạn có muốn tiếp tục upload tin tức này không ?')) {
-                form.submit();
-            }
+            document.getElementById('id01').style.display = 'block';
         }
     });
 
@@ -250,6 +262,39 @@
             b.classList.toggle("fa-caret-right");
         })
     })
+</script>
+
+{{!-- XỬ LÝ SỰ KIỆN Ở MODAL --}}
+<script>
+    // GET THE MODAL
+    var modal = document.getElementById('id01');
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            closeModal()
+        }
+    }
+
+    var cancel = document.getElementById('cancelBtn');
+    cancel.addEventListener('click', event => {
+        event.stopPropagation();
+        closeModal()
+    })
+
+    var ok = document.getElementById('okBtn');
+    ok.addEventListener('click', event => {
+        event.stopPropagation();
+        form.submit();
+    })
+
+    function closeModal() {
+        modal.classList.add("fade-out");
+        setTimeout(function () {
+            modal.style.display = "none";
+            modal.classList.remove("fade-out");
+        }, 500);
+    }
+
 </script>
 
 <script>

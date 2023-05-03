@@ -6,11 +6,11 @@ class LoginController {
 
     // [GET] /home
     index(req, res) {
-        if(!req.session.userName) {
+        if (!req.session.userName) {
             const obj = {
                 title: 'Đăng nhập',
                 infoLogin: "Đăng nhập"
-                
+
             }
             res.render('login', obj);
         } else {
@@ -31,20 +31,24 @@ class LoginController {
             const account = new Account(userName, passWord);
             const authenticatedUser = await account.authenticate();
             req.session.userName = userName;
-            
-            if(authenticatedUser == 1){
+
+            if (authenticatedUser == 1) {
                 const name = await account.match();
                 // req.session.userName = name;
                 req.session.nameCustomer = name;
+                req.flash('success', 'Đăng nhập thành công!');
                 res.redirect('/');
             }
-            else res.redirect('/admin/statistics');
-            
+            else {
+                req.flash('success', 'Đăng nhập thành công!');
+                res.redirect('/admin/statistics');
+            }
+
         } catch (err) {
             res.render('login', {
                 title: 'Đăng nhập',
                 infoLogin: "Đăng nhập",
-                message: "Mật khẩu không đúng"
+                message: "Mật khẩu không đúng",
             });
         }
     }

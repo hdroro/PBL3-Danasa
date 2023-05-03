@@ -3,11 +3,22 @@ class DetailStaticsQuarterController {
     
     // [GET] /home
     async index(req, res) {
-        const statisticModel = new statistics();
-        const obj = {
-            title: 'Chi tiết thống kê doanh thu theo quý',
-            newsListStatistics: await statisticModel.listStatistics_quarter_arranged()
-        };
+        const page = parseInt(req.query.page) || 1;
+            const perPage = 5;
+            const start = (page - 1) * perPage;
+            const end = page * perPage;
+            const statisticModel = new statistics();
+            const listStatistics = await statisticModel.listStatistics_quarter_arranged();
+            const prev = page === 1 ? 1 : page - 1;
+            const lastPage = Math.ceil(listStatistics.length / perPage);
+            const next = page === lastPage ? lastPage : page + 1;
+            const obj = {
+                title: 'Chi tiết thống kê doanh thu theo quý',
+                newsListStatistics: Array.from(listStatistics).slice(start, end),
+                current: page,
+                next: next,
+                prev: prev
+            };
         res.render('admin-CT-TKDT-quy', obj);
     }
 

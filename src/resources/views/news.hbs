@@ -30,28 +30,28 @@
                             <div class="button">
                                 <ul>
                                     <li class="li-dropdown">
-                                        <i class="fa-solid fa-clock-rotate-left"></i>
+                                        <i class="fa-solid fa-clock-rotate-left" style="color:var(--text-color)"></i>
                                         <span>
-                                            <a href="/history-buy-ticket" style="text-decoration: none; color: black">
+                                            <a class="itemm" href="/history-buy-ticket" >
                                                 Lịch sử đặt vé
                                             </a>
                                         </span>
                                     </li>
                                     <li class="li-dropdown">
-                                        <i class="fa-solid fa-user-large"></i>
-                                        <span><a href="/updateinfo" style="text-decoration: none; color: black">
+                                        <i class="fa-solid fa-user-large" style="color:var(--text-color)"></i>
+                                        <span><a href="/updateinfo" >
                                                 Thông tin cá nhân
                                             </a></span>
                                     </li>
                                     <li class="li-dropdown">
-                                        <i class="fa-solid fa-user-pen"></i>
-                                        <span><a href="/change-password" style="text-decoration: none; color: black">
+                                        <i class="fa-solid fa-user-pen" style="color:var(--text-color)"></i>
+                                        <span><a href="/change-password" >
                                                 Thay đổi mật khẩu
                                             </a></span>
                                     </li>
                                     <li class="li-dropdown">
-                                        <i class="fa-solid fa-right-from-bracket"></i>
-                                        <span><a href="/login/logout" style="text-decoration: none; color: black">
+                                        <i class="fa-solid fa-right-from-bracket" style="color:var(--text-color)"></i>
+                                        <span><a href="/login/logout" >
                                                 Đăng xuất
                                             </a></span>
                                     </li>
@@ -95,33 +95,25 @@
                     </div>
                 </div>
                 {{/each}}
-                {{!-- <div class="news-item-row">
-                    <div class="news-item-row-col-1">
-                        <img src="./img/DSC_02641.jpg" alt="">
-                    </div>
-                    <div class="news-item-row-col-2">
-                        <div class="news-content">
-                            <h3>Sở Giao thông vận tải TP.HCM ủng hộ có xe trung chuyển miễn phí vào bến xe Miền Đông mới
-                            </h3>
-                            <p>Sở Giao thông vận tải TP.HCM vừa có văn bản ủng hộ đề xuất tổ chức xe trung chuyển miễn
-                                phí hành khách đi lại ở bến xe Miền Đông mới. Nhiều người dân bày tỏ rất ủng hộ</p>
-                        </div>
-                    </div>
+                
+                <div class="index">
+                    <ul class="page-index inline">
+                        <li class="page-item">
+                            <a href="/news?page={{prev}}" class="page-link arrow">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </a>
+                        </li>
+                        <li class="page-item page-now">
+                            <a href="/news?page={{current}}" class="page-link">{{current}}</a>
+                        </li>
+                        <li class="page-item">
+                            <a href="/news?page={{next}}" class="page-link arrow">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
 
-                <div class="news-item-row">
-                    <div class="news-item-row-col-1">
-                        <img src="./img/DSC_02641.jpg" alt="">
-                    </div>
-                    <div class="news-item-row-col-2">
-                        <div class="news-content">
-                            <h3>THƯ CẢM ƠN QUÝ HÀNH KHÁCH NHÂN DỊP XUÂN QUÝ MÃO 2023</h3>
-                            <p>Ban lãnh đạo và tập thể cán bộ nhân viên công ty cổ phần Danasa xin gửi đến toàn thể quý
-                                hành khách, quý đối tác lời tri ân chân thành nhất vì đã luôn tin tưởng và đồng hành
-                                cùng</p>
-                        </div>
-                    </div>
-                </div> --}}
             </div>
         </div>
     </div>
