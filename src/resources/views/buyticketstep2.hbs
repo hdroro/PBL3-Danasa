@@ -312,10 +312,19 @@
     var awhile__time = document.querySelector('.awhile-time');
     var a = document.querySelector('.changeFilter');
     var button = document.querySelectorAll('.action-choose');
+    //const infoLogin = {{infoLogin}};
     for( var btn of button){
         btn.onclick = function(e){
-            a.href = `/buy-ticket-step-3/${e.target.value}`;
-            a.click();
+            if(infoLogin === "Đăng nhập") {
+                console.log("hihi")
+                a.href = "/login";
+                a.click();
+            }
+            else {
+                console.log("hahaha");
+                a.href = `/buy-ticket-step3/${e.target.value}`;
+                a.click();
+            }
         }
     }
     awhile__time.onchange = function(){

@@ -34,7 +34,16 @@ class Seat {
             });
         });
     }
-    
+    async create(query) {
+        return new Promise((resolve, reject) => {
+            db.query(query, (err) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve();
+            });
+        });
+    }
     async getIdSeat(nameSeat, idSchedule) {
         return new Promise((resolve, reject) => {
             var query = `select * from seats WHERE nameSeat = ? and idSchedule = ?`;

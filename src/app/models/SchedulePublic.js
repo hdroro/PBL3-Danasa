@@ -32,9 +32,9 @@ class SchedulePublic {
             })
         })
     }
-    deleteSchedule(id) {
+    deleteSoftSchedule(id) {
         return new Promise(function (resolve, reject) {
-            db.query(`delete from danasa.schedules where idSchedule = ${id}`, function (err) {
+            db.query(`update schedules set isDeleted = 1 where idSchedule = ${id}`, function (err) {
                 if (err) {
                     return reject(err);
                 } else {

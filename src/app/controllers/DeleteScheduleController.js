@@ -16,7 +16,7 @@ class DeleteCusController {
                 })
                 .catch(next);
         }
-        schedulePublic.getSchedule(`SELECT * FROM (((danasa.schedules as sch join danasa.directedroutes as dr on idDirectedRoute = iddirectedroutes) join danasa.coachs as s on s.idCoach = sch.idCoach) join danasa.typeofcoachs as tp on s.idType = tp.idType) join danasa.routes as r on r.idRoute = dr.idRoute where sch.idSchedule = ${req.params.id}`)
+        schedulePublic.getSchedule(`SELECT * FROM (((danasa.schedules as sch join danasa.directedroutes as dr on idDirectedRoute = iddirectedroutes) join danasa.coachs as s on s.idCoach = sch.idCoach) join danasa.typeofcoachs as tp on s.idType = tp.idType) join danasa.routes as r on r.idRoute = dr.idRoute where sch.idSchedule = ${req.params.id} and sch.isDeleted = 0`)
         .then((schedule) => {
             info = schedule[0];
             var time = new MyDate(info.startTime.toString());
@@ -29,7 +29,7 @@ class DeleteCusController {
             info.startProvince = req.session.provinces.find(province => province.idProvince === info.idStartProvince).provinceName;
             info.endProvince = req.session.provinces.find(province => province.idProvince === info.idEndProvince).provinceName;
             //res.json(info);
-            var query = `select * from schedules as sch join directedroutes as dr on sch.idDirectedRoute = dr.iddirectedroutes where sch.idCoach = ${info.idCoach} and sch.startTime > '${info.day} ${info.start}'`
+            var query = `select * from schedules as sch join directedroutes as dr on sch.idDirectedRoute = dr.iddirectedroutes where sch.idCoach = ${info.idCoach} and sch.startTime > '${info.day} ${info.start}' and sch.isDeleted = 0`
             return new Schedule().getSchedulesByCondition(query);
         })
         .then((schedules) => {
@@ -55,14 +55,14 @@ class DeleteCusController {
 
     delete(req,res,next){
         if(req.session.IDBehind > 0){
-            Promise.all([schedulePublic.deleteSchedule(req.params.id),schedulePublic.deleteSchedule(req.session.IDBehind)])
+            Promise.all([schedulePublic.deleteSoftSchedule(req.params.id),schedulePublic.deleteSoftSchedule(req.session.IDBehind)])
                 .then(([])=>{
                     res.redirect('/admin/list-schedule');
                 })
                 .catch(next);
         }
         else{
-        schedulePublic.deleteSchedule(req.params.id)
+        schedulePublic.deleteSoftSchedule(req.params.id)
             .then(()=>{
                 res.redirect('/admin/list-schedule');
             })

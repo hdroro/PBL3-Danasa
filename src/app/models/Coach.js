@@ -28,6 +28,17 @@ class Coach{
             })
             })
     }
+    getInfoCoach(id){
+        return new Promise(function(resolve, reject){
+            db.query(`select * from coachs as c join typeofcoachs as tc on c.idType = tc.idType where c.idCoach = ${id}`, function (err, rows) {
+                if (err) {
+                    return reject(err);
+                } else {
+                    return resolve(rows[0]);
+                }
+            })
+            })
+    }
     getAllCoachByIDTypeAndRoute(idType,idRoute){
         return new Promise(function(resolve, reject){
             db.query(`select idCoach from coachs where idType = ${idType} and idRoute = ${idRoute}`, function (err, rows) {

@@ -6,6 +6,7 @@ const Province = require('../models/Province');
 const TypeCoach =require('../models/TypeOfCoach');
 const DirectedRoute = require('../models/DirectedRoute');
 const MyDate = require('../models/Date');
+const Seat = require('../models/Seat');
 const account = require('../models/Account');
 const Coach = require('../models/Coach');
 const { response } = require('express');
@@ -176,8 +177,8 @@ class CreateScheduleController {
                 idStartProvince = direct["idStartProvince"];
                 idRoute = direct["idRoute"];
                 seats = type["numberOfSeat"];
-                var query = `SELECT sch.idCoach FROM (schedules as sch join directedroutes as dr on sch.idDirectedRoute = dr.iddirectedroutes) join coachs as c on sch.idCoach = c.idCoach and c.idType = ${idType} and dr.idRoute = ${idRoute} group by sch.idCoach`;
-                var querySchedule = `SELECT * FROM (schedules as sch join directedroutes as dr on sch.idDirectedRoute = dr.iddirectedroutes) join coachs as c on sch.idCoach = c.idCoach and c.idType = ${idType} and dr.idRoute = ${idRoute} order by sch.idSchedule desc`;
+                var query = `SELECT sch.idCoach FROM (schedules as sch join directedroutes as dr on sch.idDirectedRoute = dr.iddirectedroutes) join coachs as c on sch.idCoach = c.idCoach and c.idType = ${idType} and dr.idRoute = ${idRoute} and sch.isDeleted = 0 group by sch.idCoach`;
+                var querySchedule = `SELECT * FROM (schedules as sch join directedroutes as dr on sch.idDirectedRoute = dr.iddirectedroutes) join coachs as c on sch.idCoach = c.idCoach and c.idType = ${idType} and dr.idRoute = ${idRoute} and sch.isDeleted = 0 order by sch.idSchedule desc`;
                 return Promise.all([new Coach().GetCoachBusy(query),new Coach().getAllCoachByIDTypeAndRoute(idType,idRoute),SchedulePublic.getSchedule(querySchedule),new Coach().getAllCoach()]);
             })
             .then(([busy,all,schedules,coachs])=>{
@@ -226,7 +227,23 @@ class CreateScheduleController {
             return new Schedule().create(idDirect,startStation,endStation,start,end,price,idCoach);
         })
         .then(()=>{
-            res.redirect('/admin/list-schedule');
+            return Promise.all([new Coach().getInfoCoach(idCoach),new Schedule().getIDLast()])
+            //res.redirect('/admin/list-schedule');
+        })
+        .then(([coach,ids])=>{
+            var numberOfSeat = coach["numberOfSeat"];
+            var idSchedule = ids[0].idSchedule;
+            var i = 1;
+            var type = '';
+            if(coach["idType"] === 1) type = 'A';
+            else type  = 'B';
+            for(i;i<=numberOfSeat;i++){
+                var nameSeat = (i<10) ? `0${i}`: `${i}`;
+                nameSeat = type + '1' + nameSeat;
+                var query = `insert into seats values (${i},${idSchedule},0,${idCoach},'${nameSeat}')`;
+                new Seat().create(query);
+            }
+            res.redirect('/admin/list-schedule');     
         })
         .catch(err => console.log(err))
     }
