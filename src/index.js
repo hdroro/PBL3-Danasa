@@ -10,8 +10,6 @@ const db = require('./config/db');
 
 const flash = require('connect-flash');
 
-
-
 //Connect to DB
 db.connect;
 
@@ -33,12 +31,27 @@ app.use(flash());
 
 //Template engine
 app.use(methodOverride('_method'));
+
+
 app.engine('hbs', handlebars.engine({
-  extname: '.hbs'
+  extname: '.hbs',
+  defaultLayout: 'main'
 }));
+
+
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resources','views'));
 
+var hbs = handlebars.create({});
+
+// register new function
+hbs.handlebars.registerHelper('if_eq', function(a, b, opts) {
+  if (a == b) {
+      return opts.fn(this);
+  } else {
+      return opts.inverse(this);
+  }
+});
 
 route(app);
 

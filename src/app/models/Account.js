@@ -127,7 +127,7 @@ class Account {
 
     async getAllAccount() {
         return new Promise((resolve, reject)=>{
-            const fetchQuery = `select * FROM accounts INNER JOIN inforcustomer ON idUser = idCustomer`;
+            const fetchQuery = `select * FROM accounts INNER JOIN inforcustomer ON idUser = idCustomer where isDelete = 0`;
             db.query(fetchQuery, (err, results) => {
                 if (err) {
                     return reject(err);
@@ -139,7 +139,7 @@ class Account {
 
     async deleteAccount(username) {
         return new Promise((resolve, reject) => {
-            var query = `DELETE FROM accounts WHERE userName = ?`;
+            var query = `UPDATE accounts SET isDelete = 1 WHERE userName = ?`;
             db.query(query, [username], (err, results) => {
                 if (err) {
                     return reject(err);

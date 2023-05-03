@@ -165,11 +165,11 @@
                 </div>
 
                 <div class="content-infor-customer">
-                    <form method="POST" action="" class="form-delete-acc">
+                    <form method="POST" action="" class="form-delete-acc" id="form-delete__account">
                         <div class="content-row-1">
                             <p>Nhập SĐT:</p>
                             <div class="content-left">
-                                <input id="phonenumber" name="phonenumber" rules="required" type="tel"
+                                <input id="phonenumber" name="phonenumber" rules="required|noSpace" type="tel"
                                     class="form-control" value="{{phonenumber}}">
 
                                 <button type="button" name="but-search__phone-number" class="but-search__phone-number  but">Tìm kiếm

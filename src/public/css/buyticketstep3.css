@@ -52,7 +52,7 @@
 }
 
 .container__seat.type-normal {
-    display: none;
+    /* display: none; */
 }
 
 /* .container__seat.other-type {
@@ -95,13 +95,14 @@
 
 .seat-info {
     position: relative;
+    /* cursor: pointer; */
 }
 
 .seat-info .seat-desc {
     position: absolute;
     color: #000;
     top: 0.5rem;
-    left: 1.4rem;
+    left: 1.1rem;
     font-size: 0.95em;
     font-weight: bold;
 }
@@ -299,3 +300,9 @@
     flex-direction: row;
 }
 
+.message-error-seat {
+    font-size: 1.4rem;
+    color: red;
+    margin-top:2rem;
+    margin-bottom: 1rem;
+}

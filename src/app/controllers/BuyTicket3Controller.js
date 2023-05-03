@@ -1,27 +1,61 @@
+const customer = require('../models/InforCustomer');
+const account = require('../models/Account');
+const seat = require('../models/Seat');
+const ticket = require('../models/Ticket');
+const schedule = require('../models/Schedule');
+const schedulePublic = require('../models/SchedulePublic');
+
 class BuyTicket3Controller{
 
     // [GET] /buy-ticket-step2
-    index(req, res){
-        const passedVariable = req.session.nameCustomer;
-        if(passedVariable != null) {
-            const obj = {
-                title: 'Đặt vé xe',
-                infoLogin: passedVariable, 
-            }
-            res.render('buyticketstep3', obj);
-        } else {
-            const obj = {
-                title: 'Đặt vé xe',
-                infoLogin: 'Đăng nhập', 
-            }
-            res.render('buyticketstep3', obj);
+    async index(req, res){
+        try {
+            const passedVariable = req.session.nameCustomer;
+            const username = req.session.userName;
+            const cus = new account(username);
+            const infoCus = await cus.fillInfo();
+            const idSchedule = req.params.slug;
+            const seats = new seat();
+            const listSeat = await seats.getListSeat(idSchedule);
+            const sublength = listSeat.length / 2;
+            const firstArr = Array.from(listSeat).slice(0, sublength / 2);
+            const secondArr = Array.from(listSeat).slice(sublength / 2, sublength);
+            const thirdArr = Array.from(listSeat).slice(sublength, sublength + sublength / 2);
+            const fourthArr = Array.from(listSeat).slice(sublength + sublength / 2, listSeat.length);
+            // console.log(firstArr);
+            // console.log(secondArr);
+            // console.log(thirdArr);
+            // console.log(fourthArr);
+            var priceSchedule;
+            schedulePublic.getSchedule(`select * from schedules where idSchedule = ${idSchedule}`)
+            .then(schedule => {
+                priceSchedule = schedule[0].price;
+                res.render('buyticketstep3', {
+                    title: 'Đặt vé xe',
+                    infoLogin: passedVariable,
+                    number: listSeat.length,
+                    firstArr: firstArr,
+                    secondArr: secondArr,
+                    thirdArr: thirdArr,
+                    fourthArr: fourthArr,
+                    priceSchedule: priceSchedule,
+                    infoCus: infoCus,
+                });
+            })
+            
         }
-        // res.render('buyticketstep3');
+        catch(err) {
+            console.log(err);
+        }
     }
 
     //[GET]/buy-ticket-step2/:slug
     show(req, res){
-        res.send('Detail');
+        const passedVariable = req.session.nameCustomer;
+        res.render('buyticketstep3', {
+            title: 'Đặt vé xe',
+            infoLogin: passedVariable,
+        });
     }
 }
 

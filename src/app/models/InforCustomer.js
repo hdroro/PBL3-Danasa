@@ -100,6 +100,19 @@ class InforCustomer {
             });
         })
     }
+
+    async checkExistedPhonenumber(phonenumber) {
+        return new Promise((resolve, reject) => {
+            var query = `select * FROM inforcustomer WHERE phoneNumber = ?`;
+            db.query(query, [phonenumber], (err, results) => {
+                if (err) {
+                    return reject(err);
+                }
+                if(results.length !== 0) return reject(err);
+                return resolve(results);
+            });
+        })
+    }
 }
 
 module.exports = InforCustomer;

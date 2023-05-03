@@ -31,28 +31,28 @@
                             <div class="button">
                                 <ul>
                                     <li class="li-dropdown">
-                                        <i class="fa-solid fa-clock-rotate-left" style="color:var(--text-color)"></i>
+                                        <i class="fa-solid fa-clock-rotate-left"></i>
                                         <span>
-                                            <a class="itemm" href="/history-buy-ticket" >
+                                            <a href="/history-buy-ticket" style="text-decoration: none; color: black">
                                                 Lịch sử đặt vé
                                             </a>
                                         </span>
                                     </li>
                                     <li class="li-dropdown">
-                                        <i class="fa-solid fa-user-large" style="color:var(--text-color)"></i>
-                                        <span><a href="/updateinfo" >
+                                        <i class="fa-solid fa-user-large"></i>
+                                        <span><a href="/updateinfo" style="text-decoration: none; color: black">
                                                 Thông tin cá nhân
                                             </a></span>
                                     </li>
                                     <li class="li-dropdown">
-                                        <i class="fa-solid fa-user-pen" style="color:var(--text-color)"></i>
-                                        <span><a href="/change-password" >
+                                        <i class="fa-solid fa-user-pen"></i>
+                                        <span><a href="/change-password" style="text-decoration: none; color: black">
                                                 Thay đổi mật khẩu
                                             </a></span>
                                     </li>
                                     <li class="li-dropdown">
-                                        <i class="fa-solid fa-right-from-bracket" style="color:var(--text-color)"></i>
-                                        <span><a href="/login/logout" >
+                                        <i class="fa-solid fa-right-from-bracket"></i>
+                                        <span><a href="/login/logout" style="text-decoration: none; color: black">
                                                 Đăng xuất
                                             </a></span>
                                     </li>
@@ -123,9 +123,9 @@
 
                     <div class="steps-line">
                         <div class="step-circle">
-                            <div class="step-circle-fourth">
-                                <div class="text">4</div>
-                                <div class="title-active">
+                            <div class="step-circle-fourth" style="background-color: #4B8EFA;">
+                                <div class="text" style="color: #fff">4</div>
+                                <div class="title-active" style="color: #000;">
                                     <span id="step-1">
                                         Thanh toán
                                     </span>
@@ -139,74 +139,15 @@
                     <div class="step-line step-line-third"></div>
                 </div>
             </div>
-            <form method="POST" action="/buy-ticket-step4/confirm?idSchedule={{idSchedule}}" id="buy-ticket-step4-form" class="buy-ticket-step3 form-info-ticket">
-                <div class="table-info">
-                    <div class="table-title-confirm font-16">
-                        THÔNG TIN MUA VÉ
-                    </div>
-                    <p class="sub-table-title font-15">Thông tin hành khách</p>
-                    <div class="sub-table-info-customer font-14">
-                        <div class="form-large grid-full-row">
-                            <div class="form--group width__item-35">
-                                <label for="name" class="form--label">Họ tên:</label>
-                                <input readonly class="form--control" style="font-style: initial;" type="text" name="name" id="name" value="{{infoCus.fullname}}" ></input>
-                            </div>
-                             <div class="form--group width__item-35">
-                            <label for="SDT" class="form--label">Số điện thoại:</label>
-                            <input readonly class="form--control" style="font-style: initial;" type="text" name="SDT" id="SDT" value="{{infoCus.phonenumber}}"></input>
-                            </div>
-                            <div class="form--group width__item-35">
-                            <label for="email" class="form--label">Email:</label>
-                            <input readonly class="form--control" style="font-style: initial;" type="text" name="email" id="email" value="{{infoCus.email}}"></input>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="sub-table-title font-15">Thông tin chuyến: {{schedule.startProvince}} - {{schedule.endProvince}}</p>
-                    <div class="sub-table-info-ticket font-14">
-                        <div class="form-large grid-full-row">
-                            <div class="form-two grid-full-col">
-                                <div class="form--group width__item-50">
-                                <label for="direct-route" class="form--label">Tuyến xe:</label>
-                                <input readonly class="form--control" style="font-style: initial;" type="text" name="direct-route" id="direct-route" value="{{schedule.startProvince}} - {{schedule.endProvince}}" ></input>
-                                </div>
-                                <div class="form--group width__item-50">
-                                <label for="count-seat" class="form--label">Số lượng ghế:</label>
-                                <input readonly class="form--control" style="font-style: initial;" type="text" name="count-seat" id="count-seat" value="{{totalNumber}}"></input>
-                                </div>
-                            </div>
-                            <div class="form-two grid-full-col">
-                                <div class="form--group width__item-50">
-                                <label for="time" class="form--label">Thời gian:</label>
-                                <input readonly class="form--control" style="font-style: initial;" type="text" name="time" id="time" value="{{schedule.start}} {{schedule.day}}"></input>
-                                </div>
-                                <div class="form--group width__item-50">
-                                <label for="seat-name" class="form--label">Số ghế:</label>
-                                <input readonly class="form--control" style="font-style: initial;" type="text" name="seat-name" id="seat-name" value="{{seats}}"></input>
-                                </div>
-                            </div>
-                            <div class="form-two grid-full-col">
-                                <div class="form--group width__item-50">
-                                <label for="start-station" class="form--label">Bến đi:</label>
-                                <input readonly class="form--control" style="font-style: initial;" type="text" name="start-station" id="start-station" value="{{schedule.startStation}}" ></input>
-                                </div>
-                                <div class="form--group width__item-50">
-                                <label for="end-station" class="form--label">Bến đến:</label>
-                                <input readonly class="form--control" style="font-style: initial;" type="text" name="end-station" id="end-station" value="{{schedule.endStation}}"></input>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form--group total-money">
-                        <label for="money" style="padding-top: 2px;" class="form--label">TỔNG TIỀN</label>
-                        <input class="form--control" readonly id="money" name="money" style="color: #4B8EFA;" value="{{totalPrice}}">
-                    </div>
+            <div class="buy-ticket-step3">
+                <div class="table-info" style="padding: 2rem 3rem;">
+                    <div class="message-confirm" style="font-size: 1.8rem; color: red; margin-bottom: 1.5rem">Đặt vé thành công!</div>
+                    <div class="info-charge" style="font-size: 1.6rem; font-style:italic;">Quý khách vui lòng thanh toán tiền mặt đầy đủ tại nhà xe!</div>
                 </div>
                 <div class="but grid-full-col font-14">
-                    <button type="button" class="back" style="cursor: pointer;">QUAY LẠI</button>
-                    <!-- <i class="fa-solid fa-chevron-left"></i> -->
-                    <button type="submit" class="confirm" style="cursor: pointer;">XÁC NHẬN</button>
+                    <button class="back" style="cursor: pointer;">QUAY LẠI</button>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 
@@ -215,7 +156,7 @@
             <div class="grid__row-footer">
                 <div class="col grid__column-intro">
                     <div class="col__column-inner">
-                        <img width="220" height="150" src="./../img/footer_danasa.png"
+                        <img width="220" height="150" src="../img/footer_danasa.png"
                             class="attachment-original size-original" alt="">
                         <div class="icon-box-text last-reset">
                             <p style="width: 60%; text-align-last: center;">Công ty cổ phần xe khách Danasa Bus
@@ -270,12 +211,12 @@
                         <div class="grid__row-3-col-3">
                             <div class="galary-col col">
                                 <div class="container">
-                                    <img src="./../img/xe_do.jpg" alt="Xe đỏ">
-                                    <img src="./../img/xe_xanh2.jpg" alt="Xe đỏ">
+                                    <img src="../img/xe_do.jpg" alt="Xe đỏ">
+                                    <img src="../img/xe_xanh2.jpg" alt="Xe đỏ">
                                 </div>
                                 <div class="container">
-                                    <img src="./../img/xe_xanh1.jpg" alt="Xe đỏ">
-                                    <img src="./../img/xe_do2.jpg" alt="Xe đỏ">
+                                    <img src="../img/xe_xanh1.jpg" alt="Xe đỏ">
+                                    <img src="../img/xe_do2.jpg" alt="Xe đỏ">
                                 </div>
                             </div>
                         </div>
@@ -308,15 +249,11 @@
 </div>
 
 <script>
-    const confirmBtn = document.querySelector('.confirm');
-    const formInfo = document.querySelector('.form-info-ticket');
     const backBtn = document.querySelector('.back');
-    backBtn.onclick = function(e) {
-        e.preventDefault();
+
+    backBtn.onclick = function() {
         history.back();
     }
-    confirmBtn.onclick = function() {
-        formInfo.submit();
-    }
-    
+
+
 </script>
