@@ -173,13 +173,12 @@
                                 <input name="idNews"
                                     style="background: #dde4ff; border: none; width: 50%; font-weight: 600;"
                                     value="{{idNews}}" readonly>
-
                             </div>
                             <div class="form-group-news title-new inline">
                                 <label for="form-label-news title-news">Tiêu đề *:</label>
                                 <input id="title-news" name="titleNews" type="text"
-                                    class="input-text-title form-control-news" rules="required" value="{{titleNews}}"
-                                    rules="required|phonenumber">
+                                    class="input-text-title form-control-news"  value="{{titleNews}}"
+                                    >
                                 <span id="message1" class="form-message-news"
                                     style="position: absolute; top: 6rem; font-size: 1.2rem; font-weight: 100; color: red;"></span>
                             </div>
@@ -194,7 +193,7 @@
                                 <div class="form-group-news content-new">
                                     <label class="form-label-news" for="content-news">Nội dung *</label>
                                     <textarea class="input-text-content form-control-news" name="contentNews"
-                                        id="content-news" cols="1" rows="10" rules="required">{{contentNews}}</textarea>
+                                        id="content-news" cols="1" rows="10">{{contentNews}}</textarea>
                                     <span id="message2" class="form-message-news"
                                         style="position: absolute; top: 24rem; font-size: 1.2rem; font-weight: 100; color: red; left: 0;"></span>
                                 </div>
@@ -228,8 +227,8 @@
     </form>
 </div>
 
-<script src="../../public/javascripts/validator.js"></script>
-<script>new Validator('#update-form__news');</script>
+{{!-- <script src="../../public/javascripts/validator.js"></script> --}}
+{{!-- <script>new Validator('#update-form__news');</script> --}}
 
 
 
@@ -253,6 +252,7 @@
     });
 
     contentInput.addEventListener('input', (event) => {
+
         if (contentInput.value.trim() === '') {
             contentMessage.innerText = 'Vui lòng nhập trường này';
             UpdateBtn.disabled = true;

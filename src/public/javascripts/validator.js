@@ -16,7 +16,7 @@ function Validator(formSelector) {
     var validatorRules = {
 
         noSpace: function (value) {
-            return /\s/.test(value) ? "Không nhập khoảng trống" : undefined;
+            return /^\s*$/.test(value) ? "Không nhập khoảng trống" : undefined;
         },
 
         required: function (value) {

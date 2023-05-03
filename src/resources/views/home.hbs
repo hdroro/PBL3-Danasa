@@ -32,26 +32,26 @@
                                     <li class="li-dropdown">
                                         <i class="fa-solid fa-clock-rotate-left" style="color:var(--text-color)"></i>
                                         <span>
-                                            <a class="itemm" href="/history-buy-ticket" >
+                                            <a class="itemm" href="/history-buy-ticket">
                                                 Lịch sử đặt vé
                                             </a>
                                         </span>
                                     </li>
                                     <li class="li-dropdown">
                                         <i class="fa-solid fa-user-large" style="color:var(--text-color)"></i>
-                                        <span><a href="/updateinfo" >
+                                        <span><a href="/updateinfo">
                                                 Thông tin cá nhân
                                             </a></span>
                                     </li>
                                     <li class="li-dropdown">
                                         <i class="fa-solid fa-user-pen" style="color:var(--text-color)"></i>
-                                        <span><a href="/change-password" >
+                                        <span><a href="/change-password">
                                                 Thay đổi mật khẩu
                                             </a></span>
                                     </li>
                                     <li class="li-dropdown">
                                         <i class="fa-solid fa-right-from-bracket" style="color:var(--text-color)"></i>
-                                        <span><a href="/login/logout" >
+                                        <span><a href="/login/logout">
                                                 Đăng xuất
                                             </a></span>
                                     </li>
@@ -96,7 +96,8 @@
                                     <ul class="place-list" style="list-style: none;">
                                         <li class="place-list-item">
                                             {{#each provinces}}
-                                            <button idPro="{{this.idProvince}}" class="select-place-item list-item">{{this.provinceName}}</button>
+                                            <button idPro="{{this.idProvince}}"
+                                                class="select-place-item list-item">{{this.provinceName}}</button>
                                             {{/each}}
                                         </li>
                                     </ul>
@@ -119,7 +120,8 @@
                                     <ul class="place-list" style="list-style: none;">
                                         <li class="place-list-item">
                                             {{#each provinces}}
-                                            <button idPro="{{this.idProvince}}" class="select-place-item list-item">{{this.provinceName}}</button>
+                                            <button idPro="{{this.idProvince}}"
+                                                class="select-place-item list-item">{{this.provinceName}}</button>
                                             {{/each}}
                                         </li>
                                     </ul>
@@ -138,7 +140,10 @@
                             <div class="searchTicket__item-right">
                                 <span class="searchTicket__item__title" style="margin-left: -.7rem;">Ngày khởi
                                     hành</span>
-                                <input class="ticket-date" type="date" pattern="\d{2}/\d{2}/\d{4}" style="text-transform:uppercase;">
+                                <input class="ticket-date" type="date" id="myDateInput"
+                                    style="text-transform:uppercase;">
+
+
                                 <!-- <input class="ticket-date" readonly="readOnly"> -->
                             </div>
                         </div>
@@ -403,8 +408,8 @@
     var searchBtn = document.querySelector('.searchBtn');
     var ticket__date = document.querySelector('.ticket-date');
 
-    searchBtn.onclick = function(){
-        searchBtn.href=`./buy-ticket-step2?start=${startProvince.value}&end=${EndProvince.value}&time=${ticket__date.valueAsDate}`;
+    searchBtn.onclick = function () {
+        searchBtn.href = `./buy-ticket-step2?start=${startProvince.value}&end=${EndProvince.value}&time=${ticket__date.valueAsDate}`;
         searchBtn.click();
     }
     inputList.forEach((input, index) => {
@@ -430,4 +435,10 @@
         });
     });
 
+</script>
+
+<script>
+    const ticketDateInput = document.querySelector('.ticket-date');
+    const today = new Date().toISOString().split('T')[0];
+    ticketDateInput.setAttribute('min', today);
 </script>
