@@ -102,7 +102,7 @@
 
                     <div class="form-group">
                         <label for="fullname" class="form-label">Họ và tên</label>
-                        <input id="fullname" name="fullname" rules="required" type="text" placeholder="VD: Nguyễn Văn A"
+                        <input id="fullname" name="fullname" rules="required|noSpace" type="text" placeholder="VD: Nguyễn Văn A"
                             class="form-control-register">
                         <span class="form-message"></span>
                     </div>
@@ -227,3 +227,13 @@
         <div class="line-straight-footer"></div>
     </footer>
 </div>
+
+<script>
+    const allInputs = document.querySelectorAll('.form-control-register');
+    const messageError = document.querySelector('.message-error');
+    allInputs.forEach(input => {
+        input.addEventListener('input', function() {
+            messageError.innerHTML = "";
+        })
+    })
+</script>

@@ -27,6 +27,20 @@ class LoginController {
     //[POST] /course/success
     async checkUser(req, res, next) {
         const { userName, passWord } = req.body;
+
+        try {
+            const account = new Account(userName, passWord);
+            await account.checkUsername();
+        }
+        catch(err) {
+            res.render('login', {
+                title: 'Đăng nhập',
+                infoLogin: "Đăng nhập",
+                message: "Tài khoản không tồn tại",
+            });
+            return;
+        }
+
         try {
             const account = new Account(userName, passWord);
             const authenticatedUser = await account.authenticate();

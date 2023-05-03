@@ -92,7 +92,7 @@
                     <div class="sub-table font-15" >
                         <div class="form-group grid-two">
                             <label class="form-label" for="name">Họ tên hành khách *</label>
-                            <input id="name" name="name" class="form-control" rules="required" type="text"
+                            <input id="name" name="name" class="form-control" rules="required|noSpace" type="text"
                                 placeholder="Nguyễn Văn A" value="{{name}}">
                             <span class="form-message"></span>
                         </div>
@@ -128,7 +128,7 @@
                                 </select>
                             </div>
                         </div> --}}
-                        <span class="form-message" style="font-size: 1.4rem; color: red;">{{message}}</span>
+                        <span class="form-message message-error-info" style="font-size: 1.4rem; color: red;">{{message}}</span>
                         <div class="grid-two-around button">
                             <button type="button" name="Thoát" class="but-exit font-15 but" onclick="location.href='/'">Thoát</button>
                             <button type="submit" name="Lưu" class="but-save form-submit font-15 but">Lưu</button>
@@ -237,3 +237,13 @@
         <div class="line-straight-footer"></div>
     </footer>
 </div>
+
+<script>
+    const messageError = document.querySelector('.message-error-info');
+    const allInputs = document.querySelectorAll('.form-control');
+    allInputs.forEach(input => {
+        input.addEventListener('input', function() {
+            messageError.innerHTML = "";
+        })
+    })
+</script>
