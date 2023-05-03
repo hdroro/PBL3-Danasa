@@ -11,7 +11,6 @@ class Ticket{
         this.email = email
     }
 
-
     async save() {
         return new Promise((resolve, reject) => {
             var query = `INSERT INTO tickets (idSchedule, idUser, idSeat, phoneNumber, name, email) VALUES (?, ?, ?, ?, ?, ?)`;
@@ -35,6 +34,18 @@ class Ticket{
             });
         });
     }
+
+    getCount(query){
+        return new Promise(function(resolve, reject){
+            db.query(query, function (err, rows) {
+                if (err) {
+                    return reject(err);
+                } else {
+                    return resolve(rows);
+                }
+            })
+        })
+    }
 }
 
-module.exports = Ticket;
+module.exports = Ticket

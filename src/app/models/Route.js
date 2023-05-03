@@ -8,14 +8,35 @@ class Route{
         this.distance = distance;
         this.hour = hour;
     }
-
-    GetRoute(id){
+    getAllRoute(){
         return new Promise(function(resolve, reject){
-            db.query(`select dr.idRoute from danasa.schedules as sch join danasa.directedroutes as dr on sch.idDirectedRoute = dr.iddirectedroutes where sch.idSchedule = ${id}`, function (err, rows) {
+            db.query(`select * from danasa.routes`, function (err, rows) {
                 if (err) {
                     return reject(err);
                 } else {
                     return resolve(rows);
+                }
+            })
+            })
+    }
+    getCountOfRoute(id){
+        return new Promise(function(resolve, reject){
+            db.query(`SELECT * FROM schedules as sch join directedroutes as dr on sch.idDirectedRoute = dr.iddirectedroutes where dr.idRoute = ${id} order by sch.idSchedule`, function (err, rows) {
+                if (err) {
+                    return reject(err);
+                } else {
+                    return resolve(rows);
+                }
+            })
+            })
+    }
+    getInfoRoute(id){
+        return new Promise(function(resolve, reject){
+            db.query(`SELECT * FROM routes where idRoute = ${id}`, function (err, rows) {
+                if (err) {
+                    return reject(err);
+                } else {
+                    return resolve(rows[0]);
                 }
             })
             })

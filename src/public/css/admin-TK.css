@@ -105,6 +105,11 @@
     color: #fff;
     font-size: 15px;
 }
+
+.tk-detail .detail:hover{
+    opacity: 0.8;
+}
+
 .img-doanh-thu{
     text-align: center;
 }

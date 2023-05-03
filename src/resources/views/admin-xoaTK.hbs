@@ -264,7 +264,57 @@
     </div>
 </div>
 
-{{!-- <form class="form-search-cus" method="POST" action=""></form> --}}
+{{!-- MODAL DELETE NEWS --}}
+<div id="id01" class="modal">
+    <span id="clodeIcon" class="close" onclick="document.getElementById('id01').style.display='none'" title="Close Modal">&times;</span>
+    <form class="modal-content">
+        <div class="container-modal">
+            <h1> <i class="fa-solid fa-trash-can title-icon"
+                    style="padding-right: 1.2rem; font-size: 2.5rem;"></i>Delete Account</h1>
+            <p>Bạn có chắc chắn muốn xóa tài khoản này ?</p>
+            <div class="clearfix">
+                <button type="button" class="cancelbtn" id="cancelBtn" onclick="cancelBtn()">Cancel</button>
+                <button type="button" class="okbtn" id="okBtn" onclick="okBtn()">OK</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{{!-- XỬ LÝ SỰ KIỆN Ở MODAL --}}
+<script>
+    // GET THE MODAL
+    const form = document.querySelector('form');
+    var modal = document.getElementById('id01');
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            closeModal()
+        }
+    }
+
+    var cancel = document.getElementById('cancelBtn');
+    cancel.addEventListener('click', event => {
+        event.stopPropagation();
+        closeModal()
+    })
+
+    var ok = document.getElementById('okBtn');
+    ok.addEventListener('click', event => {
+        event.stopPropagation();
+        {{!-- form.submit(); --}}
+        formDelete.action = '/admin/delete-cus/delete?_method=DELETE'
+        formDelete.submit();
+    })
+
+    function closeModal() {
+        modal.classList.add("fade-out");
+        setTimeout(function () {
+            modal.style.display = "none";
+            modal.classList.remove("fade-out");
+        }, 500);
+    }
+
+</script>
 
 <script>
     var navLinkParents = document.querySelectorAll(".nav-link-parent");
@@ -308,14 +358,16 @@
             return input.value;
         });
         if(check) {
-            const answer = window.confirm("Bạn có chắc chắn muốn xóa tài khoản?");
+            {{!-- const answer = window.confirm("Bạn có chắc chắn muốn xóa tài khoản?");
             if (answer) {
                 formDelete.action = '/admin/delete-cus/delete?_method=DELETE'
                 formDelete.submit();
             }
             else {
                 
-            }
+            } --}}
+            event.preventDefault();
+            document.getElementById('id01').style.display = 'block';
         }
     } 
 </script>

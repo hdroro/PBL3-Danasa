@@ -1,6 +1,4 @@
 const db = require('../../config/db');
-
-
 class Seat {
     constructor(idSeat, idSchedule, statusSeat, idCoach, nameSeat) {
         this.idSeat = idSeat;

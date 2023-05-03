@@ -3,70 +3,33 @@ const schedulePublic = require('../models/SchedulePublic');
 const MyDate = require('../models/Date');
 class ShowListScheduleController {
 
-    // [GET] /admin/
-    // async index(req, res) {
-    //     var info = [];
-    //     scheduleController.getAllSchedule()
-    //         .then((schedules) => {
-    //             info = schedules;
-    //             for(var x of info) {
-    //                 var time = new MyDate(x.startTime.toString());
-    //                 var time2 = new MyDate(x.endTime.toString());
-    //                 x.start = `${time.toLocaleTimeString()}`;
-    //                 x.end = `${time2.toLocaleTimeString()}`;
-    //                 x.day = `${time.toLocaleDateString()}`;
-    //                 //info.gio = info.startTime.get
-    //             }
-    //             //console.log(info.idStartStation);
-    //             //res.send(info.idStartStation);
-    //             info.startStationName = await scheduleController.getStation(info.idStartStation);
-    //             //res.json(info);
-    //             res.render('admin-xemLT', {
-    //                     schedule: info,
-    //                     title: 'Xem lịch trình',
-    //                 });
-    //         })
-    //         .catch(err => res.send("Lỗi"))
-    //     // res.render('admin-xemLT', {
-    //     //     schedule: await schedule.load() ,
-    //     //     title: 'Xem lịch trình',
-    //     // });
-    //     // else {
-    //     //     const obj = {
-    //     //         infoLogin: 'Đăng nhập', 
-    //     //     }
-    //     //     res.render('home', obj);
-    //     // }
-    // }
-
-
-    // async index(req, res,next) {
-    //     var info = [];
-    //     schedulePublic.getSchedule('SELECT * FROM ((danasa.schedules as sch join danasa.directedroutes as dr on idDirectedRoute = iddirectedroutes) join danasa.coachs as s on s.idCoach = sch.idCoach) join danasa.typeofcoachs as tp on s.idType = tp.idType')
-    //     .then(([schedules,stations,provinces]) => {
-    //         info = schedules;
-    //         req.session.stations = stations;
-    //         req.session.provinces = provinces;
-    //         for(var x of info) {
-    //             var time = new MyDate(x.startTime.toString());
-    //             var time2 = new MyDate(x.endTime.toString());
-    //             x.start = `${time.toLocaleTimeString()}`;
-    //             x.end = `${time2.toLocaleTimeString()}`;
-    //             x.day = `${time.toLocaleDateString()}`;
-    //             x.startStation = stations.find(station => station.idStation === x.idStartStation).stationName;
-    //             x.endStation = stations.find(station => station.idStation === x.idEndStation).stationName;
-    //             x.startProvince = provinces.find(province => province.idProvince === x.idStartProvince).provinceName;
-    //             x.endProvince = provinces.find(province => province.idProvince === x.idEndProvince).provinceName;
-    //         }
-    //         res.render('admin-xemLT', {
-    //                 schedule: info,
-    //                 title: 'Xem lịch trình',
-    //             });
-    //     })
-    //     .catch(next);
-    // }
+    // [GET] /admin/list-schedule
     async index(req, res,next) {
+        var idProvinceStart = req.query.start;
+        var idProvinceEnd = req.query.end;
+        var idTimeAwhile = req.query.time;
         var info = [];
+        if(!idProvinceStart) idProvinceStart=-1;
+        if(!idProvinceEnd) idProvinceEnd=-1;
+        if(!idTimeAwhile) idTimeAwhile=-1;
+        const page = parseInt(req.query.page) || 1;
+        const perPage = 10;
+        const start = (page - 1) * perPage;
+        const end = page * perPage;
+        var awhile = [{min: 0, max: 24},{min: 0,max: 6,},{min: 6,max: 12,},{min: 12,max: 18,},{min: 18,max: 24,}]
+        var query = 'SELECT * FROM ((danasa.schedules as sch join danasa.directedroutes as dr on idDirectedRoute = iddirectedroutes) join danasa.coachs as s on s.idCoach = sch.idCoach) join danasa.typeofcoachs as tp on s.idType = tp.idType';
+        if(idProvinceStart && idProvinceStart > 0){
+            query += ` where dr.idStartProvince = ${idProvinceStart}`;
+            if(idProvinceEnd && idProvinceEnd > 0){
+                query += ` and dr.idEndProvince = ${idProvinceEnd}`;
+            }
+        }
+        else{
+            if(idProvinceEnd && idProvinceEnd > 0){
+                query += ` where dr.idEndProvince = ${idProvinceEnd}`;
+            }
+        }
+        query += ' order by sch.idSchedule'
         if(!req.session.stations){
             schedulePublic.getStation__Province()
                 .then(([stations,provinces])=>{
@@ -75,24 +38,47 @@ class ShowListScheduleController {
                 })
                 .catch(next);
         }
-        schedulePublic.getSchedule('SELECT * FROM ((danasa.schedules as sch join danasa.directedroutes as dr on idDirectedRoute = iddirectedroutes) join danasa.coachs as s on s.idCoach = sch.idCoach) join danasa.typeofcoachs as tp on s.idType = tp.idType order by sch.idSchedule')
+        schedulePublic.getSchedule(query)
         .then((schedules) => {
-            info = schedules;
-            // req.session.stations = stations;
-            // req.session.provinces = provinces;
+            if(idTimeAwhile >=0){
+                var long = awhile[idTimeAwhile];
+                var min = long["min"];
+                var max = long["max"];
+                for(var x of schedules){
+                    var time = new MyDate(x.startTime.toString());
+                    var hour = time.getHours();
+                    if(time.getMinutes()>0) hour++;
+                    if(min<=hour && hour<=max) info.push(x);
+                }
+            }
+            else {
+                info = schedules;
+            }
+            const prev = page === 1 ? 1 : page - 1;
+            const lastPage = Math.ceil(info.length / perPage);
+            const next = page === lastPage ? lastPage : page + 1;
+            info = Array.from(info).slice(start,end);
             for(var x of info) {
                 var time = new MyDate(x.startTime.toString());
                 var time2 = new MyDate(x.endTime.toString());
                 x.start = `${time.toLocaleTimeString()}`;
                 x.end = `${time2.toLocaleTimeString()}`;
-                x.day = `${time.toLocaleDateString()}`;
+                x.day = `${time.toMyLocaleDateString()}`;
                 x.startStation = req.session.stations.find(station => station.idStation === x.idStartStation).stationName;
                 x.endStation = req.session.stations.find(station => station.idStation === x.idEndStation).stationName;
                 x.startProvince = req.session.provinces.find(province => province.idProvince === x.idStartProvince).provinceName;
                 x.endProvince = req.session.provinces.find(province => province.idProvince === x.idEndProvince).provinceName;
             }
             res.render('admin-xemLT', {
+                    provinces: req.session.provinces,
+                    start: idProvinceStart,
+                    end: idProvinceEnd,
+                    time: idTimeAwhile,
                     schedule: info,
+                    current: page,
+                    prev: prev,
+                    next: next,
+                    max__page: lastPage,
                     title: 'Xem lịch trình',
                 });
         })
@@ -101,7 +87,7 @@ class ShowListScheduleController {
 
     //[GET]/updateinfo/:slug
     show(req, res) {
-        Login.findOne();
+        res.send("OK")
     }
 
     //[POST] /updateinfo/success

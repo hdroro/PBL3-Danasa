@@ -139,66 +139,50 @@
                     <div class="step-line step-line-third"></div>
                 </div>
             </div>
-            <form method="POST" action="/buy-ticket-step4/confirm?idSchedule={{idSchedule}}" id="buy-ticket-step4-form" class="buy-ticket-step3 form-info-ticket">
+            <div class="buy-ticket-step3">
                 <div class="table-info">
                     <div class="table-title-confirm font-16">
                         THÔNG TIN MUA VÉ
                     </div>
                     <p class="sub-table-title font-15">Thông tin hành khách</p>
-                    <div class="sub-table-info-customer font-14">
-                        <div class="form-large grid-full-row">
-                            <div class="form--group width__item-35">
-                                <label for="name" class="form--label">Họ tên:</label>
-                                <input readonly class="form--control" style="font-style: initial;" type="text" name="name" id="name" value="{{infoCus.fullname}}" ></input>
-                            </div>
-                             <div class="form--group width__item-35">
-                            <label for="SDT" class="form--label">Số điện thoại:</label>
-                            <input readonly class="form--control" style="font-style: initial;" type="text" name="SDT" id="SDT" value="{{infoCus.phonenumber}}"></input>
-                            </div>
-                            <div class="form--group width__item-35">
-                            <label for="email" class="form--label">Email:</label>
-                            <input readonly class="form--control" style="font-style: initial;" type="text" name="email" id="email" value="{{infoCus.email}}"></input>
-                            </div>
+                    <div class="sub-table-info-customer font-14 grid-full-col">
+                        <div class="name col-1">
+                            <p>Họ tên:</p>
+                            <p>Số điện thoại:</p>
+                            <p>Email:</p>
+                        </div>
+                        <div class="value col-2">
+                            <p>Nguyễn Văn A</p>
+                            <p>0905478854</p>
+                            <p>nguyenvana@gmail.com</p>
                         </div>
                     </div>
-                    <p class="sub-table-title font-15">Thông tin chuyến: {{schedule.startProvince}} - {{schedule.endProvince}}</p>
-                    <div class="sub-table-info-ticket font-14">
-                        <div class="form-large grid-full-row">
-                            <div class="form-two grid-full-col">
-                                <div class="form--group width__item-50">
-                                <label for="direct-route" class="form--label">Tuyến xe:</label>
-                                <input readonly class="form--control" style="font-style: initial;" type="text" name="direct-route" id="direct-route" value="{{schedule.startProvince}} - {{schedule.endProvince}}" ></input>
-                                </div>
-                                <div class="form--group width__item-50">
-                                <label for="count-seat" class="form--label">Số lượng ghế:</label>
-                                <input readonly class="form--control" style="font-style: initial;" type="text" name="count-seat" id="count-seat" value="{{totalNumber}}"></input>
-                                </div>
-                            </div>
-                            <div class="form-two grid-full-col">
-                                <div class="form--group width__item-50">
-                                <label for="time" class="form--label">Thời gian:</label>
-                                <input readonly class="form--control" style="font-style: initial;" type="text" name="time" id="time" value="{{schedule.start}} {{schedule.day}}"></input>
-                                </div>
-                                <div class="form--group width__item-50">
-                                <label for="seat-name" class="form--label">Số ghế:</label>
-                                <input readonly class="form--control" style="font-style: initial;" type="text" name="seat-name" id="seat-name" value="{{seats}}"></input>
-                                </div>
-                            </div>
-                            <div class="form-two grid-full-col">
-                                <div class="form--group width__item-50">
-                                <label for="start-station" class="form--label">Bến đi:</label>
-                                <input readonly class="form--control" style="font-style: initial;" type="text" name="start-station" id="start-station" value="{{schedule.startStation}}" ></input>
-                                </div>
-                                <div class="form--group width__item-50">
-                                <label for="end-station" class="form--label">Bến đến:</label>
-                                <input readonly class="form--control" style="font-style: initial;" type="text" name="end-station" id="end-station" value="{{schedule.endStation}}"></input>
-                                </div>
-                            </div>
+                    <p class="sub-table-title font-15">Thông tin chuyến: Đà Nẵng - TP.Hồ Chí Minh</p>
+                    <div class="sub-table-info-ticket font-14 grid-full-col">
+                        <div class="name col-1">
+                            <p>Tuyến xe:</p>
+                            <p>Thời gian:</p>
+                            <p>Bến đi:</p>
+                        </div>
+                        <div class="value col-2">
+                            <p>Đà Nẵng - TP.Hồ Chí Minh</p>
+                            <p>15:00 23/02/2023</p>
+                            <p>Bến xe trung tâm Đà Nẵng</p>
+                        </div>
+                        <div class="name col-3">
+                            <p>Số lượng ghế:</p>
+                            <p>Số ghế:</p>
+                            <p>Bến đến:</p>
+                        </div>
+                        <div class="value col-4">
+                            <p>01</p>
+                            <p>A08</p>
+                            <p>Bến xe miền Tây</p>
                         </div>
                     </div>
-                    <div class="form--group total-money">
-                        <label for="money" style="padding-top: 2px;" class="form--label">TỔNG TIỀN</label>
-                        <input class="form--control" readonly id="money" name="money" style="color: #4B8EFA;" value="{{totalPrice}}">
+                    <div class="total-money">
+                        <p style="padding-top: 2px;">TỔNG TIỀN</p>
+                        <h4 style="color: #4B8EFA;">395.000đ</h4>
                     </div>
                 </div>
                 <div class="but grid-full-col font-14">

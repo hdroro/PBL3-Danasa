@@ -161,9 +161,12 @@
                 <div class="title-content">SỬA LỊCH TRÌNH</div>
                 <div class="title-line"></div>
             </div>
-
-            <div class="container-create__schedule">
-                <form method="POST" action="/admin/edit-schedule/:id?_method=PATCH" id="create-form__schedule" class="form">
+             {{!-- action="/admin/edit-schedule/:id?_method=PATCH" " --}}
+            <div class="container-create__schedule" style="position: relative;">
+                <form id="update-form__schedule" class="form" name="create-form">
+                    <div class="message-error">
+                        <p>{{messageEdit}}</p>
+                    </div>
                     <div class="form-group--large">
                         <div class="form-group width-item-35">
                             <label for="id-schedule" class="form-label form-schedule">ID :</label>
@@ -202,7 +205,7 @@
                             <span class="form-message"></span>
                         </div>
                     </div>
-                    <p class="form-message-time" style="font-size: 12px;margin: 0 0 1rem;color: #f33a58;">* Thời gian có thể chỉnh sửa {{schedule.timeLength}}</p>
+                    <p class="form-message-time" style="font-size: 12px;margin: 0 0 1rem;color: #634899">* Thời gian có thể chỉnh sửa {{schedule.timeLength}}</p>
                     <div class="form-group--large">
                         <div class="form-group width-item-28">
                             <label for="start-time" class="form-label form-schedule">Thời gian khởi hành *:</label>
@@ -242,10 +245,8 @@
                         <div class="duration">Thời gian dự kiến: {{schedule.hours}} tiếng</div>
                         <div class="number-seat">Số lượng: {{schedule.numberOfSeat}} ghế</div>
                     </div>
-
-                    <div class="message-error"></div>
                     <div class="container-submit">
-                        <button class="form-submit">
+                        <button id="{{schedule.idSchedule}}" type="submit" class="form-submit">
                             <span>Update</span>
                             <i class="fa-solid fa-upload"></i>
                         </button>
@@ -261,11 +262,69 @@
 </div>
 
 <script>
-
-    
-
     var navLinkParents = document.querySelectorAll(".nav-link-parent");
+    var UpBtn = document.querySelector('.form-submit');
+    var UpForm = document.querySelector('#update-form__schedule');
+    console.log(UpForm);
+    var id = UpBtn.id;
+    var startTime = document.querySelector('#start-time');
+    var endTime = document.querySelector('#end-time');
+    startTime.onchange = function(){
+        var start = startTime.valueAsDate;
+        start.setHours(start.getHours()+{{schedule.hours}});
+        endTime.valueAsDate = start;
+    }
+    UpForm.method = 'POST';
+    UpForm.action = `/admin/edit-schedule/${id}?_method=PATCH`;
+    /*
+    UpForm.submit = function(e){
+        var rs = window.confirm('Bạn có chắc chắn muốn cập nhật lịch trình này không ?');
+        console.log(rs);
+        if(!rs) e.preventDefault();
+        //if(!window.confirm('Bạn có chắc chắn muốn cập nhật lịch trình này không ?')) e.preventDefault();
+    }
+    if(!window.confirm('Bạn có chắc chắn muốn cập nhật lịch trình này không ?')) e.preventDefault();
+        else{
+            UpForm.onsubmit();
+        }
+    UpForm.submit = function(e){
+        e.preventDefault();
+        if(window.confirm('Bạn có chắc chắn muốn cập nhật lịch trình này không ?')){
+            UpForm.method = 'POST';
+            UpForm.action = `/admin/edit-schedule/${id}?_method=PATCH`;
+            UpForm.submit();
+        }
+    }
+    UpForm.addEventListener("submit", function(e){
+        //e.preventDefault();
+        if(window.confirm('Bạn có chắc chắn muốn cập nhật lịch trình này không ?')){
+            UpForm.method = 'POST';
+            UpForm.action = `/admin/edit-schedule/${id}?_method=PATCH`;
+            //UpForm.submit();
+        }
+        else e.preventDefault();
+    })
+    UpForm.onsubmit = function(e){
+        if(window.confirm('Bạn có chắc chắn muốn cập nhật lịch trình này không ?')){
+            UpForm.method = 'POST';
+            UpForm.action = `/admin/edit-schedule/${id}?_method=PATCH`;
+            UpForm.submit();
+        }
+        else{
+            e.preventDefault();
+        }
+    }
+    UpBtn.onclick = function(e){
 
+        if(window.confirm('Bạn có chắc chắn muốn cập nhật lịch trình này không ?')){
+            UpForm.method = 'POST';
+            UpForm.action = `/admin/edit-schedule/${id}?_method=PATCH`;
+            UpForm.submit();
+        }
+        else{
+            e.preventDefault();
+        }
+    }*/
     navLinkParents.forEach((navLinkParent) => {
         var dropdownIcon = navLinkParent.querySelector(".dropdown");
         navLinkParent.addEventListener("click", (event) => {

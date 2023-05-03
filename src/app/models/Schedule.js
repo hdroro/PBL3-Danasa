@@ -11,5 +11,39 @@ class Schedule{
         this.price = price;
         this.idCoach = idCoach;
     };
+    getIDLast(){
+        return new Promise(function(resolve, reject){
+            db.query('select idSchedule from schedules order by idSchedule desc', function (err, rows) {
+                if (err) {
+                    return reject(err);
+                } else {
+                    return resolve(rows);
+                }
+            })
+            })
+    }
+    create(idDirectedRoute,idStartStation,idEndStation,startTime,endTime,price,idCoach){
+        return new Promise(function(resolve, reject){
+            db.query(`insert into schedules (idDirectedRoute, idStartStation, idEndStation, startTime, endTime, price, idCoach) values(${idDirectedRoute},${idStartStation},${idEndStation},'${startTime}','${endTime}',${price},${idCoach})`, function (err) {
+                if (err) {
+                    return reject(err);
+                } else {
+                    return resolve();
+                }
+            })
+            })
+    }
+    getSchedulesByCondition(query){
+        return new Promise(function(resolve, reject){
+            db.query(query, function (err,rows) {
+                if (err) {
+                    return reject(err);
+                } else {
+                    return resolve(rows);
+                }
+            })
+        })    
+    }
+
 }
-module.exports = new Schedule;
+module.exports = Schedule;

@@ -162,24 +162,37 @@
             </div>
 
             <div class="container-cbb">
-                <select name="" id="" class="cbb__start cbb-admin">
-                    <option value="0">Tỉnh đi</option>
-                    <option value="1">Đà Nẵng</option>
-                    <option value="2">Hà Nội</option>
+                <select name="province_first" id="" class="cbb__start cbb-admin">
+                    <option value="-1">-- Tỉnh đi --</option>
+                    <option value="0">All</option>
+                    {{#each provinces}}
+                    <option value="{{this.idProvince}}">{{this.provinceName}}</option>
+                    {{/each}}
                 </select>
-                <select name="" id="" class="cbb__end cbb-admin">
-                    <option value="0">Tỉnh đến</option>
-                    <option value="1">Đà Nẵng</option>
-                    <option value="2">Hà Nội</option>
+                <select name="province_second" id="" class="cbb__end cbb-admin">
+                    <option value="-1">-- Tỉnh đến --</option>
+                    <option value="0">All</option>
+                    {{#each provinces}}
+                    <option value="{{this.idProvince}}">{{this.provinceName}}</option>
+                    {{/each}}
                 </select>
                 <select name="" id="" class="cbb__time cbb-admin">
-                    <option value="0">Thời gian</option>
+                    <option value="-1">Thời gian</option>
+                    <option value="0">All</option>
                     <option value="1">0h-6h</option>
                     <option value="2">6h-12h</option>
                     <option value="3">12h-18h</option>
                     <option value="4">18h-24h</option>
                 </select>
             </div>
+            <script>
+                var cbb__start = document.querySelector('.cbb__start');
+                var cbb__end = document.querySelector('.cbb__end');
+                var cbb__time = document.querySelector('.cbb__time');
+                cbb__start.value = {{start}};
+                cbb__end.value = {{end}};
+                cbb__time.value = {{time}};
+            </script>
 
             <div class="container-table">
                 <div class="table__schedule">
@@ -217,8 +230,24 @@
                     </div>
                     {{/each}}
                 </div>
-
                 <div class="index">
+                    <ul class="page-index inline">
+                        <li class="page-item page-prev">
+                            <a href="/admin/list-schedule?start={{start}}&end={{end}}&time={{time}}&page={{prev}}" class="page-link arrow">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </a>
+                        </li>
+                        <li class="page-item page-now">
+                            <a class="page-link disable-page">{{current}}</a>
+                        </li>
+                        <li class="page-item page-next">
+                            <a href="/admin/list-schedule?start={{start}}&end={{end}}&time={{time}}&page={{next}}" class="page-link arrow">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                {{!-- <div class="index">
                     <ul class="page-index inline">
                         <li class="page-item"><a href="" class="page-link arrow"><i
                                     class="fa-solid fa-arrow-left"></i></a></li>
@@ -227,7 +256,7 @@
                         <li class="page-item"><a href="" class="page-link arrow"><i
                                     class="fa-solid fa-arrow-right"></i></a></li>
                     </ul>
-                </div>
+                </div> --}}
             </div>
         </div>
         <!-- </div> -->
@@ -235,10 +264,39 @@
 
 
 </div>
-
+<a id="change" href=""></a>
 <script>
     var navLinkParents = document.querySelectorAll(".nav-link-parent");
-
+    var cbb__start = document.querySelector('.cbb__start');
+    var cbb__end = document.querySelector('.cbb__end');
+    var cbb__time = document.querySelector('.cbb__time');
+    var pagePrev = document.querySelector('.page-prev');
+    var pageNow = document.querySelector('.page-now');
+    var pageNext = document.querySelector('.page-next');
+    pageNow.onclick = function(e){
+        e.preventDefault();
+    }
+    pagePrev.onclick = function(e){
+        if({{current}}===1) {
+            e.preventDefault();
+        }
+    }
+    pageNext.onclick = function(e){
+        if({{current}}==={{max__page}}) e.preventDefault();
+    }
+    var alink = document.querySelector('#change');
+    cbb__start.onchange = function(){
+        alink.href = `/admin/list-schedule?start=${cbb__start.value}&end=${cbb__end.value}&time=${cbb__time.value}&page={{current}}`;
+        alink.click();
+    }
+    cbb__end.onchange = function(){
+        alink.href = `/admin/list-schedule?start=${cbb__start.value}&end=${cbb__end.value}&time=${cbb__time.value}&page={{current}}`;
+        alink.click();
+    }
+    cbb__time.onchange = function(){
+        alink.href = `/admin/list-schedule?start=${cbb__start.value}&end=${cbb__end.value}&time=${cbb__time.value}&page={{current}}`;
+        alink.click();
+    }
     navLinkParents.forEach((navLinkParent) => {
         var dropdownIcon = navLinkParent.querySelector(".dropdown");
         navLinkParent.addEventListener("click", (event) => {
