@@ -28,36 +28,21 @@ class EditNewsController {
     }
 
     async edit(req, res) {
-        const { idNews, titleNews, contentNews } = req.body;
-        const oldImage = req.body.oldImage;
-        let newImage = null; // Khởi tạo giá trị ban đầu là null
-        
         upload(req, res, async function (err) {
+            const { idNews, titleNews, contentNews } = req.body;
+            const oldImage = req.body.oldImage;
+            let newImage = null;
             if (req.file) {
-                console.log(1);
-                newImage = req.file.filename; // Gán giá trị nếu có file được tải lên
+                newImage = req.file.filename;
             }
-            else if(req.body.image != ''){
-                newImage = req.body.image;
+            else {
+                newImage = oldImage;
             }
-            
-            try {
-                if (newImage !== null) { // Kiểm tra nếu có file mới thì tạo mới đối tượng news
-                    const news_edit = new news(idNews, titleNews, contentNews, newImage);
-                    console.log(news_edit);
-                    await news_edit.editNews();
-                }
-                else { // Ngược lại thì chỉnh sửa tin tức mà không thay đổi ảnh
-                    const news_edit = new news(idNews, titleNews, contentNews, oldImage);
-                    console.log(news_edit);
-                    await news_edit.editNews();
-                }
+            const news_edit = new news(idNews, titleNews, contentNews, newImage);
+            console.log(news_edit);
+            await news_edit.editNews();
+            res.redirect('/admin/list-news')
 
-                res.redirect('/admin/list-news')
-            }
-            catch (err) {
-                console.log(err);
-            }
         });
     }
 }

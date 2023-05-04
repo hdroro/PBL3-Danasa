@@ -103,13 +103,13 @@
                             {{/each}}
                         </select>
 
-                        <select class="filter-select" name="" id="searchByTime" fdprocessedid="14b6h"
+                        {{!-- <select class="filter-select" name="" id="searchByTime" fdprocessedid="14b6h"
                             onchange="loadDataTime()">
                             <option value="0" selected="selected" style="display: none;">Thời gian</option>
                             {{#each listTimeStart}}
                             <option value="{{id_time}}">{{startTime}}</option>
                             {{/each}}
-                        </select>
+                        </select> --}}
                     </div>
                     <h1 style="padding: 2rem 40rem; text-align: center;  color: #f21036;">{{message}}</h1>
                     <div class="list-history" id="dataList">
@@ -262,9 +262,7 @@
 <script>
     function loadDataStartProvince() {
         var endProvinceSelect = document.getElementById("searchByEndProvince");
-        var timeSelect = document.getElementById("searchByTime");
         endProvinceSelect.selectedIndex = 0;
-        timeSelect.selectedIndex = 0;
         var sortData_start_province = document.getElementById('searchByStartProvince').value;
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -280,9 +278,7 @@
 <script>
     function loadDataEndProvince() {
         var startProvinceSelect = document.getElementById("searchByStartProvince");
-        var timeSelect = document.getElementById("searchByTime");
         startProvinceSelect.selectedIndex = 0;
-        timeSelect.selectedIndex = 0;
         var sortData_end_province = document.getElementById('searchByEndProvince').value;
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {

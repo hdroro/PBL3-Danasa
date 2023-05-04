@@ -5,9 +5,10 @@ class StatisticsController {
     async index(req, res) {
         const doanhthu = new statistics();
         const totalStatisticsYear = await doanhthu.totalStatisctics_year();
-        const curYear = parseInt(totalStatisticsYear.replace(/,/g, ""));
+        var curYear = parseInt(totalStatisticsYear.replace(/,/g, ""));
         const totalStatisticsYear_Previous = await doanhthu.totalStatisctics_yearPrevious();
-        const prevYear = parseInt(totalStatisticsYear_Previous.replace(/,/g, ""));
+        var prevYear = parseInt(totalStatisticsYear_Previous.replace(/,/g, ""));
+        if(isNaN(curYear)) curYear = 0;
 
         var trendIcon_updown_year;
         if (await (curYear - prevYear) / (prevYear) < 0) {
@@ -18,9 +19,11 @@ class StatisticsController {
         }
 
         const totalStatisticQuarter = await doanhthu.totalStatisctics_quarter();
-        const curQuarter = parseInt(totalStatisticQuarter.replace(/,/g, ""))
+        var curQuarter = parseInt(totalStatisticQuarter.replace(/,/g, ""))
         const totalStatisticsQuarter_Previous = await doanhthu.totalStatisctics_quarterPrevious();
-        const prevQuarter = parseInt(totalStatisticsQuarter_Previous.replace(/,/g, ""));
+        var prevQuarter = parseInt(totalStatisticsQuarter_Previous.replace(/,/g, ""));
+
+        if(isNaN(curQuarter)) curQuarter = 0;
         var trendIcon_updown_quarter;
         if (await (curQuarter - prevQuarter) / (prevQuarter) < 0) {
             trendIcon_updown_quarter = 'fa-caret-down'
@@ -30,9 +33,10 @@ class StatisticsController {
         }
 
         const totalStatisticMonth = await doanhthu.totalStatisctics_quarter();
-        const curMonth = parseInt(totalStatisticMonth.replace(/,/g, ""))
+        var curMonth = parseInt(totalStatisticMonth.replace(/,/g, ""))
         const totalStatisticsMonth_Previous = await doanhthu.totalStatisctics_quarterPrevious();
-        const prevMonth = parseInt(totalStatisticsMonth_Previous.replace(/,/g, ""));
+        var prevMonth = parseInt(totalStatisticsMonth_Previous.replace(/,/g, ""));
+        if(isNaN(curMonth)) curMonth = 0;
 
         var trendIcon_updown_month;
         if (await (curMonth - prevMonth) / (prevMonth) < 0) {
@@ -41,15 +45,18 @@ class StatisticsController {
         else {
             trendIcon_updown_month = 'fa-caret-up'
         }
+        console.log(prevYear);
 
         const arrange_quarter = await doanhthu.totalStatistics_quarter_arranged();
         const arrange_month = await doanhthu.totalStatistics_month_arranged();
+
+
         const obj = {
             title: 'Thống kê doanh thu',
             total: await doanhthu.totalStatisctics(),
 
             total_year: await doanhthu.totalStatisctics_year() === "NaN" ? "0" : await doanhthu.totalStatisctics_year(),
-            statisticsRate_year: isNaN(prevYear) ? "0" : Math.abs(await (curYear - prevYear) / (prevYear)).toFixed(2),
+            statisticsRate_year: (isNaN(prevYear) ) ? 0 : Math.abs(await (curYear - prevYear) / (prevYear)).toFixed(2),
             trendIcon_year: trendIcon_updown_year,
 
             total_quarter: await doanhthu.totalStatisctics_quarter() === "NaN" ? "0" : await doanhthu.totalStatisctics_quarter(),

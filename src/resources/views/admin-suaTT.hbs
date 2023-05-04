@@ -167,7 +167,7 @@
                 <div class="content-sua-tin-tuc">
                     <div class="frame-content font-16">
                         <form class="edit-news-form" method="POST"
-                            action="/admin/edit-news/edit? ws}}&urlImg={{urlImg}}" id="update-form__news" >
+                            action="/admin/edit-news/edit? ws}}&urlImg={{urlImg}}" id="update-form__news" enctype="multipart/form-data">
                             <div class="id inline">
                                 <p for="ID" class="text-decor">ID:</p>
                                 <input name="idNews"
@@ -184,8 +184,8 @@
                             </div>
                             <div class="frame-img-content inline">
                                 <div class="img">
-                                    <input type="file" name="image" id="image" onchange="previewImage()"
-                                        accept="image/*" style="font-size: 1.3rem;">
+                                    <input type="file" name="image" id="image" onchange="previewImage() "
+                                        accept="image/*" style="font-size: 1.3rem;" >
                                     <input type="hidden" name="oldImage" value="{{urlImg}}">
                                     <img id="myImagePreview" name="urlImg" src="/img/{{urlImg}}"
                                         style="width: 230px;height: 230px; border: 2px solid #dde4ff;">

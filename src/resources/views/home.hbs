@@ -113,7 +113,7 @@
                             <div class="searchTicket__item-right" id="click-input">
                                 <span class="searchTicket__item__title">Tỉnh đến</span>
                                 <!-- <h3 data-point-target="pointUp">Chọn bến lên</h3> -->
-                                <input id="select_origin" placeholder="Chọn điểm đến" type="search" autocomplete="off"
+                                <input id="select_destination" placeholder="Chọn điểm đến" type="search" autocomplete="off"
                                     class="select-place endProvince" data-v-27210c0a="">
                                 <div class="data-list-container hide-left" id="choose-item">
                                     <ul class="place-list" style="list-style: none;">
@@ -138,7 +138,7 @@
                             <div class="searchTicket__item-right">
                                 <span class="searchTicket__item__title" style="margin-left: -.7rem;">Ngày khởi
                                     hành</span>
-                                <input class="ticket-date" type="date" pattern="\d{2}/\d{2}/\d{4}" style="text-transform:uppercase;">
+                                <input id="departure_date" class="ticket-date" type="date" pattern="\d{2}/\d{2}/\d{4}" style="text-transform:uppercase;">
                                 <!-- <input class="ticket-date" readonly="readOnly"> -->
                             </div>
                         </div>
@@ -394,6 +394,52 @@
     </footer>
 </div>
 
+{{!-- MODAL UPDATE NEWS --}}
+<div id="id02" class="modal" style="cursor: pointer;">
+    <span id="closeIcon" class="close" onclick="document.getElementById('id02').style.display='none'" title="Close Modal" style=" color: #e8223a;">&times;</span>
+    <form class="modal-content" style="width: 35%">
+        <div class="container-modal">
+            <h1 style="font-size: 4em; color: #e8223a;">
+                <i class="fa-solid fa-triangle-exclamation" style="padding-right: 1.2rem; font-size: 3rem;"></i>
+                Warning
+            </h1>
+            <p style="color: #666666;">Bạn cần nhập đây đủ thông tin !</p>
+            <div class="clearfix">
+                <button type="button" class="okbtn" id="okBtn" style="float: none;background: #e8223a;">OK</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{{!-- XỬ LÝ SỰ KIỆN Ở MODAL --}}
+<script>
+    // GET THE MODAL
+    var modal = document.getElementById('id02');
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            closeModal()
+        }
+    }
+
+    var ok = document.getElementById('okBtn');
+    ok.addEventListener('click', event => {
+        event.stopPropagation();
+        closeModal()
+    })
+
+    function closeModal() {
+        modal.classList.add("fade-out");
+        setTimeout(function () {
+            modal.style.display = "none";
+            modal.classList.remove("fade-out");
+        }, 500);
+    }
+
+</script>
+
+
+
 
 <script>
     const inputList = document.querySelectorAll('.searchTicket__item-right');
@@ -405,8 +451,13 @@
     const today = new Date().toISOString().split('T')[0];
     ticket__date.setAttribute('min', today);
     searchBtn.onclick = function(){
-        searchBtn.href=`./buy-ticket-step2?start=${startProvince.value}&end=${EndProvince.value}&time=${ticket__date.valueAsDate}`;
-        searchBtn.click();
+        if(startProvince.value && EndProvince.value && ticket__date.valueAsDate ){
+            searchBtn.href=`./buy-ticket-step2?start=${startProvince.value}&end=${EndProvince.value}&time=${ticket__date.valueAsDate}`;
+            searchBtn.click();
+        }
+        else{
+            document.getElementById('id02').style.display = 'block';
+        }
     }
     inputList.forEach((input, index) => {
         const dataListContainer = dataListContainerList[index];

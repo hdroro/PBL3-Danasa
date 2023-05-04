@@ -31,7 +31,6 @@ class CreateNewsController {
   async createNews(req, res) {
     upload(req, res, async function (err) {
       if (req.file) {
-        console.log("hiii");
         const image = req.file.filename;
         const { idNews, titleNews, contentNews } = req.body;
         try {
@@ -44,7 +43,7 @@ class CreateNewsController {
           res.render('admin-taoTT');
         }
       }
-      else{
+      else {
         const { idNews, titleNews, contentNews } = req.body;
         try {
           const News = new news(idNews, titleNews, contentNews);

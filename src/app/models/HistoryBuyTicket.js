@@ -1,6 +1,7 @@
 const db = require('../../config/db');
 const MyDate = require('../models/Date');
 const moment = require('moment');
+const seat = require('../models/Seat')
 
 class HistoryBuyTicket {
 
@@ -41,7 +42,7 @@ class HistoryBuyTicket {
                         var timeEnd = new MyDate(historyItem.endTime.toString());
                         const dateParts = await timeStart.toDate().split('-');
                         const startDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
-
+                        
                         return {
                             startTime: timeStart.toLocaleTimeString(),
                             endTime: timeEnd.toLocaleTimeString(),
@@ -100,34 +101,34 @@ class HistoryBuyTicket {
                     ).then(res => res.filter(item => item));
 
 
-                    const uniqueStartTime = [];
-                    let id_time = 0;
+                    // const uniqueStartTime = [];
+                    // let id_time = 0;
 
-                    const startTime = await Promise.all(
-                        results.map(async timeItem => {
-                            var timeStart = new MyDate(timeItem.startTime.toString());
-                            console.log((moment('06:00', 'HH:mm')))
-                            var duration;
-                            if((moment(timeStart.toLocaleTimeString(), 'HH:mm').valueOf() < (moment('06:00', 'HH:mm'))) && (moment(timeStart.toLocaleTimeString(), 'HH:mm').valueOf() >= (moment('00:00', 'HH:mm')))) duration = '0h - 6h';
-                            else if((moment(timeStart.toLocaleTimeString(), 'HH:mm').valueOf() < (moment('12:00', 'HH:mm'))) && (moment(timeStart.toLocaleTimeString(), 'HH:mm').valueOf() >= (moment('06:00', 'HH:mm')))) duration = '6h - 12h';
-                            else if((moment(timeStart.toLocaleTimeString(), 'HH:mm').valueOf() < (moment('18:00', 'HH:mm'))) && (moment(timeStart.toLocaleTimeString(), 'HH:mm').valueOf() >= (moment('12:00', 'HH:mm')))) duration = '12h - 18h';
-                            else duration = '18h - 24h';
-                            if (!uniqueStartTime.includes(duration)) {
-                                uniqueStartTime.push(duration);
-                                id_time ++;
-                                return {
-                                    id_time: id_time,
-                                    startTime: duration
-                                };
-                            }
-                        })
-                    ).then(res => res.filter(item => item)); 
+                    // const startTime = await Promise.all(
+                    //     results.map(async timeItem => {
+                    //         var timeStart = new MyDate(timeItem.startTime.toString());
+                    //         console.log((moment('06:00', 'HH:mm')))
+                    //         var duration;
+                    //         if((moment(timeStart.toLocaleTimeString(), 'HH:mm').valueOf() < (moment('06:00', 'HH:mm'))) && (moment(timeStart.toLocaleTimeString(), 'HH:mm').valueOf() >= (moment('00:00', 'HH:mm')))) duration = '0h - 6h';
+                    //         else if((moment(timeStart.toLocaleTimeString(), 'HH:mm').valueOf() < (moment('12:00', 'HH:mm'))) && (moment(timeStart.toLocaleTimeString(), 'HH:mm').valueOf() >= (moment('06:00', 'HH:mm')))) duration = '6h - 12h';
+                    //         else if((moment(timeStart.toLocaleTimeString(), 'HH:mm').valueOf() < (moment('18:00', 'HH:mm'))) && (moment(timeStart.toLocaleTimeString(), 'HH:mm').valueOf() >= (moment('12:00', 'HH:mm')))) duration = '12h - 18h';
+                    //         else duration = '18h - 24h';
+                    //         if (!uniqueStartTime.includes(duration)) {
+                    //             uniqueStartTime.push(duration);
+                    //             id_time ++;
+                    //             return {
+                    //                 id_time: id_time,
+                    //                 startTime: duration
+                    //             };
+                    //         }
+                    //     })
+                    // ).then(res => res.filter(item => item)); 
 
                     return resolve({
                         historyList: history,
                         provincesStartList: startProvinces,
                         provincesEndList: endProvinces,
-                        timeList: startTime
+                        // timeList: startTime
                     });
                 }
             });
@@ -209,35 +210,10 @@ class HistoryBuyTicket {
                         })
                     ).then(res => res.filter(item => item));
 
-
-                    const uniqueStartTime = [];
-                    let id_time = 0;
-
-                    const startTime = await Promise.all(
-                        results.map(async timeItem => {
-                            var timeStart = new MyDate(timeItem.startTime.toString());
-                            console.log((moment('06:00', 'HH:mm')))
-                            var duration;
-                            if((moment(timeStart.toLocaleTimeString(), 'HH:mm').valueOf() < (moment('06:00', 'HH:mm'))) && (moment(timeStart.toLocaleTimeString(), 'HH:mm').valueOf() >= (moment('00:00', 'HH:mm')))) duration = '0h - 6h';
-                            else if((moment(timeStart.toLocaleTimeString(), 'HH:mm').valueOf() < (moment('12:00', 'HH:mm'))) && (moment(timeStart.toLocaleTimeString(), 'HH:mm').valueOf() >= (moment('06:00', 'HH:mm')))) duration = '6h - 12h';
-                            else if((moment(timeStart.toLocaleTimeString(), 'HH:mm').valueOf() < (moment('18:00', 'HH:mm'))) && (moment(timeStart.toLocaleTimeString(), 'HH:mm').valueOf() >= (moment('12:00', 'HH:mm')))) duration = '12h - 18h';
-                            else duration = '18h - 24h';
-                            if (!uniqueStartTime.includes(duration)) {
-                                uniqueStartTime.push(duration);
-                                id_time ++;
-                                return {
-                                    id_time: id_time,
-                                    startTime: duration
-                                };
-                            }
-                        })
-                    ).then(res => res.filter(item => item)); 
-
                     return resolve({
                         historyList: history,
                         provincesStartList: startProvinces,
                         provincesEndList: endProvinces,
-                        timeList: startTime
                     });
                 }
             });
@@ -319,35 +295,10 @@ class HistoryBuyTicket {
                         })
                     ).then(res => res.filter(item => item));
 
-
-                    const uniqueStartTime = [];
-                    let id_time = 0;
-
-                    const startTime = await Promise.all(
-                        results.map(async timeItem => {
-                            var timeStart = new MyDate(timeItem.startTime.toString());
-                            console.log((moment('06:00', 'HH:mm')))
-                            var duration;
-                            if((moment(timeStart.toLocaleTimeString(), 'HH:mm').valueOf() < (moment('06:00', 'HH:mm'))) && (moment(timeStart.toLocaleTimeString(), 'HH:mm').valueOf() >= (moment('00:00', 'HH:mm')))) duration = '0h - 6h';
-                            else if((moment(timeStart.toLocaleTimeString(), 'HH:mm').valueOf() < (moment('12:00', 'HH:mm'))) && (moment(timeStart.toLocaleTimeString(), 'HH:mm').valueOf() >= (moment('06:00', 'HH:mm')))) duration = '6h - 12h';
-                            else if((moment(timeStart.toLocaleTimeString(), 'HH:mm').valueOf() < (moment('18:00', 'HH:mm'))) && (moment(timeStart.toLocaleTimeString(), 'HH:mm').valueOf() >= (moment('12:00', 'HH:mm')))) duration = '12h - 18h';
-                            else duration = '18h - 24h';
-                            if (!uniqueStartTime.includes(duration)) {
-                                uniqueStartTime.push(duration);
-                                id_time ++;
-                                return {
-                                    id_time: id_time,
-                                    startTime: duration
-                                };
-                            }
-                        })
-                    ).then(res => res.filter(item => item)); 
-
                     return resolve({
                         historyList: history,
                         provincesStartList: startProvinces,
                         provincesEndList: endProvinces,
-                        timeList: startTime
                     });
                 }
             });
