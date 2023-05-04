@@ -37,30 +37,30 @@ function route(app) {
 
     
 
-    app.use('/admin', authMiddleware.auth ,statistics);
-    app.use('/admin', authMiddleware.auth, sales);
-    app.use('/admin', authMiddleware.auth, deletenews);
-    app.use('/admin', authMiddleware.auth, editnews);
-    app.use('/admin', authMiddleware.auth, createnews);
-    app.use('/admin', authMiddleware.auth, showlistnews);
-    app.use('/admin', authMiddleware.auth, detailSales_month);
-    app.use('/admin', authMiddleware.auth, detailSales_quarter);
-    app.use('/admin', authMiddleware.auth, detailstatistics_month);
-    app.use('/admin', authMiddleware.auth, detailstatistics_quarter);
-    app.use('/admin', authMiddleware.auth, editschedule);
-    app.use('/admin', authMiddleware.auth, createschedule);
-    app.use('/admin', authMiddleware.auth, deleteschedule);
-    app.use('/admin', authMiddleware.auth, showlistschedule);
-    app.use('/admin', authMiddleware.auth, deletecus);
-    app.use('/admin', authMiddleware.auth, showlistcus);
+    app.use('/admin', authMiddleware.authAdmin ,statistics);
+    app.use('/admin', authMiddleware.authAdmin, sales);
+    app.use('/admin', authMiddleware.authAdmin, deletenews);
+    app.use('/admin', authMiddleware.authAdmin, editnews);
+    app.use('/admin', authMiddleware.authAdmin, createnews);
+    app.use('/admin', authMiddleware.authAdmin, showlistnews);
+    app.use('/admin', authMiddleware.authAdmin, detailSales_month);
+    app.use('/admin', authMiddleware.authAdmin, detailSales_quarter);
+    app.use('/admin', authMiddleware.authAdmin, detailstatistics_month);
+    app.use('/admin', authMiddleware.authAdmin, detailstatistics_quarter);
+    app.use('/admin', authMiddleware.authAdmin, editschedule);
+    app.use('/admin', authMiddleware.authAdmin, createschedule);
+    app.use('/admin', authMiddleware.authAdmin, deleteschedule);
+    app.use('/admin', authMiddleware.authAdmin, showlistschedule);
+    app.use('/admin', authMiddleware.authAdmin, deletecus);
+    app.use('/admin', authMiddleware.authAdmin, showlistcus);
 
     app.use('/', homeRouter);
-    app.use('/updateinfo', authMiddleware.auth, updateinfoRouter);
-    app.use('/change-password', authMiddleware.auth, changepasswordRouter);
+    app.use('/updateinfo', authMiddleware.authCus, updateinfoRouter);
+    app.use('/change-password', authMiddleware.authCus, changepasswordRouter);
     app.use('/contact', contactRouter);
-    app.use('/history-buy-ticket', authMiddleware.auth, historybuyticketRouter);
-    app.use('/buy-ticket-step4', authMiddleware.auth, buyticketstep4Router);
-    app.use('/buy-ticket-step3', authMiddleware.auth, buyticketstep3Router);
+    app.use('/history-buy-ticket', authMiddleware.authCus, historybuyticketRouter);
+    app.use('/buy-ticket-step4', authMiddleware.authCus, buyticketstep4Router);
+    app.use('/buy-ticket-step3', authMiddleware.authCus, buyticketstep3Router);
     app.use('/buy-ticket-step2', buyticketstep2Router);
     app.use('/register', registerRouter);
     app.use('/login', loginRouter);

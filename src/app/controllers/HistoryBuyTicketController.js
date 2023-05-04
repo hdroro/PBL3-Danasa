@@ -20,7 +20,6 @@ class HistoryBuyTicketController {
                     listEndProvince: historyData.provincesEndList,
                     listTimeStart: historyData.timeList
                 }
-                console.log(obj)
                 res.render('historybuyticket', obj);
             }
         }
@@ -37,7 +36,6 @@ class HistoryBuyTicketController {
         const passedVariable = req.session.nameCustomer;
         const userName = req.session.userName;
         var sortData = req.query.sortData;
-        console.log(sortData)
         try {
             if (passedVariable != null) {
                 const user = new historybuyticket(userName);
@@ -51,7 +49,6 @@ class HistoryBuyTicketController {
                     listEndProvince: historyData.provincesEndList,
                     listTimeStart: historyData.timeList
                 }
-                console.log(obj)
                 res.render('template-history-search-startProvince', obj);
             }
         }
@@ -68,7 +65,6 @@ class HistoryBuyTicketController {
         const passedVariable = req.session.nameCustomer;
         const userName = req.session.userName;
         var sortData = req.query.sortData;
-        console.log(sortData)
         try {
             if (passedVariable != null) {
                 const user = new historybuyticket(userName);
@@ -82,7 +78,6 @@ class HistoryBuyTicketController {
                     listEndProvince: historyData.provincesEndList,
                     listTimeStart: historyData.timeList
                 }
-                console.log(obj)
                 res.render('template-history-search-startProvince', obj);
             }
         }

@@ -14,7 +14,14 @@ class LoginController {
             }
             res.render('login', obj);
         } else {
-            res.redirect('back');
+            req.session.destroy();
+            const obj = {
+                title: 'Đăng nhập',
+                infoLogin: "Đăng nhập"
+
+            }
+            res.render('login', obj);
+            // res.redirect('back');
         }
     }
 

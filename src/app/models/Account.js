@@ -164,5 +164,32 @@ class Account {
         })
     }
 
+    async getCusAcc(username) {
+        return new Promise((resolve, reject) => {
+            var query = `select * from accounts where userName = ? and idRole = 1`;
+            db.query(query, [username], (err, results) => {
+                if (err) {
+                    return reject(err);
+                }
+                if(results.length === 0) return reject(err);
+                return resolve(results);
+            });
+        })
+    }
+
+    async getAdminAcc(username) {
+        return new Promise((resolve, reject) => {
+            var query = `select * from accounts where userName = ? and idRole = 0`;
+            db.query(query, [username], (err, results) => {
+                if (err) {
+                    return reject(err);
+                }
+                if(results.length === 0) return reject(err);
+                return resolve(results);
+            });
+        })
+    }
+
+
 }
 module.exports = Account;
