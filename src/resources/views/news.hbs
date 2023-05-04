@@ -21,7 +21,7 @@
                         <a href="/contact" class="header__navbar-item-link">Liên hệ</a>
                     </li>
                     <li class="header__navbar-item header__navbar-item-dropdown">
-                        <a href="/login" class="header__navbar-item-link">{{infoLogin}}</a>
+                        <a href="/login" class="header__navbar-item-link link-name">{{infoLogin}}</a>
                         <div class="menu-show-container" id="dropdown">
                             <div class="user">
                                 <i class="fa-solid fa-circle-user"></i>
@@ -226,3 +226,10 @@
         <div class="line-straight-footer"></div>
     </footer>
 </div>
+
+<script>
+    const linkName = document.querySelector('.link-name');
+    if(linkName.innerHTML !== "Đăng nhập") {
+        linkName.href = "#";
+    }
+</script>

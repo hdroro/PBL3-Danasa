@@ -38,6 +38,7 @@ class LoginController {
             const customerInfo = new customer();
             const infoCus= await customerInfo.getInfoByIdCustomer(idUser);
             await customerInfo.checkExistedPhonenumber(sdt, infoCus.phoneNumber);
+            console.log("hahaaha")
             await customerInfo.update(name, sdt, email, idCus);
             req.session.nameCustomer = name;
             res.render('updateinfo', {

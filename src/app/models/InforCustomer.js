@@ -103,7 +103,7 @@ class InforCustomer {
 
     async checkExistedPhonenumber(phonenumber, old) {
         return new Promise(async (resolve, reject) => {
-            var query = `select * FROM inforcustomer WHERE phoneNumber = ? except select * from inforcustomer where phoneNumber = ?`;
+            var query = `select * FROM inforcustomer WHERE phoneNumber = ? AND phoneNumber NOT IN (select phoneNumber from inforcustomer where phoneNumber = ?)`;
             db.query(query, [phonenumber, old], (err, results) => {
                 if (err) {
                     return reject(err);
