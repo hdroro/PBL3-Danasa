@@ -4,20 +4,18 @@ class NewsController {
 
     // [GET] /news
     async index(req, res) {
+        const passedVariable = req.session.nameCustomer;
         try {
-            const passedVariable = req.session.nameCustomer;
-
             if (passedVariable != null) {
-
                 const page = parseInt(req.query.page) || 1;
                 const perPage = 5;
                 const start = (page - 1) * perPage;
                 const end = page * perPage;
                 const newsModel = new news();
                 const listNews = await newsModel.loadNews();
-                const prev = page === 1 ? 1 : page - 1;
+                const prev = page === 1 ? false : page - 1;
                 const lastPage = Math.ceil(listNews.length / perPage);
-                const next = page === lastPage ? lastPage : page + 1;
+                const next = page === lastPage ? false : page + 1;
 
                 const obj = {
                     title: 'Tin tức',
@@ -36,9 +34,9 @@ class NewsController {
                 const end = page * perPage;
                 const newsModel = new news();
                 const listNews = await newsModel.loadNews();
-                const prev = page === 1 ? 1 : page - 1;
+                const prev = page === 1 ? false : page - 1;
                 const lastPage = Math.ceil(listNews.length / perPage);
-                const next = page === lastPage ? lastPage : page + 1;
+                const next = page === lastPage ? false : page + 1;
 
                 const obj = {
                     title: 'Tin tức',
@@ -52,7 +50,18 @@ class NewsController {
             }
         }
         catch (err) {
-            console.log(err);
+            if(passedVariable != null){
+                res.render('news', {
+                    title: 'Tin tức',
+                    infoLogin: passedVariable,
+                })
+            }
+            else{
+                res.render('news', {
+                    title: 'Tin tức',
+                    infoLogin: 'Đăng nhập',
+                })
+            }
         }
     }
     //[GET]/news/:slug

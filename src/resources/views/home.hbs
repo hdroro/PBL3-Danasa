@@ -144,7 +144,7 @@
                         </div>
 
                         <div class="searchTicket__search">
-                            <button data-action="searchTrip" onclick="">
+                            <button data-action="searchTrip" onclick="" class="searchBtn_btn">
                                 <span class="favicon icon-search">
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                 </span>
@@ -403,7 +403,7 @@
                 <i class="fa-solid fa-triangle-exclamation" style="padding-right: 1.2rem; font-size: 3rem;"></i>
                 Warning
             </h1>
-            <p style="color: #666666;">Bạn cần nhập đây đủ thông tin !</p>
+            <p style="color: #666666;">Bạn cần nhập đầy đủ thông tin !</p>
             <div class="clearfix">
                 <button type="button" class="okbtn" id="okBtn" style="float: none;background: #e8223a;">OK</button>
             </div>
@@ -439,18 +439,17 @@
 </script>
 
 
-
-
 <script>
     const inputList = document.querySelectorAll('.searchTicket__item-right');
     const dataListContainerList = document.querySelectorAll('.hide-left');
     var startProvince = document.querySelector('.startProvince');
     var EndProvince = document.querySelector('.endProvince');
     var searchBtn = document.querySelector('.searchBtn');
+    var search = document.querySelector('.searchBtn_btn');
     var ticket__date = document.querySelector('.ticket-date');
     const today = new Date().toISOString().split('T')[0];
     ticket__date.setAttribute('min', today);
-    searchBtn.onclick = function(){
+    search.onclick = function(){
         if(startProvince.value && EndProvince.value && ticket__date.valueAsDate ){
             searchBtn.href=`./buy-ticket-step2?start=${startProvince.value}&end=${EndProvince.value}&time=${ticket__date.valueAsDate}`;
             searchBtn.click();

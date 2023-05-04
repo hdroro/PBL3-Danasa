@@ -15,6 +15,9 @@ class News {
                 if (err) {
                     return reject(err);
                 }
+                if(results.length === 0) {
+                    return reject(err);
+                }
                 else {
                     const news = results.map(newsItem => {
                         return {
@@ -35,6 +38,9 @@ class News {
             const maxID = `SELECT MAX(idNews) FROM news`;
             db.query(maxID, (err, results) => {
                 if (err) {
+                    return reject(err);
+                }
+                if(results.length === 0) {
                     return reject(err);
                 }
                 else {
@@ -63,6 +69,9 @@ class News {
                 if (err) {
                     return reject(err);
                 }
+                if(results.length === 0) {
+                    return reject(err);
+                }
                 return resolve(results[0]);
             })
         })
@@ -73,6 +82,9 @@ class News {
             const deleteQuery = `DELETE FROM news where idNews = ?`;
             db.query(deleteQuery, [this.idNews], (err, results) => {
                 if (err) {
+                    return reject(err);
+                }
+                if(results.length === 0) {
                     return reject(err);
                 }
                 return resolve(results[0]);
@@ -87,7 +99,9 @@ class News {
                 if (err) {
                     return reject(err);
                 }
-                console.log(results)
+                if(results.length === 0) {
+                    return reject(err);
+                }
                 return resolve(results);
             })
         })

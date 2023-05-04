@@ -4,7 +4,6 @@ const schedule = require('./Schedule');
 
 
 class Sales {
-
     async listSales_quarter_arrangedASC() {
         return new Promise((resolve, reject) => {
             const sales_quarter_arranged = `SELECT firstProvince, secondProvince, COUNT(idTicket) as totalTicket

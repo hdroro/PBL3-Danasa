@@ -9,9 +9,9 @@ class DetailStaticsMonthController {
             const end = page * perPage;
             const statisticModel = new statistics();
             const listStatistics = await statisticModel.listStatistics_month_arranged();
-            const prev = page === 1 ? 1 : page - 1;
+            const prev = page === 1 ? false : page - 1;
             const lastPage = Math.ceil(listStatistics.length / perPage);
-            const next = page === lastPage ? lastPage : page + 1;
+            const next = page === lastPage ? false : page + 1;
             const obj = {
                 title: 'Chi tiết thống kê doanh thu theo tháng',
                 newsListStatistics: Array.from(listStatistics).slice(start, end),
@@ -22,11 +22,9 @@ class DetailStaticsMonthController {
             res.render('admin-CT-TKDT-thang', obj);
         }
         catch(err){
-            const obj = {
-                title: 'Chi tiết thống kê doanh thu theo tháng',
-                message: 'Không có tuyến nào !'
-            };
-            res.render('admin-CT-TKDT-thang', obj);
+            res.render('admin-CT-TKDT-thang',{
+                title: 'Chi tiết thống kê doanh thu theo tháng'
+            });
         }
     }
 
@@ -37,13 +35,13 @@ class DetailStaticsMonthController {
             var obj;
             if (sortData === "1") {
                 obj = {
-                    // title: 'Chi tiết thống kê doanh thu theo tháng',
+                    title: 'Chi tiết thống kê doanh thu theo tháng',
                     newsListStatistics: await statisticsModel.listStatistics_month_arranged(sortData)
                 }
             }
             else {
                 obj = {
-                    // title: 'Chi tiết thống kê doanh thu theo tháng',
+                    title: 'Chi tiết thống kê doanh thu theo tháng',
                     newsListStatistics: await statisticsModel.listStatistics_month_arrangedASC(sortData)
                 }
             }
@@ -51,7 +49,9 @@ class DetailStaticsMonthController {
             res.render('template-detailMonthStatistics', obj);
         }
         catch (err) {
-            res.render('template-detailMonthStatistics');
+            res.render('template-detailMonthStatistics', {
+                title: 'Chi tiết thống kê doanh thu theo tháng'
+            });
         }
     }
 

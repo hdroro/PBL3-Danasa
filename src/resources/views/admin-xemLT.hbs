@@ -233,17 +233,29 @@
                 <div class="index">
                     <ul class="page-index inline">
                         <li class="page-item page-prev">
+                            {{#if prev}}
                             <a href="/admin/list-schedule?start={{start}}&end={{end}}&time={{time}}&page={{prev}}" class="page-link arrow">
                                 <i class="fa-solid fa-arrow-left"></i>
                             </a>
+                            {{else}}
+                            <a class="page-link arrow disabled" disabled>
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </a>
+                            {{/if}}
                         </li>
                         <li class="page-item page-now">
                             <a class="page-link disable-page">{{current}}</a>
                         </li>
                         <li class="page-item page-next">
+                            {{#if next}}
                             <a href="/admin/list-schedule?start={{start}}&end={{end}}&time={{time}}&page={{next}}" class="page-link arrow">
                                 <i class="fa-solid fa-arrow-right"></i>
                             </a>
+                            {{else}}
+                            <a class="page-link arrow disabled" disabled>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                            {{/if}}
                         </li>
                     </ul>
                 </div>
@@ -273,7 +285,7 @@
     var pagePrev = document.querySelector('.page-prev');
     var pageNow = document.querySelector('.page-now');
     var pageNext = document.querySelector('.page-next');
-    pageNow.onclick = function(e){
+    {{!-- pageNow.onclick = function(e){
         e.preventDefault();
     }
     pagePrev.onclick = function(e){
@@ -283,7 +295,7 @@
     }
     pageNext.onclick = function(e){
         if({{current}}==={{max__page}}) e.preventDefault();
-    }
+    } --}}
     var alink = document.querySelector('#change');
     cbb__start.onchange = function(){
         alink.href = `/admin/list-schedule?start=${cbb__start.value}&end=${cbb__end.value}&time=${cbb__time.value}&page={{current}}`;

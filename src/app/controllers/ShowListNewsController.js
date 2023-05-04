@@ -12,9 +12,9 @@ class ShowListNewsController {
             const end = page * perPage;
             const newsModel = new news();
             const listNews = await newsModel.loadNews();
-            const prev = page === 1 ? 1 : page - 1;
+            const prev = page === 1 ? false : page - 1;
             const lastPage = Math.ceil(listNews.length / perPage);
-            const next = page === lastPage ? lastPage : page + 1;
+            const next = page === lastPage ? false : page + 1;
             const obj = {
                 title: 'Xem tin tức',
                 newsList: Array.from(listNews).slice(start, end),
@@ -25,7 +25,9 @@ class ShowListNewsController {
             res.render('admin-xemTT', obj);
         }
         catch (err) {
-            console.log(err)
+            res.render('admin-xemTT', {
+                title: 'Xem tin tức',
+            })
         }
     }
 

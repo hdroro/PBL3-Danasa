@@ -123,3 +123,8 @@
 .img-doanh-so .img-ticket{
     width: 50%;
 }
+
+.page-item .disabled i {
+    pointer-events: none;
+    opacity: 0.5; 
+  }

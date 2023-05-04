@@ -348,7 +348,7 @@ input[type="date"] {
 }
 
 .searchTicket .searchTicket__search button {
-  height: 100%;
+  height: 85%;
   width: 100%;
   border-radius: .4rem;
   display: flex;
@@ -1245,7 +1245,9 @@ input[type="radio"]:checked::before {
 }
 
 .custom-choose-filter-container {
-  padding: 3rem 13rem;
+  padding-left: 13rem;
+  padding-right: 13rem;
+  padding-top: 3rem;
 }
 
 .container__content-route-history {

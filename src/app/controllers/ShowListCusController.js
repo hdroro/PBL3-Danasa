@@ -11,15 +11,16 @@ class ShowListCusController {
             const end = page * perPage;
             const ac = new account();
             const accountList = await ac.getAllAccount();
-            const prev = page === 1 ? 1 : page - 1;
+            const prev = page === 1 ? false : page - 1;
             const lastPage = Math.ceil(accountList.length / perPage);
-            const next = page === lastPage ? lastPage : page + 1;
+            const next = page === lastPage ? false : page + 1;
+            
             res.render('admin-xemTK', {
                 accountList: Array.from(accountList).slice(start, end),
                 title: 'Xem tài khoản khách hàng',
                 current: page,
-                next: next,
-                prev: prev
+                prev: prev,
+                next: next
             });
         }
         catch (err) {
