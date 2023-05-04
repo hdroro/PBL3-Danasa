@@ -20,7 +20,7 @@ class HistoryBuyTicketController {
                     listEndProvince: historyData.provincesEndList,
                     listTimeStart: historyData.timeList
                 }
-                console.log(obj)
+                console.log("hihi")
                 res.render('historybuyticket', obj);
             }
         }

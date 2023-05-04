@@ -13,7 +13,7 @@ class ShowListScheduleController {
         if(!idProvinceEnd) idProvinceEnd=-1;
         if(!idTimeAwhile) idTimeAwhile=-1;
         const page = parseInt(req.query.page) || 1;
-        const perPage = 10;
+        const perPage = 5;
         const start = (page - 1) * perPage;
         const end = page * perPage;
         var awhile = [{min: 0, max: 24},{min: 0,max: 6,},{min: 6,max: 12,},{min: 12,max: 18,},{min: 18,max: 24,}]
@@ -29,7 +29,7 @@ class ShowListScheduleController {
                 query += ` and dr.idEndProvince = ${idProvinceEnd}`;
             }
         }
-        query += ' order by sch.idSchedule'
+        query += ' order by sch.startTime desc'
         if(!req.session.stations){
             schedulePublic.getStation__Province()
                 .then(([stations,provinces])=>{
