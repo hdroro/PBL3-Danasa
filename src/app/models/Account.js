@@ -11,7 +11,7 @@ class Account {
 
     async checkUsername() {
         return new Promise((resolve, reject) => {
-            var query = `SELECT * FROM accounts WHERE userName = ?`;
+            var query = `SELECT * FROM accounts WHERE userName = ? and isDelete = 0`;
             db.query(query, [this.username], (err, results) => {
                 if (err) {
                     return reject(err);

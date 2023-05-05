@@ -33,9 +33,9 @@ class StatisticsController {
                 trendIcon_updown_quarter = 'fa-caret-up'
             }
 
-            const totalStatisticMonth = await doanhthu.totalStatisctics_quarter();
+            const totalStatisticMonth = await doanhthu.totalStatisctics_month();
             var curMonth = parseInt(totalStatisticMonth.replace(/,/g, ""))
-            const totalStatisticsMonth_Previous = await doanhthu.totalStatisctics_quarterPrevious();
+            const totalStatisticsMonth_Previous = await doanhthu.totalStatisctics_monthPrevious();
             var prevMonth = parseInt(totalStatisticsMonth_Previous.replace(/,/g, ""));
             if (isNaN(curMonth)) curMonth = 0;
 

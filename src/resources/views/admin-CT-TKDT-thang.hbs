@@ -184,36 +184,38 @@
                         <div class="section-item revenue">{{totalPrice_month}} VNĐ</div>
                     </div>
                     {{/each}}
+                    <div class="index">
+                        <ul class="page-index inline">
+                            <li class="page-item">
+                                {{#if prev}}
+                                <a href="/admin/detail-statistics-thang?page={{prev}}" class="page-link arrow">
+                                    <i class="fa-solid fa-arrow-left"></i>
+                                </a>
+                                {{else}}
+                                <a class="page-link arrow disabled" disabled>
+                                    <i class="fa-solid fa-arrow-left"></i>
+                                </a>
+                                {{/if}}
+                            </li>
+                            <li class="page-item page-now">
+                                <a href="/admin/detail-statistics-thang?page={{current}}"
+                                    class="page-link">{{current}}</a>
+                            </li>
+                            <li class="page-item">
+                                {{#if next}}
+                                <a href="/admin/detail-statistics-thang?page={{next}}" class="page-link arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                                {{else}}
+                                <a class="page-link arrow disabled" disabled>
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                                {{/if}}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="index">
-                    <ul class="page-index inline">
-                        <li class="page-item">
-                            {{#if prev}}
-                            <a href="/admin/detail-statistics-thang?page={{prev}}" class="page-link arrow">
-                                <i class="fa-solid fa-arrow-left"></i>
-                            </a>
-                            {{else}}
-                            <a class="page-link arrow disabled" disabled>
-                                <i class="fa-solid fa-arrow-left"></i>
-                            </a>
-                            {{/if}}
-                        </li>
-                        <li class="page-item page-now">
-                            <a href="/admin/detail-statistics-thang?page={{current}}" class="page-link">{{current}}</a>
-                        </li>
-                        <li class="page-item">
-                            {{#if next}}
-                            <a href="/admin/detail-statistics-thang?page={{next}}" class="page-link arrow">
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-                            {{else}}
-                            <a class="page-link arrow disabled" disabled>
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-                            {{/if}}
-                        </li>
-                    </ul>
-                </div>
+
             </div>
         </div>
     </div>

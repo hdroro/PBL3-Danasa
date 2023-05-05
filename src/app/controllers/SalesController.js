@@ -28,9 +28,9 @@ class SalesController {
             trendIcon_updown_quarter = 'fa-caret-up'
         }
 
-        const totalSalesMonth = await doanhso.totalSales_quarter();
+        const totalSalesMonth = await doanhso.totalSales_month();
         const curMonth = parseInt(totalSalesMonth)
-        const totalSalesMonth_Previous = await doanhso.totalSales_quarterPrevious();
+        const totalSalesMonth_Previous = await doanhso.totalSales_monthPrevious();
         const prevMonth = parseInt(totalSalesMonth_Previous);
         var trendIcon_updown_month;
         if( await (curMonth - prevMonth )/(prevMonth) < 0){

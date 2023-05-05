@@ -51,7 +51,8 @@
                             </button>
                             <button class="logout-admin">
                                 <a href="/login/logout" class="nav-profile-img">
-                                    <i class="fa-solid fa-right-from-bracket" style="font-size: 2rem; color: #2a4e8a;"></i>
+                                    <i class="fa-solid fa-right-from-bracket"
+                                        style="font-size: 2rem; color: #2a4e8a;"></i>
                                     <span class="availability-status online"></span>
                                 </a>
                             </button>
@@ -126,7 +127,7 @@
                         </li>
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
-                            <a class="content" href="/admin/delete-cus" >Xóa tài khoản</a>
+                            <a class="content" href="/admin/delete-cus">Xóa tài khoản</a>
                         </li>
                     </ul>
                 </div>
@@ -143,7 +144,7 @@
                     <ul class="nav-link-show">
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
-                            <a class="content" href="/admin/list-schedule" >Xem lịch trình</a>
+                            <a class="content" href="/admin/list-schedule">Xem lịch trình</a>
                         </li>
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
@@ -172,7 +173,7 @@
 
             <div class="container-table">
                 <div class="table__schedule" id="dataList">
-                    <div class="table-head__schedule" >
+                    <div class="table-head__schedule">
                         <div class="tbhead-stt tbhead-item">STT</div>
                         <div class="tbhead-route tbhead-item">Tuyến</div>
                         <div class="tbhead-revenue tbhead-item">Doanh số</div>
@@ -185,36 +186,35 @@
                         <div class="section-item revenue">{{totalTicket}} vé</div>
                     </div>
                     {{/each}}
-                </div>
-
-                <div class="index">
-                    <ul class="page-index inline">
-                        <li class="page-item">
-                            {{#if prev}}
-                            <a href="/admin/detail-sales-quy?page={{prev}}" class="page-link arrow">
-                                <i class="fa-solid fa-arrow-left"></i>
-                            </a>
-                            {{else}}
-                            <a class="page-link arrow disabled" disabled>
-                                <i class="fa-solid fa-arrow-left"></i>
-                            </a>
-                            {{/if}}
-                        </li>
-                        <li class="page-item page-now">
-                            <a href="/admin/detail-sales-quy?page={{current}}" class="page-link">{{current}}</a>
-                        </li>
-                        <li class="page-item">
-                            {{#if next}}
-                            <a href="/admin/detail-sales-quy?page={{next}}" class="page-link arrow">
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-                            {{else}}
-                            <a class="page-link arrow disabled" disabled>
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-                            {{/if}}
-                        </li>
-                    </ul>
+                    <div class="index">
+                        <ul class="page-index inline">
+                            <li class="page-item">
+                                {{#if prev}}
+                                <a href="/admin/detail-sales-quy?page={{prev}}" class="page-link arrow">
+                                    <i class="fa-solid fa-arrow-left"></i>
+                                </a>
+                                {{else}}
+                                <a class="page-link arrow disabled" disabled>
+                                    <i class="fa-solid fa-arrow-left"></i>
+                                </a>
+                                {{/if}}
+                            </li>
+                            <li class="page-item page-now">
+                                <a href="/admin/detail-sales-quy?page={{current}}" class="page-link">{{current}}</a>
+                            </li>
+                            <li class="page-item">
+                                {{#if next}}
+                                <a href="/admin/detail-sales-quy?page={{next}}" class="page-link arrow">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                                {{else}}
+                                <a class="page-link arrow disabled" disabled>
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                                {{/if}}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
