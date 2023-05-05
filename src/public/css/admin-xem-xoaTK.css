@@ -171,11 +171,12 @@ input:focus {
 }
 
 .nav-profile-text p {
+    top: .25rem;
     font-size: 1.4rem;
     font-weight: 600;
     color: #2a4e8a;
     position: relative;
-    padding-right: 1.1rem;
+    padding-right: .5rem;
 }
 
 .fa-circle-user {
