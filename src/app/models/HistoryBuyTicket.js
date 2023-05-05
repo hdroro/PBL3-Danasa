@@ -15,7 +15,7 @@ class HistoryBuyTicket {
                         INNER JOIN inforcustomer ON accounts.idUser = inforcustomer.idCustomer
                         INNER JOIN tickets ON inforcustomer.idCustomer = tickets.idUser
                         INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
-                        WHERE accounts.userName = ? 
+                        WHERE accounts.userName = ? AND schedules.isDeleted = 0 
                         ORDER BY schedules.startTime DESC`;
             db.query(query, [this.userName], async (err, results) => {
                 if (err) {
@@ -97,7 +97,7 @@ class HistoryBuyTicket {
                         INNER JOIN tickets ON inforcustomer.idCustomer = tickets.idUser
                         INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
                         INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
-                        WHERE accounts.userName = ? and idStartProvince = ?
+                        WHERE accounts.userName = ? and idStartProvince = ? AND schedules.isDeleted = 0 
                         ORDER BY schedules.startTime DESC`;
             db.query(query, [this.userName, idItemSearch], async (err, results) => {
                 if (err) {
@@ -178,7 +178,7 @@ class HistoryBuyTicket {
                         INNER JOIN tickets ON inforcustomer.idCustomer = tickets.idUser
                         INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
                         INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
-                        WHERE accounts.userName = ? and idEndProvince = ?
+                        WHERE accounts.userName = ? and idEndProvince = ? AND schedules.isDeleted = 0 
                         ORDER BY schedules.startTime DESC`;
             db.query(query, [this.userName, idItemSearch], async (err, results) => {
                 if (err) {
