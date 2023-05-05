@@ -25,8 +25,6 @@ class CreateNewsController {
     res.render('admin-taoTT', obj);
   }
 
-
-
   //[POST] /updateinfo/success
   async createNews(req, res) {
     upload(req, res, async function (err) {

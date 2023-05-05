@@ -31,7 +31,6 @@ class DetailStaticsQuarterController {
 
     async loadData(req, res) {
         try {
-
             var sortData = req.query.sortData;
             var obj;
             if (sortData === "1") {

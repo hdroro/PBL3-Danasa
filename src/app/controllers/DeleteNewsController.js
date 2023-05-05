@@ -3,14 +3,19 @@ class DeleteNewsController {
 
     // [GET] /home
     index(req, res) {
-        const obj = {
-            title: 'Xóa tin tức',
-            idNews: req.query.idNews,
-            titleNews: req.query.titleNews,
-            contentNews: req.query.contentNews,
-            urlImg: req.query.urlImg,
+        try{
+            const obj = {
+                title: 'Xóa tin tức',
+                idNews: req.query.idNews,
+                titleNews: req.query.titleNews,
+                contentNews: req.query.contentNews,
+                urlImg: req.query.urlImg,
+            }
+            res.render('admin-xoaTT', obj);
         }
-        res.render('admin-xoaTT', obj);
+        catch(err){
+            res.json(err)
+        }
     }
 
     //[GET]/updateinfo/:slug

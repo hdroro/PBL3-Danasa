@@ -18,7 +18,9 @@ function Validator(formSelector) {
         noSpace: function (value) {
             return /^\s*$/.test(value) ? "Không nhập khoảng trống" : undefined;
         },
-
+        nospace: function (value) {
+            return /\s/.test(value) ? "Không nhập khoảng trống" : undefined;
+        },
         required: function (value) {
             return value ? undefined : 'Vui lòng nhập trường này'
         },

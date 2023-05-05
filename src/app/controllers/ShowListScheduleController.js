@@ -55,7 +55,8 @@ class ShowListScheduleController {
                 info = schedules;
             }
             const prev = page === 1 ? false : page - 1;
-            const lastPage = Math.ceil(info.length / perPage);
+            var lastPage = Math.ceil(info.length / perPage);
+            if(lastPage === 0)  lastPage = 1;
             const next = page === lastPage ? false : page + 1;
             info = Array.from(info).slice(start,end);
             for(var x of info) {

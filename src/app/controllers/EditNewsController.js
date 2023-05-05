@@ -17,14 +17,19 @@ class EditNewsController {
 
     // [GET] /home
     index(req, res) {
-        const obj = {
-            title: 'Sửa tin tức',
-            idNews: req.query.idNews,
-            titleNews: req.query.titleNews,
-            contentNews: req.query.contentNews,
-            urlImg: req.query.urlImg,
+        try{
+            const obj = {
+                title: 'Sửa tin tức',
+                idNews: req.query.idNews,
+                titleNews: req.query.titleNews,
+                contentNews: req.query.contentNews,
+                urlImg: req.query.urlImg,
+            }
+            res.render('admin-suaTT', obj);
         }
-        res.render('admin-suaTT', obj);
+        catch(err){
+            res.json(err);
+        }
     }
 
     async edit(req, res) {

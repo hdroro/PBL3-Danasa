@@ -3,7 +3,8 @@ class SalesController {
 
     // [GET] /home
     async index(req, res) {
-        const doanhso = new sales();
+        try{
+            const doanhso = new sales();
         const totalSalesYear = await doanhso.totalSales_year();
         const curYear = parseInt(totalSalesYear);
         const totalSalesYear_Previous = await doanhso.totalSales_yearPrevious();
@@ -67,6 +68,10 @@ class SalesController {
             totalTicket_month: arrange_month !== null ? (parseInt(arrange_month.totalTicket)).toLocaleString() : '0',
         }
         res.render('admin-TKDS', obj);
+        }
+        catch(err){
+            res.render('admin-TKDS', {title: 'Thống kê doanh số'})
+        }
     }
 
     //[GET]/updateinfo/:slug
