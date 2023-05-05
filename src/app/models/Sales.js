@@ -11,7 +11,7 @@ class Sales {
                                             INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
                                             INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
                                             INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
-                                            WHERE quarter(startTime) = quarter(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) 
+                                            WHERE quarter(startTime) = quarter(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) AND schedules.isDeleted = 0
                                             GROUP BY firstProvince, secondProvince
                                             ORDER BY totalTicket ASC`
             db.query(sales_quarter_arranged, (err, results) => {
@@ -44,7 +44,7 @@ class Sales {
                                             INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
                                             INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
                                             INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
-                                            WHERE MONTH(startTime) = MONTH(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) 
+                                            WHERE MONTH(startTime) = MONTH(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) AND schedules.isDeleted = 0
                                             GROUP BY firstProvince, secondProvince
                                             ORDER BY totalTicket ASC`
             db.query(sales_month_arranged, (err, results) => {
@@ -72,7 +72,7 @@ class Sales {
 
     async totalSales() {
         return new Promise((resolve, reject) => {
-            const total = `SELECT COUNT(idTicket) FROM tickets INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule`;
+            const total = `SELECT COUNT(idTicket) FROM tickets INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule AND schedules.isDeleted = 0`;
             db.query(total, (err, results) => {
                 if (err) {
                     return reject(err);
@@ -87,7 +87,7 @@ class Sales {
 
     async totalSales_year() {
         return new Promise((resolve, reject) => {
-            const total = `SELECT COUNT(idTicket) FROM tickets INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule WHERE YEAR(startTime) = YEAR(CURDATE())`;
+            const total = `SELECT COUNT(idTicket) FROM tickets INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule WHERE YEAR(startTime) = YEAR(CURDATE()) AND schedules.isDeleted = 0`;
             db.query(total, (err, results) => {
                 if (err) {
                     return reject(err);
@@ -102,7 +102,7 @@ class Sales {
 
     async totalSales_yearPrevious() {
         return new Promise((resolve, reject) => {
-            const total = `SELECT COUNT(idTicket) FROM tickets INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule WHERE YEAR(startTime) = (YEAR(CURDATE()) - 1)`;
+            const total = `SELECT COUNT(idTicket) FROM tickets INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule WHERE YEAR(startTime) = (YEAR(CURDATE()) - 1) AND schedules.isDeleted = 0`;
             db.query(total, (err, results) => {
                 if (err) {
                     return reject(err);
@@ -118,7 +118,7 @@ class Sales {
     /*---------------*/
     async totalSales_quarter() {
         return new Promise((resolve, reject) => {
-            const total = `SELECT COUNT(idTicket) FROM tickets INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule WHERE QUARTER(startTime) = QUARTER(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE())`;
+            const total = `SELECT COUNT(idTicket) FROM tickets INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule WHERE QUARTER(startTime) = QUARTER(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) AND schedules.isDeleted = 0`;
             db.query(total, (err, results) => {
                 if (err) {
                     return reject(err);
@@ -133,7 +133,7 @@ class Sales {
 
     async totalSales_quarterPrevious() {
         return new Promise((resolve, reject) => {
-            const total = `SELECT COUNT(idTicket) FROM tickets INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule WHERE QUARTER(startTime) = (QUARTER(CURDATE()) - 1)  AND YEAR(startTime) = YEAR(CURDATE())`;
+            const total = `SELECT COUNT(idTicket) FROM tickets INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule WHERE QUARTER(startTime) = (QUARTER(CURDATE()) - 1)  AND YEAR(startTime) = YEAR(CURDATE()) AND schedules.isDeleted = 0`;
             db.query(total, (err, results) => {
                 if (err) {
                     return reject(err);
@@ -149,7 +149,7 @@ class Sales {
     /*---------------*/
     async totalSales_month() {
         return new Promise((resolve, reject) => {
-            const total = `SELECT COUNT(idTicket) FROM tickets INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule WHERE MONTH(startTime) = MONTH(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE())`;
+            const total = `SELECT COUNT(idTicket) FROM tickets INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule WHERE MONTH(startTime) = MONTH(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) AND schedules.isDeleted = 0`;
             db.query(total, (err, results) => {
                 if (err) {
                     return reject(err);
@@ -164,7 +164,7 @@ class Sales {
 
     async totalSales_monthPrevious() {
         return new Promise((resolve, reject) => {
-            const total = `SELECT COUNT(idTicket) FROM tickets INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule WHERE MONTH(startTime) = (MONTH(CURDATE()) - 1) AND YEAR(startTime) = YEAR(CURDATE())`;
+            const total = `SELECT COUNT(idTicket) FROM tickets INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule WHERE MONTH(startTime) = (MONTH(CURDATE()) - 1) AND YEAR(startTime) = YEAR(CURDATE()) AND schedules.isDeleted = 0`;
             db.query(total, (err, results) => {
                 if (err) {
                     return reject(err);
@@ -185,7 +185,7 @@ class Sales {
                                             INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
                                             INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
                                             INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
-                                            WHERE quarter(startTime) = quarter(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) 
+                                            WHERE quarter(startTime) = quarter(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) AND schedules.isDeleted = 0
                                             GROUP BY firstProvince, secondProvince
                                             ORDER BY totalTicket desc
                                             LIMIT 1`;
@@ -209,7 +209,7 @@ class Sales {
                                             INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
                                             INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
                                             INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
-                                            WHERE MONTH(startTime) = MONTH(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) 
+                                            WHERE MONTH(startTime) = MONTH(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) AND schedules.isDeleted = 0
                                             GROUP BY firstProvince, secondProvince
                                             ORDER BY totalTicket desc
                                             LIMIT 1`;
@@ -233,7 +233,7 @@ class Sales {
                                             INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
                                             INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
                                             INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
-                                            WHERE quarter(startTime) = quarter(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) 
+                                            WHERE quarter(startTime) = quarter(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) AND schedules.isDeleted = 0
                                             GROUP BY firstProvince, secondProvince
                                             ORDER BY totalTicket desc`
             db.query(sales_quarter_arranged, (err, results) => {
@@ -266,7 +266,7 @@ class Sales {
                                             INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
                                             INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
                                             INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
-                                            WHERE MONTH(startTime) = MONTH(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) 
+                                            WHERE MONTH(startTime) = MONTH(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) AND schedules.isDeleted = 0
                                             GROUP BY firstProvince, secondProvince
                                             ORDER BY totalTicket desc`
 
