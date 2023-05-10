@@ -32,27 +32,27 @@ class BuyTicket4Controller {
                 .catch(next);
         }
         schedulePublic.getSchedule(`SELECT * FROM ((danasa.schedules as sch join danasa.directedroutes as dr on idDirectedRoute = iddirectedroutes) join danasa.coachs as s on s.idCoach = sch.idCoach) join danasa.typeofcoachs as tp on s.idType = tp.idType where sch.idSchedule = ${idSchedule}`)
-            .then((schedules) => {
-                info = schedules[0];
-                var time = new MyDate(info.startTime.toString());
-                info.start = `${time.toLocaleTimeString()}`;
-                info.day = `${time.toLocaleDateString()}`;
-                info.startStation = req.session.stations.find(station => station.idStation === info.idStartStation).stationName;
-                info.endStation = req.session.stations.find(station => station.idStation === info.idEndStation).stationName;
-                info.startProvince = req.session.provinces.find(province => province.idProvince === info.idStartProvince).provinceName;
-                info.endProvince = req.session.provinces.find(province => province.idProvince === info.idEndProvince).provinceName;
-                res.render('buyticketstep4', {
-                    schedule: info,
-                    title: 'Đặt vé xe',
-                    infoLogin: passedVariable,
-                    totalNumber: totalNumber,
-                    totalPrice: totalPrice,
-                    seats: seats,
-                    infoCus: infoCus,
-                    confirmedHref: confirmedHref,
-                    idSchedule: idSchedule,
-                });
-            })
+        .then((schedules) => {
+            info = schedules[0];
+            var time = new MyDate(info.startTime.toString());
+            info.start = `${time.toLocaleTimeString()}`;
+            info.day = `${time.toLocaleDateString()}`;
+            info.startStation = req.session.stations.find(station => station.idStation === info.idStartStation).stationName;
+            info.endStation = req.session.stations.find(station => station.idStation === info.idEndStation).stationName;
+            info.startProvince = req.session.provinces.find(province => province.idProvince === info.idStartProvince).provinceName;
+            info.endProvince = req.session.provinces.find(province => province.idProvince === info.idEndProvince).provinceName;
+            res.render('buyticketstep4', {
+                schedule: info,
+                title: 'Đặt vé xe',
+                infoLogin: passedVariable, 
+                totalNumber: totalNumber,
+                totalPrice: parseInt(totalPrice).toLocaleString(),
+                seats: seats,
+                infoCus: infoCus,
+                confirmedHref: confirmedHref,
+                idSchedule: idSchedule,
+            });
+        })
     }
 
     //[GET]/buy-ticket-step2/:slug

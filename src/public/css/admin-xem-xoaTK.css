@@ -377,7 +377,7 @@ ul .nav-link-show {
 .content-row-1{
     display: flex;
     font-size: 1.4rem;
-    flex-direction: column;
+    /* flex-direction: column; */
     /* justify-content: space-between; */
 }
 
@@ -390,11 +390,13 @@ ul .nav-link-show {
 
 .but-search__phone-number {
     width: 10rem;
+    height: 4rem;
     border: solid 1px #9CAEF9;
     background: #dde4ff;
     font-weight: 500;
     cursor: pointer;
     margin-left: 2rem;
+    margin-top: 4.5rem;
 }
 
 .content-row-1 p,

@@ -163,14 +163,16 @@
                 <div class="content-infor-customer">
                     <form method="POST" action="" class="form-delete-acc" id="form-delete__account">
                         <div class="content-row-1">
-                            <p>Nhập SĐT:</p>
-                            <div class="content-left">
-                                <input id="phonenumber" name="phonenumber" rules="required|noSpace" type="tel"
+                            <div class="form-group content-left">
+                                <p>Nhập SĐT:</p>
+                                <input id="phonenumber" name="phonenumber" rules="required|phonenumber|noSpace" type="tel"
                                     class="form-control input-phonenumber" value="{{phonenumber}}">
+                                <span class="form-message"></span>
 
-                                <button type="button" name="but-search__phone-number" class="but-search__phone-number  but">Tìm kiếm
-                                </button>
+                                
                             </div>
+                            <button type="button" name="but-search__phone-number" class="but-search__phone-number  but">Tìm kiếm
+                                </button>
                             {{!-- <div class="content-right">
                                 <p>Username *</p>
                                 <input id="text" name="username" rules="required" type="text" class="form-control"
@@ -181,9 +183,9 @@
                             
                         </div>
 
-                        <div class="content-row">
+                        {{!-- <div class="content-row"> --}}
                             <div class="message-error" style="font-size: 1.4rem; color: red;">{{message}}</div>
-                        </div>
+                        {{!-- </div> --}}
 
                         <div class="content-row">
                             <div class="content-text">

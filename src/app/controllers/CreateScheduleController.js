@@ -72,34 +72,6 @@ class CreateScheduleController {
         var directRoute;
         //Tìm số chuyến của route đó
         // > 0 -> tự động mặc định 
-        // Promise.all([new Route().getCountOfRoute(idRoute),new DirectedRoute().getDirectedRouteByIDRoute(idRoute),new Province().getProvince(),new Route().getInfoRoute(idRoute)])
-        //     .then(([schedules,directedRoutes,provinces,routeChosed]) => {
-        //         if(schedules.length > 0){
-        //             var idDirect = schedules[schedules.length-1].idDirectedRoute;
-        //             if(directedRoutes[0].idDirectedRoute === idDirect) directRoute = [directedRoutes[0]];
-        //             else directRoute = [directedRoutes[1]];
-        //             // đi tìm directedroute thôi
-        //         }
-        //         else directRoute = directedRoutes;
-        //         for(var pr of directRoute){
-        //             pr.startProvince = provinces.find(province => province.idProvince === pr.idStartProvince).provinceName;
-        //             pr.endProvince = provinces.find(province => province.idProvince === pr.idEndProvince).provinceName;
-        //         }
-        //         req.session.distance = routeChosed["distance"];
-        //         req.session.hours = routeChosed["hours"];
-        //         res.render('admin-taoLT',{
-        //             routes: req.session.routes,
-        //             types: req.session.types,
-        //             direct: directRoute,
-        //             idSch: req.session.idNewSchedule,
-        //             routeInfo: {
-        //                 distance: req.session.distance,
-        //                 hours: req.session.hours,
-        //             },
-        //             idRoute: idRoute,
-        //         })
-        //     })
-        //     .catch(next)
         Promise.all([new DirectedRoute().getDirectedRouteByIDRoute(idRoute),new Province().getProvince(),new Route().getInfoRoute(idRoute)])
             .then(([directedRoutes,provinces,routeChosed]) => {
                 directRoute = directedRoutes;
@@ -115,18 +87,6 @@ class CreateScheduleController {
                     direct: directRoute,
                 }
                 res.json(result);
-                // res.render('admin-taoLT',{
-                //     routes: req.session.routes,
-                //     types: req.session.types,
-                //     direct: directRoute,
-                //     idSch: req.session.idNewSchedule,
-                //     routeInfo: {
-                //         distance: req.session.distance,
-                //         hours: req.session.hours,
-                //     },
-                //     idRoute: idRoute,
-                //     title: 'Tạo lịch trình',
-                // })
             })
             .catch(err => console.error(err))
     }
@@ -174,14 +134,16 @@ class CreateScheduleController {
             var idRoute,idStartProvince,seats;
             Promise.all([new DirectedRoute().getDirectedRouteByIDDirect(idDirect),new TypeCoach().getTypeByID(idType)])
             .then(([direct,type])=>{
-                idStartProvince = direct["idStartProvince"];
+                console.log(direct);
                 idRoute = direct["idRoute"];
+                idStartProvince = direct["idStartProvince"];
                 seats = type["numberOfSeat"];
                 var query = `SELECT sch.idCoach FROM (schedules as sch join directedroutes as dr on sch.idDirectedRoute = dr.iddirectedroutes) join coachs as c on sch.idCoach = c.idCoach and c.idType = ${idType} and dr.idRoute = ${idRoute} and sch.isDeleted = 0 group by sch.idCoach`;
-                var querySchedule = `SELECT * FROM (schedules as sch join directedroutes as dr on sch.idDirectedRoute = dr.iddirectedroutes) join coachs as c on sch.idCoach = c.idCoach and c.idType = ${idType} and dr.idRoute = ${idRoute} and sch.isDeleted = 0 order by sch.idSchedule desc`;
+                var querySchedule = `SELECT * FROM (schedules as sch join directedroutes as dr on sch.idDirectedRoute = dr.iddirectedroutes) join coachs as c on sch.idCoach = c.idCoach and c.idType = ${idType} and dr.idRoute = ${idRoute} and sch.isDeleted = 0 order by sch.startTime desc`;
                 return Promise.all([new Coach().GetCoachBusy(query),new Coach().getAllCoachByIDTypeAndRoute(idType,idRoute),SchedulePublic.getSchedule(querySchedule),new Coach().getAllCoach()]);
             })
             .then(([busy,all,schedules,coachs])=>{
+                var TimeCoachException = [];
                 for(var x of busy) busyCoach.push(x.idCoach);
                 for(var x of all){
                     if(!busyCoach.includes(x.idCoach)){
@@ -190,8 +152,15 @@ class CreateScheduleController {
                     else{
                         var schedule = schedules.find(schedule => schedule.idCoach === x.idCoach);
                         var timeEnd = new MyDate(schedule.endTime);
-                        if(timeEnd<=timeStart && schedule.idEndProvince === idStartProvince) coach.push(coachs.find(coachInfo => coachInfo.idCoach === x.idCoach));
+                        if(schedule.idEndProvince === idStartProvince){
+                            if(timeEnd<=timeStart) coach.push(coachs.find(coachInfo => coachInfo.idCoach === x.idCoach))
+                            else TimeCoachException.push(`từ ${timeEnd.toLocaleTimeString()} ${timeEnd.toMyLocaleDateString()}`)
+                        }
                     }
+                }
+                if(coach.length === 0) {
+                    if(TimeCoachException.length > 0) result.message = "Chọn thời gian " + TimeCoachException.pop();
+                    else result.message = "Không có xe ở thành phố đi";
                 }
                 result.coach = coach;
                 result.seat = seats;
@@ -201,14 +170,6 @@ class CreateScheduleController {
             // tìm các xe thuộc chuyến idRoute
             //liệt kê ra những xe đi theo route đó
         }
-        //res.json(timeStart);
-        // if(timeS===""){
-        //     result.message = "Thời gian chưa nhập đủ";
-        //     res.json(result);
-        // }
-        // else{
-
-        // }
     }
     createSchedule(req,res,next){
         var idDirect = req.body["start-province"];
@@ -247,27 +208,6 @@ class CreateScheduleController {
         })
         .catch(err => console.log(err))
     }
-    // getDataStation(req,res,next){
-    //     var idDirect = req.query["route"];
-    //     var idStartProvince,idEndProvince;
-    //     new DirectedRoute().getDirectedRouteByIDDirect(idDirect)
-    //         .then((direct)=>{
-    //             idStartProvince = direct["idStartProvince"];
-    //             idEndProvince = direct["idEndProvince"];
-    //             return new Station().getStationByIdProvince(idStartProvince);
-    //         })
-    //         .then((start)=>{
-    //             // var AllStation = {
-    //             //     startStaion: start,
-    //             //     endStaion: end,
-    //             // };
-    //             //res.json(AllStation);
-    //             var start_arr = [];
-    //             for(var x of start) start_arr.push(x);
-    //             res.json(start_arr);
-    //         })
-    //         .catch(err => console.err(err))
-    // }
 
 
     //[GET]/updateinfo/:slug

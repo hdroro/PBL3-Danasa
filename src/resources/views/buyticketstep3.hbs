@@ -415,7 +415,7 @@
             <div class="message-error-seat"></div>
             <div class="but grid-full-col">
                 <button class="back" style="cursor: pointer;">QUAY LẠI</button>
-                <button class="confirm" style="cursor: pointer;">XÁC NHẬN</button>
+                <button class="confirm" style="cursor: pointer;">TIẾP THEO</button>
             </div>
         </div>
     </div>
@@ -540,7 +540,8 @@
                 const numberTicket = document.querySelector('.number-ticket');
                 const seatChosens = document.querySelectorAll('.seat-info.chosen');
                 numberTicket.innerHTML = seatChosens.length;
-                priceTicket.innerHTML = seatChosens.length * price +'VND';
+                const total = (seatChosens.length * price);
+                priceTicket.innerHTML =  total.toLocaleString() +'VND';
                 messageErrorSeat.innerHTML = "";
             }
         })

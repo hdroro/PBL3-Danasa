@@ -38,6 +38,7 @@ class BuyTicket3Controller{
                     secondArr: secondArr,
                     thirdArr: thirdArr,
                     fourthArr: fourthArr,
+                    // priceSchedule: priceSchedule,
                     priceSchedule: priceSchedule,
                     infoCus: infoCus,
                 });
