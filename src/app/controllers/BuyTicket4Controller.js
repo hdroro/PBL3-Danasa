@@ -100,7 +100,7 @@ class BuyTicket4Controller {
             const mailOptions = {
                 from: 'danasacoach79@gmail.com',
                 to: req.body.email,
-                subject: 'THÔNG TIN TỪ DANASA COACH',
+                subject: 'THÔNG BÁO TỪ DANASA COACH',
                 html: `
                   <html>
                     <head>
