@@ -14,10 +14,14 @@ class BuyTicket2Controller{
         var awhileTime = req.query["awhile"];
         var type = req.query["type"];
         var timeQuery = req.query["time"];
-        if(!type) type = -1;
-        if(!awhileTime) awhileTime = -1;
+        if(!type) type = 0;
+        if(!awhileTime) awhileTime = 0;
         var idEnd,idStart,typesName;
         var info = [];
+        const page = parseInt(req.query.page) || 1;
+        const perPage = 5;
+        const startPage = (page - 1) * perPage;
+        const endPage = page * perPage;
         var awhile = [{min: 0, max: 24},{min: 0,max: 6,},{min: 6,max: 12,},{min: 12,max: 18,},{min: 18,max: 24,}]
         var query = 'SELECT * FROM (((danasa.schedules as sch join danasa.directedroutes as dr on idDirectedRoute = iddirectedroutes) join danasa.coachs as s on s.idCoach = sch.idCoach) join danasa.typeofcoachs as tp on s.idType = tp.idType) join routes as r on dr.idRoute = r.idRoute where sch.isDeleted = 0';
         var queryCount = 'SELECT t.idSchedule, count(t.idSchedule) as SL FROM tickets as t join schedules as sch on t.idSchedule = sch.idSchedule where sch.isDeleted = 0 group by t.idSchedule;';
@@ -65,27 +69,35 @@ class BuyTicket2Controller{
                 for(var index in schedules){
                     var x = schedules[index];
                     var timeStart = new MyDate(x.startTime.toString());
-                    var hour = timeStart.getHours();
+                    var hour = timeStart.getHours();    
+                    var count = countSchedules.find(count => count.idSchedule === x.idSchedule);
+                    if(count === undefined) x.haveSeat = x.numberOfSeat;
+                    else x.haveSeat = x.numberOfSeat-count["SL"];
                     if(timeStart.getMinutes()>0) hour++;
-                    if(time__S.toDate()===timeStart.toDate()&&min<=hour && hour<=max){
+                    if(time__S.toDate()===timeStart.toDate()&&min<=hour && hour<=max && x.haveSeat > 0){
                         if(type<=0) info.push(x);
                         else if (x.idType == type) info.push(x);
                     }
                 }
             }
+            const prev = page === 1 ? false : page - 1;
+            var lastPage = Math.ceil(info.length / perPage);
+            if(lastPage === 0)  lastPage = 1;
+            const next = page === lastPage ? false : page + 1;
+            info = Array.from(info).slice(startPage,endPage);
             for(var x of info) {
                 var time = new MyDate(x.startTime.toString());
                 var time2 = new MyDate(x.endTime.toString());
+                x.price = Number(x.price).toLocaleString('vi-VN');
                 x.start = `${time.toLocaleTimeString()}`;
                 x.end = `${time2.toLocaleTimeString()}`;
                 x.day = `${time.toLocaleDateString()}`;
                 x.startStation = req.session.stations.find(station => station.idStation === x.idStartStation).stationName;
                 x.endStation = req.session.stations.find(station => station.idStation === x.idEndStation).stationName;
-                var count = countSchedules.find(count => count.idSchedule === x.idSchedule);
-                if(count === undefined) x.haveSeat = x.numberOfSeat;
-                else x.haveSeat = x.numberOfSeat-count["SL"];
-                // count = 0;
-                // x.haveSeat = x.numberOfSeat - count;
+                // var count = countSchedules.find(count => count.idSchedule === x.idSchedule);
+                // if(count === undefined) x.haveSeat = x.numberOfSeat;
+                // else x.haveSeat = x.numberOfSeat-count["SL"];
+                // if (x.haveSeat == 0) info.
             }
             if(passedVariable != null) {
                 res.render('buyticketstep2', {
@@ -98,6 +110,9 @@ class BuyTicket2Controller{
                     types: typesName,
                     typeCBB: type,
                     awhileCBB: awhileTime,
+                    current: page,
+                    prev: prev,
+                    next: next,
                 });
             } else {
                 res.render('buyticketstep2', {
@@ -110,6 +125,9 @@ class BuyTicket2Controller{
                     types: typesName,
                     typeCBB: type,
                     awhileCBB: awhileTime,
+                    current: page,
+                    prev: prev,
+                    next: next,
                 });
             }
         })

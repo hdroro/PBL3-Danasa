@@ -9,9 +9,9 @@ class ShowListScheduleController {
         var idProvinceEnd = req.query.end;
         var idTimeAwhile = req.query.time;
         var info = [];
-        if(!idProvinceStart) idProvinceStart=-1;
-        if(!idProvinceEnd) idProvinceEnd=-1;
-        if(!idTimeAwhile) idTimeAwhile=-1;
+        if(!idProvinceStart) idProvinceStart=0;
+        if(!idProvinceEnd) idProvinceEnd=0;
+        if(!idTimeAwhile) idTimeAwhile=0;
         const page = parseInt(req.query.page) || 1;
         const perPage = 5;
         const start = (page - 1) * perPage;

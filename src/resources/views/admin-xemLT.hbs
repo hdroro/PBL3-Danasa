@@ -159,22 +159,22 @@
 
             <div class="container-cbb">
                 <select name="province_first" id="" class="cbb__start cbb-admin">
-                    <option value="-1">-- Tỉnh đi --</option>
-                    <option value="0">All</option>
+                    <option value="0" >-- Tỉnh đi --</option>
+                    {{!-- <option value="0">All</option> --}}
                     {{#each provinces}}
                     <option value="{{this.idProvince}}">{{this.provinceName}}</option>
                     {{/each}}
                 </select>
                 <select name="province_second" id="" class="cbb__end cbb-admin">
-                    <option value="-1">-- Tỉnh đến --</option>
-                    <option value="0">All</option>
+                    <option value="0">-- Tỉnh đến --</option>
+                    {{!-- <option value="0">All</option> --}}
                     {{#each provinces}}
                     <option value="{{this.idProvince}}">{{this.provinceName}}</option>
                     {{/each}}
                 </select>
                 <select name="" id="" class="cbb__time cbb-admin">
-                    <option value="-1">Thời gian</option>
-                    <option value="0">All</option>
+                    <option value="0">Thời gian</option>
+                    {{!-- <option value="0">All</option> --}}
                     <option value="1">0h-6h</option>
                     <option value="2">6h-12h</option>
                     <option value="3">12h-18h</option>
@@ -240,7 +240,7 @@
                             {{/if}}
                         </li>
                         <li class="page-item page-now">
-                            <a class="page-link disable-page">{{current}}</a>
+                            <a class="page-link disable-page" disabled>{{current}}</a>
                         </li>
                         <li class="page-item page-next">
                             {{#if next}}
@@ -294,15 +294,15 @@
     } --}}
     var alink = document.querySelector('#change');
     cbb__start.onchange = function(){
-        alink.href = `/admin/list-schedule?start=${cbb__start.value}&end=${cbb__end.value}&time=${cbb__time.value}&page={{current}}`;
+        alink.href = `/admin/list-schedule?start=${cbb__start.value}&end=${cbb__end.value}&time=${cbb__time.value}&page=1`;
         alink.click();
     }
     cbb__end.onchange = function(){
-        alink.href = `/admin/list-schedule?start=${cbb__start.value}&end=${cbb__end.value}&time=${cbb__time.value}&page={{current}}`;
+        alink.href = `/admin/list-schedule?start=${cbb__start.value}&end=${cbb__end.value}&time=${cbb__time.value}&page=1`;
         alink.click();
     }
     cbb__time.onchange = function(){
-        alink.href = `/admin/list-schedule?start=${cbb__start.value}&end=${cbb__end.value}&time=${cbb__time.value}&page={{current}}`;
+        alink.href = `/admin/list-schedule?start=${cbb__start.value}&end=${cbb__end.value}&time=${cbb__time.value}&page=1`;
         alink.click();
     }
     navLinkParents.forEach((navLinkParent) => {

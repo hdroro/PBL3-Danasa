@@ -141,15 +141,15 @@
                     <div class="container__content-step-1-filter">
                         <div class="custom-filter-container">
                             <select class="filter-select typeCoach" name="" id="">
-                                <option value="-1">Loại xe</option>
-                                <option value="0">All</option>
+                                <option value="0">Loại xe</option>
+                                {{!-- <option value="0">All</option> --}}
                                 {{#each types}}
                                 <option value="{{this.idType}}">{{this.typeName}}</option>
                                 {{/each}}
                             </select>
                             <select class="filter-select awhile-time" name="" id="" >
-                                <option value="-1">Giờ</option>
-                                <option value="0">All</option>
+                                <option value="0">Giờ</option>
+                                {{!-- <option value="0">All</option> --}}
                                 <option value="1">0h - 6h</option>
                                 <option value="2">6h - 12h</option>
                                 <option value="3">12h - 18h</option>
@@ -209,7 +209,35 @@
             {{/each}}
         </div>
     </div>
-
+    <div class="index">
+        <ul class="page-index inline">
+            <li class="page-item page-prev">
+                {{#if prev}}
+                <a href="/buy-ticket-step2?start={{startProvince}}&end={{endProvince}}&time={{timeQuery}}&type={{typeCBB}}&awhile={{awhileCBB}}&page={{prev}}" class="page-link arrow">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+                {{else}}
+                <a class="page-link arrow disabled" disabled>
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+                {{/if}}
+            </li>
+            <li class="page-item page-now">
+                <a class="page-link disable-page" disabled>{{current}}</a>
+            </li>
+            <li class="page-item page-next">
+                {{#if next}}
+                <a href="/buy-ticket-step2?start={{startProvince}}&end={{endProvince}}&time={{timeQuery}}&type={{typeCBB}}&awhile={{awhileCBB}}&page={{next}}" class="page-link arrow">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                {{else}}
+                <a class="page-link arrow disabled" disabled>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                {{/if}}
+            </li>
+        </ul>
+    </div>
     <footer class="footer">
         <div class="grid">
             <div class="grid__row-footer">
@@ -328,11 +356,11 @@
         }
     }
     awhile__time.onchange = function(){
-        a.href = `./buy-ticket-step2?start={{startProvince}}&end={{endProvince}}&time={{timeQuery}}&type=${typeCoach.value}&awhile=${awhile__time.value}`;
+        a.href = `./buy-ticket-step2?start={{startProvince}}&end={{endProvince}}&time={{timeQuery}}&type=${typeCoach.value}&awhile=${awhile__time.value}&page=1`;
         a.click();
     };
     typeCoach.onchange = function(){
-        a.href = `./buy-ticket-step2?start={{startProvince}}&end={{endProvince}}&time={{timeQuery}}&type=${typeCoach.value}&awhile=${awhile__time.value}`;
+        a.href = `./buy-ticket-step2?start={{startProvince}}&end={{endProvince}}&time={{timeQuery}}&type=${typeCoach.value}&awhile=${awhile__time.value}&page=1`;
         a.click();
     };
 
