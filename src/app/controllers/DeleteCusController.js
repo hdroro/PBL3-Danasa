@@ -51,7 +51,7 @@ class DeleteCusController {
             });
         }
         catch(err) {
-            console.log("Lỗi server");
+            // console.log("Lỗi server");
             res.render('admin-xoaTK', {
                 title: 'Xóa tài khoản',
                 message: 'Không tồn tại tài khoản!',

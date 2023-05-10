@@ -189,6 +189,7 @@ flex-direction: column;
     background-color: #FFFFFF;
     border: none;
     margin-right: 2rem;
+    border: 0.1rem solid #4B8EFA;
 }
 .buy-ticket-step3 .but .confirm{
     border-radius: 50px;

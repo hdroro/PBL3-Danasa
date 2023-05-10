@@ -244,7 +244,7 @@
                     <div class="form-group--large">
                         <div class="form-group width-item-28">
                             <label for="price" class="form-label form-schedule">Giá *:</label>
-                            <input id="price" name="price" type="text" class="form-control-schedule" rules="required|noSpace|integer">
+                            <input id="price" name="price" type="text" class="form-control-schedule" rules="required|nospace|integer">
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group width-item-28">
@@ -354,6 +354,7 @@
                 endStation.innerHTML = '<option value="0" style="display: none;">Chọn bến đến</option>';
                 var licensePlate = document.querySelector('#license-plate');
                 licensePlate.innerHTML = '<option value="0" style="display: none;">Chọn biển số xe</option>';
+                message.innerHTML = '';
                 var start = startTime.valueAsDate;
                 start.setHours(start.getHours()+hours);
                 endTime.valueAsDate = start;

@@ -19,8 +19,8 @@ class RegisterController {
     //[POST] /course/success
     async checkUser(req,res,next){
         const { username, password, phonenumber, fullname, email } = req.body;
+        const infoCus = new customer();
         try {
-            const infoCus = new customer();
             await infoCus.checkPhonenumber(phonenumber);
         }
         catch(err) {
@@ -33,6 +33,18 @@ class RegisterController {
         }
 
         try {
+            await infoCus.checkEmail(email);
+        }
+        catch(err) {
+            res.render('register', {
+                title: 'Đăng ký',
+                infoLogin: "Đăng nhập",
+                message: "Email đã tồn tại",
+            });
+            return;
+        }
+
+        try {
             const account = new Account(username, password);
             const saveAcc = await account.save();
 
@@ -40,7 +52,11 @@ class RegisterController {
             const saveCus = await inforCustomer.save()
 
             req.session.userName = req.body.fullname;
-            res.redirect('back');
+            res.render('register', {
+                title: 'Đăng ký',
+                infoLogin: "Đăng nhập",
+                message: "Đăng ký thành công",
+            });
         } catch (err) {
             res.render('register', {
                 title: 'Đăng ký',

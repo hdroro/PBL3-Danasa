@@ -44,7 +44,7 @@ class BuyTicket4Controller{
                 title: 'Đặt vé xe',
                 infoLogin: passedVariable, 
                 totalNumber: totalNumber,
-                totalPrice: totalPrice,
+                totalPrice: parseInt(totalPrice).toLocaleString(),
                 seats: seats,
                 infoCus: infoCus,
                 confirmedHref: confirmedHref,

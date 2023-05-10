@@ -37,7 +37,37 @@ class LoginController {
             const { name, email, sdt } = req.body;
             const customerInfo = new customer();
             const infoCus= await customerInfo.getInfoByIdCustomer(idUser);
-            await customerInfo.checkExistedPhonenumber(sdt, infoCus.phoneNumber);
+
+            try {
+                await customerInfo.checkExistedPhonenumber(sdt, infoCus.phoneNumber);
+            }
+            catch(err) {
+                res.render('updateinfo', {
+                    message: 'Số điện thoại đã tồn tại!',
+                    title: 'Thông tin cá nhân',
+                    infoLogin: passedVariable,
+                    name: name,
+                    email: email,
+                    phoneNumber: sdt,
+                })
+                return;
+            }
+
+            try {
+                await customerInfo.checkExistedEmail(email, infoCus.email);
+            }
+            catch(err) {
+                res.render('updateinfo', {
+                    message: 'Email đã tồn tại!',
+                    title: 'Thông tin cá nhân',
+                    infoLogin: passedVariable,
+                    name: name,
+                    email: email,
+                    phoneNumber: sdt,
+                })
+                return;
+            }
+
             await customerInfo.update(name, sdt, email, idCus);
             req.session.nameCustomer = name;
             res.render('updateinfo', {
@@ -50,18 +80,18 @@ class LoginController {
             });
         } catch (err) {
             console.log(err);
-            const passedVariable = req.session.nameCustomer;
+            // const passedVariable = req.session.nameCustomer;
             // const username = new account(req.session.userName);
             // const inforCustomer = await username.fillInfo();
-            const { name, email, sdt } = req.body;
-            res.render('updateinfo', {
-                message: 'Số điện thoại đã tồn tại!',
-                title: 'Thông tin cá nhân',
-                infoLogin: passedVariable,
-                name: name,
-                email: email,
-                phoneNumber: sdt,
-            })
+            // const { name, email, sdt } = req.body;
+            // res.render('updateinfo', {
+            //     message: 'Số điện thoại đã tồn tại!',
+            //     title: 'Thông tin cá nhân',
+            //     infoLogin: passedVariable,
+            //     name: name,
+            //     email: email,
+            //     phoneNumber: sdt,
+            // })
         }
     }
 }

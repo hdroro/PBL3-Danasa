@@ -114,10 +114,36 @@ class InforCustomer {
         })
     }
 
+    async checkExistedEmail(email, old) {
+        return new Promise(async (resolve, reject) => {
+            var query = `select * FROM inforcustomer WHERE email = ? except select * from inforcustomer where email = ?`;
+            db.query(query, [email, old], (err, results) => {
+                if (err) {
+                    return reject(err);
+                }
+                if(results.length !== 0) return reject(err);
+                return resolve(results);
+            });
+        })
+    }
+
     async checkPhonenumber(phonenumber) {
         return new Promise(async (resolve, reject) => {
             var query = `select * FROM inforcustomer WHERE phoneNumber = ?`;
             db.query(query, [phonenumber], (err, results) => {
+                if (err) {
+                    return reject(err);
+                }
+                if(results.length !== 0) return reject(err);
+                return resolve(results);
+            });
+        })
+    }
+
+    async checkEmail(email) {
+        return new Promise(async (resolve, reject) => {
+            var query = `select * FROM inforcustomer WHERE email = ?`;
+            db.query(query, [email], (err, results) => {
                 if (err) {
                     return reject(err);
                 }

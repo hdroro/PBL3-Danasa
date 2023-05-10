@@ -65,9 +65,12 @@ class BuyTicket2Controller{
                 for(var index in schedules){
                     var x = schedules[index];
                     var timeStart = new MyDate(x.startTime.toString());
-                    var hour = timeStart.getHours();
+                    var hour = timeStart.getHours();    
+                    var count = countSchedules.find(count => count.idSchedule === x.idSchedule);
+                    if(count === undefined) x.haveSeat = x.numberOfSeat;
+                    else x.haveSeat = x.numberOfSeat-count["SL"];
                     if(timeStart.getMinutes()>0) hour++;
-                    if(time__S.toDate()===timeStart.toDate()&&min<=hour && hour<=max){
+                    if(time__S.toDate()===timeStart.toDate()&&min<=hour && hour<=max && x.haveSeat > 0){
                         if(type<=0) info.push(x);
                         else if (x.idType == type) info.push(x);
                     }
@@ -81,11 +84,10 @@ class BuyTicket2Controller{
                 x.day = `${time.toLocaleDateString()}`;
                 x.startStation = req.session.stations.find(station => station.idStation === x.idStartStation).stationName;
                 x.endStation = req.session.stations.find(station => station.idStation === x.idEndStation).stationName;
-                var count = countSchedules.find(count => count.idSchedule === x.idSchedule);
-                if(count === undefined) x.haveSeat = x.numberOfSeat;
-                else x.haveSeat = x.numberOfSeat-count["SL"];
-                // count = 0;
-                // x.haveSeat = x.numberOfSeat - count;
+                // var count = countSchedules.find(count => count.idSchedule === x.idSchedule);
+                // if(count === undefined) x.haveSeat = x.numberOfSeat;
+                // else x.haveSeat = x.numberOfSeat-count["SL"];
+                // if (x.haveSeat == 0) info.
             }
             if(passedVariable != null) {
                 res.render('buyticketstep2', {

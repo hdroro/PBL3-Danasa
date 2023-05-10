@@ -28,9 +28,19 @@ class ChangePasswordController{
     async update(req, res){
         // res.send('Detail');
         const passedVariable = req.session.nameCustomer;
+        const info = req.body;
+        if(info.old === info.new) {
+            res.render('changepassword', {
+                message: "Mật khẩu mới trùng mật khẩu cũ!",
+                infoLogin: passedVariable, 
+                title: 'Thay đổi mật khẩu',
+            })
+            return;
+        }
+
         try {
-            const info = req.body;
-            if(info) {
+            
+            // if(info) {
                 const username = req.session.userName;
                 const ac = new account(username);
                 const tmp = await ac.checkPassword(info.old);
@@ -40,7 +50,7 @@ class ChangePasswordController{
                     infoLogin: passedVariable, 
                     title: 'Thay đổi mật khẩu',
                 })
-            }
+            // }
         } catch(err) {
             res.render('changepassword', {
                 message: "Mật khẩu cũ không chính xác!",
