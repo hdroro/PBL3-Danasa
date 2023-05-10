@@ -46,6 +46,19 @@ class Ticket{
             })
         })
     }
+
+    async getInfoTicket(idSchedule){
+        return new Promise(function(resolve, reject){
+            var query = `SELECT * FROM ((danasa.schedules as sch join danasa.directedroutes as dr on idDirectedRoute = iddirectedroutes) join danasa.coachs as s on s.idCoach = sch.idCoach) join danasa.typeofcoachs as tp on s.idType = tp.idType where sch.idSchedule = ?`;
+            db.query(query, [idSchedule], function (err, rows) {
+                if (err) {
+                    return reject(err);
+                } else {
+                    return resolve(rows[0]);
+                }
+            })
+        })
+    }
 }
 
 module.exports = Ticket

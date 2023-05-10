@@ -4,7 +4,6 @@ const router = express.Router();
 const detailSalesQuarterController = require('../app/controllers/DetailSalesQuarterController');
 
 
-router.get('/loadDataSales-quarter', detailSalesQuarterController.loadData)
 router.get('/detail-sales-quy', detailSalesQuarterController.index);
 
 module.exports = router;

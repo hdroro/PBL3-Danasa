@@ -32,26 +32,26 @@
                                     <li class="li-dropdown">
                                         <i class="fa-solid fa-clock-rotate-left" style="color:var(--text-color)"></i>
                                         <span>
-                                            <a class="itemm" href="/history-buy-ticket" >
+                                            <a class="itemm" href="/history-buy-ticket">
                                                 Lịch sử đặt vé
                                             </a>
                                         </span>
                                     </li>
                                     <li class="li-dropdown">
                                         <i class="fa-solid fa-user-large" style="color:var(--text-color)"></i>
-                                        <span><a href="/updateinfo" >
+                                        <span><a href="/updateinfo">
                                                 Thông tin cá nhân
                                             </a></span>
                                     </li>
                                     <li class="li-dropdown">
                                         <i class="fa-solid fa-user-pen" style="color:var(--text-color)"></i>
-                                        <span><a href="/change-password" >
+                                        <span><a href="/change-password">
                                                 Thay đổi mật khẩu
                                             </a></span>
                                     </li>
                                     <li class="li-dropdown">
                                         <i class="fa-solid fa-right-from-bracket" style="color:var(--text-color)"></i>
-                                        <span><a href="/login/logout" >
+                                        <span><a href="/login/logout">
                                                 Đăng xuất
                                             </a></span>
                                     </li>
@@ -96,7 +96,8 @@
                                     <ul class="place-list" style="list-style: none;">
                                         <li class="place-list-item">
                                             {{#each provinces}}
-                                            <button idPro="{{this.idProvince}}" class="select-place-item list-item">{{this.provinceName}}</button>
+                                            <button idPro="{{this.idProvince}}"
+                                                class="select-place-item list-item">{{this.provinceName}}</button>
                                             {{/each}}
                                         </li>
                                     </ul>
@@ -113,13 +114,14 @@
                             <div class="searchTicket__item-right" id="click-input">
                                 <span class="searchTicket__item__title">Tỉnh đến</span>
                                 <!-- <h3 data-point-target="pointUp">Chọn bến lên</h3> -->
-                                <input id="select_destination" placeholder="Chọn điểm đến" type="search" autocomplete="off"
-                                    class="select-place endProvince" data-v-27210c0a="">
+                                <input id="select_destination" placeholder="Chọn điểm đến" type="search"
+                                    autocomplete="off" class="select-place endProvince" data-v-27210c0a="">
                                 <div class="data-list-container hide-left" id="choose-item">
                                     <ul class="place-list" style="list-style: none;">
                                         <li class="place-list-item">
                                             {{#each provinces}}
-                                            <button idPro="{{this.idProvince}}" class="select-place-item list-item">{{this.provinceName}}</button>
+                                            <button idPro="{{this.idProvince}}"
+                                                class="select-place-item list-item">{{this.provinceName}}</button>
                                             {{/each}}
                                         </li>
                                     </ul>
@@ -138,7 +140,8 @@
                             <div class="searchTicket__item-right">
                                 <span class="searchTicket__item__title" style="margin-left: -.7rem;">Ngày khởi
                                     hành</span>
-                                <input id="departure_date" class="ticket-date" type="date" pattern="\d{2}/\d{2}/\d{4}" style="text-transform:uppercase;">
+                                <input id="departure_date" class="ticket-date" type="date" pattern="\d{2}/\d{2}/\d{4}"
+                                    style="text-transform:uppercase;">
                                 <!-- <input class="ticket-date" readonly="readOnly"> -->
                             </div>
                         </div>
@@ -396,7 +399,8 @@
 
 {{!-- MODAL UPDATE NEWS --}}
 <div id="id02" class="modal" style="cursor: pointer;">
-    <span id="closeIcon" class="close" onclick="document.getElementById('id02').style.display='none'" title="Close Modal" style=" color: #e8223a;">&times;</span>
+    <span id="closeIcon" class="close" onclick="document.getElementById('id02').style.display='none'"
+        title="Close Modal" style=" color: #e8223a;">&times;</span>
     <form class="modal-content" style="width: 35%">
         <div class="container-modal">
             <h1 style="font-size: 4em; color: #e8223a;">
@@ -440,7 +444,7 @@
 
 <script>
     const linkName = document.querySelector('.link-name');
-    if(linkName.innerHTML !== "Đăng nhập") {
+    if (linkName.innerHTML !== "Đăng nhập") {
         linkName.href = "#";
     }
 </script>
@@ -456,12 +460,12 @@
     var ticket__date = document.querySelector('.ticket-date');
     const today = new Date().toISOString().split('T')[0];
     ticket__date.setAttribute('min', today);
-    search.onclick = function(){
-        if(startProvince.value && EndProvince.value && ticket__date.valueAsDate ){
-            searchBtn.href=`./buy-ticket-step2?start=${startProvince.value}&end=${EndProvince.value}&time=${ticket__date.valueAsDate}`;
+    search.onclick = function () {
+        if (startProvince.value && EndProvince.value && ticket__date.valueAsDate) {
+            searchBtn.href = `./buy-ticket-step2?start=${startProvince.value}&end=${EndProvince.value}&time=${ticket__date.valueAsDate}`;
             searchBtn.click();
         }
-        else{
+        else {
             document.getElementById('id02').style.display = 'block';
         }
     }
@@ -484,6 +488,54 @@
         document.addEventListener('mousedown', (event) => {
             if (!input.contains(event.target) && !dataListContainer.contains(event.target)) {
                 dataListContainer.style.display = 'none';
+            }
+        });
+    });
+
+</script>
+
+<script>
+    const selectOrigin = document.querySelector('#select_origin');
+    const selectDestination = document.querySelector('#select_destination');
+
+    const selectButtons = document.querySelectorAll('.select-place-item');
+
+{{!-- 
+    selectDestination.onclick = () => {
+        if (selectOrigin.value === '') {
+            inputList.forEach((input, index) => {
+                const dataListContainer = dataListContainerList[index];
+                dataListContainer.style.display = 'none';
+            })
+        }
+    } --}}
+
+    selectButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const idPro = button.getAttribute('idPro');
+
+            if (selectOrigin.value === '') {
+                selectOrigin.value = button.textContent;
+            }
+
+            if (selectDestination.value === '' && button.textContent !== selectOrigin.value) {
+                selectDestination.value = button.textContent;
+            }
+
+            selectButtons.forEach(b => {
+                if (b !== button) {
+                    b.style.display = 'none';
+                }
+            });
+
+            if (selectOrigin.value !== '') {
+                selectButtons.forEach(b => {
+                    if (b.textContent === selectOrigin.value) {
+                        b.style.display = 'none';
+                    } else {
+                        b.style.display = 'block';
+                    }
+                });
             }
         });
     });

@@ -4,73 +4,6 @@ const schedule = require('../models/Schedule');
 
 
 class Statistics {
-    async listStatistics_quarter_arrangedASC() {
-        return new Promise((resolve, reject) => {
-            const statistic_quarter_arranged = `SELECT firstProvince, secondProvince, SUM(price) as totalPrice
-                                                FROM tickets 
-                                                INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
-                                                INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
-                                                INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
-                                                WHERE quarter(startTime) = quarter(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) AND schedules.isDeleted = 0
-                                                GROUP BY firstProvince, secondProvince
-                                                ORDER BY totalPrice ASC`
-            db.query(statistic_quarter_arranged, (err, results) => {
-                if (err) {
-                    return reject(err);
-                }
-                else if(results.length === 0){
-                    return resolve(null);
-                }
-                let STT = 0;
-                const statistics = results.map(statisticsItem => {
-                    STT++;
-                    return {
-                        STT: STT,
-                        firstProvince: statisticsItem.firstProvince,
-                        secondProvince: statisticsItem.secondProvince,
-                        totalPrice: parseInt(statisticsItem.totalPrice).toLocaleString(),
-                    };
-                });
-                return resolve(statistics);
-            })
-        })
-    }
-    
-
-    async listStatistics_month_arrangedASC(sortData) {
-        return new Promise((resolve, reject) => {
-            const statistic_month_arranged = `SELECT firstProvince, secondProvince, SUM(price) as totalPrice
-                                                FROM tickets 
-                                                INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
-                                                INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
-                                                INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
-                                                WHERE MONTH(startTime) = MONTH(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) AND schedules.isDeleted = 0
-                                                GROUP BY firstProvince, secondProvince
-                                                ORDER BY totalPrice ASC` 
-
-            db.query(statistic_month_arranged, (err, results) => {
-                if (err) {
-                    return reject(err);
-                }
-                if(results.length === 0){
-                    return reject(err);
-                }
-                let STT = 0;
-                const statistics = results.map(statisticsItem => {
-                    STT++;
-                    return {
-                        STT: STT,
-                        firstProvince_month: statisticsItem.firstProvince,
-                        secondProvince_month: statisticsItem.secondProvince,
-                        totalPrice_month: parseInt(statisticsItem.totalPrice).toLocaleString(),
-                    };
-                });
-
-                return resolve(statistics);
-            })
-        })
-    }
-
     async totalStatisctics() {
         return new Promise((resolve, reject) => {
             const total = `SELECT SUM(price) FROM tickets INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule WHERE schedules.isDeleted = 0`;
@@ -227,16 +160,17 @@ class Statistics {
     }
 
     /*---------------*/
-    async listStatistics_quarter_arranged() {
+    async listStatistics_quarter_arranged(idSort) {
         return new Promise((resolve, reject) => {
-            const statistic_quarter_arranged = `SELECT firstProvince, secondProvince, SUM(price) as totalPrice
+            var statistic_quarter_arranged = `SELECT firstProvince, secondProvince, SUM(price) as totalPrice
                                                 FROM tickets 
                                                 INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
                                                 INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
                                                 INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
                                                 WHERE quarter(startTime) = quarter(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) AND schedules.isDeleted = 0
-                                                GROUP BY firstProvince, secondProvince
-                                                ORDER BY totalPrice desc`
+                                                GROUP BY firstProvince, secondProvince`
+            if(idSort === "1") statistic_quarter_arranged += ` ORDER BY totalPrice desc`
+            else if(idSort === "2") statistic_quarter_arranged += ` ORDER BY totalPrice ASC`
             db.query(statistic_quarter_arranged, (err, results) => {
                 if (err) {
                     return reject(err);
@@ -260,17 +194,17 @@ class Statistics {
     }
 
     /*---------------*/
-    async listStatistics_month_arranged() {
+    async listStatistics_month_arranged(idSort) {
         return new Promise((resolve, reject) => {
-            const statistic_month_arranged = `SELECT firstProvince, secondProvince, SUM(price) as totalPrice
+            var statistic_month_arranged = `SELECT firstProvince, secondProvince, SUM(price) as totalPrice
                                             FROM tickets 
                                             INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
                                             INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
                                             INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
                                             WHERE MONTH(startTime) = MONTH(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) AND schedules.isDeleted = 0
-                                            GROUP BY firstProvince, secondProvince
-                                            ORDER BY totalPrice desc`
-
+                                            GROUP BY firstProvince, secondProvince`
+            if(idSort === "1") statistic_month_arranged += ` ORDER BY totalPrice desc`
+            else if(idSort === "2") statistic_month_arranged += ` ORDER BY totalPrice ASC`
             db.query(statistic_month_arranged, (err, results) => {
                 if (err) {
                     return reject(err);

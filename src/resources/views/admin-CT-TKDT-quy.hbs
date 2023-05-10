@@ -186,7 +186,7 @@
                         <ul class="page-index inline">
                             <li class="page-item">
                                 {{#if prev}}
-                                <a href="/admin/detail-statistics-quy?page={{prev}}" class="page-link arrow">
+                                <a href="/admin/detail-statistics-quy?sort={{idSort}}&page={{prev}}" class="page-link arrow">
                                     <i class="fa-solid fa-arrow-left"></i>
                                 </a>
                                 {{else}}
@@ -196,12 +196,12 @@
                                 {{/if}}
                             </li>
                             <li class="page-item page-now">
-                                <a href="/admin/detail-statistics-quy?page={{current}}"
+                                <a href="/admin/detail-statistics-quy?sort={{idSort}}&page={{current}}"
                                     class="page-link">{{current}}</a>
                             </li>
                             <li class="page-item">
                                 {{#if next}}
-                                <a href="/admin/detail-statistics-quy?page={{next}}" class="page-link arrow">
+                                <a href="/admin/detail-statistics-quy?sort={{idSort}}&page={{next}}" class="page-link arrow">
                                     <i class="fa-solid fa-arrow-right"></i>
                                 </a>
                                 {{else}}
@@ -218,18 +218,41 @@
     </div>
 </div>
 
+<a href="" id="results"></a>
+
 <script>
+    var link = document.querySelector('#results');
+    var sort = document.querySelector('#sortData');
+    
     function loadData() {
-        var sortData = document.getElementById('sortData').value;
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById('dataList').innerHTML = this.responseText;
-            }
-        };
-        xhttp.open('GET', '/admin/loadData-quarter?sortData=' + sortData, true);
-        xhttp.send();
+        link.href = `/admin/detail-statistics-quy?sort=${sort.value}`;
+        link.click();
     }
+</script>
+
+<script>
+    document.getElementById('sortData').addEventListener('change', function () {
+        localStorage.setItem('selectedsortData', this.value);
+    });
+
+    var selectedsortData = localStorage.getItem('selectedsortData');
+    if (selectedsortData) {
+        document.querySelector('#sortData [value="' + selectedsortData + '"]').selected = true;
+    }
+
+
+    function resetPageState() {
+        localStorage.clear();
+        sessionStorage.clear();
+    }
+
+    document.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            if (!link.href.includes('page')) {
+                resetPageState();
+            } 
+        });
+    });
 </script>
 
 

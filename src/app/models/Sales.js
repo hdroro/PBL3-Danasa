@@ -4,72 +4,6 @@ const schedule = require('./Schedule');
 
 
 class Sales {
-    async listSales_quarter_arrangedASC() {
-        return new Promise((resolve, reject) => {
-            const sales_quarter_arranged = `SELECT firstProvince, secondProvince, COUNT(idTicket) as totalTicket
-                                            FROM tickets 
-                                            INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
-                                            INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
-                                            INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
-                                            WHERE quarter(startTime) = quarter(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) AND schedules.isDeleted = 0
-                                            GROUP BY firstProvince, secondProvince
-                                            ORDER BY totalTicket ASC`
-            db.query(sales_quarter_arranged, (err, results) => {
-                if (err) {
-                    return reject(err);
-                }
-                else if(results.length === 0){
-                    return resolve(null);
-                }
-                let STT = 0;
-                const sales = results.map(salesItem => {
-                    STT++;
-                    return {
-                        STT: STT,
-                        firstProvince: salesItem.firstProvince,
-                        secondProvince: salesItem.secondProvince,
-                        totalTicket: parseInt(salesItem.totalTicket ).toLocaleString(),
-                    };
-                });
-                return resolve(sales);
-            })
-        })
-    }
-
-    /*---------------*/
-    async listSales_month_arrangedASC() {
-        return new Promise((resolve, reject) => {
-            const sales_month_arranged = `SELECT firstProvince, secondProvince, COUNT(idTicket) as totalTicket
-                                            FROM tickets 
-                                            INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
-                                            INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
-                                            INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
-                                            WHERE MONTH(startTime) = MONTH(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) AND schedules.isDeleted = 0
-                                            GROUP BY firstProvince, secondProvince
-                                            ORDER BY totalTicket ASC`
-            db.query(sales_month_arranged, (err, results) => {
-                if (err) {
-                    return reject(err);
-                }
-                else if(results.length === 0){
-                    return resolve(null);
-                }
-                let STT = 0;
-                const sales = results.map(salesItem => {
-                    STT++;
-                    return {
-                        STT: STT,
-                        firstProvince_month: salesItem.firstProvince,
-                        secondProvince_month: salesItem.secondProvince,
-                        totalTicket_month: parseInt(salesItem.totalTicket).toLocaleString(),
-                    };
-                });
-
-                return resolve(sales);
-            })
-        })
-    }
-
     async totalSales() {
         return new Promise((resolve, reject) => {
             const total = `SELECT COUNT(idTicket) FROM tickets INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule AND schedules.isDeleted = 0`;
@@ -226,16 +160,17 @@ class Sales {
     }
 
     /*---------------*/
-    async listSales_quarter_arranged() {
+    async listSales_quarter_arranged(idSort) {
         return new Promise((resolve, reject) => {
-            const sales_quarter_arranged = `SELECT firstProvince, secondProvince, COUNT(idTicket) as totalTicket
+            var sales_quarter_arranged = `SELECT firstProvince, secondProvince, COUNT(idTicket) as totalTicket
                                             FROM tickets 
                                             INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
                                             INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
                                             INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
                                             WHERE quarter(startTime) = quarter(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) AND schedules.isDeleted = 0
-                                            GROUP BY firstProvince, secondProvince
-                                            ORDER BY totalTicket desc`
+                                            GROUP BY firstProvince, secondProvince`
+            if(idSort === "1") sales_quarter_arranged += ` ORDER BY totalTicket desc`
+            else if(idSort === "2") sales_quarter_arranged += ` ORDER BY totalTicket ASC`
             db.query(sales_quarter_arranged, (err, results) => {
                 if (err) {
                     return reject(err);
@@ -259,17 +194,17 @@ class Sales {
     }
 
     /*---------------*/
-    async listSales_month_arranged() {
+    async listSales_month_arranged(idSort) {
         return new Promise((resolve, reject) => {
-            const sales_month_arranged = `SELECT firstProvince, secondProvince, COUNT(idTicket) as totalTicket
+            var sales_month_arranged = `SELECT firstProvince, secondProvince, COUNT(idTicket) as totalTicket
                                             FROM tickets 
                                             INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
                                             INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
                                             INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
                                             WHERE MONTH(startTime) = MONTH(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) AND schedules.isDeleted = 0
-                                            GROUP BY firstProvince, secondProvince
-                                            ORDER BY totalTicket desc`
-
+                                            GROUP BY firstProvince, secondProvince`
+            if(idSort === "1") sales_month_arranged += ` ORDER BY totalTicket desc`
+            else if(idSort === "2") sales_month_arranged += ` ORDER BY totalTicket ASC`
             db.query(sales_month_arranged, (err, results) => {
                 if (err) {
                     return reject(err);

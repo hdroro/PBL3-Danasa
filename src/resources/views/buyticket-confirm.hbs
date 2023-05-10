@@ -31,28 +31,28 @@
                             <div class="button">
                                 <ul>
                                     <li class="li-dropdown">
-                                        <i class="fa-solid fa-clock-rotate-left"></i>
+                                        <i class="fa-solid fa-clock-rotate-left" style="color:var(--text-color)"></i>
                                         <span>
-                                            <a href="/history-buy-ticket" style="text-decoration: none; color: black">
+                                            <a class="itemm" href="/history-buy-ticket">
                                                 Lịch sử đặt vé
                                             </a>
                                         </span>
                                     </li>
                                     <li class="li-dropdown">
-                                        <i class="fa-solid fa-user-large"></i>
-                                        <span><a href="/updateinfo" style="text-decoration: none; color: black">
+                                        <i class="fa-solid fa-user-large" style="color:var(--text-color)"></i>
+                                        <span><a href="/updateinfo">
                                                 Thông tin cá nhân
                                             </a></span>
                                     </li>
                                     <li class="li-dropdown">
-                                        <i class="fa-solid fa-user-pen"></i>
-                                        <span><a href="/change-password" style="text-decoration: none; color: black">
+                                        <i class="fa-solid fa-user-pen" style="color:var(--text-color)"></i>
+                                        <span><a href="/change-password">
                                                 Thay đổi mật khẩu
                                             </a></span>
                                     </li>
                                     <li class="li-dropdown">
-                                        <i class="fa-solid fa-right-from-bracket"></i>
-                                        <span><a href="/login/logout" style="text-decoration: none; color: black">
+                                        <i class="fa-solid fa-right-from-bracket" style="color:var(--text-color)"></i>
+                                        <span><a href="/login/logout">
                                                 Đăng xuất
                                             </a></span>
                                     </li>
@@ -141,8 +141,10 @@
             </div>
             <div class="buy-ticket-step3">
                 <div class="table-info" style="padding: 2rem 3rem;">
-                    <div class="message-confirm" style="font-size: 1.8rem; color: red; margin-bottom: 1.5rem">Đặt vé thành công!</div>
-                    <div class="info-charge" style="font-size: 1.6rem; font-style:italic;">Quý khách vui lòng thanh toán tiền mặt đầy đủ tại nhà xe!</div>
+                    <div class="message-confirm" style="font-size: 1.8rem; color: red; margin-bottom: 1.5rem">Đặt vé
+                        thành công!</div>
+                    <div class="info-charge" style="font-size: 1.6rem; font-style:italic;">Quý khách vui lòng kiểm tra gmail để nắm rõ thông tin đặt vé cũng như thanh toán
+                        tiền mặt đầy đủ tại nhà xe!</div>
                 </div>
                 <div class="but grid-full-col font-14">
                     <button class="back" style="cursor: pointer;">QUAY LẠI</button>
@@ -250,7 +252,7 @@
 
 <script>
     const linkName = document.querySelector('.link-name');
-    if(linkName.innerHTML !== "Đăng nhập") {
+    if (linkName.innerHTML !== "Đăng nhập") {
         linkName.href = "#";
     }
 </script>
@@ -258,7 +260,7 @@
 <script>
     const backBtn = document.querySelector('.back');
 
-    backBtn.onclick = function() {
+    backBtn.onclick = function () {
         history.back();
     }
 </script>

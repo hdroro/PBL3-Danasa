@@ -3,12 +3,14 @@ class DetailStaticsMonthController {
 
     async index(req, res) {
         try{
+            var idSort = req.query.sort;
+            if(idSort === undefined) idSort = 0;
             const page = parseInt(req.query.page) || 1;
             const perPage = 5;
             const start = (page - 1) * perPage;
             const end = page * perPage;
             const statisticModel = new statistics();
-            const listStatistics = await statisticModel.listStatistics_month_arranged();
+            const listStatistics = await statisticModel.listStatistics_month_arranged(idSort);
             const prev = page === 1 ? false : page - 1;
             const lastPage = Math.ceil(listStatistics.length / perPage);
             const next = page === lastPage ? false : page + 1;
@@ -17,7 +19,8 @@ class DetailStaticsMonthController {
                 newsListStatistics: Array.from(listStatistics).slice(start, end),
                 current: page,
                 next: next,
-                prev: prev
+                prev: prev,
+                idSort: idSort
             };
             res.render('admin-CT-TKDT-thang', obj);
         }
@@ -27,57 +30,6 @@ class DetailStaticsMonthController {
             });
         }
     }
-
-    async loadData(req, res) {
-        try {
-            
-            var sortData = req.query.sortData;
-            var obj;
-            if (sortData === "1") {
-                const page = parseInt(req.query.page) || 1;
-                const perPage = 5;
-                const start = (page - 1) * perPage;
-                const end = page * perPage;
-                const statisticModel = new statistics();
-                const listStatistics = await statisticModel.listStatistics_month_arranged(sortData);
-                const prev = page === 1 ? false : page - 1;
-                const lastPage = Math.ceil(listStatistics.length / perPage);
-                const next = page === lastPage ? false : page + 1;
-                obj = {
-                    title: 'Chi tiết thống kê doanh thu theo tháng',
-                    newsListStatistics: Array.from(listStatistics).slice(start, end),
-                    current: page,
-                    next: next,
-                    prev: prev
-                }
-            }
-            else {
-                const page = parseInt(req.query.page) || 1;
-                const perPage = 5;
-                const start = (page - 1) * perPage;
-                const end = page * perPage;
-                const statisticModel = new statistics();
-                const listStatistics_asc = await statisticModel.listStatistics_month_arrangedASC(sortData);
-                const prev = page === 1 ? false : page - 1;
-                const lastPage = Math.ceil(listStatistics_asc.length / perPage);
-                const next = page === lastPage ? false : page + 1;
-                obj = {
-                    title: 'Chi tiết thống kê doanh thu theo tháng',
-                    newsListStatistics: Array.from(listStatistics_asc).slice(start, end),
-                    current: page,
-                    next: next,
-                    prev: prev
-                }
-            }
-            res.render('template-detailMonthStatistics', obj);
-        }
-        catch (err) {
-            res.render('template-detailMonthStatistics', {
-                title: 'Chi tiết thống kê doanh thu theo tháng'
-            });
-        }
-    }
-
 }
 
 module.exports = new DetailStaticsMonthController;

@@ -255,22 +255,9 @@
                         </li>
                     </ul>
                 </div>
-                {{!-- <div class="index">
-                    <ul class="page-index inline">
-                        <li class="page-item"><a href="" class="page-link arrow"><i
-                                    class="fa-solid fa-arrow-left"></i></a></li>
-                        <li class="page-item page-now"><a href="" class="page-link">1</a></li>
-                        <li class="page-item"><a href="" class="page-link">2</a></li>
-                        <li class="page-item"><a href="" class="page-link arrow"><i
-                                    class="fa-solid fa-arrow-right"></i></a></li>
-                    </ul>
-                </div> --}}
             </div>
         </div>
-        <!-- </div> -->
     </div>
-
-
 </div>
 <a id="change" href=""></a>
 <script>
@@ -292,6 +279,8 @@
     pageNext.onclick = function(e){
         if({{current}}==={{max__page}}) e.preventDefault();
     } --}}
+
+
     var alink = document.querySelector('#change');
     cbb__start.onchange = function(){
         alink.href = `/admin/list-schedule?start=${cbb__start.value}&end=${cbb__end.value}&time=${cbb__time.value}&page={{current}}`;
