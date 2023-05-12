@@ -1,10 +1,11 @@
 const db = require('../../config/db');
 class Coach{
-    constructor(idCoach,idRoute,licensePlate,idType){
+    constructor(idCoach,idRoute,licensePlate,idType,isDelete){
         this.idCoach = idCoach;
         this.idRoute = idRoute;
         this.licensePlate = licensePlate;
         this.idType = idType;
+        this.isDelete = isDelete;
     };
     GetIDCoach(id){
         return new Promise(function(resolve, reject){
@@ -41,7 +42,7 @@ class Coach{
     }
     getAllCoachByIDTypeAndRoute(idType,idRoute){
         return new Promise(function(resolve, reject){
-            db.query(`select idCoach from coachs where idType = ${idType} and idRoute = ${idRoute}`, function (err, rows) {
+            db.query(`select idCoach from coachs where idType = ${idType} and idRoute = ${idRoute} and isDelete = 0`, function (err, rows) {
                 if (err) {
                     return reject(err);
                 } else {
@@ -52,7 +53,7 @@ class Coach{
     }
     getAllCoach(){
         return new Promise(function(resolve, reject){
-            db.query(`select * from coachs`, function (err, rows) {
+            db.query(`select * from coachs  where isDelete = 0`, function (err, rows) {
                 if (err) {
                     return reject(err);
                 } else {

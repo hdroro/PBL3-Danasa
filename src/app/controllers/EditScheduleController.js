@@ -37,6 +37,8 @@ class EditScheduleController {
                 var start,end,timeLength='';
                 var time = new MyDate(info.startTime.toString());
                 var time2 = new MyDate(info.endTime.toString());
+                info.firstProvince = req.session.provinces.find(province => province.idProvince === info.idFirstProvince).provinceName;
+                info.secondProvince = req.session.provinces.find(province => province.idProvince === info.idSecondProvince).provinceName;
                 info.start = `${time.toLocaleTimeString()}`;
                 info.end = `${time2.toLocaleTimeString()}`;
                 info.day = `${time.toDate()}`;
@@ -195,6 +197,8 @@ class EditScheduleController {
                 info.start = `${time.toLocaleTimeString()}`;
                 info.end = `${time2.toLocaleTimeString()}`;
                 info.day = `${time.toDate()}`;
+                info.firstProvince = req.session.provinces.find(province => province.idProvince === info.idFirstProvince).provinceName;
+                info.secondProvince = req.session.provinces.find(province => province.idProvince === info.idSecondProvince).provinceName;
                 info.startStation = req.session.stations.find(station => station.idStation === info.idStartStation).stationName;
                 info.endStation = req.session.stations.find(station => station.idStation === info.idEndStation).stationName;
                 info.startProvince = req.session.provinces.find(province => province.idProvince === info.idStartProvince).provinceName;

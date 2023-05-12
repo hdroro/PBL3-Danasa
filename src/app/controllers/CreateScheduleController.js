@@ -16,55 +16,22 @@ class CreateScheduleController {
     // [GET] /home
     index(req, res,next) {
         var id;
-        Promise.all([new Route().getAllRoute(),new Schedule().getIDLast(),new TypeCoach().getTypeOfCoach()])
-        .then(([routes,schedules,types])=>{
+        Promise.all([new Route().getAllRoute(),new Schedule().getIDLast(),new TypeCoach().getTypeOfCoach(),new Province().getProvince()])
+        .then(([routes,schedules,types,provinces])=>{
+            for(var r of routes){
+                r.firstProvince = provinces.find(province => province.idProvince === r.idFirstProvince).provinceName;
+                r.secondProvince = provinces.find(province => province.idProvince === r.idSecondProvince).provinceName;
+            }
             id = Number(schedules[0].idSchedule)+1;
-            //id = Number(schedules[0].idSchedule)+1;
             res.render('admin-taoLT', {
                 idSch: id,
-                //idSch: req.session.idNewSchedule,
-                //idRoute: req.session.idRoute,
                 routes: routes,
                 types: types,
-                // routeInfo: {
-                //     hours: 0,  
-                // },
                 title: 'Tạo lịch trình',
             });
         })
         .catch(err => console.error(err));
-        // schedulePublic.getToCreate()
-            // .then(([stations,provinces,directs,routes,coachs,types,schedules])=>{
-            //     req.session.stations = stations;
-            //     req.session.provinces = provinces;
-            //     req.session.directs = directs;
-            //     req.session.routes = routes;
-            //     req.session.coachs = coachs;
-            //     req.session.types = types;
-            //     //req.session.idNewSchedule = Number(schedules[0].idSchedule)+1;
-            //     id = Number(schedules[0].idSchedule)+1;
-            //     res.render('admin-taoLT', {
-            //         idSch: id,
-            //         stations: stations,
-            //         provinces: provinces ,
-            //         directs: directs,
-            //         routes: routes,
-            //         coachs: coachs,
-            //         types: types,
-            //         title: 'Tạo lịch trình',
-            //     });
-            // })
-            // .catch(next);
-
-
-
-
-        // else {
-        //     const obj = {
-        //         infoLogin: 'Đăng nhập', 
-        //     }
-        //     res.render('home', obj);
-        // }
+        
     }
     //[GET] /admin/create-schedule/getDirect
     findInfoRoute(req,res,next){
@@ -134,15 +101,14 @@ class CreateScheduleController {
             var idRoute,idStartProvince,seats;
             Promise.all([new DirectedRoute().getDirectedRouteByIDDirect(idDirect),new TypeCoach().getTypeByID(idType)])
             .then(([direct,type])=>{
-                console.log(direct);
                 idRoute = direct["idRoute"];
                 idStartProvince = direct["idStartProvince"];
                 seats = type["numberOfSeat"];
-                var query = `SELECT sch.idCoach FROM (schedules as sch join directedroutes as dr on sch.idDirectedRoute = dr.iddirectedroutes) join coachs as c on sch.idCoach = c.idCoach and c.idType = ${idType} and dr.idRoute = ${idRoute} and sch.isDeleted = 0 group by sch.idCoach`;
-                var querySchedule = `SELECT * FROM (schedules as sch join directedroutes as dr on sch.idDirectedRoute = dr.iddirectedroutes) join coachs as c on sch.idCoach = c.idCoach and c.idType = ${idType} and dr.idRoute = ${idRoute} and sch.isDeleted = 0 order by sch.startTime desc`;
+                var query = `SELECT sch.idCoach FROM (schedules as sch join directedroutes as dr on sch.idDirectedRoute = dr.iddirectedroutes) join coachs as c on sch.idCoach = c.idCoach and c.idType = ${idType} and dr.idRoute = ${idRoute} and sch.isDeleted = 0 and c.isDelete = 0 group by sch.idCoach`;
+                var querySchedule = `SELECT * FROM (schedules as sch join directedroutes as dr on sch.idDirectedRoute = dr.iddirectedroutes) join coachs as c on sch.idCoach = c.idCoach and c.idType = ${idType} and dr.idRoute = ${idRoute} and sch.isDeleted = 0 and c.isDelete = 0 order by sch.startTime desc`;
                 return Promise.all([new Coach().GetCoachBusy(query),new Coach().getAllCoachByIDTypeAndRoute(idType,idRoute),SchedulePublic.getSchedule(querySchedule),new Coach().getAllCoach()]);
             })
-            .then(([busy,all,schedules,coachs])=>{
+            .then(([busy,all,schedules,coachs])=>{  
                 var TimeCoachException = [];
                 for(var x of busy) busyCoach.push(x.idCoach);
                 for(var x of all){

@@ -1,10 +1,10 @@
 const db = require('../../config/db');
 
 class Route{
-    constructor(idRoute,firstProvince,secondProvince,distance,hour){
+    constructor(idRoute,idFirstProvince,idSecondProvince,distance,hour){
         this.idRoute = idRoute;
-        this.firstProvince = firstProvince;
-        this.secondProvince = secondProvince;
+        this.idFirstProvince = idFirstProvince;
+        this.idSecondProvince = idSecondProvince;
         this.distance = distance;
         this.hour = hour;
     }
