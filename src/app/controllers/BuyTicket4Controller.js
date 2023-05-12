@@ -69,6 +69,8 @@ class BuyTicket4Controller {
             var time = new MyDate(ansInfo.startTime.toString());
             ansInfo.start = `${time.toLocaleTimeString()}`;
             ansInfo.day = `${time.toLocaleDateString()}`;
+            const [month, day, year] = ansInfo.day.split('/'); // tách chuỗi ngày tháng thành các thành phần
+            const formattedDate = `${day.padStart(2, '0')}/${month.padStart(2, '0')}/${year}`; // ghép lại theo định dạng "dd/MM/yyyy"
             ansInfo.startStation = req.session.stations.find(station => station.idStation === ansInfo.idStartStation).stationName;
             ansInfo.endStation = req.session.stations.find(station => station.idStation === ansInfo.idEndStation).stationName;
             ansInfo.startProvince = req.session.provinces.find(province => province.idProvince === ansInfo.idStartProvince).provinceName;
@@ -133,13 +135,13 @@ class BuyTicket4Controller {
                     </head>
                     <body>
                         <p class="center bold">Chào ${req.body.name},</p>
-                        <p>Chúng tôi xin thông báo rằng yêu cầu đặt vé xe của bạn đã được xử lý thành công và bạn đã được đặt chỗ thành công
+                        <p>Chúng tôi xin thông báo rằng yêu cầu đặt vé xe của bạn đã được xử lý thành công và bạn đã đặt chỗ thành công
                             trên chuyến xe mà bạn đã chọn.</p>
                     
                         <p>Thông tin chi tiết về chuyến đi của bạn như sau:</p>
                         <ul>
                             <li>Tên chuyến xe: ${ansInfo.startProvince} - ${ansInfo.endProvince}</li>
-                            <li>Ngày khởi hành: ${ansInfo.day}</li>
+                            <li>Ngày khởi hành: ${formattedDate}</li>
                             <li>Thời gian khởi hành: ${ansInfo.start}</li>
                             <li>Điểm lên xe: ${ansInfo.startStation}</li>
                             <li>Điểm xuống xe: ${ansInfo.endStation}</li>
@@ -154,13 +156,13 @@ class BuyTicket4Controller {
                             <li class="total">Tổng cộng: ${(soLuong * ansInfo.price).toLocaleString()} VNĐ</li>
                         </ul>
                     
-                        <p>Cám ơn bạn đã tin tưởng và sử dụng dịch vụ của chúng tôi. Nếu bạn có bất kỳ câu hỏi hoặc yêu cầu gì thêm vui lòng
+                        <p>Cảm  ơn bạn đã tin tưởng và sử dụng dịch vụ của chúng tôi. Nếu bạn có bất kỳ câu hỏi hoặc yêu cầu gì thêm vui lòng
                             liên hệ với chúng tôi qua email hoặc số điện thoại dưới đây.</p>
                     
                         <div class="contact">
                             <p>Trân trọng,</p>
                             <p>DANASA COACH</p>
-                            <p>50, Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng</p>
+                            <p>54 Nguyễn Lương Bằng, Hòa Khánh Bắc, Liên Chiểu, Đà Nẵng</p>
                             <p>danasacoach79@gmail.com</p>
                             <p>076 922 0162</p>
                         </div>

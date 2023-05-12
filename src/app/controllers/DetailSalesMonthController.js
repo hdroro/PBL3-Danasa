@@ -7,7 +7,7 @@ class DetailSalesMonthController {
         
         try {
             var idSort = req.query.sort;
-            if(idSort === undefined) idSort = 0;
+            if(idSort === undefined) idSort = "1";
             const page = parseInt(req.query.page) || 1;
             const perPage = 5;
             const start = (page - 1) * perPage;

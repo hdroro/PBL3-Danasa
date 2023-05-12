@@ -61,11 +61,11 @@ class SalesController {
             
             firstProvince: arrange_quarter !== null ? arrange_quarter.firstProvince : '-',
             secondProvince: arrange_quarter !== null ? arrange_quarter.secondProvince : '-',
-            totalTicket: arrange_quarter !== null ? (parseInt(arrange_quarter.totalTicket)).toLocaleString() : '0',
+            totalTicket: arrange_quarter !== null ? (parseInt(arrange_quarter.sum)).toLocaleString() : '0',
 
             firstProvince_month: arrange_month !== null ? arrange_month.firstProvince : '-',
             secondProvince_month: arrange_month !== null ? arrange_month.secondProvince : '-',
-            totalTicket_month: arrange_month !== null ? (parseInt(arrange_month.totalTicket)).toLocaleString() : '0',
+            totalTicket_month: arrange_month !== null ? (parseInt(arrange_month.sum)).toLocaleString() : '0',
         }
         res.render('admin-TKDS', obj);
         }

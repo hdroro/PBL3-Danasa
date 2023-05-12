@@ -1,7 +1,7 @@
 const db = require('../../config/db');
 const ticket = require('./Ticket');
 const schedule = require('./Schedule');
-
+const province = require('./Province')
 
 class Sales {
     async totalSales() {
@@ -114,23 +114,28 @@ class Sales {
     /*---------------*/
     async totalSales_quarter_arranged() {
         return new Promise((resolve, reject) => {
-            const sales_quarter_arranged = `SELECT firstProvince, secondProvince, COUNT(idTicket) as totalTicket
+            const sales_quarter_arranged = `SELECT idFirstProvince, idSecondProvince, COUNT(idTicket) as totalTicket
                                             FROM tickets 
                                             INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
                                             INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
                                             INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
                                             WHERE quarter(startTime) = quarter(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) AND schedules.isDeleted = 0
-                                            GROUP BY firstProvince, secondProvince
+                                            GROUP BY idFirstProvince, idSecondProvince
                                             ORDER BY totalTicket desc
                                             LIMIT 1`;
-            db.query(sales_quarter_arranged, (err, results) => {
+            db.query(sales_quarter_arranged, async (err, results) => {
                 if (err) {
                     return reject(err);
                 }
                 else if(results.length === 0){
                     return resolve(null);
                 }
-                return resolve(results[0]);
+                const provinces = new province();
+                return resolve({
+                    firstProvince: await provinces.getNameProvinceByID(results[0].idFirstProvince),
+                    secondProvince: await provinces.getNameProvinceByID(results[0].idSecondProvince),
+                    sum: results[0].totalTicket
+                });
             })
         })
     }
@@ -138,23 +143,28 @@ class Sales {
     /*---------------*/
     async totalSales_month_arranged() {
         return new Promise((resolve, reject) => {
-            const sales_month_arranged = `SELECT firstProvince, secondProvince, COUNT(idTicket) as totalTicket
+            const sales_month_arranged = `SELECT idFirstProvince, idSecondProvince, COUNT(idTicket) as totalTicket
                                             FROM tickets 
                                             INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
                                             INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
                                             INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
                                             WHERE MONTH(startTime) = MONTH(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) AND schedules.isDeleted = 0
-                                            GROUP BY firstProvince, secondProvince
+                                            GROUP BY idFirstProvince, idSecondProvince
                                             ORDER BY totalTicket desc
                                             LIMIT 1`;
-            db.query(sales_month_arranged, (err, results) => {
+            db.query(sales_month_arranged, async (err, results) => {
                 if (err) {
                     return reject(err);
                 }
                 else if(results.length === 0){
                     return resolve(null);
                 }
-                return resolve(results[0]);
+                const provinces = new province();
+                return resolve({
+                    firstProvince: await provinces.getNameProvinceByID(results[0].idFirstProvince),
+                    secondProvince: await provinces.getNameProvinceByID(results[0].idSecondProvince),
+                    sum: results[0].totalTicket
+                });
             })
         })
     }
@@ -162,32 +172,36 @@ class Sales {
     /*---------------*/
     async listSales_quarter_arranged(idSort) {
         return new Promise((resolve, reject) => {
-            var sales_quarter_arranged = `SELECT firstProvince, secondProvince, COUNT(idTicket) as totalTicket
+            var sales_quarter_arranged = `SELECT idFirstProvince, idSecondProvince, COUNT(idTicket) as totalTicket
                                             FROM tickets 
                                             INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
                                             INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
                                             INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
                                             WHERE quarter(startTime) = quarter(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) AND schedules.isDeleted = 0
-                                            GROUP BY firstProvince, secondProvince`
+                                            GROUP BY idFirstProvince, idSecondProvince`
             if(idSort === "1") sales_quarter_arranged += ` ORDER BY totalTicket desc`
             else if(idSort === "2") sales_quarter_arranged += ` ORDER BY totalTicket ASC`
-            db.query(sales_quarter_arranged, (err, results) => {
+            db.query(sales_quarter_arranged, async (err, results) => {
                 if (err) {
                     return reject(err);
                 }
                 else if(results.length === 0){
                     return resolve(null);
                 }
-                let STT = 0;
-                const sales = results.map(salesItem => {
-                    STT++;
+                const provinces = new province();
+                const promises = results.map(async (salesItem, index) => {
+                    var STT = index + 1;
+                    const firstProvincePromise = provinces.getNameProvinceByID(salesItem.idFirstProvince);
+                    const secondProvincePromise = provinces.getNameProvinceByID(salesItem.idSecondProvince);
+                    const [firstProvince, secondProvince] = await Promise.all([firstProvincePromise, secondProvincePromise]);
                     return {
                         STT: STT,
-                        firstProvince: salesItem.firstProvince,
-                        secondProvince: salesItem.secondProvince,
-                        totalTicket: parseInt(salesItem.totalTicket ).toLocaleString(),
+                        firstProvince: firstProvince,
+                        secondProvince: secondProvince,
+                        totalTicket: parseInt(salesItem.totalTicket).toLocaleString(),
                     };
                 });
+                const sales = await Promise.all(promises);
                 return resolve(sales);
             })
         })
@@ -196,33 +210,36 @@ class Sales {
     /*---------------*/
     async listSales_month_arranged(idSort) {
         return new Promise((resolve, reject) => {
-            var sales_month_arranged = `SELECT firstProvince, secondProvince, COUNT(idTicket) as totalTicket
+            var sales_month_arranged = `SELECT idFirstProvince, idSecondProvince, COUNT(idTicket) as totalTicket
                                             FROM tickets 
                                             INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
                                             INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
                                             INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
                                             WHERE MONTH(startTime) = MONTH(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) AND schedules.isDeleted = 0
-                                            GROUP BY firstProvince, secondProvince`
+                                            GROUP BY idFirstProvince, idSecondProvince`
             if(idSort === "1") sales_month_arranged += ` ORDER BY totalTicket desc`
             else if(idSort === "2") sales_month_arranged += ` ORDER BY totalTicket ASC`
-            db.query(sales_month_arranged, (err, results) => {
+            db.query(sales_month_arranged, async (err, results) => {
                 if (err) {
                     return reject(err);
                 }
                 else if(results.length === 0){
                     return resolve(null);
                 }
-                let STT = 0;
-                const sales = results.map(salesItem => {
-                    STT++;
+                const provinces = new province();
+                const promises = results.map(async (salesItem, index) => {
+                    var STT = index + 1;
+                    const firstProvincePromise = provinces.getNameProvinceByID(salesItem.idFirstProvince);
+                    const secondProvincePromise = provinces.getNameProvinceByID(salesItem.idSecondProvince);
+                    const [firstProvince, secondProvince] = await Promise.all([firstProvincePromise, secondProvincePromise]);
                     return {
                         STT: STT,
-                        firstProvince_month: salesItem.firstProvince,
-                        secondProvince_month: salesItem.secondProvince,
+                        firstProvince_month: firstProvince,
+                        secondProvince_month: secondProvince,
                         totalTicket_month: parseInt(salesItem.totalTicket).toLocaleString(),
                     };
                 });
-
+                const sales = await Promise.all(promises);
                 return resolve(sales);
             })
         })
