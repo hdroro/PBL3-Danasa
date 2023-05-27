@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const showListNewsController = require('../app/controllers/ShowListNewsController');
+const createRouteController = require('../app/controllers/CreateRouteController');
 
 // router.get('/:slug',loginController.login);
 // router.get('/:slug',showListCusController.show);
-router.get('/edit-news/:idNews', showListNewsController.show_del);
-router.get('/list-news/:idNews', showListNewsController.show);
-router.get('/list-news', showListNewsController.index);
+router.get('/create-route', createRouteController.index);
+router.post('/create-route', createRouteController.save)
 
 module.exports = router;

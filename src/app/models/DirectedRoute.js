@@ -29,5 +29,17 @@ class DirectedRoute{
             })
             })
     }
+    async addDirectedRoute(idRoute, idStartProvince, idEndProvince) {
+        return new Promise(function(resolve, reject){
+            db.query(`insert into directedroutes (idRoute, idStartProvince, idEndProvince) values(?, ?, ?)`, [idRoute, idStartProvince, idEndProvince] ,function (err, rows) {
+                if (err) {
+                    return reject(err);
+                } else {
+                    return resolve(rows);
+                }
+            })
+        })
+    }
+    
 }
 module.exports = DirectedRoute;
