@@ -52,7 +52,6 @@ class ChangePasswordController{
                 })
             // }
         } catch(err) {
-            console.log(err);
             res.render('changepassword', {
                 message: "Mật khẩu cũ không chính xác!",
                 infoLogin: passedVariable, 
