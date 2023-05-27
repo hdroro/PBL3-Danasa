@@ -63,10 +63,10 @@ function route(app) {
     app.use('/admin', authMiddleware.authAdmin, showlistcoach);
     app.use('/admin', authMiddleware.authAdmin, deletecoach);
     app.use('/admin', authMiddleware.authAdmin, createcoach);
-    app.use('/admin', authMiddleware.authAdmin, showlistroute);
-    app.use('/admin', authMiddleware.authAdmin, deleteroute);
-    app.use('/admin', authMiddleware.authAdmin, createroute);
-    app.use('/admin', authMiddleware.authAdmin, createroute);
+    app.use('/admin', showlistroute);
+    app.use('/admin', deleteroute);
+    app.use('/admin', createroute);
+    app.use('/admin', editroute);
 
     app.use('/', homeRouter);
     app.use('/updateinfo', authMiddleware.authCus, updateinfoRouter);

@@ -62,5 +62,16 @@ class Coach{
             })
             })
     }
+    async removeCoach(idRoute) {
+        return new Promise((resolve, reject) => {
+            const editQuery = `UPDATE coachs SET isDelete = 1 WHERE idRoute = ?`;
+            db.query(editQuery, [idRoute], (err, results) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(results);
+            })
+        })
+    }
 }
 module.exports = Coach;
