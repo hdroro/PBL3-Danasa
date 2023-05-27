@@ -87,26 +87,28 @@ class Account {
     async save() {
         return new Promise((resolve, reject) => {
             const checkQuery = `SELECT * FROM accounts WHERE userName = ?`;
-            db.query(checkQuery, [this.username], async (err, results) => {
-                if (err) {
-                    return reject(err);
+            db.query(checkQuery, [this.username], async (checkErr, checkResults) => {
+                if (checkErr) {
+                    return reject(checkErr);
                 }
-                if (results.length > 0) {
-                    return reject(err);
+                if (checkResults.length > 0) {
+                    return reject(new Error('Tên tài khoản đã tồn tại'));
                 } else {
                     const saltRounds = 10;
+                    console.log(this.password);
                     const hashedPassword = await bcrypt.hash(this.password, saltRounds);
                     var query = `INSERT INTO accounts (userName, passWord, isDelete, idRole) VALUES (?, ?, ?, ?)`;
-                    db.query(query, [this.username, hashedPassword, this.isDelete, this.idRole], (err, results) => {
-                        if (err) {
-                            return reject(err);
+                    db.query(query, [this.username, hashedPassword, this.isDelete, this.idRole], (insertErr, insertResults) => {
+                        if (insertErr) {
+                            return reject(insertErr);
                         }
-                        return resolve(results.insertId);
+                        return resolve(insertResults.insertId);
                     });
                 }
             });
         });
     }
+
 
 
     async match() {

@@ -94,15 +94,15 @@ class HistoryBuyTicket {
                         var minutesDiff = Math.floor((timeDiffInSeconds % 3600) / 60); // Số phút
                         var daysDiff = Math.floor(hoursDiff / 24);
 
-                        if (hoursDiff % 24 == 0) {
-                            daysDiff = hoursDiff / 24;
-                            hoursDiff = 0;
+                        if (hoursDiff / 24) {
+                            daysDiff = Math.floor(hoursDiff / 24);
+                            hoursDiff = Math.floor(hoursDiff % 24);
                         }
 
-                        if (minutesDiff % 60 == 0) {
-                            hoursDiff = minutesDiff / 60;
-                            minutesDiff = 0;
-                        }
+                        // if (minutesDiff / 60) {
+                        //     hoursDiff = Math.floor(minutesDiff / 60);
+                        //     minutesDiff = Math.floor(minutesDiff % 60);
+                        // }
                         var showed;
                         var icon;
                         let resultString = "";

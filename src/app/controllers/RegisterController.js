@@ -46,6 +46,7 @@ class RegisterController {
 
         try {
             const account = new Account(username, password);
+            console.log(password)
             const saveAcc = await account.save();
 
             const inforCustomer = new customer(saveAcc, phonenumber, fullname, email);
