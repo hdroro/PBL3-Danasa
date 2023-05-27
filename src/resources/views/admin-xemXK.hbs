@@ -203,13 +203,25 @@
                 </div>
                 <div class="filter-coach">
                     <select name="type-coach" id="" class="filter-coach__type-coach cbb-admin">
-                        <option value="0" >-- Loại xe --</option>
-                        
+                        <option value="0">-- Loại xe --</option>
+                        {{#each types}}
+                        <option value="{{this.idType}}">{{this.typeName}}</option>
+                        {{/each}}
+
                     </select>
                     <select name="route-active" id="" class="filter-coach__route-active cbb-admin">
                         <option value="0">-- Tuyến --</option>
+                        {{#each routes}}
+                        <option value="{{this.idRoute}}">{{this.firstProvince}} - {{this.secondProvince}}</option>
+                        {{/each}}
                     </select>
                 </div>
+                <script>
+                    var cbb__typeCoach = document.querySelector('.filter-coach__type-coach');
+                    var cbb__route = document.querySelector('.filter-coach__route-active');
+                    cbb__route.value = {{idRoute}};
+                    cbb__typeCoach.value = {{idType}};
+                </script>
 
                 <div class="content-xem-xe-khach">
                     <div class="table-attribute grid-full-col" style="justify-content: space-between;">
@@ -231,51 +243,34 @@
                         </div>
                     </div>
                     <div class="list-coach">
+                        {{#each coachs}}
                         <div class="coach grid-full-col">
                             <div class="coach__license-plate">
-                                <p>43B-091.51</p>
+                                <p>{{this.licensePlate}}</p>
                             </div>
                             <div class="coach__type">
-                                <p>Giường nằm</p>
+                                <p>{{this.typeName}}</p>
                             </div>
                             <div class="coach__route-active">
-                                <p>Đà Nẵng - Hồ Chí Minh</p>
+                                <p>{{this.firstProvince}} - {{this.secondProvince}}</p>
                             </div>
                             <div class="coach__number-seat">
-                                <p>16 ghế</p>
+                                <p>{{this.numberOfSeat}} ghế</p>
                             </div>
                             <div class="coach__delete-coach">
-                                <button class="button-delete" data-id="">
+                                <button class="button-delete" data-id="{{this.idCoach}}">
                                     Xóa
                                 </button>
                             </div>
                         </div>
-                        <div class="coach grid-full-col">
-                            <div class="coach__license-plate">
-                                <p>92B-091.51</p>
-                            </div>
-                            <div class="coach__type">
-                                <p>Limosine</p>
-                            </div>
-                            <div class="coach__route-active">
-                                <p>Đà Nẵng - Quảng Trị</p>
-                            </div>
-                            <div class="coach__number-seat">
-                                <p>22 ghế</p>
-                            </div>
-                            <div class="coach__delete-coach">
-                                <button class="button-delete" data-id="">
-                                    Xóa
-                                </button>
-                            </div>
-                        </div>
+                        {{/each}}
                     </div>
                 </div>
                 <div class="index">
                     <ul class="page-index inline">
                         <li class="page-item">
                             {{#if prev}}
-                            <a href="/admin/list-coach?page={{prev}}" class="page-link arrow">
+                            <a href="/admin/list-coach?route={{idRoute}}&type={{idType}}&page={{prev}}" class="page-link arrow">
                                 <i class="fa-solid fa-arrow-left"></i>
                             </a>
                             {{else}}
@@ -289,7 +284,7 @@
                         </li>
                         <li class="page-item">
                             {{#if next}}
-                            <a href="/admin/list-coach?page={{next}}" class="page-link arrow">
+                            <a href="/admin/list-coach?route={{idRoute}}&type={{idType}}&page={{next}}" class="page-link arrow">
                                 <i class="fa-solid fa-arrow-right"></i>
                             </a>
                             {{else}}
@@ -304,7 +299,7 @@
         </div>
     </div>
 </div>
-
+<a class="change-link"></a>
 <script>
     var navLinkParents = document.querySelectorAll(".nav-link-parent");
 
@@ -326,14 +321,27 @@
             b.classList.toggle("fa-caret-right");
         })
     })
-    
     const btnDeletes = document.querySelectorAll('.button-delete');
     btnDeletes.forEach(btnDelete => {
-        const idCus = btnDelete.dataset.id;
+        const idCoach = btnDelete.dataset.id;
         btnDelete.onclick = function (e) {
-            location.href = `/admin/delete-coach/${idCus}`;
+            location.href = `/admin/delete-coach/${idCoach}`;
         }
     })
+</script>
+<script>
+    var cbb__typeCoach = document.querySelector('.filter-coach__type-coach');
+    var cbb__route = document.querySelector('.filter-coach__route-active');
+    var link = document.querySelector('.change-link');
+    console.log(link);
+    cbb__route.onchange = function(){
+        link.href = `/admin/list-coach?route=${cbb__route.value}&type=${cbb__typeCoach.value}&page=1`;
+        link.click();
+    }
+    cbb__typeCoach.onchange = function(){
+        link.href = `/admin/list-coach?route=${cbb__route.value}&type=${cbb__typeCoach.value}&page=1`;
+        link.click();
+    }
 </script>
 
 <script>

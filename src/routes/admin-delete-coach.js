@@ -5,6 +5,7 @@ const deleteCoachController = require('../app/controllers/DeleteCoachController'
 
 // router.get('/:slug',loginController.login);
 // router.get('/:slug',showListCusController.show);
-router.get('/delete-coach', deleteCoachController.index);
+router.get('/delete-coach/:id', deleteCoachController.index);
+router.post('/delete-coach/:id',deleteCoachController.delete);
 
 module.exports = router;

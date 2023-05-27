@@ -1,16 +1,28 @@
 const db = require('../../config/db');
 
 class Route{
-    constructor(idRoute,idFirstProvince,idSecondProvince,distance,hour){
+    constructor(idRoute,idFirstProvince,idSecondProvince,distance,hour,isDelete){
         this.idRoute = idRoute;
         this.idFirstProvince = idFirstProvince;
         this.idSecondProvince = idSecondProvince;
         this.distance = distance;
         this.hour = hour;
+        this.isDelete = isDelete;
     }
     getAllRoute(){
         return new Promise(function(resolve, reject){
             db.query(`select * from danasa.routes`, function (err, rows) {
+                if (err) {
+                    return reject(err);
+                } else {
+                    return resolve(rows);
+                }
+            })
+            })
+    }
+    getAllRouteNotDelete(){
+        return new Promise(function(resolve, reject){
+            db.query(`select * from danasa.routes where isDelete = 0`, function (err, rows) {
                 if (err) {
                     return reject(err);
                 } else {
