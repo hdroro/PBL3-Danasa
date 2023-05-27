@@ -35,6 +35,10 @@ const showlistroute = require('./admin-show-list-route');
 const deleteroute = require('./admin-delete-route');
 const createroute = require('./admin-create-route');
 const editroute = require('./admin-edit-route');
+const showliststation = require('./admin-show-list-station');
+const deletestation = require('./admin-delete-station');
+const createstation = require('./admin-create-station');
+const editstation = require('./admin-edit-station');
 
 const { register } = require('../app/controllers/RegisterController');
 
@@ -62,12 +66,16 @@ function route(app) {
     app.use('/admin', authMiddleware.authAdmin, showlistcus);
     app.use('/admin', authMiddleware.authAdmin, showlistcoach);
     app.use('/admin', authMiddleware.authAdmin, deletecoach);
-    // app.use('/admin', authMiddleware.authAdmin, createcoach);
+    app.use('/admin', authMiddleware.authAdmin, createcoach);
     app.use('/admin', createcoach);
     app.use('/admin', authMiddleware.authAdmin, showlistroute);
     app.use('/admin', authMiddleware.authAdmin, deleteroute);
     app.use('/admin', authMiddleware.authAdmin, createroute);
-    app.use('/admin', authMiddleware.authAdmin, createroute);
+    app.use('/admin', authMiddleware.authAdmin, editroute);
+    app.use('/admin', authMiddleware.authAdmin, showliststation);
+    app.use('/admin', authMiddleware.authAdmin, deletestation);
+    app.use('/admin', authMiddleware.authAdmin, createstation);
+    app.use('/admin', authMiddleware.authAdmin, editstation);
 
     app.use('/', homeRouter);
     app.use('/updateinfo', authMiddleware.authCus, updateinfoRouter);
