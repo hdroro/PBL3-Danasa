@@ -32,26 +32,26 @@
                                     <li class="li-dropdown">
                                         <i class="fa-solid fa-clock-rotate-left" style="color:var(--text-color)"></i>
                                         <span>
-                                            <a class="itemm" href="/history-buy-ticket" >
+                                            <a class="itemm" href="/history-buy-ticket">
                                                 Lịch sử đặt vé
                                             </a>
                                         </span>
                                     </li>
                                     <li class="li-dropdown">
                                         <i class="fa-solid fa-user-large" style="color:var(--text-color)"></i>
-                                        <span><a href="/updateinfo" >
+                                        <span><a href="/updateinfo">
                                                 Thông tin cá nhân
                                             </a></span>
                                     </li>
                                     <li class="li-dropdown">
                                         <i class="fa-solid fa-user-pen" style="color:var(--text-color)"></i>
-                                        <span><a href="/change-password" >
+                                        <span><a href="/change-password">
                                                 Thay đổi mật khẩu
                                             </a></span>
                                     </li>
                                     <li class="li-dropdown">
                                         <i class="fa-solid fa-right-from-bracket" style="color:var(--text-color)"></i>
-                                        <span><a href="/login/logout" >
+                                        <span><a href="/login/logout">
                                                 Đăng xuất
                                             </a></span>
                                     </li>
@@ -89,8 +89,12 @@
                     </div>
                     <div class="form-group">
                         <label for="passWord" class="form-label">Mật khẩu *</label>
-                        <input id="passWord" name="passWord" rules="required|min:6" type="password"
-                            placeholder="Nhập mật khẩu" class="form-control-login">
+                        <div class="password-input-wrapper">
+                            <input id="passWord" name="passWord" rules="required|min:6" type="password"
+                                placeholder="Nhập mật khẩu" class="form-control-login">
+                            <span class="toggle-password" onclick="togglePasswordVisibility('passWord')"
+                                ><i class="fas fa-eye"></i></span>
+                        </div>
                         <span class="form-message"></span>
                     </div>
                     <div class="message-error">{{message}}</div>
@@ -205,8 +209,23 @@
     const allInputs = document.querySelectorAll('.form-control-login');
     const messageError = document.querySelector('.message-error');
     allInputs.forEach(input => {
-        input.addEventListener('input', function() {
+        input.addEventListener('input', function () {
             messageError.innerHTML = "";
         })
     })
+</script>
+
+<script>
+    function togglePasswordVisibility(inputId) {
+        const passwordInput = document.getElementById(inputId);
+        const togglePassword = passwordInput.nextElementSibling;
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            togglePassword.innerHTML = '<i class="fas fa-eye-slash"></i>';
+        } else {
+            passwordInput.type = "password";
+            togglePassword.innerHTML = '<i class="fas fa-eye"></i>';
+        }
+    }
 </script>

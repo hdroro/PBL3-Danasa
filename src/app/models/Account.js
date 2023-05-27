@@ -1,4 +1,5 @@
 const db = require('../../config/db');
+const bcrypt = require('bcrypt');
 
 
 class Account {
@@ -24,20 +25,49 @@ class Account {
         });
     }
 
+    // async authenticate() {
+    //     return new Promise((resolve, reject) => {
+    //         var query = `SELECT * FROM accounts WHERE userName = ? AND passWord = ?`;
+    //         db.query(query, [this.username, this.password], (err, results) => {
+    //             if (err) {
+    //                 return reject(err);
+    //             }
+    //             if (results.length === 0) {
+    //                 return reject(err);
+    //             }
+    //             return resolve(results[0].idRole);
+    //         });
+    //     });
+    // }
+
     async authenticate() {
-        return new Promise((resolve, reject) => {
-            var query = `SELECT * FROM accounts WHERE userName = ? AND passWord = ?`;
-            db.query(query, [this.username, this.password], (err, results) => {
-                if (err) {
-                    return reject(err);
-                }
-                if (results.length === 0) {
-                    return reject(err);
-                }
-                return resolve(results[0].idRole);
+        try {
+            const selectQuery = 'SELECT * FROM accounts WHERE userName = ?';
+            const selectResults = await new Promise((resolve, reject) => {
+                db.query(selectQuery, [this.username], (err, results) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    resolve(results);
+                });
             });
-        });
+
+            if (selectResults.length === 0) {
+                throw new Error('Tên đăng nhập hoặc mật khẩu không đúng');
+            }
+
+            const hashedPassword = selectResults[0].passWord;
+            const passwordMatched = await bcrypt.compare(this.password, hashedPassword);
+            if (passwordMatched) {
+                return selectResults[0].idRole;
+            } else {
+                throw new Error('Tên đăng nhập hoặc mật khẩu không đúng');
+            }
+        } catch (error) {
+            throw error;
+        }
     }
+
 
     async getIdAccount() {
         return new Promise((resolve, reject) => {
@@ -57,15 +87,17 @@ class Account {
     async save() {
         return new Promise((resolve, reject) => {
             const checkQuery = `SELECT * FROM accounts WHERE userName = ?`;
-            db.query(checkQuery, [this.username], (err, results) => {
+            db.query(checkQuery, [this.username], async (err, results) => {
                 if (err) {
                     return reject(err);
                 }
                 if (results.length > 0) {
                     return reject(err);
                 } else {
+                    const saltRounds = 10;
+                    const hashedPassword = await bcrypt.hash(this.password, saltRounds);
                     var query = `INSERT INTO accounts (userName, passWord, isDelete, idRole) VALUES (?, ?, ?, ?)`;
-                    db.query(query, [this.username, this.password, this.isDelete, this.idRole], (err, results) => {
+                    db.query(query, [this.username, hashedPassword, this.isDelete, this.idRole], (err, results) => {
                         if (err) {
                             return reject(err);
                         }
@@ -76,8 +108,8 @@ class Account {
         });
     }
 
-    
-    async match(){
+
+    async match() {
         return new Promise((resolve, reject) => {
             const checkQuery = `SELECT name FROM accounts INNER JOIN inforcustomer ON idUser = idCustomer WHERE userName = ?`;
             db.query(checkQuery, [this.username], (err, results) => {
@@ -89,8 +121,8 @@ class Account {
         });
     }
 
-    async fillInfo(){
-        return new Promise((resolve, reject)=>{
+    async fillInfo() {
+        return new Promise((resolve, reject) => {
             const fetchQuery = `SELECT * FROM accounts INNER JOIN inforcustomer ON idUser = idCustomer WHERE userName = ?`;
             db.query(fetchQuery, [this.username], (err, results) => {
                 if (err) {
@@ -113,35 +145,83 @@ class Account {
     //     })
     // }
 
+
+    // async checkPassword(password) {
+    //     return new Promise((resolve, reject) => {
+    //         const fetchQuery = `SELECT * FROM accounts WHERE userName = ? and passWord = ?`;
+    //         db.query(fetchQuery, [this.username, password], (err, results) => {
+    //             if (err) {
+    //                 return reject(err);
+    //             }
+    //             if (results.length === 0) {
+    //                 return reject(err);
+    //             }
+    //             return resolve(results[0]);
+    //         });
+    //     })
+    // }
+
     async checkPassword(password) {
-        return new Promise((resolve, reject)=>{
-            const fetchQuery = `SELECT * FROM accounts WHERE userName = ? and passWord = ?`;
-            db.query(fetchQuery, [this.username, password], (err, results) => {
-                if (err) {
-                    return reject(err);
-                }
-                if (results.length === 0) {
-                    return reject(err);
-                }
-                return resolve(results[0]);
+        try {
+            const selectQuery = 'SELECT * FROM accounts WHERE userName = ?';
+            const selectResults = await new Promise((resolve, reject) => {
+                db.query(selectQuery, [this.username], (err, results) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    resolve(results);
+                });
             });
-        })
+
+            if (selectResults.length === 0) {
+                throw new Error('Tên đăng nhập hoặc mật khẩu không đúng');
+            }
+
+            const hashedPassword = selectResults[0].passWord;
+            const passwordMatched = await bcrypt.compare(password, hashedPassword);
+
+            if (passwordMatched) {
+                return selectResults[0].idRole;
+            } else {
+                throw new Error('Tên đăng nhập hoặc mật khẩu không đúng');
+            }
+        } catch (error) {
+            throw error;
+        }
     }
 
+
+    // async updatePassword(newPassword) {
+    //     return new Promise((resolve, reject) => {
+    //         const fetchQuery = `UPDATE accounts SET passWord = ? WHERE userName = ?`;
+    //         db.query(fetchQuery, [newPassword, this.username], (err, results) => {
+    //             if (err) {
+    //                 return reject(err);
+    //             }
+    //             return resolve(results);
+    //         });
+    //     })
+    // }
     async updatePassword(newPassword) {
-        return new Promise((resolve, reject)=>{
-            const fetchQuery = `UPDATE accounts SET passWord = ? WHERE userName = ?`;
-            db.query(fetchQuery, [newPassword, this.username], (err, results) => {
-                if (err) {
-                    return reject(err);
-                }
-                return resolve(results);
+        try {
+            const hashedPassword = await bcrypt.hash(newPassword, 10);
+            const updateQuery = 'UPDATE accounts SET passWord = ? WHERE userName = ?';
+            await new Promise((resolve, reject) => {
+                db.query(updateQuery, [hashedPassword, this.username], (err, results) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    resolve(results);
+                });
             });
-        })
+        } catch (error) {
+            throw error;
+        }
     }
+
 
     async getAllAccount() {
-        return new Promise((resolve, reject)=>{
+        return new Promise((resolve, reject) => {
             const fetchQuery = `select * FROM accounts INNER JOIN inforcustomer ON idUser = idCustomer where isDelete = 0`;
             db.query(fetchQuery, (err, results) => {
                 if (err) {
@@ -171,7 +251,7 @@ class Account {
                 if (err) {
                     return reject(err);
                 }
-                if(results.length === 0) return reject(err);
+                if (results.length === 0) return reject(err);
                 return resolve(results);
             });
         })
@@ -184,7 +264,7 @@ class Account {
                 if (err) {
                     return reject(err);
                 }
-                if(results.length === 0) return reject(err);
+                if (results.length === 0) return reject(err);
                 return resolve(results);
             });
         })

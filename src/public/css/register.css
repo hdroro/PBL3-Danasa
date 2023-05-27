@@ -21,6 +21,7 @@
     border: 1px solid #b3b3b3;
     border-radius: 15px;
     height: 4rem;
+    width: 100%;
     padding-left: 2rem;
     font-size: 1.3rem;
 }

@@ -86,7 +86,6 @@ hr {
 }
 
 @media screen and (max-width: 300px) {
-
   .cancelbtn,
   .okbtn {
     width: 100%;

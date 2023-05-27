@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/hdroro/nodejs_blog#readme",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "connect-flash": "^0.1.1",
     "express-handlebars": "^7.0.5",
     "express-session": "^1.17.3",

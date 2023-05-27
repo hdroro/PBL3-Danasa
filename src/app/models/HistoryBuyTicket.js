@@ -75,17 +75,55 @@ class HistoryBuyTicket {
                     return reject(err);
                 }
                 else {
-                    const history = await Promise.all(results.map(async historyItem => {
+                    const history = await Promise.all(results.map(async (historyItem, index) => {
                         const startStation = await this.getStation(historyItem.idStartStation);
                         const endStation = await this.getStation(historyItem.idEndStation)
                         const getDistance = await this.getDistance(historyItem.idDirectedRoute)
                         const getNameSeat = await this.getNameSeat(historyItem.idSeat, historyItem.idSchedule)
+                        const getStartProvince = await this.getProvinces(historyItem.idStartStation);
+                        const getEndProvince = await this.getProvinces(historyItem.idEndStation);
+                        const getLicensePlate = await this.getLicensePlate(historyItem.idCoach)
                         var timeStart = new MyDate(historyItem.startTime.toString());
                         var timeEnd = new MyDate(historyItem.endTime.toString());
                         const dateParts = await timeStart.toDate().split('-');
                         const startDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+                        var statuss;
+                        const now = new Date();
+                        const timeDiffInSeconds = Math.abs(Math.floor((now.getTime() - historyItem.startTime.getTime()) / 1000));
+                        var hoursDiff = Math.floor(timeDiffInSeconds / 3600); // Số giờ
+                        var minutesDiff = Math.floor((timeDiffInSeconds % 3600) / 60); // Số phút
+                        var daysDiff = Math.floor(hoursDiff / 24);
 
+                        if (hoursDiff % 24 == 0) {
+                            daysDiff = hoursDiff / 24;
+                            hoursDiff = 0;
+                        }
+
+                        if (minutesDiff % 60 == 0) {
+                            hoursDiff = minutesDiff / 60;
+                            minutesDiff = 0;
+                        }
+                        var showed;
+                        var icon;
+                        let resultString = "";
+                        if (daysDiff > 0) {
+                            resultString += daysDiff + " ngày ";
+                        }
+                        if (hoursDiff > 0) {
+                            resultString += hoursDiff + " giờ ";
+                        }
+                        if (minutesDiff > 0) {
+                            resultString += minutesDiff + " phút";
+                        }
+                        if (now > historyItem.startTime) {
+                            statuss = "Đã sử dụng";
+                            showed = "show"
+                            icon = "fa-circle-check"
+                        } else {
+                            statuss = "Hết hạn sau " + resultString;
+                        }
                         return {
+                            id: index + 1,
                             startTime: timeStart.toLocaleTimeString(),
                             endTime: timeEnd.toLocaleTimeString(),
                             startDate: startDate,
@@ -94,12 +132,20 @@ class HistoryBuyTicket {
                             distance: getDistance.distance,
                             hour: getDistance.hours,
                             nameSeat: getNameSeat.nameSeat,
-                            Totalprice: (parseInt(historyItem.price, 10)).toLocaleString()
+                            Totalprice: (parseInt(historyItem.price, 10)).toLocaleString(),
+                            name: historyItem.name,
+                            phonenumber: historyItem.phoneNumber,
+                            email: historyItem.email,
+                            startProvince: getStartProvince.provinceName,
+                            endProvince: getEndProvince.provinceName,
+                            licensePlate: getLicensePlate.licensePlate,
+                            status: statuss,
+                            show: showed,
+                            icon: icon,
                         }
                     })).then(res => res.filter(item => item)).catch(error => {
                         console.error(error);
                     });
-
 
                     return resolve({
                         historyList: history,
@@ -110,168 +156,6 @@ class HistoryBuyTicket {
             });
         });
     }
-
-    // async fillIn2(idItemSearch) {
-    //     return new Promise((resolve, reject) => {
-    //         var query = `SELECT * FROM accounts 
-    //                     INNER JOIN inforcustomer ON accounts.idUser = inforcustomer.idCustomer
-    //                     INNER JOIN tickets ON inforcustomer.idCustomer = tickets.idUser
-    //                     INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
-    //                     INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
-    //                     WHERE accounts.userName = ? and idStartProvince = 1 AND schedules.isDeleted = 0 
-    //                     ORDER BY schedules.startTime DESC`;
-    //         db.query(query, [this.userName, idItemSearch], async (err, results) => {
-    //             if (err) {
-    //                 return reject(err);
-    //             }
-    //             if (results.length === 0) {
-    //                 return reject(err);
-    //             }
-    //             else {
-    //                 const history = await Promise.all(results.map(async historyItem => {
-    //                     const startStation = await this.getStation(historyItem.idStartStation);
-    //                     const endStation = await this.getStation(historyItem.idEndStation)
-    //                     const getDistance = await this.getDistance(historyItem.idDirectedRoute)
-    //                     const getNameSeat = await this.getNameSeat(historyItem.idSeat, historyItem.idSchedule)
-    //                     var timeStart = new MyDate(historyItem.startTime.toString());
-    //                     var timeEnd = new MyDate(historyItem.endTime.toString());
-    //                     const dateParts = await timeStart.toDate().split('-');
-    //                     const startDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
-
-    //                     return {
-    //                         startTime: timeStart.toLocaleTimeString(),
-    //                         endTime: timeEnd.toLocaleTimeString(),
-    //                         startDate: startDate,
-    //                         startStation: startStation.stationName,
-    //                         endStation: endStation.stationName,
-    //                         distance: getDistance.distance,
-    //                         hour: getDistance.hours,
-    //                         nameSeat: getNameSeat.nameSeat,
-    //                         Totalprice: (parseInt(historyItem.price, 10)).toLocaleString('vi-VN', { minimumFractionDigits: 0 })
-    //                     }
-    //                 })).then(res => res.filter(item => item)).catch(error => {
-    //                     console.error(error);
-    //                 });
-
-    //                 const uniqueStartProvinces = [];
-    //                 const startProvinces = await Promise.all(
-    //                     results.map(async provinceItem => {
-    //                         const startProvince = await this.getProvinces(provinceItem.idStartStation);
-    //                         if (!uniqueStartProvinces.includes(startProvince.provinceName)) {
-    //                             uniqueStartProvinces.push(startProvince.provinceName);
-    //                             return {
-    //                                 id_start: startProvince.idProvince,
-    //                                 startProvinceName: startProvince.provinceName
-    //                             };
-    //                         }
-    //                     })
-    //                 ).then(res => res.filter(item => item));
-
-
-    //                 const uniqueEndProvinces = [];
-    //                 const endProvinces = await Promise.all(
-    //                     results.map(async provinceItem => {
-    //                         const endProvince = await this.getProvinces(provinceItem.idEndStation);
-    //                         if (!uniqueEndProvinces.includes(endProvince.provinceName)) {
-    //                             uniqueEndProvinces.push(endProvince.provinceName);
-    //                             return {
-    //                                 id_end: endProvince.idProvince,
-    //                                 endProvinceName: endProvince.provinceName
-    //                             };
-    //                         }
-    //                     })
-    //                 ).then(res => res.filter(item => item));
-
-    //                 return resolve({
-    //                     historyList: history,
-    //                     provincesStartList: startProvinces,
-    //                     provincesEndList: endProvinces,
-    //                 });
-    //             }
-    //         });
-    //     });
-    // }
-
-    // async fillIn3(idItemSearch) {
-    //     return new Promise((resolve, reject) => {
-    //         var query = `SELECT * FROM accounts 
-    //                     INNER JOIN inforcustomer ON accounts.idUser = inforcustomer.idCustomer
-    //                     INNER JOIN tickets ON inforcustomer.idCustomer = tickets.idUser
-    //                     INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
-    //                     INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
-    //                     WHERE accounts.userName = ? and idEndProvince = ? AND schedules.isDeleted = 0 
-    //                     ORDER BY schedules.startTime DESC`;
-    //         db.query(query, [this.userName, idItemSearch], async (err, results) => {
-    //             if (err) {
-    //                 return reject(err);
-    //             }
-    //             if (results.length === 0) {
-    //                 return reject(err);
-    //             }
-    //             else {
-    //                 const history = await Promise.all(results.map(async historyItem => {
-    //                     const startStation = await this.getStation(historyItem.idStartStation);
-    //                     const endStation = await this.getStation(historyItem.idEndStation)
-    //                     const getDistance = await this.getDistance(historyItem.idDirectedRoute)
-    //                     const getNameSeat = await this.getNameSeat(historyItem.idSeat, historyItem.idSchedule)
-    //                     var timeStart = new MyDate(historyItem.startTime.toString());
-    //                     var timeEnd = new MyDate(historyItem.endTime.toString());
-    //                     const dateParts = await timeStart.toDate().split('-');
-    //                     const startDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
-
-    //                     return {
-    //                         startTime: timeStart.toLocaleTimeString(),
-    //                         endTime: timeEnd.toLocaleTimeString(),
-    //                         startDate: startDate,
-    //                         startStation: startStation.stationName,
-    //                         endStation: endStation.stationName,
-    //                         distance: getDistance.distance,
-    //                         hour: getDistance.hours,
-    //                         nameSeat: getNameSeat.nameSeat,
-    //                         Totalprice: (parseInt(historyItem.price, 10)).toLocaleString('vi-VN', { minimumFractionDigits: 0 })
-    //                     }
-    //                 })).then(res => res.filter(item => item)).catch(error => {
-    //                     console.error(error);
-    //                 });
-
-    //                 const uniqueStartProvinces = [];
-    //                 const startProvinces = await Promise.all(
-    //                     results.map(async provinceItem => {
-    //                         const startProvince = await this.getProvinces(provinceItem.idStartStation);
-    //                         if (!uniqueStartProvinces.includes(startProvince.provinceName)) {
-    //                             uniqueStartProvinces.push(startProvince.provinceName);
-    //                             return {
-    //                                 id_start: startProvince.idProvince,
-    //                                 startProvinceName: startProvince.provinceName
-    //                             };
-    //                         }
-    //                     })
-    //                 ).then(res => res.filter(item => item));
-
-
-    //                 const uniqueEndProvinces = [];
-    //                 const endProvinces = await Promise.all(
-    //                     results.map(async provinceItem => {
-    //                         const endProvince = await this.getProvinces(provinceItem.idEndStation);
-    //                         if (!uniqueEndProvinces.includes(endProvince.provinceName)) {
-    //                             uniqueEndProvinces.push(endProvince.provinceName);
-    //                             return {
-    //                                 id_end: endProvince.idProvince,
-    //                                 endProvinceName: endProvince.provinceName
-    //                             };
-    //                         }
-    //                     })
-    //                 ).then(res => res.filter(item => item));
-
-    //                 return resolve({
-    //                     historyList: history,
-    //                     provincesStartList: startProvinces,
-    //                     provincesEndList: endProvinces,
-    //                 });
-    //             }
-    //         });
-    //     });
-    // }
 
     async getNameSeat(idSeat, idSchedule) {
         return new Promise((resolve, reject) => {
@@ -331,6 +215,21 @@ class HistoryBuyTicket {
                 return resolve(results[0]);
             });
         });
+    }
+
+    async getLicensePlate(idCoach) {
+        return new Promise((resolve, reject) => {
+            var query = `SELECT * FROM coachs WHERE idCoach = ?`;
+            db.query(query, [idCoach], (err, results) => {
+                if (err) {
+                    return reject(err);
+                }
+                if (results.length === 0) {
+                    return reject(err);
+                }
+                return resolve(results[0]);
+            });
+        })
     }
 }
 

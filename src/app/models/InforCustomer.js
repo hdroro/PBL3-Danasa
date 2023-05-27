@@ -116,8 +116,7 @@ class InforCustomer {
 
     async checkExistedEmail(email, old) {
         return new Promise(async (resolve, reject) => {
-            var query = `select * FROM inforcustomer WHERE email = ? except select * from inforcustomer where email = ?`;
-            db.query(query, [email, old], (err, results) => {
+            var query = `select * FROM inforcustomer WHERE phoneNumber = ? AND phoneNumber NOT IN (select phoneNumber from inforcustomer where phoneNumber = ?)`;            db.query(query, [email, old], (err, results) => {
                 if (err) {
                     return reject(err);
                 }

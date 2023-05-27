@@ -66,6 +66,7 @@ class LoginController {
             }
 
         } catch (err) {
+            console.log(err);
             res.render('login', {
                 title: 'Đăng nhập',
                 infoLogin: "Đăng nhập",

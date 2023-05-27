@@ -57,6 +57,7 @@ class LoginController {
                 await customerInfo.checkExistedEmail(email, infoCus.email);
             }
             catch(err) {
+                console.log(err);
                 res.render('updateinfo', {
                     message: 'Email đã tồn tại!',
                     title: 'Thông tin cá nhân',

@@ -16,7 +16,7 @@ class RegisterController {
         Login.findOne();
     }
 
-    //[POST] /course/success
+    
     async checkUser(req,res,next){
         const { username, password, phonenumber, fullname, email } = req.body;
         const infoCus = new customer();
@@ -58,6 +58,7 @@ class RegisterController {
                 message: "Đăng ký thành công",
             });
         } catch (err) {
+            console.log(err);
             res.render('register', {
                 title: 'Đăng ký',
                 infoLogin: "Đăng nhập",

@@ -105,9 +105,10 @@
                     </div>
                     <h1 style="padding: 2rem 40rem; text-align: center;  color: #f21036;" id="message">{{message}}</h1>
                     <div class="list-history" id="dataList">
-                        {{#each historyList}}
-                        <div class="container__content-route-history">
+                        {{#each historyList }}
+                        <form class="container__content-route-history detailHistory" data-id="{{id}}">
                             <div class="header-time">
+                            <i class="fa-solid {{icon}}" style="color: #147c2b;" title="Vé đã sử dụng"></i>
                                 {{startTime}}
                                 <i class="fa-solid fa-arrow-right"></i>
                                 {{endTime}}
@@ -146,7 +147,92 @@
                                         style="color: #4B8EFA; font-weight: 600; padding-left: 10px;">{{Totalprice}}đ</span>
                                 </div>
                             </div>
+
+
+                        </form>
+
+                        <div id="{{id}}" class="modal_history">
+                            <span id="clodeIcon" class="close"
+                                onclick="document.getElementById({{id}}).style.display='none'"
+                                title="Close Modal">&times;</span>
+                            <form class="modal-content_history">
+                                <div class="container-modal_history">
+                                    <h1> THÔNG TIN ĐẶT VÉ</h1>
+                                    {{!-- <p class="sub-table-title font-15">Thông tin hành khách</p> --}}
+                                    <div class="sub-table-info-customer font-14">
+                                        <div class="content_history-detail">
+                                            <div class="form--group width__item-detail-history">
+                                                <label for="name" class="form--label">Họ tên:</label>
+                                                <input readonly class="form--control" style="font-style: initial;"
+                                                    type="text" name="name" id="name" value="{{name}}"></input>
+                                            </div>
+                                            <div class="form--group width__item-detail-history">
+                                                <label for="SDT" class="form--label">Số điện thoại:</label>
+                                                <input readonly class="form--control" style="font-style: initial;"
+                                                    type="text" name="SDT" id="SDT" value="{{phonenumber}}"></input>
+                                            </div>
+                                            <div class="form--group width__item-detail-history">
+                                                <label for="email" class="form--label">Email:</label>
+                                                <input readonly class="form--control" style="font-style: initial;"
+                                                    type="text" name="email" id="email" value="{{email}}"></input>
+                                            </div>
+
+                                            <div class="form--group width__item-detail-history">
+                                                <div class="line_history_detail"></div>
+                                            </div>
+                                            <div class="form--group width__item-detail-history">
+                                                <label for="route" class="form--label">Chuyến đi:</label>
+                                                <input readonly class="form--control" style="font-style: initial;"
+                                                    type="text" name="route" id="route"
+                                                    value="{{startProvince}} - {{endProvince}}"></input>
+                                            </div>
+                                            <div class="form--group width__item-detail-history">
+                                                <label for="licensePlates" class="form--label">Biển số xe:</label>
+                                                <input readonly class="form--control" style="font-style: initial;"
+                                                    type="text" name="licensePlates" id="licensePlates"
+                                                    value="{{licensePlate}}"></input>
+                                            </div>
+                                            <div class="form--group width__item-detail-history">
+                                                <label for="timeStart" class="form--label">Thời gian khởi
+                                                    hành:</label>
+                                                <input readonly class="form--control" style="font-style: initial;"
+                                                    type="text" name="timeStart" id="email"
+                                                    value="{{startTime}} {{startDate}}"></input>
+                                            </div>
+                                            <div class="form--group width__item-detail-history">
+                                                <label for="priceTicket" class="form--label">Số ghế:</label>
+                                                <input readonly class="form--control" style="font-style: initial;"
+                                                    type="text" name="priceTicket" id="priceTicket"
+                                                    value="{{nameSeat}}"></input>
+                                            </div>
+
+                                            <div class="form--group width__item-detail-history">
+                                                <label for="totalPrice" class="form--label">Tổng cộng:</label>
+                                                <input readonly class="form--control" style="font-style: initial;"
+                                                    type="text" name="totalPrice" id="totalPrice"
+                                                    value="{{Totalprice}} VNĐ"></input>
+                                            </div>
+                                            <div class="form--group width__item-detail-history">
+                                                <label for="status" class="form--label">Tình trạng:</label>
+                                                <input readonly class="form--control" style="font-style: initial;"
+                                                    type="text" name="status" id="status" value="{{status}}"></input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix_history">
+                                        <button type="button" class="okbtn" id="okBtn" onclick="okBtn()">OK</button>
+                                    </div>
+                                    <div class="used {{show}}">
+                                        <div class="used__rectangle">
+                                            <div class="used__rectangle--smaller">
+                                                <p class="used_text">VÉ ĐÃ SỬ DỤNG</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
+
                         {{/each}}
 
                         <div class="index">
@@ -282,14 +368,42 @@
     </footer>
 </div>
 
+
+
+
+<script>
+    var detail = document.querySelectorAll('.container__content-route-history');
+    detail.forEach(function (element) {
+        element.onclick = function (event) {
+            event.preventDefault();
+            var popup = this.getAttribute('data-id');
+            document.getElementById(popup).style.display = 'block';
+
+            var closeBtn = document.querySelectorAll('.okbtn');
+            closeBtn.forEach(function (e) {
+                e.onclick = function () {
+                    document.getElementById(popup).classList.add("fade-out");
+                    setTimeout(function () {
+                        document.getElementById(popup).style.display = "none";
+                        document.getElementById(popup).classList.remove("fade-out");
+                    }, 500);
+                };
+            })
+        }
+    });
+
+</script>
+
+
 <a href="" id="results"></a>
 
 
 <script>
 
+
     document.querySelectorAll('a').forEach(function (link) {
         link.addEventListener('click', function (event) {
-            if (!link.href.includes('page') ) {
+            if (!link.href.includes('page')) {
                 resetPageState();
             }
         });
@@ -317,7 +431,7 @@
     if (selectedEndProvince && selectedStartProvince !== selectedEndProvince) {
         document.querySelector('#searchByEndProvince [value="' + selectedEndProvince + '"]').selected = true;
     }
-    
+
     function resetPageState() {
         localStorage.clear();
         sessionStorage.clear();
@@ -347,4 +461,3 @@
         linkName.href = "#";
     }
 </script>
-

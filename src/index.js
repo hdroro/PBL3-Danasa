@@ -9,7 +9,7 @@ const route = require('./routes');
 const db = require('./config/db');
 
 const flash = require('connect-flash');
-
+const bcrypt = require('bcrypt');
 //Connect to DB
 db.connect;
 
