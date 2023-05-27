@@ -13,7 +13,7 @@ class Schedule{
     };
     getIDLast(){
         return new Promise(function(resolve, reject){
-            db.query('select idSchedule from schedules where isDeleted = 0 order by idSchedule desc', function (err, rows) {
+            db.query('select idSchedule from schedules order by idSchedule desc', function (err, rows) {
                 if (err) {
                     return reject(err);
                 } else {

@@ -107,13 +107,13 @@ class HistoryBuyTicket {
                         var icon;
                         let resultString = "";
                         if (daysDiff > 0) {
-                            resultString += daysDiff + " ngày ";
+                            resultString += daysDiff + "d:";
                         }
                         if (hoursDiff > 0) {
-                            resultString += hoursDiff + " giờ ";
+                            resultString += hoursDiff + "h:";
                         }
                         if (minutesDiff > 0) {
-                            resultString += minutesDiff + " phút";
+                            resultString += minutesDiff + "m";
                         }
                         if (now > historyItem.startTime) {
                             statuss = "Đã sử dụng";

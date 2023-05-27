@@ -19,7 +19,7 @@ class Station{
     }
     getStationByIdProvince(id){
         return new Promise(function(resolve, reject){
-            db.query(`SELECT * FROM stations where idProvince = ${id}`, function (err, rows) {
+            db.query(`SELECT * FROM stations where idProvince = ${id} and isDelete = 0`, function (err, rows) {
                 if (err) {
                     return reject(err);
                 } else {

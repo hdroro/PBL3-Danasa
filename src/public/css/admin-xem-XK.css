@@ -31,7 +31,6 @@
     font-size: 13px;
 }
 .filter-coach .cbb-admin{
-    width: 16rem;
     height: 4.5rem;
     border-radius: 2rem;
     font-size: 1.4rem;
@@ -58,7 +57,7 @@
     cursor: pointer;
     min-width: 100%;
     text-align: center;
-    margin-left: -0.5rem;
+    margin-left: -2rem;
 }
 .button-delete:hover{
     background-color: rgba(221, 228, 255, 0.8)

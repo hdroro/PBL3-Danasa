@@ -190,6 +190,26 @@
                         </li>
                     </ul>
                 </div>
+                <div class="nav-link">
+                    <li class="nav-link-parent">
+                        <div class="item">
+                            <i class="icon-left fa-solid fa-archway"></i>
+                            <a href="#">Bến xe</a>
+                        </div>
+                        <i class="dropdown fa-solid fa-caret-down" href=""></i>
+                    </li>
+
+                    <ul class="nav-link-show ">
+                        <li class="nav-link-show-item">
+                            <i class="a fa-solid "></i>
+                            <a class="content" href="/admin/list-station">Xem bến xe</a>
+                        </li>
+                        <li class="nav-link-show-item">
+                            <i class="fa-solid "></i>
+                            <a class="content" href="/admin/create-station">Thêm bến xe</a>
+                        </li>
+                    </ul>
+                </div>
             </ul>
         </div>
         <!-- <div class="grid"> -->
@@ -205,30 +225,30 @@
                         <div class="form-group width-item-80">
                             <label for="id-coach" class="form-label form-coach">ID :</label>
                             <input id="id-coach" name="id-coach" type="text" class="form-control-coach" style="border-radius: 0;"
-                                value="1" disabled>
+                                value="{{coach.idCoach}}" disabled>
                         </div>
                         <div class="form-group width-item-80">
                             <label for="route" class="form-label form-coach">Tuyến *:</label>
-                            <input id="route" name="route" class="form-control-coach" disabled value="Đà Nẵng">
+                            <input id="route" name="route" class="form-control-coach" disabled value="{{coach.firstProvince}} - {{coach.secondProvince}}">
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group width-item-80">
                             <label for="type-coach" class="form-label form-coach">Loại xe *:</label>
-                            <input id="type-coach" name="type-coach" class="form-control-coach" disabled value="Giường nằm">
+                            <input id="type-coach" name="type-coach" class="form-control-coach" disabled value="{{coach.typeName}}">
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group width-item-80">
                             <label for="license-plate" class="form-label form-coach">Biển số xe *:</label>
-                            <input id="license-plate" name="license-plate" type="text" class="form-control-coach" disabled value="43B-091.51">
+                            <input id="license-plate" name="license-plate" type="text" class="form-control-coach" disabled value="{{coach.licensePlate}}">
                             <span class="form-message"></span>
                         </div>
 
                     <div class="sub-info__coach">
-                        <div class="number-seat">Số lượng: 22 ghế</div>
+                        <div class="number-seat">Số lượng: {{coach.numberOfSeat}} ghế</div>
                     </div>
                     <div class="message-error" style="margin-top: 1rem;"></div>
                     <div class="container-submit">
-                        <button id="{{schedule.idSchedule}}" class="form-submit">
+                        <button id="{{coach.idCoach}}" class="form-submit">
                             <span>Remove</span>
                             <i class="fa-solid fa-xmark" style="font-size: 2rem; margin-left: 0.3rem;"></i>
                         </button>
@@ -278,7 +298,7 @@
     ok.addEventListener('click', event => {
         event.stopPropagation();
         form.method = 'POST';
-        form.action = `/admin/delete-coach/{{schedule.idSchedule}}`;
+        form.action = `/admin/delete-coach/{{coach.idCoach}}`;
         form.submit();
     })
 

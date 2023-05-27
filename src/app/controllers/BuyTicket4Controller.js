@@ -152,6 +152,7 @@ class BuyTicket4Controller {
                             <li>Loại xe: ${ansInfo.typeName}</li>
                             <li>Biển số xe: ${ansInfo.licensePlate}</li>
                             <li>Số lượng vé: ${soLuong} vé</li> 
+                            <li>Số ghế: ${seatArr} </li>
                             <li>Giá vé: ${ansInfo.price.toLocaleString()} VNĐ</li>
                             <li class="total">Tổng cộng: ${(soLuong * ansInfo.price).toLocaleString()} VNĐ</li>
                         </ul>
