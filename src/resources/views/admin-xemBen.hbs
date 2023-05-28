@@ -217,60 +217,58 @@
         </div>
 
         <div class="container-content">
-            <div class="content-route">
+            <div class="content-station">
                 <div class="title" style="padding: 0 0 3rem 0">
                     <div class="title-content">
                         <i class="fa-solid fa-eye eye-icon"></i>
-                        <h2>XEM TUYẾN XE</h2>
+                        <h2>XEM BẾN XE</h2>
                     </div>
-                    <div class="line-straight-xemXK"></div>
+                    <div class="line-straight-xemBX"></div>
                 </div>
 
-                <div class="content-xem-tuyen-xe">
+                <div class="filter-province">
+                    <select name="type-province" id="" class="filter-province cbb-admin">
+                        <option value="0">-- Tỉnh --</option>
+                    </select>
+                </div>
+
+                <div class="content-xem-ben-xe">
                     <div class="table-attribute grid-full-col"
                         style="justify-content: space-between; margin-bottom: 1.5rem;">
-                        <div class="route-name">
-                            <p>Tuyến hoạt động</p>
+                        <div class="province-name">
+                            <p>Tỉnh</p>
                         </div>
-                        <div class="route-distance">
-                            <p>Khoảng cách</p>
+                        <div class="station-name">
+                            <p>Bến xe</p>
                         </div>
-                        <div class="route-duration">
-                            <p>Thời gian</p>
-                        </div>
-                        <div class="route-icons">
+                        <div class="station-icons">
 
                         </div>
                     </div>
-                    <div class="list-route">
-                        {{#each fullListRoute}}
-                        <div class="route grid-full-col">
-                            <div class="route-name__desc">
-                                <p>{{this.nameFirstProvince}} - {{this.nameSecondProvince}}</p>
+                    <div class="list-station">
+                        <div class="station grid-full-col">
+                            <div class="province-name__desc">
+                                <p>Hồ Chí Minh</p>
                             </div>
-                            <div class="route-distance__desc">
-                                <p>{{this.distance}} km</p>
+                            <div class="province-name__desc">
+                                <p>Bến xe miền Tây</p>
                             </div>
-                            <div class="route-duration__desc">
-                                <p>{{this.hours}} tiếng</p>
-                            </div>
-                            <div class="route-icon-detail">
-                                <a href="/admin/delete-route/{{this.idRoute}}" class="section-item icon-delete">
+                            <div class="station-icon-detail">
+                                <a href="/admin/delete-station/" class="section-item icon-delete">
                                     <i class="fa-solid fa-x"></i>
                                 </a>
-                                <a href="/admin/edit-route/{{this.idRoute}}" class="section-item icon-edit">
+                                <a href="/admin/edit-station/" class="section-item icon-edit">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
                             </div>
                         </div>
-                        {{/each}}
                     </div>
                 </div>
                 <div class="index">
                     <ul class="page-index inline">
                         <li class="page-item">
                             {{#if prev}}
-                            <a href="/admin/list-route?page={{prev}}" class="page-link arrow">
+                            <a href="/admin/list-station?page={{prev}}" class="page-link arrow">
                                 <i class="fa-solid fa-arrow-left"></i>
                             </a>
                             {{else}}
@@ -284,7 +282,7 @@
                         </li>
                         <li class="page-item">
                             {{#if next}}
-                            <a href="/admin/list-route?page={{next}}" class="page-link arrow">
+                            <a href="/admin/list-station?page={{next}}" class="page-link arrow">
                                 <i class="fa-solid fa-arrow-right"></i>
                             </a>
                             {{else}}
@@ -320,14 +318,6 @@
         a.addEventListener("click", () => {
             b.classList.toggle("fa-caret-right");
         })
-    })
-
-    const btnDeletes = document.querySelectorAll('.button-delete');
-    btnDeletes.forEach(btnDelete => {
-        const idCus = btnDelete.dataset.id;
-        btnDelete.onclick = function (e) {
-            location.href = `/admin/delete-coach/${idCus}`;
-        }
     })
 </script>
 

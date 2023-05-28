@@ -70,5 +70,23 @@ class Province {
             });
         })
     }
+
+    async getAllProvince(){
+        return new Promise(function (resolve, reject) {
+            db.query('SELECT * FROM provinces', function (err, rows) {
+                if (err) {
+                    return reject(err);
+                } else {
+                    const news = rows.map(proItem => {
+                        return {
+                            idProvince: proItem.idProvince,
+                            provinceName: proItem.provinceName,
+                        };
+                    });
+                    return resolve(news);
+                }
+            })
+        })
+    }
 }
 module.exports = Province;

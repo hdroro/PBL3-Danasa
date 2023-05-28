@@ -257,3 +257,8 @@
     font-weight: 600;
     color: #2a4e8a;
 }
+
+textarea:focus {
+    outline: none;
+    border-color: transparent;
+}

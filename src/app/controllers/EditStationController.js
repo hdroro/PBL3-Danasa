@@ -1,9 +1,9 @@
 class EditStationController{
     index(req,res){
         const obj = {
-            title: 'Xóa bến xe',
+            title: 'Sửa bến xe',
           }
-          res.render('admin-xoaBen', obj);
+          res.render('admin-suaBen', obj);
     }
 }
 module.exports = new EditStationController;
