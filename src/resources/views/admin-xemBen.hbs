@@ -227,10 +227,17 @@
                 </div>
 
                 <div class="filter-province">
-                    <select name="type-province" id="" class="filter-province cbb-admin">
+                    <select name="type-province" id="" class="filter-province cbb-admin cbb-filter-province">
                         <option value="0">-- Tỉnh --</option>
+                        {{#each listProvince}}
+                        <option value="{{this.idProvince}}">{{this.provinceName}}</option>
+                        {{/each}}
                     </select>
                 </div>
+                <script>
+                    const filterProvince = document.querySelector('.cbb-filter-province');
+                    filterProvince.value = "{{idProvinceSelected}}";
+                </script>
 
                 <div class="content-xem-ben-xe">
                     <div class="table-attribute grid-full-col"
@@ -246,12 +253,13 @@
                         </div>
                     </div>
                     <div class="list-station">
+                        {{#each listStation}}
                         <div class="station grid-full-col">
                             <div class="province-name__desc">
-                                <p>Hồ Chí Minh</p>
+                                <p>{{this.stationName}}</p>
                             </div>
                             <div class="province-name__desc">
-                                <p>Bến xe miền Tây</p>
+                                <p>{{this.provinceName}}</p>
                             </div>
                             <div class="station-icon-detail">
                                 <a href="/admin/delete-station/" class="section-item icon-delete">
@@ -262,6 +270,7 @@
                                 </a>
                             </div>
                         </div>
+                        {{/each}}
                     </div>
                 </div>
                 <div class="index">
@@ -299,6 +308,12 @@
 </div>
 
 <script>
+    const provinceFilter = document.querySelector('.cbb-filter-province');
+    provinceFilter.onchange = function() {
+        location.href = `/admin/list-station?province=${provinceFilter.value}`;
+    }
+    
+
     var navLinkParents = document.querySelectorAll(".nav-link-parent");
 
     navLinkParents.forEach((navLinkParent) => {

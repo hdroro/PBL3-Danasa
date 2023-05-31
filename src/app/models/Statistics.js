@@ -120,7 +120,7 @@ class Statistics {
                                                 INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
                                                 INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
                                                 WHERE quarter(startTime) = quarter(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE()) AND schedules.isDeleted = 0
-                                                GROUP BY idSecondProvince, idSecondProvince
+                                                GROUP BY idFirstProvince, idSecondProvince
                                                 ORDER BY totalPrice desc
                                                 LIMIT 1`;
             db.query(statistic_quarter_arranged, async (err, results) => {

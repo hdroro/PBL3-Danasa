@@ -17,6 +17,17 @@ class Station {
             })
         })
     }
+    getStationExisted() {
+        return new Promise(function (resolve, reject) {
+            db.query('SELECT * FROM stations where isDelete = 0', function (err, rows) {
+                if (err) {
+                    return reject(err);
+                } else {
+                    return resolve(rows);
+                }
+            })
+        })
+    }
     getStationByIdProvince(id) {
         return new Promise(function (resolve, reject) {
             db.query(`SELECT * FROM stations where idProvince = ${id} and isDelete = 0`, function (err, rows) {
