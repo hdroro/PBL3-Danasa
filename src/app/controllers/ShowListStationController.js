@@ -1,9 +1,9 @@
 class ShowListStationController {
     index(req,res){
         const obj = {
-            title: 'Xóa bến xe',
+            title: 'Xem bến xe',
           }
-          res.render('admin-xoaBen', obj);
+          res.render('admin-xemBen', obj);
     }
 }
 module.exports = new ShowListStationController;

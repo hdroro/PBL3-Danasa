@@ -50,7 +50,7 @@ class StatisticsController {
             const arrange_quarter = await doanhthu.totalStatistics_quarter_arranged();
             const arrange_month = await doanhthu.totalStatistics_month_arranged();
 
-
+            
             const obj = {
                 title: 'Thống kê doanh thu',
                 total: await doanhthu.totalStatisctics(),

@@ -9,7 +9,8 @@ class DirectedRoute{
     }
     getDirectedRouteByIDRoute(id){
         return new Promise(function(resolve, reject){
-            db.query(`select * from directedroutes where idRoute = ${id}`, function (err, rows) {
+            var query = `select * from directedroutes where idRoute = ${id}`;
+            db.query(query, function (err, rows) {
                 if (err) {
                     return reject(err);
                 } else {
@@ -20,7 +21,8 @@ class DirectedRoute{
     }
     getDirectedRouteByIDDirect(idDirect){
         return new Promise(function(resolve, reject){
-            db.query(`select * from directedroutes where iddirectedroutes = ${idDirect}`, function (err, rows) {
+            var query = `select * from directedroutes where iddirectedroutes = ${idDirect}`;
+            db.query(query, function (err, rows) {
                 if (err) {
                     return reject(err);
                 } else {
