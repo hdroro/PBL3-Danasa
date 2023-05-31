@@ -20,7 +20,7 @@ class CreateScheduleController {
             const st = new station(idstation, namestation, stationProvince);
             if (await st.checkStationName() === 0) {
                 st.saveStation();
-                res.render('admin-xemBen');
+                res.redirect('/admin/list-station');
             }
             else  {
                 res.render('admin-taoBen', 
