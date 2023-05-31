@@ -69,5 +69,51 @@ class Station {
             })
         })
     }
+    getInfoStationById(id){
+        return new Promise(function(resolve, reject){
+            db.query(`SELECT * FROM stations as st join provinces as pr on st.idProvince = pr.idProvince where st.idStation = ${id} and isDelete = 0`, function (err, rows) {
+                if (err) {
+                    return reject(err);
+                } else {
+                    return resolve(rows[0]);
+                }
+            })
+            })
+    }
+    getAllStationByIdStation(id){
+        return new Promise(function(resolve, reject){
+            db.query(`select * from stations where isDelete = 0 and idProvince = (
+                select idProvince from  stations where idStation = ${id}
+            )`, function (err, rows) {
+                if (err) {
+                    return reject(err);
+                } else {
+                    return resolve(rows);
+                }
+            })
+            })
+    }
+    editStation(id,name){
+        return new Promise(function(resolve, reject){
+            db.query(`update stations set stationName = '${name}' where idStation = ${id}`, function (err, rows) {
+                if (err) {
+                    return reject(err);
+                } else {
+                    return resolve(rows);
+                }
+            })
+        })
+    }
+    deleteStation(id){
+        return new Promise(function(resolve, reject){
+            db.query(`update stations set isDelete = 1 where idStation = ${id}`, function (err, rows) {
+                if (err) {
+                    return reject(err);
+                } else {
+                    return resolve(rows);
+                }
+            })
+        })
+    }
 }
 module.exports = Station;

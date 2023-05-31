@@ -229,20 +229,20 @@
                     <div class="form-group width-item-80">
                         <label for="idstation" class="form-label form-station">ID *:</label>
                         <input id="idstation" name="idstation" type="text" class="form-control-station"
-                            style="border-radius: 0;" value="1" disabled>
+                            style="border-radius: 0;" value="{{station.idStation}}" disabled>
                     </div>
                     <div class="form-group width-item-80">
                         <label for="stationProvince" class="form-label form-station">Tỉnh *:</label>
                         <select id="stationProvince" name="stationProvince" class="form-control-station"
                             rules="required|select" disabled>
-                            <option value="0" style="display: none;">Hồ Chí Minh</option>
+                            <option value="{{station.idProvince}}" style="display: none;">{{station.provinceName}}</option>
                         </select>
                         <span class="form-message"></span>
                     </div>
 
                     <div class="form-group width-item-80">
                         <label for="namestation" class="form-label form-station">Bến xe *:</label>
-                        <input id="namestation" name="namestation" type="text" class="form-control-station" value="Bến xe miền Tây" disabled>
+                        <input id="namestation" name="namestation" type="text" class="form-control-station" value="{{station.stationName}}" disabled>
                     </div>
 
                     <div class="message-error" style="margin-top: 1rem;"></div>
@@ -257,7 +257,67 @@
         </div>
     </div>
 </div>
+{{!-- MODAL DELETE SCHEDULE --}}
+<div id="id01" class="modal">
+    <span id="clodeIcon" class="close" onclick="document.getElementById('id01').style.display='none'" title="Close Modal">&times;</span>
+    <form class="modal-content">
+        <div class="container-modal">
+            <h1> <i class="fa-solid fa-trash-can title-icon"
+                    style="padding-right: 1.2rem; font-size: 2.5rem;"></i>Delete Station</h1>
+            <p> {{message}} Bạn có chắc chắn muốn xóa bến xe này ?</p>
+            <div class="clearfix">
+                <button type="button" class="cancelbtn" id="cancelBtn" onclick="cancelBtn()">Cancel</button>
+                <button type="button" class="okbtn" id="okBtn" onclick="okBtn()">OK</button>
+            </div>
+        </div>
+    </form>
+</div>
 
+
+{{!-- XỬ LÝ SỰ KIỆN Ở MODAL --}}
+<script>
+    // GET THE MODAL
+    const form = document.querySelector('form');
+    var modal = document.getElementById('id01');
+    console.log(form);
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            closeModal()
+        }
+    }
+
+    var cancel = document.getElementById('cancelBtn');
+    cancel.addEventListener('click', event => {
+        event.stopPropagation();
+        closeModal()
+    })
+
+    var ok = document.getElementById('okBtn');
+    ok.addEventListener('click', event => {
+        event.stopPropagation();
+        form.method = 'POST';
+        form.action = `/admin/delete-station/{{station.idStation}}`;
+        form.submit();
+    })
+
+    function closeModal() {
+        modal.classList.add("fade-out");
+        setTimeout(function () {
+            modal.style.display = "none";
+            modal.classList.remove("fade-out");
+        }, 500);
+    }
+
+</script>
+
+<script>
+    var DelBtn = document.querySelector('.form-submit');
+    DelBtn.onclick = function () {
+        event.preventDefault();
+        document.getElementById('id01').style.display = 'block';
+
+    }
+</script>
 <script>
     var navLinkParents = document.querySelectorAll(".nav-link-parent");
     var aLink = document.querySelector('.changeLink');

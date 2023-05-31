@@ -23,7 +23,9 @@ class BuyTicket2Controller{
         const startPage = (page - 1) * perPage;
         const endPage = page * perPage;
         var awhile = [{min: 0, max: 24},{min: 0,max: 6,},{min: 6,max: 12,},{min: 12,max: 18,},{min: 18,max: 24,}]
+        // lấy thông tin các lịch trình
         var query = 'SELECT * FROM (((danasa.schedules as sch join danasa.directedroutes as dr on idDirectedRoute = iddirectedroutes) join danasa.coachs as s on s.idCoach = sch.idCoach) join danasa.typeofcoachs as tp on s.idType = tp.idType) join routes as r on dr.idRoute = r.idRoute where sch.isDeleted = 0';
+        // lấy số ghế ngồi
         var queryCount = 'SELECT t.idSchedule, count(t.idSchedule) as SL FROM tickets as t join schedules as sch on t.idSchedule = sch.idSchedule where sch.isDeleted = 0 group by t.idSchedule;';
         Promise.all([new Station().getStation(),new Province().getProvince(),new Type().getTypeOfCoach()])
             .then(([stations,provinces,types])=>{
@@ -51,10 +53,11 @@ class BuyTicket2Controller{
                         query += ` and dr.idEndProvince = 0`;
                     }
                 }
-                query += ' order by sch.idSchedule';
+                query += ' order by sch.startTime';
                 return Promise.all([schedulePublic.getSchedule(query),new Ticket().getCount(queryCount)]);
             })
             .then(([schedules,countSchedules]) => {
+            const timeNow = new MyDate();
             if(timeQuery){
                 var min,max;
                 if(awhileTime<=0){
@@ -69,6 +72,7 @@ class BuyTicket2Controller{
                 for(var index in schedules){
                     var x = schedules[index];
                     var timeStart = new MyDate(x.startTime.toString());
+                    if(timeStart < timeNow) continue;
                     var hour = timeStart.getHours();    
                     var count = countSchedules.find(count => count.idSchedule === x.idSchedule);
                     if(count === undefined) x.haveSeat = x.numberOfSeat;
