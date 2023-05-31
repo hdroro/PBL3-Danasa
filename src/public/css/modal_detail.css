@@ -142,6 +142,7 @@ hr {
   /* font-style: initial; */
   /* flex: 1.5;   */
   border: none;
+  width: 55%;
 }
 
 .line_history_detail {

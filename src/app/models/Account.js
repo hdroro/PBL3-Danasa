@@ -95,7 +95,6 @@ class Account {
                     return reject(new Error('Tên tài khoản đã tồn tại'));
                 } else {
                     const saltRounds = 10;
-                    console.log(this.password);
                     const hashedPassword = await bcrypt.hash(this.password, saltRounds);
                     var query = `INSERT INTO accounts (userName, passWord, isDelete, idRole) VALUES (?, ?, ?, ?)`;
                     db.query(query, [this.username, hashedPassword, this.isDelete, this.idRole], (insertErr, insertResults) => {
