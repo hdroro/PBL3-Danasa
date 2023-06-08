@@ -226,10 +226,10 @@
                     <form method="POST" action="" class="form-delete-acc" id="form-delete__account">
                         <div class="content-row-1">
                             <div class="form-group content-left">
-                                <p>Nhập SĐT:</p>
-                                <input id="phonenumber" name="phonenumber" rules="required|phonenumber|noSpace" type="tel"
+                                <p>Nhập SĐT *:</p>
+                                <input id="phonenumber" name="phonenumber"  type="tel"
                                     class="form-control input-phonenumber" value="{{phonenumber}}">
-                                <span class="form-message"></span>
+                                {{!-- <span class="form-message"></span> --}}
 
                                 
                             </div>
@@ -246,7 +246,7 @@
                         </div>
 
                         {{!-- <div class="content-row"> --}}
-                            <div class="message-error" style="font-size: 1.4rem; color: red;">{{message}}</div>
+                            <div class="message-error" style="font-size: 1.4rem; color: red; min-height: 1.6rem;">{{message}}</div>
                         {{!-- </div> --}}
 
                         <div class="content-row">
@@ -268,7 +268,7 @@
                         <div class="content-row">
                             <div class="content-text">
                                 <p>Số điện thoại </p>
-                                <input id="phonenumber" name="phonenumber" rules="required" type="phonenumber" value="{{phonenumber}}"
+                                <input id="phonenumberaccount" name="phonenumberaccount" rules="required" type="phonenumber" value="{{phonenumber}}"
                                     class="form-control"  disabled>
                             </div>
                         </div>
@@ -305,15 +305,15 @@
                         </div> --}}
 
 
-                        <div class="content-row">
-                            <div>
+                        <div class="content-row" style="display:flex; justify-content: flex-end;">
+                            {{!-- <div> --}}
                                 <button class="but-delete-acc">Remove
                                     <span>
                                         <i class="fa-solid fa-x"
                                             style="font-size: 1.4rem; font-weight: bolder; padding-left: .5rem;"></i>
                                     </span>
                                 </button>
-                            </div>
+                            {{!-- </div> --}}
                         </div>
                     </form>
 
@@ -420,14 +420,29 @@
     const formDelete = document.querySelector('.form-delete-acc');
     const butDeleteAccount = document.querySelector('.but-delete-acc');
     const allInput = document.querySelectorAll('.form-control');
+    const usernameInput = document.querySelector('input[name="username"]');
+    const nameCusInput = document.querySelector('input[name="name"]');
+    const phonenumberAccountInput = document.querySelector('input[name="phonenumberaccount"]');
+    const emailInput = document.querySelector('input[name="email"]');
+    const messageError = document.querySelector('.message-error');
+    const inputPhonenumer = document.querySelector('.input-phonenumber');
     console.log(allInput);
 
-    // console.log(formDelete)
-    butSearchPhoneNumber.onclick = function() {
-        // const phoneNumber = inputPhoneNumber.value;
-        formDelete.action = '/admin/delete-cus/search';
-        formDelete.submit();
+    const validate =  function (value) {
+        var regex = /^[0-9]{10,11}$/;
+        return regex.test(value) ? undefined : 'Vui lòng nhập số điện thoại hợp lệ';
     }
+
+    // console.log(formDelete)
+    butSearchPhoneNumber.addEventListener('click', () => {
+        const message = validate(inputPhoneNumber.value);
+        if(message) {
+            messageError.innerHTML = message;
+        } else {
+            formDelete.action = '/admin/delete-cus/search';
+            formDelete.submit();
+        }
+    })
 
     butDeleteAccount.onclick = function(e) {
         e.preventDefault();
@@ -448,10 +463,19 @@
         }
     } 
 
-    const messageError = document.querySelector('.message-error');
-    const inputPhonenumer = document.querySelector('.input-phonenumber');
+    
     inputPhoneNumber.addEventListener('input', function() {
         messageError.innerHTML = "";
+        usernameInput.value = "";
+        nameCusInput.value = "";
+        phonenumberAccountInput.value = "";
+        emailInput.value = "";
+    })
+    inputPhoneNumber.addEventListener('blur', function() {
+        const message = validate(inputPhoneNumber.value);
+        if(message) {
+            messageError.innerHTML = message;
+        }
     })
 
 </script>

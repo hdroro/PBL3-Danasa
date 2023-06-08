@@ -375,7 +375,7 @@ ul .nav-link-show {
     padding: 3rem;
     font-size: 1.4rem;
     background: white;
-    height: 67rem;
+    height: 68rem;
     box-shadow: 1px 1px 5px #888888;
 }
 
@@ -469,7 +469,7 @@ ul .nav-link-show {
     background: #dde4ff;
     font-weight: 700;
     cursor: pointer;
-    float: right;
+    /* float: right; */
 }
 
 input:disabled{

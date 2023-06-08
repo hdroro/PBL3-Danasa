@@ -32,18 +32,6 @@ class Province {
         })
     }
 
-    async checkProvinceName(provinceName) {
-        return new Promise(function(resolve, reject){
-            db.query(`select * from provinces where provinceName = ?`, [provinceName] ,function (err, rows) {
-                if (err) {
-                    return reject(err);
-                } else {
-                    return resolve(rows);
-                }
-            })
-        })
-    }
-
     async addProvince(provinceName) {
         return new Promise(function(resolve, reject){
             db.query(`insert into provinces (provinceName) values(?)`, [provinceName] ,function (err, rows) {

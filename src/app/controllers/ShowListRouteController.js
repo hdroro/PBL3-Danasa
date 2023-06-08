@@ -27,7 +27,6 @@ class ShowListRouteController {
                     const perPage = 5;
                     const start = (page - 1) * perPage;
                     const end = page * perPage;
-
                     const prev = page === 1 ? false : page - 1;
                     const lastPage = Math.ceil(listRoute.length / perPage);
                     const next = page === lastPage ? false : page + 1;

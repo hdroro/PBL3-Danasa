@@ -16,7 +16,10 @@ function ValidNews(formSelector) {
     var validNewsRules = {
 
         noSpace: function (value) {
-            return /\s/.test(value) ? "Không được nhập khoảng trống" : undefined;
+            return /^\s*$/.test(value) ? "Không nhập khoảng trống" : undefined;
+        },
+        nospace: function (value) {
+            return /\s/.test(value) ? "Không nhập khoảng trống" : undefined;
         },
 
         required: function (value) {

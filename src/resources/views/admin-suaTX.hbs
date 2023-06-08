@@ -283,22 +283,6 @@
 
 </div>
 
-<div id="id01" class="modal" style="cursor: pointer;">
-    <span id="closeIcon" class="close" onclick="document.getElementById('id01').style.display='none'"
-        title="Close Modal">&times;</span>
-    <form class="modal-content">
-        <div class="container-modal">
-            <h1><i class="fa-solid fa-pen title-icon" style="padding-right: 1.2rem; font-size: 2.5rem;"></i>Update Route
-            </h1>
-            <p>Bạn có chắc chắn muốn cập nhật tuyến xe này ?</p>
-            <div class="clearfix">
-                <button type="button" class="cancelbtn" id="cancelBtn">Cancel</button>
-                <button type="button" class="okbtn" id="okBtn">OK</button>
-            </div>
-        </div>
-    </form>
-</div>
-
 <a class="changeLink"></a>
 
 {{!-- MODAL UPDATE SCHEDULE --}}
@@ -321,11 +305,16 @@
 <script>
     // GET THE MODAL
     var UpBtn = document.querySelector('button[type=submit]');
+    const formMessage = document.querySelectorAll('.form-message');
     UpBtn.addEventListener('click', (event) => {
-        event.preventDefault();
-        document.getElementById('id01').style.display = 'block';
+            event.preventDefault();
+            const check = Array.from(formMessage).some(message => message.innerHTML !== "");
+            if(!check) {
+                document.getElementById('id01').style.display = 'block';
+            }
     });
     var modal = document.getElementById('id01');
+    
     var form = document.querySelector('#edit-form__route');
     window.onclick = function (event) {
         if (event.target == modal) {
