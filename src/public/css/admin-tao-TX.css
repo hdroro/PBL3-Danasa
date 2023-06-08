@@ -6,6 +6,13 @@
     outline: none;
 }
 
+select.form-control-route {
+    width: 80%;
+    background: #dde4ff;
+    border: none;
+    font-size: 1.4rem;
+}
+
 .form-group--parent {
     width: 80%;
     display: flex;

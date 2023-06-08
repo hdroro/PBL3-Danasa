@@ -4,7 +4,7 @@
 
 .container__form {
   position: relative;
-  top: -38rem;
+  top: -40rem;
   left: 14rem;
   background-color: #fff;
   width: 77%;
@@ -38,6 +38,7 @@
 .form-label,
 .form-message {
   text-align: left;
+  min-height: 2rem;
 }
 
 .form-label {

@@ -9,6 +9,17 @@ class Route{
         this.hour = hour;
         this.isDelete = isDelete;
     }
+    checkRouteFromProvince(firstID, secondID) {
+        return new Promise(function(resolve, reject){
+            db.query(`select * from routes where idFirstProvince = ? and idSecondProvince = ? and isDelete = 0`, [firstID, secondID] ,function (err, rows) {
+                if (err) {
+                    return reject(err);
+                } else {
+                    return resolve(rows);
+                }
+            })
+        })
+    }
     getAllRoute(){
         return new Promise(function(resolve, reject){
             db.query(`select * from danasa.routes`, function (err, rows) {

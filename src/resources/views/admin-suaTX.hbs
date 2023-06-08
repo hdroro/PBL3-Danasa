@@ -306,11 +306,16 @@
 <script>
     // GET THE MODAL
     var UpBtn = document.querySelector('button[type=submit]');
+    const formMessage = document.querySelectorAll('.form-message');
     UpBtn.addEventListener('click', (event) => {
             event.preventDefault();
-            document.getElementById('id01').style.display = 'block';
+            const check = Array.from(formMessage).some(message => message.innerHTML !== "");
+            if(!check) {
+                document.getElementById('id01').style.display = 'block';
+            }
     });
     var modal = document.getElementById('id01');
+    
     var form = document.querySelector('#edit-form__route');
     window.onclick = function (event) {
         if (event.target == modal) {

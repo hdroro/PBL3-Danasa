@@ -232,12 +232,24 @@
                         </div>
                         <div class="form-group width-item-80">
                             <label for="routeFirstProvince" class="form-label form-route">Tỉnh 1 *:</label>
-                            <input id="routeFirstProvince" name="routeFirstProvince" type="text" class="form-control-route" rules="required|noSpace">
+                            {{!-- <input id="routeFirstProvince" name="routeFirstProvince" type="text" class="form-control-route" rules="required|noSpace"> --}}
+                            <select id="routeFirstProvince" name="routeFirstProvince" class="form-control-route" rules="required|select">
+                                <option value="0">Chọn tỉnh thứ nhất</option>
+                                {{#each listProvinces}}
+                                <option value="{{this.idProvince}}">{{this.provinceName}}</option>
+                                {{/each}}
+                            </select>
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group width-item-80">
                             <label for="routeSecondProvince" class="form-label form-route">Tỉnh 2 *:</label>
-                            <input id="routeSecondProvince" name="routeSecondProvince" type="text" class="form-control-route" rules="required|noSpace">
+                            {{!-- <input id="routeSecondProvince" name="routeSecondProvince" type="text" class="form-control-route" rules="required|noSpace"> --}}
+                            <select id="routeSecondProvince" name="routeSecondProvince" class="form-control-route" rules="required|select">
+                                <option value="0">Chọn tỉnh thứ hai</option>
+                                {{#each listProvinces}}
+                                <option value="{{this.idProvince}}">{{this.provinceName}}</option>
+                                {{/each}}
+                            </select>
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group width-item-80">
@@ -258,7 +270,7 @@
                             </div>
                         </div>
 
-                    <div class="message-error" style="margin-top: 1rem;"></div>
+                    <div class="message-error">{{message}}</div>
                     <div class="container-submit">
                         <button class="form-submit">
                             <span>Upload</span>
@@ -274,6 +286,47 @@
 
 </div>
 <a class="changeLink"></a>
+
+<script>
+    const routeFirstProvince = document.querySelector('#routeFirstProvince');
+    const firstProvinceMessage = routeFirstProvince.parentElement.querySelector('.form-message');
+    const routeSecondProvince = document.querySelector('#routeSecondProvince');
+    const secondProvinceMessage = routeSecondProvince.parentElement.querySelector('.form-message');
+    const nameRoute = document.querySelector('#nameRoute');
+    const messageError = document.querySelector('.message-error');
+    const routeDistance = document.querySelector('#routeInputDistance');
+    const routeDuration = document.querySelector('#routeInputDuration');
+    secondProvinceMessage.style.color = "red";
+    routeFirstProvince.addEventListener('change', () => {
+        if(routeFirstProvince.value != "0" && routeSecondProvince.value != "0" && routeFirstProvince.value === routeSecondProvince.value) {
+            secondProvinceMessage.innerHTML = "Không chọn tinh 1 và tỉnh 2 giống nhau!";
+        }
+        if(routeFirstProvince.value != "0" && routeSecondProvince.value != "0") {
+            nameRoute.value = routeFirstProvince.options[routeFirstProvince.selectedIndex].text + ' - ' +
+             routeSecondProvince.options[routeSecondProvince.selectedIndex].text;
+        }
+        messageError.innerHTML = "";
+    })
+    routeSecondProvince.addEventListener('change', () => {
+        if(routeFirstProvince.value != "0" && routeSecondProvince.value != "0" && routeFirstProvince.value === routeSecondProvince.value) {
+            secondProvinceMessage.innerHTML = "Không chọn tinh 1 và tỉnh 2 giống nhau!";
+        }
+        if(routeFirstProvince.value != "0" && routeSecondProvince.value != "0") {
+            nameRoute.value = routeFirstProvince.options[routeFirstProvince.selectedIndex].text + ' - ' +
+             routeSecondProvince.options[routeSecondProvince.selectedIndex].text;
+        }
+        messageError.innerHTML = "";
+    }) 
+    routeDistance.addEventListener('input', () => {
+        messageError.innerHTML = "";
+    });
+    routeDuration.addEventListener('input', () => {
+        messageError.innerHTML = "";
+    })
+   
+    
+</script>
+
 <script>
     var navLinkParents = document.querySelectorAll(".nav-link-parent");
     var aLink = document.querySelector('.changeLink');
@@ -327,16 +380,4 @@
     }
 
     displayTime();
-</script>
-
-<script>
-    const nameRoute = document.querySelector('#nameRoute');
-    const routeFirstProvince = document.querySelector('#routeFirstProvince');
-    const routeSecondProvince = document.querySelector('#routeSecondProvince');
-    routeFirstProvince.oninput = function() {
-        nameRoute.value = routeFirstProvince.value + ' - ' + routeSecondProvince.value;
-    }
-    routeSecondProvince.oninput = function() {
-        nameRoute.value = routeFirstProvince.value + ' - ' + routeSecondProvince.value;
-    }
 </script>
