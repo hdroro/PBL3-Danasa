@@ -7,10 +7,10 @@
 
 .container__change-pw .line-update,
 .container__change-in4 .line-update{
-    width: 32rem;
+    width: 29rem;
     height: 0.3rem;
     background-color: var(--blue-color);
-    ;
+    margin-top: -8px;
 }
 .container__change-pw .table,
 .container__change-in4 .table{

@@ -36,12 +36,12 @@ class LoginController {
 
             const { name, email, sdt } = req.body;
             const customerInfo = new customer();
-            const infoCus= await customerInfo.getInfoByIdCustomer(idUser);
+            const infoCus = await customerInfo.getInfoByIdCustomer(idUser);
 
             try {
                 await customerInfo.checkExistedPhonenumber(sdt, infoCus.phoneNumber);
             }
-            catch(err) {
+            catch (err) {
                 res.render('updateinfo', {
                     message: 'Số điện thoại đã tồn tại!',
                     title: 'Thông tin cá nhân',
@@ -49,6 +49,10 @@ class LoginController {
                     name: name,
                     email: email,
                     phoneNumber: sdt,
+                    title: "Failed",
+                    statusMessage: "Cập nhật không thành công!",
+                    icon: "fa-exclamation-circle",
+                    type: "toast--warning"
                 })
                 return;
             }
@@ -56,7 +60,7 @@ class LoginController {
             try {
                 await customerInfo.checkExistedEmail(email, infoCus.email);
             }
-            catch(err) {
+            catch (err) {
                 res.render('updateinfo', {
                     message: 'Email đã tồn tại!',
                     title: 'Thông tin cá nhân',
@@ -64,6 +68,10 @@ class LoginController {
                     name: name,
                     email: email,
                     phoneNumber: sdt,
+                    title: "Failed",
+                    statusMessage: "Cập nhật không thành công!",
+                    icon: "fa-exclamation-circle",
+                    type: "toast--warning"
                 })
                 return;
             }
@@ -77,6 +85,10 @@ class LoginController {
                 name: name,
                 phoneNumber: sdt,
                 email: email,
+                titletoast: "Success",
+                statusMessage: "Cập nhật thành công!",
+                icon: "fa-check-circle",
+                type: "toast--success"
             });
         } catch (err) {
             console.log(err);

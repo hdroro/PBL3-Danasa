@@ -39,6 +39,7 @@ class DeleteRouteController {
         try {
             await new coach().removeCoach(req.params.id);
             await new route().remove(req.params.id);
+            req.flash('success', 'Xóa thành công!');
             res.redirect('../list-route');
         }
         catch(err){

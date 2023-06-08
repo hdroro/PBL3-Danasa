@@ -36,6 +36,7 @@
     <link rel="stylesheet" href="/css/toast.css">
     <link rel="stylesheet" href="/css/admin-XemBX.css">
     <link rel="stylesheet" href="/css/admin-TaoBX.css">
+    <link rel="stylesheet" href="/css/toast.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     {{!--
@@ -48,11 +49,11 @@
 </head>
 
 <body>
-        {{!-- {{> header}} --}}
+    {{!-- {{> header}} --}}
 
-         {{{body}}}
-        {{!-- {{> footer}} --}}
-        
+    {{{body}}}
+    {{!-- {{> footer}} --}}
+    <div id="scroll-to-top"><i class="fa-solid fa-arrow-up"></i></div>
     <script src="/javascripts/validator.js"></script>
     <script src="/javascripts/validNews.js"></script>
     <script src="/javascripts/validatorSchedule.js"></script>
@@ -76,3 +77,56 @@
 </body>
 
 </html>
+
+
+{{!-- Scroll --}}
+<script>
+    window.addEventListener('scroll', function () {
+        var scrollButton = document.getElementById('scroll-to-top');
+
+        // Kiểm tra vị trí cuộn của trang
+        if (window.pageYOffset > 200) { // Hiển thị nút khi cuộn xuống 200px
+            scrollButton.style.display = 'block';
+        } else {
+            scrollButton.style.display = 'none';
+        }
+    });
+
+    document.getElementById('scroll-to-top').addEventListener('click', function () {
+        scrollToTop(500);
+    });
+
+    function scrollToTop(scrollDuration) {
+        var scrollStep = -window.scrollY / (scrollDuration / 15);
+        var scrollInterval = setInterval(function () {
+            if (window.scrollY !== 0) { //nếu chưa lên đầu
+                window.scrollBy(0, scrollStep);
+            } else {
+                clearInterval(scrollInterval); // dừng vòng lặp
+            }
+        }, 15);
+    }
+</script>
+
+
+{{!-- Toast message --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var toast = document.getElementById('toast');
+
+        toast.addEventListener('animationend', function () {
+            setTimeout(function () {
+                toast.style.display = 'none';
+            }, 1000);
+        });
+
+        var closeIcon = document.querySelector('.toast__close');
+        closeIcon.addEventListener('click', function () {
+            toast.style.display = 'none';
+        });
+
+        if (performance.navigation.type === 2) {
+            toast.style.display = 'none';
+        }
+    });
+</script>

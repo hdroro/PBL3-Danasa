@@ -23,7 +23,8 @@
                             <button type="button"
                                 class="nav-link count-indicator dropdown-toggle btn btn-primary-notifi"
                                 fdprocessedid="6335cp" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa-solid fa-hands-clapping" style="font-size: 2.2rem; color: #2a4e8a; margin-right: -0.8rem;"></i>
+                                <i class="fa-solid fa-hands-clapping"
+                                    style="font-size: 2.2rem; color: #2a4e8a; margin-right: -0.8rem;"></i>
                             </button>
                         </div>
                     </div>
@@ -48,7 +49,8 @@
                             </button>
                             <button class="logout-admin">
                                 <a href="/login/logout" class="nav-profile-img">
-                                    <i class="fa-solid fa-right-from-bracket" style="font-size: 2rem; color: #2a4e8a;"></i>
+                                    <i class="fa-solid fa-right-from-bracket"
+                                        style="font-size: 2rem; color: #2a4e8a;"></i>
                                     <span class="availability-status online"></span>
                                 </a>
                             </button>
@@ -123,7 +125,7 @@
                         </li>
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
-                            <a class="content" href="/admin/delete-cus" >Xóa tài khoản</a>
+                            <a class="content" href="/admin/delete-cus">Xóa tài khoản</a>
                         </li>
                     </ul>
                 </div>
@@ -140,7 +142,7 @@
                     <ul class="nav-link-show">
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
-                            <a class="content" href="/admin/list-schedule" >Xem lịch trình</a>
+                            <a class="content" href="/admin/list-schedule">Xem lịch trình</a>
                         </li>
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
@@ -148,7 +150,7 @@
                         </li>
                     </ul>
                 </div>
-                
+
                 <div class="nav-link">
                     <li class="nav-link-parent">
                         <div class="item">
@@ -169,7 +171,7 @@
                         </li>
                     </ul>
                 </div>
-                
+
                 <div class="nav-link">
                     <li class="nav-link-parent">
                         <div class="item">
@@ -217,8 +219,10 @@
             <div class="title-admin">
                 <i class="fa-solid fa-trash create-icon"></i>
                 <div class="title-content">XÓA LỊCH TRÌNH</div>
-                <div class="title-line"></div>
             </div>
+
+            <div class="title-line"></div>
+
 
             <div class="container-create__schedule">
                 <form id="create-form__schedule" class="form">
@@ -234,7 +238,8 @@
                         </div>
                         <div class="form-group width-item-35">
                             <label for="route" class="form-label form-schedule">Tuyến :</label>
-                            <input id="route" name="route" class="form-control-schedule" disabled value="{{schedule.firstProvince}} - {{schedule.secondProvince}}">                            
+                            <input id="route" name="route" class="form-control-schedule" disabled
+                                value="{{schedule.firstProvince}} - {{schedule.secondProvince}}">
                             <span class="form-message"></span>
                         </div>
                     </div>
@@ -242,7 +247,8 @@
                     <div class="form-group--large">
                         <div class="form-group width-item-35">
                             <label for="start-province" class="form-label form-schedule">Tỉnh đi :</label>
-                            <input id="start-province" name="start-province" class="form-control-schedule" disabled value="{{schedule.startProvince}}">
+                            <input id="start-province" name="start-province" class="form-control-schedule" disabled
+                                value="{{schedule.startProvince}}">
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group width-item-35">
@@ -255,12 +261,14 @@
                     <div class="form-group--large">
                         <div class="form-group width-item-35">
                             <label for="start-station" class="form-label form-schedule">Bến đi :</label>
-                            <input id="start-station" name="start-station" class="form-control-schedule" disabled value="{{schedule.startStation}}">
+                            <input id="start-station" name="start-station" class="form-control-schedule" disabled
+                                value="{{schedule.startStation}}">
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group width-item-35">
                             <label for="end-station" class="form-label form-schedule">Bến đến :</label>
-                            <input id="end-station" name="end-station" class="form-control-schedule" disabled value="{{schedule.endStation}}">
+                            <input id="end-station" name="end-station" class="form-control-schedule" disabled
+                                value="{{schedule.endStation}}">
                             <span class="form-message"></span>
                         </div>
                     </div>
@@ -268,16 +276,19 @@
                     <div class="form-group--large">
                         <div class="form-group width-item-28">
                             <label for="start-time" class="form-label form-schedule">Thời gian khởi hành :</label>
-                            <input id="start-time" name="start-time" type="time" class="form-control-schedule" disabled value="{{schedule.start}}">
+                            <input id="start-time" name="start-time" type="time" class="form-control-schedule" disabled
+                                value="{{schedule.start}}">
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group width-item-28">
                             <label for="end-time" class="form-label form-schedule">Thời gian cập bến :</label>
-                            <input id="end-time" name="end-time" type="time" class="form-control-schedule" disabled value="{{schedule.end}}">
+                            <input id="end-time" name="end-time" type="time" class="form-control-schedule" disabled
+                                value="{{schedule.end}}">
                         </div>
                         <div class="form-group width-item-28">
                             <label for="start-date" class="form-label form-schedule">Ngày khởi hành :</label>
-                            <input id="start-date" name="start-date" type="date" class="form-control-schedule" disabled value="{{schedule.day}}">
+                            <input id="start-date" name="start-date" type="date" class="form-control-schedule" disabled
+                                value="{{schedule.day}}">
                             <span class="form-message"></span>
                         </div>
                     </div>
@@ -285,17 +296,20 @@
                     <div class="form-group--large">
                         <div class="form-group width-item-28">
                             <label for="price" class="form-label form-schedule">Giá :</label>
-                            <input id="price" name="price" type="text" class="form-control-schedule" value="{{schedule.price}}" disabled>
+                            <input id="price" name="price" type="text" class="form-control-schedule"
+                                value="{{schedule.price}}" disabled>
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group width-item-28">
                             <label for="type-coach" class="form-label form-schedule">Loại xe :</label>
-                            <input id="type-coach" name="type-coach" class="form-control-schedule" disabled value="{{schedule.typeName}}">
+                            <input id="type-coach" name="type-coach" class="form-control-schedule" disabled
+                                value="{{schedule.typeName}}">
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group width-item-28">
                             <label for="license-plate" class="form-label form-schedule">Biển số xe :</label>
-                            <input id="license-plate" name="license-plate" class="form-control-schedule" disabled value="{{schedule.licensePlate}}">
+                            <input id="license-plate" name="license-plate" class="form-control-schedule" disabled
+                                value="{{schedule.licensePlate}}">
                             <span class="form-message"></span>
                         </div>
                     </div>
@@ -320,7 +334,8 @@
 </div>
 {{!-- MODAL DELETE SCHEDULE --}}
 <div id="id01" class="modal">
-    <span id="clodeIcon" class="close" onclick="document.getElementById('id01').style.display='none'" title="Close Modal">&times;</span>
+    <span id="clodeIcon" class="close" onclick="document.getElementById('id01').style.display='none'"
+        title="Close Modal">&times;</span>
     <form class="modal-content">
         <div class="container-modal">
             <h1> <i class="fa-solid fa-trash-can title-icon"
@@ -394,7 +409,7 @@
         }
     }
     */
-        
+
     navLinkParents.forEach((navLinkParent) => {
         var dropdownIcon = navLinkParent.querySelector(".dropdown");
         navLinkParent.addEventListener("click", (event) => {

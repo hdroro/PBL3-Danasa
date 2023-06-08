@@ -282,6 +282,24 @@
 </div>
 
 
+{{#if statusMessage}}
+<div id="toast">
+    <div class="toast toat--success">
+        <div class="toast__icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="toast__body">
+            <h3 class="toast__title">Success</h3>
+            <p class="toast__msg">{{statusMessage}}</p>
+        </div>
+        <div class="toast__close">
+            <i class="fas fa-times"></i>
+        </div>
+    </div>
+</div>
+{{/if}}
+
+
 <script>
 
     var navLinkParents = document.querySelectorAll(".nav-link-parent");

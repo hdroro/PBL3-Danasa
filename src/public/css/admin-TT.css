@@ -20,6 +20,7 @@
 .title-obj-news .title-icon{
     width: 3rem;
     margin-right: 0.5rem;
+    font-size: 1.8rem;
 }
 .title-obj-news .text-title{
     font-weight: bold;
@@ -133,6 +134,9 @@
     padding: 1.5rem 2rem 1.5rem 2rem;
     font-weight: bold;
 }
+.upload-news button:hover{
+    opacity: 0.8;
+}
 .content-tao-tin-tuc .upload-news img{
     position: absolute;
     right: 1rem;
@@ -151,6 +155,10 @@
     border-radius: 15px;
     padding: 1rem 2rem;
     font-weight: bold;
+}
+
+.update-news button:hover{
+    opacity: 0.9;
 }
 .container-tao-tin-tuc .upload-news :hover,
 .container-xoa-tin-tuc .delete :hover,

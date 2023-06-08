@@ -59,6 +59,7 @@ class DeleteCusController {
         if(req.session.IDBehind > 0){
             Promise.all([schedulePublic.deleteSoftSchedule(req.params.id),schedulePublic.deleteSoftSchedule(req.session.IDBehind)])
                 .then(([])=>{
+                    req.flash('success', 'Xóa thành công!');
                     res.redirect('/admin/list-schedule');
                 })
                 .catch(next);
@@ -66,6 +67,7 @@ class DeleteCusController {
         else{
         schedulePublic.deleteSoftSchedule(req.params.id)
             .then(()=>{
+                req.flash('success', 'Xóa thành công!');
                 res.redirect('/admin/list-schedule');
             })
             .catch(next);

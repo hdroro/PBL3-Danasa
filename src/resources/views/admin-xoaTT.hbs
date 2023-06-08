@@ -221,27 +221,27 @@
                     <div class="line2">
                     </div>
                 </div>
-                <form class="delete-news-form" method="POST" action="/admin/delete-news/delete?idNews={{idNews}}"
+                <form class="delete-news-form" method="POST" action="/admin/delete-news/{{newsItem.idNews}}"
                     id="delete-form__news">
                     <div class="content-xoa-tin-tuc">
                         <div class="frame-content font-16">
                             <div class="id inline">
                                 <p for="ID" class="text-decor">ID:</p>
                                 <input name="idNews"
-                                    style="background: #dde4ff; border: none; width: 50%; font-weight: 600;"
-                                    value="{{idNews}}" disabled>
+                                    style="background: #dde4ff; border: none; width: 50%; "
+                                    value="{{newsItem.idNews}}" disabled>
                             </div>
                             <div class="title-new inline">
-                                <p>Tiêu đề *:</p>
-                                <p class="input-text-title" name="titleNews">{{titleNews}}</p>
+                                <p>Tiêu đề:</p>
+                                <p class="input-text-title" name="titleNews">{{newsItem.titleNews}}</p>
                             </div>
                             <div class="frame-img-content inline">
                                 <div class="img">
-                                    <img src="/img/{{urlImg}}" name="urlImg" alt="">
+                                    <img src="/img/{{newsItem.urlImg}}" name="urlImg" alt="">
                                 </div>
                                 <div class="content-new">
-                                    <p>Nội dung *</p>
-                                    <p class="text-content-delete" name="contentNews">{{contentNews}}</p>
+                                    <p>Nội dung</p>
+                                    <p class="text-content-delete" name="contentNews">{{newsItem.contentNews}}</p>
                                 </div>
                             </div>
                             <div class="delete">

@@ -3,9 +3,10 @@
 }
 
 .line-straight-xemBX{
-    height: 1.5px;
+    height: 2px;
     background: #1d38a1;
     width: 14rem;
+    margin-top: -5px;
 }
 
 .content-xem-ben-xe .station-name {

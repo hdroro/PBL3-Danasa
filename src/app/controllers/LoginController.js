@@ -21,7 +21,6 @@ class LoginController {
 
             }
             res.render('login', obj);
-            // res.redirect('back');
         }
     }
 
@@ -39,11 +38,15 @@ class LoginController {
             const account = new Account(userName, passWord);
             await account.checkUsername();
         }
-        catch(err) {
+        catch (err) {
             res.render('login', {
                 title: 'Đăng nhập',
                 infoLogin: "Đăng nhập",
                 message: "Tài khoản không tồn tại",
+                success: "Failed",
+                statusMessage: "Đăng nhập không thành công!",
+                icon: "fa-exclamation-circle",
+                type: "toast--error"
             });
             return;
         }
@@ -52,12 +55,10 @@ class LoginController {
             const account = new Account(userName, passWord);
             const authenticatedUser = await account.authenticate();
             req.session.userName = userName;
-
             if (authenticatedUser == 1) {
                 const name = await account.match();
-                // req.session.userName = name;
                 req.session.nameCustomer = name;
-                req.flash('success', 'Đăng nhập thành công!');
+                req.session.statusMessage = req.flash('success', 'Đăng nhập thành công!');
                 res.redirect('/');
             }
             else {
@@ -66,11 +67,14 @@ class LoginController {
             }
 
         } catch (err) {
-            console.log(err);
             res.render('login', {
                 title: 'Đăng nhập',
                 infoLogin: "Đăng nhập",
                 message: "Mật khẩu không đúng",
+                success: "Failed",
+                statusMessage: "Đăng nhập không thành công!",
+                icon: "fa-exclamation-circle",
+                type: "toast--error"
             });
         }
     }

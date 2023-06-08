@@ -16,15 +16,13 @@ const upload = multer({ storage: storage }).single('image');
 class EditNewsController {
 
     // [GET] /home
-    index(req, res) {
+    async index(req, res) {
         try{
+            const idNews = new news(req.params.id)
             const obj = {
                 title: 'Sửa tin tức',
-                idNews: req.query.idNews,
-                titleNews: req.query.titleNews,
-                contentNews: req.query.contentNews,
-                urlImg: req.query.urlImg,
-            }
+                newsItem: await idNews.searchNews(),
+            }   
             res.render('admin-suaTT', obj);
         }
         catch(err){
@@ -44,10 +42,9 @@ class EditNewsController {
                 newImage = oldImage;
             }
             const news_edit = new news(idNews, titleNews, contentNews, newImage);
-            console.log(news_edit);
             await news_edit.editNews();
+            req.flash('success', 'Cập nhật thành công!');
             res.redirect('/admin/list-news')
-
         });
     }
 }

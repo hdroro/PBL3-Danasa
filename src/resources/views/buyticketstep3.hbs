@@ -343,19 +343,19 @@
                     <form action="" id="customer-form" class="form cus-form__buy-ticket" method="POST">
                         <p class="form__heading">THÔNG TIN HÀNH KHÁCH</p>
                         <div class="form-group">
-                            <label for="fullname" class="form-label">Họ và tên *</label>
+                            <label for="fullname" class="form-label">Họ và tên <span class="asterisk">*</span></label>
                             <input id="fullname" name="fullname" rules="required|noSpace" type="text"
                                 placeholder="VD: Nguyễn Văn A" class="form-control" value="{{infoCus.name}}">
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group">
-                            <label for="phonenumber" class="form-label">Số điện thoại *</label>
+                            <label for="phonenumber" class="form-label">Số điện thoại <span class="asterisk">*</span></label>
                             <input id="phonenumber" name="phonenumber" rules="required|phonenumber|noSpace" type="tel"
                                 placeholder="VD: 0905312145" class="form-control" value="{{infoCus.phoneNumber}}">
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group">
-                            <label for="email" class="form-label">Email *</label>
+                            <label for="email" class="form-label">Email <span class="asterisk">*</span></label>
                             <input id="email" name="email" rules="required|email|noSpace" type="text"
                                 placeholder="VD: sv@gmail.com" class="form-control" value="{{infoCus.email}}">
                             <span class="form-message"></span>

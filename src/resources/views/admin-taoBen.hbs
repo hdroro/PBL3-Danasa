@@ -227,12 +227,12 @@
             <div class="container-create__station">
                 <form method="POST" action="/admin/create-station" id="create-form__station" class="form">
                     <div class="form-group width-item-80">
-                        <label for="idstation" class="form-label form-station">ID *:</label>
+                        <label for="idstation" class="form-label form-station">ID :</label>
                         <input id="idstation" name="idstation" type="text" class="form-control-station"
                             style="border-radius: 0;" value="{{idstation}}" disabled>
                     </div>
                     <div class="form-group width-item-80">
-                        <label for="stationProvince" class="form-label form-station">Tỉnh *:</label>
+                        <label for="stationProvince" class="form-label form-station">Tỉnh <span class="asterisk">*</span>:</label>
                         <select id="stationProvince" name="stationProvince" class="form-control-station"
                             rules="required|select">
                             <option value="0" selected="selected">-- Tỉnh --</option>
@@ -244,9 +244,9 @@
                     </div>
 
                     <div class="form-group width-item-80">
-                        <label for="namestation" class="form-label form-station">Bến xe *:</label>
+                        <label for="namestation" class="form-label form-station">Bến xe <span class="asterisk">*</span>:</label>
                         <input id="namestation" name="namestation" type="text" class="form-control-station"
-                            rules="required" value="{{stationName}}">
+                            rules="required|noSpace" value="{{stationName}}">
                         <span class="form-message"></span>
                     </div>
 
@@ -265,6 +265,24 @@
 
 
 </div>
+
+{{#if statusMessage}}
+<div id="toast">
+    <div class="toast {{type}}">
+        <div class="toast__icon">
+            <i class="fas {{icon}}"></i>
+        </div>
+        <div class="toast__body">
+            <h3 class="toast__title">{{titletoast}}</h3>
+            <p class="toast__msg">{{statusMessage}}</p>
+        </div>
+        <div class="toast__close">
+            <i class="fas fa-times"></i>
+        </div>
+    </div>
+</div>
+{{/if}}
+
 <a class="changeLink"></a>
 
 {{!-- MODAL CREATE NEWS --}}

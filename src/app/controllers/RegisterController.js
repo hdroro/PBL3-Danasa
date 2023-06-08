@@ -28,6 +28,10 @@ class RegisterController {
                 title: 'Đăng ký',
                 infoLogin: "Đăng nhập",
                 message: "Số điện thoại đã tồn tại",
+                title: "Failed",
+                statusMessage: "Đăng ký không thành công!",
+                icon: "fa-exclamation-circle",
+                type: "toast--error"
             });
             return;
         }
@@ -40,6 +44,10 @@ class RegisterController {
                 title: 'Đăng ký',
                 infoLogin: "Đăng nhập",
                 message: "Email đã tồn tại",
+                title: "Failed",
+                statusMessage: "Đăng ký không thành công!",
+                icon: "fa-exclamation-circle",
+                type: "toast--error"
             });
             return;
         }
@@ -57,13 +65,20 @@ class RegisterController {
                 title: 'Đăng ký',
                 infoLogin: "Đăng nhập",
                 message: "Đăng ký thành công",
+                title: "Success",
+                statusMessage: "Đăng ký thành công!",
+                icon: "fa-check-circle",
+                type: "toast--success"
             });
         } catch (err) {
-            console.log(err);
             res.render('register', {
                 title: 'Đăng ký',
                 infoLogin: "Đăng nhập",
                 message: "Tên tài khoản đã tồn tại",
+                title: "Failed",
+                statusMessage: "Đăng ký không thành công!",
+                icon: "fa-exclamation-circle",
+                type: "toast--error"
             });
         }
     }

@@ -55,6 +55,10 @@ class DeleteCusController {
             res.render('admin-xoaTK', {
                 title: 'Xóa tài khoản',
                 message: 'Không tồn tại tài khoản!',
+                titletoast: "Warning",
+                statusMessage: "Oops...Có lỗi xảy ra!",
+                icon: "fa-exclamation-circle",
+                type: "toast--warning"
             })
         }
     }
@@ -68,10 +72,8 @@ class DeleteCusController {
             const acc = new account();
             // await cus.deleteInfo(phonenumber);
             await acc.deleteAccount(username);
-            res.render('admin-xoaTK', {
-                title: 'Xóa tài khoản',
-                message: 'Xóa tài khoản thành công!',
-            })
+            req.flash('success', 'Xóa thành công!');
+            res.redirect('/admin/list-cus');
         }
         catch(err) {
             res.json({

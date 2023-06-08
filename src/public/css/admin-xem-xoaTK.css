@@ -152,6 +152,10 @@ input:focus {
     background: #EA3B3B;
 }
 
+.title-content h2{
+    font-size: 1.7rem;
+}
+
 .fa-bell,
 .fa-envelope {
     font-size: 2rem;
@@ -325,8 +329,9 @@ ul .nav-link-show {
 
 .line-straight-xoaTK,
 .line-straight-xemTK{
-    width: 16rem;
+    width: 18rem;
     height: 0.2rem;
+    margin-top: -5px;
     background: #1d38a1;
 }
 

@@ -111,14 +111,14 @@
     bottom: 1.5rem;
 }
 .single-new .button .del-btn{
-    font-size: 28px;
+    font-size: 29px;
     color: #FF0000;
-    margin-right: 2rem;
+    margin-right: 1rem;
     position: relative;
     top: 0.4rem;
 }
 .single-new .button .update-btn{
-    font-size: 22px;
+    font-size: 23px;
     color: #147C2B
 }
 .single-new .button .update-btn:hover,

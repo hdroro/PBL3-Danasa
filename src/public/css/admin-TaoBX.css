@@ -40,9 +40,9 @@ select:focus {
 }
 
 .line-straight-taoBX {
-    height: 1.5px;
+    height: 2px;
     background: #1d38a1;
-    width: 14rem;
+    width: 16rem;
     margin-top: 5px;
 }
 
@@ -51,4 +51,5 @@ select:focus {
     background: #dde4ff;
     border: none;
     font-size: 1.4rem;
+    opacity: 1;
 }

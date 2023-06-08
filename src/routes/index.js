@@ -93,6 +93,7 @@ function route(app) {
     app.use('/login', loginRouter);
     app.use('/news', newsRouter);
     app.use('/', siteRouter);
+    
 }
 
 module.exports = route;

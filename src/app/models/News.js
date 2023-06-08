@@ -79,6 +79,8 @@ class News {
 
     async deleteNews() {
         return new Promise((resolve, reject) => {
+            console.log(this.idNews);
+
             const deleteQuery = `DELETE FROM news where idNews = ?`;
             db.query(deleteQuery, [this.idNews], (err, results) => {
                 if (err) {

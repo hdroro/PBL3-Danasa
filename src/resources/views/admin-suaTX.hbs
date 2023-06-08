@@ -22,7 +22,8 @@
                             <button type="button"
                                 class="nav-link count-indicator dropdown-toggle btn btn-primary-notifi"
                                 fdprocessedid="6335cp" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa-solid fa-hands-clapping" style="font-size: 2.2rem; color: #2a4e8a; margin-right: -0.8rem;"></i>
+                                <i class="fa-solid fa-hands-clapping"
+                                    style="font-size: 2.2rem; color: #2a4e8a; margin-right: -0.8rem;"></i>
                             </button>
                         </div>
                     </div>
@@ -47,7 +48,8 @@
                             </button>
                             <button class="logout-admin">
                                 <a href="/login/logout" class="nav-profile-img">
-                                    <i class="fa-solid fa-right-from-bracket" style="font-size: 2rem; color: #2a4e8a;"></i>
+                                    <i class="fa-solid fa-right-from-bracket"
+                                        style="font-size: 2rem; color: #2a4e8a;"></i>
                                     <span class="availability-status online"></span>
                                 </a>
                             </button>
@@ -122,7 +124,7 @@
                         </li>
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
-                            <a class="content" href="/admin/delete-cus" >Xóa tài khoản</a>
+                            <a class="content" href="/admin/delete-cus">Xóa tài khoản</a>
                         </li>
                     </ul>
                 </div>
@@ -139,7 +141,7 @@
                     <ul class="nav-link-show">
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
-                            <a class="content" href="/admin/list-schedule" >Xem lịch trình</a>
+                            <a class="content" href="/admin/list-schedule">Xem lịch trình</a>
                         </li>
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
@@ -147,7 +149,7 @@
                         </li>
                     </ul>
                 </div>
-                
+
                 <div class="nav-link">
                     <li class="nav-link-parent">
                         <div class="item">
@@ -168,7 +170,7 @@
                         </li>
                     </ul>
                 </div>
-                
+
                 <div class="nav-link">
                     <li class="nav-link-parent">
                         <div class="item">
@@ -218,43 +220,52 @@
             <div class="title-admin">
                 <i class="fa-solid fa-pencil edit-icon"></i>
                 <div class="title-content">SỬA TUYẾN XE</div>
-                <div class="title-line" style="left: -14.5rem;"></div>
             </div>
 
+            <div class="title-line"></div>
+
             <div class="container-create__route">
-                <form method="POST" action="/admin/edit-route/{{routeInfo.idRoute}}?_method=PATCH" id="edit-form__route" class="form">
-                        <div class="form-group width-item-80">
-                            <label for="idRoute" class="form-label form-route">ID :</label>
-                            <input id="idRoute" name="idRoute" type="text" class="form-control-route" style="border-radius: 0;"
-                                value="{{routeInfo.idRoute}}" disabled>
-                        </div>
-                        <div class="form-group width-item-80">
-                            <label for="routeFirstProvince" class="form-label form-route">Tỉnh 1 :</label>
-                            <input id="routeFirstProvince" name="routeFirstProvince" type="text" class="form-control-route" value="{{routeInfo.nameFirstProvince}}" disabled>
+                <form method="POST" action="/admin/edit-route/{{routeInfo.idRoute}}?_method=PATCH" id="edit-form__route"
+                    class="form">
+                    <div class="form-group width-item-80">
+                        <label for="idRoute" class="form-label form-route">ID :</label>
+                        <input id="idRoute" name="idRoute" type="text" class="form-control-route"
+                            style="border-radius: 0;" value="{{routeInfo.idRoute}}" disabled>
+                    </div>
+                    <div class="form-group width-item-80">
+                        <label for="routeFirstProvince" class="form-label form-route">Tỉnh 1 :</label>
+                        <input id="routeFirstProvince" name="routeFirstProvince" type="text" class="form-control-route"
+                            value="{{routeInfo.nameFirstProvince}}" disabled>
+                        <span class="form-message"></span>
+                    </div>
+                    <div class="form-group width-item-80">
+                        <label for="routeSecondProvince" class="form-label form-route">Tỉnh 2 :</label>
+                        <input id="routeSecondProvince" name="routeSecondProvince" type="text"
+                            class="form-control-route" value="{{routeInfo.nameSecondProvince}}" disabled>
+                        <span class="form-message"></span>
+                    </div>
+                    <div class="form-group width-item-80">
+                        <label for="nameRoute" class="form-label form-route">Tuyến :</label>
+                        <input id="nameRoute" name="nameRoute" type="text" class="form-control-route"
+                            value="{{routeInfo.nameFirstProvince}} - {{routeInfo.nameSecondProvince}}" disabled>
+                    </div>
+                    <div class="form-group--parent" style="margin-top: 2.5rem;">
+                        <div class="form-group route-item-input">
+                            <label for="routeInputDistance" class="form-label form-route">Khoảng cách (km) <span
+                                    class="asterisk">*</span>:</label>
+                            <input id="routeInputDistance" name="routeInputDistance" type="text"
+                                class="form-control-route" rules="required|noSpace|integer"
+                                value="{{routeInfo.distance}}">
                             <span class="form-message"></span>
                         </div>
-                        <div class="form-group width-item-80">
-                            <label for="routeSecondProvince" class="form-label form-route">Tỉnh 2 :</label>
-                            <input id="routeSecondProvince" name="routeSecondProvince" type="text" class="form-control-route" value="{{routeInfo.nameSecondProvince}}" disabled>
+                        <div class="form-group route-item-input">
+                            <label for="routeInputDuration" class="form-label form-route">Thời gian (tiếng) <span
+                                    class="asterisk">*</span>:</label>
+                            <input id="routeInputDuration" name="routeInputDuration" type="text"
+                                class="form-control-route" rules="required|noSpace|integer" value="{{routeInfo.hours}}">
                             <span class="form-message"></span>
                         </div>
-                        <div class="form-group width-item-80">
-                            <label for="nameRoute" class="form-label form-route">Tuyến :</label>
-                            <input id="nameRoute" name="nameRoute" type="text" class="form-control-route"
-                                value="{{routeInfo.nameFirstProvince}} - {{routeInfo.nameSecondProvince}}" disabled>
-                        </div>
-                        <div class="form-group--parent" style="margin-top: 2.5rem;">
-                            <div class="form-group route-item-input">
-                                <label for="routeInputDistance" class="form-label form-route">Khoảng cách (km) *:</label>
-                                <input id="routeInputDistance" name="routeInputDistance" type="text" class="form-control-route" rules="required|noSpace|integer" value="{{routeInfo.distance}}">
-                                <span class="form-message"></span>
-                            </div>
-                            <div class="form-group route-item-input">
-                                <label for="routeInputDuration" class="form-label form-route">Thời gian (tiếng) *:</label>
-                                <input id="routeInputDuration" name="routeInputDuration" type="text" class="form-control-route" rules="required|noSpace|integer" value="{{routeInfo.hours}}">
-                                <span class="form-message"></span>
-                            </div>
-                        </div>
+                    </div>
 
                     <div class="message-error" style="margin-top: 1rem;"></div>
                     <div class="container-submit">
@@ -273,10 +284,12 @@
 </div>
 
 <div id="id01" class="modal" style="cursor: pointer;">
-    <span id="closeIcon" class="close" onclick="document.getElementById('id01').style.display='none'" title="Close Modal">&times;</span>
+    <span id="closeIcon" class="close" onclick="document.getElementById('id01').style.display='none'"
+        title="Close Modal">&times;</span>
     <form class="modal-content">
         <div class="container-modal">
-            <h1><i class="fa-solid fa-pen title-icon" style="padding-right: 1.2rem; font-size: 2.5rem;"></i>Update Route</h1>
+            <h1><i class="fa-solid fa-pen title-icon" style="padding-right: 1.2rem; font-size: 2.5rem;"></i>Update Route
+            </h1>
             <p>Bạn có chắc chắn muốn cập nhật tuyến xe này ?</p>
             <div class="clearfix">
                 <button type="button" class="cancelbtn" id="cancelBtn">Cancel</button>
@@ -290,10 +303,12 @@
 
 {{!-- MODAL UPDATE SCHEDULE --}}
 <div id="id01" class="modal" style="cursor: pointer;">
-    <span id="closeIcon" class="close" onclick="document.getElementById('id01').style.display='none'" title="Close Modal">&times;</span>
+    <span id="closeIcon" class="close" onclick="document.getElementById('id01').style.display='none'"
+        title="Close Modal">&times;</span>
     <form class="modal-content">
         <div class="container-modal">
-            <h1><i class="fa-solid fa-pen title-icon" style="padding-right: 1.2rem; font-size: 2.5rem;"></i>Update Route</h1>
+            <h1><i class="fa-solid fa-pen title-icon" style="padding-right: 1.2rem; font-size: 2.5rem;"></i>Update Route
+            </h1>
             <p>Bạn có chắc chắn muốn cập nhật tuyến xe này ?</p>
             <div class="clearfix">
                 <button type="button" class="cancelbtn" id="cancelBtn">Cancel</button>
@@ -307,8 +322,8 @@
     // GET THE MODAL
     var UpBtn = document.querySelector('button[type=submit]');
     UpBtn.addEventListener('click', (event) => {
-            event.preventDefault();
-            document.getElementById('id01').style.display = 'block';
+        event.preventDefault();
+        document.getElementById('id01').style.display = 'block';
     });
     var modal = document.getElementById('id01');
     var form = document.querySelector('#edit-form__route');

@@ -225,17 +225,17 @@
                 <div class="content-sua-tin-tuc">
                     <div class="frame-content font-16">
                         <form class="edit-news-form" method="POST"
-                            action="/admin/edit-news/edit? ws}}&urlImg={{urlImg}}" id="update-form__news" enctype="multipart/form-data">
+                            action="/admin/edit-news/edit/{{newsItem.idNews}}" id="update-form__news" enctype="multipart/form-data">
                             <div class="id inline">
                                 <p for="ID" class="text-decor">ID:</p>
                                 <input name="idNews"
-                                    style="background: #dde4ff; border: none; width: 50%; font-weight: 600; font-style: italic"
-                                    value="{{idNews}}" readonly>
+                                    style="background: #dde4ff; border: none; width: 50%;  font-style: italic"
+                                    value="{{newsItem.idNews}}" readonly>
                             </div>
                             <div class="form-group-news title-new inline">
-                                <label for="form-label-news title-news">Tiêu đề *:</label>
+                                <label for="form-label-news title-news">Tiêu đề <span class="asterisk">*</span>:</label>
                                 <input id="title-news" name="titleNews" type="text"
-                                    class="input-text-title form-control-news"  value="{{titleNews}}"
+                                    class="input-text-title form-control-news"  value="{{newsItem.titleNews}}"
                                     >
                                 <span id="message1" class="form-message-news"
                                     style="position: absolute; top: 6rem; font-size: 1.2rem; font-weight: 100; color: red;"></span>
@@ -244,14 +244,14 @@
                                 <div class="img">
                                     <input type="file" name="image" id="image" onchange="previewImage() "
                                         accept="image/*" style="font-size: 1.3rem;" >
-                                    <input type="hidden" name="oldImage" value="{{urlImg}}">
-                                    <img id="myImagePreview" name="urlImg" src="/img/{{urlImg}}"
+                                    <input type="hidden" name="oldImage" value="{{newsItem.urlImg}}">
+                                    <img id="myImagePreview" name="urlImg" src="/img/{{newsItem.urlImg}}"
                                         style="width: 230px;height: 230px; border: 2px solid #dde4ff;">
                                 </div>
                                 <div class="form-group-news content-new">
-                                    <label class="form-label-news" for="content-news">Nội dung *</label>
+                                    <label class="form-label-news" for="content-news">Nội dung <span class="asterisk">*</span></label>
                                     <textarea class="input-text-content form-control-news" name="contentNews"
-                                        id="content-news" cols="1" rows="10">{{contentNews}}</textarea>
+                                        id="content-news" cols="1" rows="10">{{newsItem.contentNews}}</textarea>
                                     <span id="message2" class="form-message-news"
                                         style="position: absolute; top: 24rem; font-size: 1.2rem; font-weight: 100; color: red; left: 0;"></span>
                                 </div>

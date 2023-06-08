@@ -188,6 +188,16 @@
                             <a class="content" href="/admin/create-route">Thêm tuyến xe</a>
                         </li>
                     </ul>
+                </div>
+
+                <div class="nav-link">
+                    <li class="nav-link-parent">
+                        <div class="item">
+                            <i class="icon-left fa-solid fa-archway"></i>
+                            <a href="#">Bến xe</a>
+                        </div>
+                        <i class="dropdown fa-solid fa-caret-down" href=""></i>
+                    </li>
 
                     <ul class="nav-link-show ">
                         <li class="nav-link-show-item">
@@ -208,8 +218,9 @@
             <div class="title-admin">
                 <i class="fa-solid fa-trash create-icon"></i>
                 <div class="title-content">XÓA TUYẾN XE</div>
-                <div class="title-line" style="left: -14.5rem;"></div>
             </div>
+                <div class="title-line"></div>
+
 
             <div class="container-create__route">
                 <form method="POST" action="/admin/delete-route/{{routeInfo.idRoute}}?_method=DELETE" id="delete-form__route" class="form">
@@ -235,11 +246,11 @@
                         </div>
                         <div class="form-group--parent" style="margin-top: 2.5rem;">
                             <div class="form-group route-item-input">
-                                <label for="routeInputDistance" class="form-label form-route">Khoảng cách (km) *:</label>
+                                <label for="routeInputDistance" class="form-label form-route">Khoảng cách (km) :</label>
                                 <input id="routeInputDistance" name="routeInputDistance" type="text" class="form-control-route" value="{{routeInfo.distance}}" disabled>
                             </div>
                             <div class="form-group route-item-input">
-                                <label for="routeInputDuration" class="form-label form-route">Thời gian (tiếng) *:</label>
+                                <label for="routeInputDuration" class="form-label form-route">Thời gian (tiếng) :</label>
                                 <input id="routeInputDuration" name="routeInputDurationn" type="text" class="form-control-route" value="{{routeInfo.hours}}" disabled>
                             </div>
                         </div>

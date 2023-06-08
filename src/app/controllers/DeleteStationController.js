@@ -16,6 +16,7 @@ class DeleteStationController{
         const id = req.params.id;
         new Station().deleteStation(id)
             .then(()=>{
+                req.flash('success', 'Xóa thành công!');
                 res.redirect('/admin/list-station');
             })
             .catch(err => console.error(err))

@@ -227,12 +227,12 @@
                             <div class="id inline">
                                 <p for="ID" class="text-decor">ID:</p>
                                 <input name="idNews" value="{{idNews}}"
-                                    style="background: #dde4ff; border: none; width: 50%; font-weight: 600; font-style: italic" readonly>
+                                    style="background: #dde4ff; border: none; width: 50%;  font-style: italic" readonly>
                             </div>
                             <div class="form-group-news title-new inline">
-                                <label for="form-label-news title-news">Tiêu đề *:</label>
+                                <label for="form-label-news title-news">Tiêu đề <span class="asterisk">*</span>:</label>
                                 <input id="title-news" name="titleNews" type="text"
-                                    class="input-text-title form-control-news" rules="required"
+                                    class="input-text-title form-control-news" rules="required|noSpace"
                                     placeholder="Nhập tiêu đề ở đây">
                                 <span class="form-message-news"></span>
                             </div>
@@ -244,9 +244,9 @@
                                     <img id="myImagePreview" name="urlImg">
                                 </div>
                                 <div class="form-group-news content-new">
-                                    <label class="form-label-news" for="content-news">Nội dung *</label>
+                                    <label class="form-label-news" for="content-news">Nội dung <span class="asterisk">*</span></label>
                                     <textarea class="input-text-content form-control-news" name="contentNews"
-                                        id="content-news" cols="1" rows="10" rules="required"
+                                        id="content-news" cols="1" rows="10" rules="required|noSpace"
                                         placeholder="Nhập nội dung ở đây"></textarea>
                                     <span class="form-message-news"></span>
                                 </div>

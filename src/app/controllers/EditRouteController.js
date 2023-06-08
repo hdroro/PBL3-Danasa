@@ -37,6 +37,7 @@ class EditRouteController {
     async save(req, res) {
         try {
             await new route().update(req.body.routeInputDistance, req.body.routeInputDuration, req.params.id);
+            req.flash('success', 'Cập nhật thành công!');
             res.redirect('../list-route');
         } catch(err) {
             console.log(err);

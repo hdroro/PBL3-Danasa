@@ -129,6 +129,7 @@ input:disabled, select:disabled {
     background-color: #DDE4FF;
     border: none;
     font-size: 1.4rem;
+    opacity: 1;
 }
 
 input[type=text]:disabled {

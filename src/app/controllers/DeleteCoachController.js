@@ -14,7 +14,7 @@ class DeleteCoachController {
       info.secondProvince = provinces.find(province => province.idProvince === info.idSecondProvince).provinceName;
       res.render('admin-xoaXK', {
         title: 'Xóa xe khách',
-        coach: info
+        coach: info,
       });
     })
   }
@@ -24,6 +24,7 @@ class DeleteCoachController {
     const idCoach = req.params.id;
     Promise.all([new Coach().deleteSoftCoach(idCoach)])
       .then(()=>{
+        req.flash('success', 'Xóa thành công!');
         res.redirect('/admin/list-coach');
       })
       .catch(err => console.error(err))

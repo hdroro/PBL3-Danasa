@@ -5,7 +5,7 @@ const editNewsController = require('../app/controllers/EditNewsController');
 
 // router.get('/:slug',loginController.login);
 // router.get('/:slug',showListCusController.show);
-router.post('/edit-news/edit', editNewsController.edit)
-router.get('/edit-news', editNewsController.index);
+router.post('/edit-news/edit/:id', editNewsController.edit)
+router.get('/edit-news/:id', editNewsController.index);
 
 module.exports = router;

@@ -34,6 +34,7 @@ class CreateNewsController {
         try {
           const News = new news(idNews, titleNews, contentNews, image);
           const saveNews = await News.createNews();
+          req.flash('success', 'Thêm thành công!');
           res.redirect('/admin/list-news');
         }
         catch (err) {
@@ -46,6 +47,7 @@ class CreateNewsController {
         try {
           const News = new news(idNews, titleNews, contentNews);
           const saveNews = await News.createNews();
+          req.flash('success', 'Thêm thành công!');
           res.redirect('/admin/list-news');
         }
         catch (err) {

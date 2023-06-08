@@ -23,7 +23,8 @@
                             <button type="button"
                                 class="nav-link count-indicator dropdown-toggle btn btn-primary-notifi"
                                 fdprocessedid="6335cp" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa-solid fa-hands-clapping" style="font-size: 2.2rem; color: #2a4e8a; margin-right: -0.8rem;"></i>
+                                <i class="fa-solid fa-hands-clapping"
+                                    style="font-size: 2.2rem; color: #2a4e8a; margin-right: -0.8rem;"></i>
                             </button>
                         </div>
                     </div>
@@ -48,7 +49,8 @@
                             </button>
                             <button class="logout-admin">
                                 <a href="/login/logout" class="nav-profile-img">
-                                    <i class="fa-solid fa-right-from-bracket" style="font-size: 2rem; color: #2a4e8a;"></i>
+                                    <i class="fa-solid fa-right-from-bracket"
+                                        style="font-size: 2rem; color: #2a4e8a;"></i>
                                     <span class="availability-status online"></span>
                                 </a>
                             </button>
@@ -123,7 +125,7 @@
                         </li>
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
-                            <a class="content" href="/admin/delete-cus" >Xóa tài khoản</a>
+                            <a class="content" href="/admin/delete-cus">Xóa tài khoản</a>
                         </li>
                     </ul>
                 </div>
@@ -140,7 +142,7 @@
                     <ul class="nav-link-show">
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
-                            <a class="content" href="/admin/list-schedule" >Xem lịch trình</a>
+                            <a class="content" href="/admin/list-schedule">Xem lịch trình</a>
                         </li>
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
@@ -148,7 +150,7 @@
                         </li>
                     </ul>
                 </div>
-                
+
                 <div class="nav-link">
                     <li class="nav-link-parent">
                         <div class="item">
@@ -169,7 +171,7 @@
                         </li>
                     </ul>
                 </div>
-                
+
                 <div class="nav-link">
                     <li class="nav-link-parent">
                         <div class="item">
@@ -217,31 +219,36 @@
             <div class="title-admin">
                 <i class="fa-solid fa-trash create-icon"></i>
                 <div class="title-content">XÓA XE KHÁCH</div>
-                <div class="title-line"></div>
             </div>
+
+            <div class="title-line"></div>
+
 
             <div class="container-delete__coach">
                 <form method="POST" action="/admin/delete-coach/delete" id="delete-form__coach" class="form">
-                        <div class="form-group width-item-80">
-                            <label for="id-coach" class="form-label form-coach">ID :</label>
-                            <input id="id-coach" name="id-coach" type="text" class="form-control-coach" style="border-radius: 0;"
-                                value="{{coach.idCoach}}" disabled>
-                        </div>
-                        <div class="form-group width-item-80">
-                            <label for="route" class="form-label form-coach">Tuyến *:</label>
-                            <input id="route" name="route" class="form-control-coach" disabled value="{{coach.firstProvince}} - {{coach.secondProvince}}">
-                            <span class="form-message"></span>
-                        </div>
-                        <div class="form-group width-item-80">
-                            <label for="type-coach" class="form-label form-coach">Loại xe *:</label>
-                            <input id="type-coach" name="type-coach" class="form-control-coach" disabled value="{{coach.typeName}}">
-                            <span class="form-message"></span>
-                        </div>
-                        <div class="form-group width-item-80">
-                            <label for="license-plate" class="form-label form-coach">Biển số xe *:</label>
-                            <input id="license-plate" name="license-plate" type="text" class="form-control-coach" disabled value="{{coach.licensePlate}}">
-                            <span class="form-message"></span>
-                        </div>
+                    <div class="form-group width-item-80">
+                        <label for="id-coach" class="form-label form-coach">ID :</label>
+                        <input id="id-coach" name="id-coach" type="text" class="form-control-coach"
+                            style="border-radius: 0;" value="{{coach.idCoach}}" disabled>
+                    </div>
+                    <div class="form-group width-item-80">
+                        <label for="route" class="form-label form-coach">Tuyến :</label>
+                        <input id="route" name="route" class="form-control-coach" disabled
+                            value="{{coach.firstProvince}} - {{coach.secondProvince}}">
+                        <span class="form-message"></span>
+                    </div>
+                    <div class="form-group width-item-80">
+                        <label for="type-coach" class="form-label form-coach">Loại xe :</label>
+                        <input id="type-coach" name="type-coach" class="form-control-coach" disabled
+                            value="{{coach.typeName}}">
+                        <span class="form-message"></span>
+                    </div>
+                    <div class="form-group width-item-80">
+                        <label for="license-plate" class="form-label form-coach">Biển số xe :</label>
+                        <input id="license-plate" name="license-plate" type="text" class="form-control-coach" disabled
+                            value="{{coach.licensePlate}}">
+                        <span class="form-message"></span>
+                    </div>
 
                     <div class="sub-info__coach">
                         <div class="number-seat">Số lượng: {{coach.numberOfSeat}} ghế</div>
@@ -261,7 +268,8 @@
 </div>
 {{!-- MODAL DELETE SCHEDULE --}}
 <div id="id01" class="modal">
-    <span id="clodeIcon" class="close" onclick="document.getElementById('id01').style.display='none'" title="Close Modal">&times;</span>
+    <span id="clodeIcon" class="close" onclick="document.getElementById('id01').style.display='none'"
+        title="Close Modal">&times;</span>
     <form class="modal-content">
         <div class="container-modal">
             <h1> <i class="fa-solid fa-trash-can title-icon"
@@ -335,7 +343,7 @@
         }
     }
     */
-        
+
     navLinkParents.forEach((navLinkParent) => {
         var dropdownIcon = navLinkParent.querySelector(".dropdown");
         navLinkParent.addEventListener("click", (event) => {

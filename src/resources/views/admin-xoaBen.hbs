@@ -227,12 +227,12 @@
             <div class="container-delete__station">
                 <form  id="delete-form__station" class="form">
                     <div class="form-group width-item-80">
-                        <label for="idstation" class="form-label form-station">ID *:</label>
+                        <label for="idstation" class="form-label form-station">ID :</label>
                         <input id="idstation" name="idstation" type="text" class="form-control-station"
                             style="border-radius: 0;" value="{{station.idStation}}" disabled>
                     </div>
                     <div class="form-group width-item-80">
-                        <label for="stationProvince" class="form-label form-station">Tỉnh *:</label>
+                        <label for="stationProvince" class="form-label form-station">Tỉnh:</label>
                         <select id="stationProvince" name="stationProvince" class="form-control-station"
                             rules="required|select" disabled>
                             <option value="{{station.idProvince}}" style="display: none;">{{station.provinceName}}</option>
@@ -241,7 +241,7 @@
                     </div>
 
                     <div class="form-group width-item-80">
-                        <label for="namestation" class="form-label form-station">Bến xe *:</label>
+                        <label for="namestation" class="form-label form-station">Bến xe:</label>
                         <input id="namestation" name="namestation" type="text" class="form-control-station" value="{{station.stationName}}" disabled>
                     </div>
 

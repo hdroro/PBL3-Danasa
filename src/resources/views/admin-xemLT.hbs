@@ -216,8 +216,10 @@
             <div class="title-admin">
                 <i class="fa-solid fa-eye eye-icon"></i>
                 <div class="title-content">XEM LỊCH TRÌNH</div>
-                <div class="title-line"></div>
+                
             </div>
+
+            <div class="title-line"></div>
 
             <div class="container-cbb">
                 <select name="province_first" id="" class="cbb__start cbb-admin">
@@ -321,6 +323,24 @@
         </div>
     </div>
 </div>
+
+{{#if statusMessage}}
+<div id="toast">
+    <div class="toast toast--success">
+        <div class="toast__icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="toast__body">
+            <h3 class="toast__title">Success</h3>
+            <p class="toast__msg">{{statusMessage}}</p>
+        </div>
+        <div class="toast__close">
+            <i class="fas fa-times"></i>
+        </div>
+    </div>
+</div>
+{{/if}}
+
 <a id="change" href=""></a>
 <script>
     var navLinkParents = document.querySelectorAll(".nav-link-parent");

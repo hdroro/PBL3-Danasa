@@ -20,12 +20,12 @@
     margin-right: 0.5rem;
 }
 .title-obj-TK .text-title{
-    /* font-weight: bold; */
+    font-weight: bold;
     font-size: 20px;
     margin: 3rem 0 1rem;
 }
 .title-obj-TK .line2{
-    width: 18rem;
+    width: 16rem;
     height: 0.2rem;
     background-color: #1D38A1;
 }

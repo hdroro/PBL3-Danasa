@@ -324,6 +324,23 @@
     </div>
 </div>
 
+{{#if statusMessage}}
+<div id="toast">
+    <div class="toast {{type}}">
+        <div class="toast__icon">
+            <i class="fas {{icon}}"></i>
+        </div>
+        <div class="toast__body">
+            <h3 class="toast__title">{{titletoast}}</h3>
+            <p class="toast__msg">{{statusMessage}}</p>
+        </div>
+        <div class="toast__close">
+            <i class="fas fa-times"></i>
+        </div>
+    </div>
+</div>
+{{/if}}
+
 {{!-- MODAL DELETE NEWS --}}
 <div id="id01" class="modal">
     <span id="clodeIcon" class="close" onclick="document.getElementById('id01').style.display='none'" title="Close Modal">&times;</span>

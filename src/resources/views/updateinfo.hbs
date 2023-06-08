@@ -91,19 +91,19 @@
                     <p class="font-18 color semibold center table-title">THÔNG TIN KHÁCH HÀNG</p>
                     <div class="sub-table font-15" >
                         <div class="form-group grid-two">
-                            <label class="form-label" for="name">Họ tên hành khách *</label>
+                            <label class="form-label" for="name">Họ tên hành khách <span class="asterisk">*</span></label>
                             <input id="name" name="name" class="form-control" rules="required|noSpace" type="text"
                                 placeholder="Nguyễn Văn A" value="{{name}}">
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group grid-two">
-                            <label class="form-label" for="sdt">Số điện thoại *</label>
+                            <label class="form-label" for="sdt">Số điện thoại <span class="asterisk">*</span></label>
                             <input id="sdt" name="sdt" class="form-control" rules="required|phonenumber" type="tel"
                                 placeholder="0905478854" value="{{phoneNumber}}">
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group grid-two">
-                            <label class="form-label" for="email">Email *</label>
+                            <label class="form-label" for="email">Email <span class="asterisk">*</span></label>
                             <input id="email" name="email" class="form-control" rules="email" type="email"
                                 placeholder="nguyenvana@gmail.com" value="{{email}}" style="color: black;">
                             <span class="form-message"></span>
@@ -237,6 +237,23 @@
         <div class="line-straight-footer"></div>
     </footer>
 </div>
+
+{{#if statusMessage}}
+<div id="toast">
+    <div class="toast {{type}}">
+        <div class="toast__icon">
+            <i class="fas {{icon}}"></i>
+        </div>
+        <div class="toast__body">
+            <h3 class="toast__title">{{titletoast}}</h3>
+            <p class="toast__msg">{{statusMessage}}</p>
+        </div>
+        <div class="toast__close">
+            <i class="fas fa-times"></i>
+        </div>
+    </div>
+</div>
+{{/if}}
 
 <script>
     const messageError = document.querySelector('.message-error-info');

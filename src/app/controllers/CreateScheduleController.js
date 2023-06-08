@@ -3,7 +3,7 @@ const Schedule = require('../models/Schedule')
 const Route = require('../models/Route');
 const Station = require('../models/Station');
 const Province = require('../models/Province');
-const TypeCoach =require('../models/TypeOfCoach');
+const TypeCoach = require('../models/TypeOfCoach');
 const DirectedRoute = require('../models/DirectedRoute');
 const MyDate = require('../models/Date');
 const Seat = require('../models/Seat');
@@ -14,41 +14,41 @@ const SchedulePublic = require('../models/SchedulePublic');
 class CreateScheduleController {
 
     // [GET] /home
-    index(req, res,next) {
+    index(req, res, next) {
         var id;
-        Promise.all([new Route().getAllRouteNotDelete(),new Schedule().getIDLast(),new TypeCoach().getTypeOfCoach(),new Province().getProvince()])
-        .then(([routes,schedules,types,provinces])=>{
-            for(var r of routes){
-                r.firstProvince = provinces.find(province => province.idProvince === r.idFirstProvince).provinceName;
-                r.secondProvince = provinces.find(province => province.idProvince === r.idSecondProvince).provinceName;
-            }
-            id = Number(schedules[0].idSchedule)+1;
-            res.render('admin-taoLT', {
-                idSch: id,
-                routes: routes,
-                types: types,
-                title: 'Tạo lịch trình',
-            });
-        })
-        .catch(err => console.error(err));
-        
+        Promise.all([new Route().getAllRouteNotDelete(), new Schedule().getIDLast(), new TypeCoach().getTypeOfCoach(), new Province().getProvince()])
+            .then(([routes, schedules, types, provinces]) => {
+                for (var r of routes) {
+                    r.firstProvince = provinces.find(province => province.idProvince === r.idFirstProvince).provinceName;
+                    r.secondProvince = provinces.find(province => province.idProvince === r.idSecondProvince).provinceName;
+                }
+                id = Number(schedules[0].idSchedule) + 1;
+                res.render('admin-taoLT', {
+                    idSch: id,
+                    routes: routes,
+                    types: types,
+                    title: 'Tạo lịch trình',
+                });
+            })
+            .catch(err => console.error(err));
+
     }
     //[GET] /admin/create-schedule/getDirect
-    findInfoRoute(req,res,next){
+    findInfoRoute(req, res, next) {
         var idRoute = req.query.route;
         var directRoute;
         //Tìm số chuyến của route đó
         // > 0 -> tự động mặc định 
-        Promise.all([new DirectedRoute().getDirectedRouteByIDRoute(idRoute),new Province().getProvince(),new Route().getInfoRoute(idRoute)])
-            .then(([directedRoutes,provinces,routeChosed]) => {
+        Promise.all([new DirectedRoute().getDirectedRouteByIDRoute(idRoute), new Province().getProvince(), new Route().getInfoRoute(idRoute)])
+            .then(([directedRoutes, provinces, routeChosed]) => {
                 directRoute = directedRoutes;
-                for(var pr of directRoute){
+                for (var pr of directRoute) {
                     pr.startProvince = provinces.find(province => province.idProvince === pr.idStartProvince).provinceName;
                     pr.endProvince = provinces.find(province => province.idProvince === pr.idEndProvince).provinceName;
                 }
                 // req.session.distance = routeChosed["distance"];
                 // req.session.hours = routeChosed["hours"];
-                var result ={
+                var result = {
                     hours: routeChosed["hours"],
                     distance: routeChosed["distance"],
                     direct: directRoute,
@@ -57,16 +57,16 @@ class CreateScheduleController {
             })
             .catch(err => console.error(err))
     }
-    getDataStation(req,res,next){
+    getDataStation(req, res, next) {
         var idDirect = req.query["route"];
-        var idStartProvince,idEndProvince;
+        var idStartProvince, idEndProvince;
         new DirectedRoute().getDirectedRouteByIDDirect(idDirect)
-            .then((direct)=>{
+            .then((direct) => {
                 idStartProvince = direct["idStartProvince"];
                 idEndProvince = direct["idEndProvince"];
-                return Promise.all([new Station().getStationByIdProvince(idStartProvince),new Station().getStationByIdProvince(idEndProvince)]);
+                return Promise.all([new Station().getStationByIdProvince(idStartProvince), new Station().getStationByIdProvince(idEndProvince)]);
             })
-            .then(([start,end])=>{
+            .then(([start, end]) => {
                 var AllStation = {
                     startStaion: start,
                     endStaion: end,
@@ -76,7 +76,7 @@ class CreateScheduleController {
             })
             .catch(err => console.err(err))
     }
-    getCoach(req,res,next){
+    getCoach(req, res, next) {
         var idDirect = req.query["direct"];
         var idType = req.query["type"];
         var time = req.query["time"];
@@ -85,59 +85,59 @@ class CreateScheduleController {
             message: "",
             coach: [],
         }
-        var coach = [],busyCoach = []
-        if(idDirect===0 || time==="" || day===""){
+        var coach = [], busyCoach = []
+        if (idDirect === 0 || time === "" || day === "") {
             new TypeCoach().getTypeByID(idType)
-                .then((type)=>{
+                .then((type) => {
                     result.seat = type["numberOfSeat"];
                     result.message = "Dữ liệu chưa nhập đủ";
                     res.json(result);
                 })
-                .catch(err=>console.error(err))
+                .catch(err => console.error(err))
         }
-        else{
+        else {
             var timeStart__S = `${day} ${time}`;
             var timeStart = new MyDate(timeStart__S);
-            var idRoute,idStartProvince,seats;
-            Promise.all([new DirectedRoute().getDirectedRouteByIDDirect(idDirect),new TypeCoach().getTypeByID(idType)])
-            .then(([direct,type])=>{
-                idRoute = direct["idRoute"];
-                idStartProvince = direct["idStartProvince"];
-                seats = type["numberOfSeat"];
-                var queryCoachBusy = `SELECT sch.idCoach FROM (schedules as sch join directedroutes as dr on sch.idDirectedRoute = dr.iddirectedroutes) join coachs as c on sch.idCoach = c.idCoach and c.idType = ${idType} and dr.idRoute = ${idRoute} and sch.isDeleted = 0 and c.isDelete = 0 group by sch.idCoach`;
-                var querySchedule = `SELECT * FROM (schedules as sch join directedroutes as dr on sch.idDirectedRoute = dr.iddirectedroutes) join coachs as c on sch.idCoach = c.idCoach and c.idType = ${idType} and dr.idRoute = ${idRoute} and sch.isDeleted = 0 and c.isDelete = 0 order by sch.startTime desc`;
-                return Promise.all([new Coach().GetListCoach(queryCoachBusy),new Coach().getAllCoachByIDTypeAndRoute(idType,idRoute),SchedulePublic.getSchedule(querySchedule),new Coach().getAllCoach()]);
-            })
-            .then(([busy,all,schedules,coachs])=>{  
-                var TimeCoachException = [];
-                for(var x of busy) busyCoach.push(x.idCoach);
-                for(var x of all){
-                    if(!busyCoach.includes(x.idCoach)){
-                        coach.push(coachs.find(coachInfo => coachInfo.idCoach === x.idCoach));
-                    }
-                    else{
-                        var schedule = schedules.find(schedule => schedule.idCoach === x.idCoach);
-                        var timeEnd = new MyDate(schedule.endTime);
-                        if(schedule.idEndProvince === idStartProvince){
-                            if(timeEnd<=timeStart) coach.push(coachs.find(coachInfo => coachInfo.idCoach === x.idCoach))
-                            else TimeCoachException.push(`từ ${timeEnd.toLocaleTimeString()} ${timeEnd.toMyLocaleDateString()}`)
+            var idRoute, idStartProvince, seats;
+            Promise.all([new DirectedRoute().getDirectedRouteByIDDirect(idDirect), new TypeCoach().getTypeByID(idType)])
+                .then(([direct, type]) => {
+                    idRoute = direct["idRoute"];
+                    idStartProvince = direct["idStartProvince"];
+                    seats = type["numberOfSeat"];
+                    var queryCoachBusy = `SELECT sch.idCoach FROM (schedules as sch join directedroutes as dr on sch.idDirectedRoute = dr.iddirectedroutes) join coachs as c on sch.idCoach = c.idCoach and c.idType = ${idType} and dr.idRoute = ${idRoute} and sch.isDeleted = 0 and c.isDelete = 0 group by sch.idCoach`;
+                    var querySchedule = `SELECT * FROM (schedules as sch join directedroutes as dr on sch.idDirectedRoute = dr.iddirectedroutes) join coachs as c on sch.idCoach = c.idCoach and c.idType = ${idType} and dr.idRoute = ${idRoute} and sch.isDeleted = 0 and c.isDelete = 0 order by sch.startTime desc`;
+                    return Promise.all([new Coach().GetListCoach(queryCoachBusy), new Coach().getAllCoachByIDTypeAndRoute(idType, idRoute), SchedulePublic.getSchedule(querySchedule), new Coach().getAllCoach()]);
+                })
+                .then(([busy, all, schedules, coachs]) => {
+                    var TimeCoachException = [];
+                    for (var x of busy) busyCoach.push(x.idCoach);
+                    for (var x of all) {
+                        if (!busyCoach.includes(x.idCoach)) {
+                            coach.push(coachs.find(coachInfo => coachInfo.idCoach === x.idCoach));
+                        }
+                        else {
+                            var schedule = schedules.find(schedule => schedule.idCoach === x.idCoach);
+                            var timeEnd = new MyDate(schedule.endTime);
+                            if (schedule.idEndProvince === idStartProvince) {
+                                if (timeEnd <= timeStart) coach.push(coachs.find(coachInfo => coachInfo.idCoach === x.idCoach))
+                                else TimeCoachException.push(`từ ${timeEnd.toLocaleTimeString()} ${timeEnd.toMyLocaleDateString()}`)
+                            }
                         }
                     }
-                }
-                if(coach.length === 0) {
-                    if(TimeCoachException.length > 0) result.message = "Chọn thời gian " + TimeCoachException.pop();
-                    else result.message = "Không có xe ở thành phố đi";
-                }
-                result.coach = coach;
-                result.seat = seats;
-                res.json(result);
-            })
-            .catch(err => console.error(err))
+                    if (coach.length === 0) {
+                        if (TimeCoachException.length > 0) result.message = "Chọn thời gian " + TimeCoachException.pop();
+                        else result.message = "Không có xe ở thành phố đi";
+                    }
+                    result.coach = coach;
+                    result.seat = seats;
+                    res.json(result);
+                })
+                .catch(err => console.error(err))
             // tìm các xe thuộc chuyến idRoute
             //liệt kê ra những xe đi theo route đó
         }
     }
-    createSchedule(req,res,next){
+    createSchedule(req, res, next) {
         var idDirect = req.body["start-province"];
         var startStation = req.body["start-station"];
         var endStation = req.body["end-station"];
@@ -147,32 +147,33 @@ class CreateScheduleController {
         var price = req.body["price"];
         //res.json(req.session.hours);
         new Route().getInfoRoute(req.body["route"])
-        .then((route)=>{
-            timeEnd.setHours(timeEnd.getHours()+route.hours);
-            var end = `${timeEnd.toDate()} ${timeEnd.toLocaleTimeString()}`;
-            var start = `${timeStart.toDate()} ${timeStart.toLocaleTimeString()}`;
-            return new Schedule().create(idDirect,startStation,endStation,start,end,price,idCoach);
-        })
-        .then(()=>{
-            return Promise.all([new Coach().getInfoCoach(idCoach),new Schedule().getIDLast()])
-            //res.redirect('/admin/list-schedule');
-        })
-        .then(([coach,ids])=>{
-            var numberOfSeat = coach["numberOfSeat"];
-            var idSchedule = ids[0].idSchedule;
-            var i = 1;
-            var type = '';
-            if(coach["idType"] === 1) type = 'A';
-            else type  = 'B';
-            for(i;i<=numberOfSeat;i++){
-                var nameSeat = (i<10) ? `0${i}`: `${i}`;
-                nameSeat = type + '1' + nameSeat;
-                var query = `insert into seats values (${i},${idSchedule},0,${idCoach},'${nameSeat}')`;
-                new Seat().create(query);
-            }
-            res.redirect('/admin/list-schedule');     
-        })
-        .catch(err => console.log(err))
+            .then((route) => {
+                timeEnd.setHours(timeEnd.getHours() + route.hours);
+                var end = `${timeEnd.toDate()} ${timeEnd.toLocaleTimeString()}`;
+                var start = `${timeStart.toDate()} ${timeStart.toLocaleTimeString()}`;
+                return new Schedule().create(idDirect, startStation, endStation, start, end, price, idCoach);
+            })
+            .then(() => {
+                return Promise.all([new Coach().getInfoCoach(idCoach), new Schedule().getIDLast()])
+                //res.redirect('/admin/list-schedule');
+            })
+            .then(([coach, ids]) => {
+                var numberOfSeat = coach["numberOfSeat"];
+                var idSchedule = ids[0].idSchedule;
+                var i = 1;
+                var type = '';
+                if (coach["idType"] === 1) type = 'A';
+                else type = 'B';
+                for (i; i <= numberOfSeat; i++) {
+                    var nameSeat = (i < 10) ? `0${i}` : `${i}`;
+                    nameSeat = type + '1' + nameSeat;
+                    var query = `insert into seats values (${i},${idSchedule},0,${idCoach},'${nameSeat}')`;
+                    new Seat().create(query);
+                }
+                req.flash('success', 'Thêm thành công!');
+                res.redirect('/admin/list-schedule');
+            })
+            .catch(err => console.log(err))
     }
 
 
@@ -182,13 +183,13 @@ class CreateScheduleController {
     }
 
     //[POST] /updateinfo/success
-    checkUser(req,res,next){
+    checkUser(req, res, next) {
         account.findOne({
             userName: req.body.userName,
             passWord: req.body.passWord,
         })
-            .then((account)=>{
-                if(account!==null) res.render('home');
+            .then((account) => {
+                if (account !== null) res.render('home');
                 res.send("Tên tài khoản hoặc mật khẩu không chính xác");
             })
             .catch(err => next(err))

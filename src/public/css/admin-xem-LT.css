@@ -13,7 +13,7 @@
 
 .container-admin .title-content {
     color: #1D38A1;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 600;
     margin-left: 1.4rem;
 }
@@ -24,12 +24,11 @@
 }
 
 .container-admin .title-line {
-    width: 17rem;
-    height: 0.14rem;
+    width: 18rem;
+    height: 0.2rem;
     background-color: #1D38A1;
     position: relative;
-    top: 2.2rem;
-    left: -15.5rem;
+    top: 1rem;
 }
 
 .container-cbb select{
