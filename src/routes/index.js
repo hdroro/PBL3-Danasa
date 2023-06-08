@@ -39,7 +39,7 @@ const showliststation = require('./admin-show-list-station');
 const deletestation = require('./admin-delete-station');
 const createstation = require('./admin-create-station');
 const editstation = require('./admin-edit-station');
-
+const undefinedroute = require('./error');
 const { register } = require('../app/controllers/RegisterController');
 
 const authMiddleware = require('../middleware/auth');
@@ -80,6 +80,7 @@ function route(app) {
     app.use('/admin', authMiddleware.authAdmin, deletestation);
     app.use('/admin', authMiddleware.authAdmin, createstation);
     app.use('/admin', authMiddleware.authAdmin, editstation);
+    app.use('/admin/:slug',undefinedroute);
 
     app.use('/', homeRouter);
     app.use('/updateinfo', authMiddleware.authCus, updateinfoRouter);
@@ -93,6 +94,7 @@ function route(app) {
     app.use('/login', loginRouter);
     app.use('/news', newsRouter);
     app.use('/', siteRouter);
+    app.use('/:slug',undefinedroute);
 }
 
 module.exports = route;

@@ -86,7 +86,7 @@ class CreateScheduleController {
             coach: [],
         }
         var coach = [],busyCoach = []
-        if(idDirect===0 || time==="" || day===""){
+        if(idDirect == 0 || time==="" || day===""){
             new TypeCoach().getTypeByID(idType)
                 .then((type)=>{
                     result.seat = type["numberOfSeat"];

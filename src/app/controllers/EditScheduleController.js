@@ -89,8 +89,12 @@ class EditScheduleController {
                         title: 'Sửa lịch trình',
                     });
             })
-            .catch(next);
-        // else {
+            .catch(err => {
+                console.error(err);
+                res.render('errorPage',{
+                  title: 'Error'
+                });
+            });        // else {
         //     const obj = {
         //         infoLogin: 'Đăng nhập', 
         //     }
@@ -258,7 +262,12 @@ class EditScheduleController {
                     title: 'Sửa lịch trình',
                 });
             })
-            .catch(next);
+            .catch(err => {
+                console.error(err);
+                res.render('errorPage',{
+                  title: 'Error'
+                });
+            });    
     }
 
     //[GET]/updateinfo/:slug

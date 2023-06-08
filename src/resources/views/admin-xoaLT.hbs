@@ -307,10 +307,17 @@
 
                     <div class="message-error"></div>
                     <div class="container-submit">
+                        {{#if enable}}
                         <button id="{{schedule.idSchedule}}" class="form-submit">
                             <span>Remove</span>
                             <i class="fa-solid fa-xmark" style="font-size: 2rem; margin-left: 0.3rem;"></i>
                         </button>
+                        {{else}}
+                        <button id="{{schedule.idSchedule}}" class="form-submit" disabled>
+                            <span>Remove</span>
+                            <i class="fa-solid fa-xmark" style="font-size: 2rem; margin-left: 0.3rem;"></i>
+                        </button>
+                        {{/if}}
 
                     </div>
                 </form>

@@ -4,13 +4,17 @@ class DeleteStationController{
         const id = req.params.id;
         new Station().getInfoStationById(id)
             .then((station)=>{
-                if(station == null) res.json("Lỗi");
-                else res.render('admin-xoaBen',{
+                res.render('admin-xoaBen',{
                     title: 'Xóa bến xe',
                     station: station,
                 })
             })
-            .catch(err => console.error(err))
+            .catch(err => {
+                console.error(err);
+                res.render('errorPage',{
+                  title: 'Error',
+                })
+              })
     }
     delete(req,res){
         const id = req.params.id;

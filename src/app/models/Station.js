@@ -85,9 +85,9 @@ class Station {
             db.query(`SELECT * FROM stations as st join provinces as pr on st.idProvince = pr.idProvince where st.idStation = ${id} and isDelete = 0`, function (err, rows) {
                 if (err) {
                     return reject(err);
-                } else {
-                    return resolve(rows[0]);
-                }
+                } 
+                else if (rows.length == 0) return reject('Not found');
+                else return resolve(rows[0]);
             })
             })
     }

@@ -6,8 +6,11 @@ class DeleteCusController {
 
     // [GET] /delete-schedule/:id
     index(req,res,next) {
-        //res.send(req.params.id);
         var info;
+        //mặc định là có thể xóa
+        var enable = true;
+        //mặc định là chuyến xe đã chạy
+        var run = true;
         if(!req.session.stations){
             schedulePublic.getStation__Province()
                 .then(([stations,provinces])=>{
@@ -16,43 +19,59 @@ class DeleteCusController {
                 })
                 .catch(next);
         }
-        schedulePublic.getSchedule(`SELECT * FROM (((danasa.schedules as sch join danasa.directedroutes as dr on idDirectedRoute = iddirectedroutes) join danasa.coachs as s on s.idCoach = sch.idCoach) join danasa.typeofcoachs as tp on s.idType = tp.idType) join danasa.routes as r on r.idRoute = dr.idRoute where sch.idSchedule = ${req.params.id} and sch.isDeleted = 0`)
+        schedulePublic.getScheduleByID(req.params.id)
         .then((schedule) => {
             info = schedule[0];
+            const timeNow = new MyDate();
             var time = new MyDate(info.startTime.toString());
             var time2 = new MyDate(info.endTime.toString());
             info.start = `${time.toLocaleTimeString()}`;
             info.end = `${time2.toLocaleTimeString()}`;
             info.day = `${time.toDate()}`;
+            // Chuyến xe chưa chạy
+            if(time > timeNow) run = false;
             info.firstProvince = req.session.provinces.find(province => province.idProvince === info.idFirstProvince).provinceName;
             info.secondProvince = req.session.provinces.find(province => province.idProvince === info.idSecondProvince).provinceName;
             info.startStation = req.session.stations.find(station => station.idStation === info.idStartStation).stationName;
             info.endStation = req.session.stations.find(station => station.idStation === info.idEndStation).stationName;
             info.startProvince = req.session.provinces.find(province => province.idProvince === info.idStartProvince).provinceName;
             info.endProvince = req.session.provinces.find(province => province.idProvince === info.idEndProvince).provinceName;
-            //res.json(info);
             var query = `select * from schedules as sch join directedroutes as dr on sch.idDirectedRoute = dr.iddirectedroutes where sch.idCoach = ${info.idCoach} and sch.startTime > '${info.day} ${info.start}' and sch.isDeleted = 0`
-            return new Schedule().getSchedulesByCondition(query);
+            return Promise.all([new Schedule().getSchedulesByCondition(query),new Schedule().getTickets(req.params.id)]);
         })
-        .then((schedules) => {
-            var message = 'Xóa không ảnh hưởng đến chuyến phía sau.';
-            var impact = false;
-            if(schedules.length > 0) {
-                req.session.IDBehind = schedules[0].idSchedule;
-                impact = true;
-                message = `Xóa sẽ xóa luôn chuyến phía sau (ID = ${req.session.IDBehind})`;
+        .then(([schedules,tickets]) => {
+            var message;
+            if(tickets != null && run == false) {
+                message = "Chuyến này đã có người đặt. Không thể xóa !!!";
+                //không thể xóa chuyến này
+                enable = false;
             }
-            else {
-                req.session.IDBehind = 0;
+            else{
+                message = 'Xóa không ảnh hưởng đến chuyến phía sau.';
+                var impact = false;
+                if(schedules.length > 0) {
+                    req.session.IDBehind = schedules[0].idSchedule;
+                    impact = true;
+                    message = `Xóa sẽ xóa luôn chuyến phía sau (ID = ${req.session.IDBehind})`;
+                }
+                else {
+                    req.session.IDBehind = 0;
+                }
             }
             res.render('admin-xoaLT', {
                 schedule: info,
                 title: 'Xóa lịch trình',
                 message: message,
                 impact: impact,
+                enable: enable,
             });
         })
-        .catch(next);
+        .catch(err => {
+            console.error(err);
+            res.render('errorPage',{
+              title: 'Error',
+            });
+        })
     }
 
     delete(req,res,next){

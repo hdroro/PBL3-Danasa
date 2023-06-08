@@ -22,9 +22,9 @@ class TypeOfCoach{
             db.query(`SELECT * FROM danasa.typeofcoachs where idType = ${id}`, function (err, rows) {
                 if (err) {
                     return reject(err);
-                } else {
-                    return resolve(rows[0]);
-                }
+                } 
+                else if (rows.length == 0) return reject("Not Found");
+                else return resolve(rows[0]);
             })
         })
     }

@@ -44,6 +44,17 @@ class Schedule{
             })
         })    
     }
+    getTickets(id){
+        return new Promise(function(resolve, reject){
+            db.query(`select count(distinct idSeat) as sum from tickets where idSchedule = ${id} group by (idSchedule)`, function (err,rows) {
+                if (err) {
+                    return reject(err);
+                } else {
+                    return resolve(rows[0]);
+                }
+            })
+        }) 
+    }
 
 }
 module.exports = Schedule;
