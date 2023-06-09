@@ -23,10 +23,7 @@ class ChangePasswordController {
                 message: "Mật khẩu mới trùng mật khẩu cũ!",
                 infoLogin: passedVariable,
                 title: 'Thay đổi mật khẩu',
-                titletoast: "Failed",
-                statusMessage: "Cập nhật không thành công!",
-                icon: "fa-exclamation-circle",
-                type: "toast--error"
+                failed: "Cập nhật không thành công!",
             })
             return;
         }
@@ -42,10 +39,7 @@ class ChangePasswordController {
                 message: "Cập nhật mật khẩu thành công!",
                 infoLogin: passedVariable,
                 title: 'Thay đổi mật khẩu',
-                titletoast: "Success",
-                statusMessage: "Cập nhật thành công!",
-                icon: "fa-check-circle",
-                type: "toast--success"
+                success: "Cập nhật thành công!",
             })
             // }
         } catch (err) {
@@ -53,10 +47,7 @@ class ChangePasswordController {
                 message: "Mật khẩu cũ không chính xác!",
                 infoLogin: passedVariable,
                 title: 'Thay đổi mật khẩu',
-                titletoast: "Failed",
-                statusMessage: "Cập nhật không thành công!",
-                icon: "fa-exclamation-circle",
-                type: "toast--warning"
+                failed: "Cập nhật không thành công!",
             })
         }
     }

@@ -104,10 +104,7 @@ class CreateCoachController {
           types: types,
           routes: routes,
           messageError: req.session.message,
-          titletoast: "Failed",
-          statusMessage: "Thêm không thành công!",
-          icon: "fa-exclamation-circle",
-          type: "toast--error"
+          failed: "Thêm không thành công!",
         });
       })
       .catch(err => console.error(err))

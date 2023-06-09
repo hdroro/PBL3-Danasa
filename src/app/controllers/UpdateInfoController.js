@@ -49,10 +49,7 @@ class LoginController {
                     name: name,
                     email: email,
                     phoneNumber: sdt,
-                    title: "Failed",
-                    statusMessage: "Cập nhật không thành công!",
-                    icon: "fa-exclamation-circle",
-                    type: "toast--warning"
+                    failed: "Cập nhật không thành công!"
                 })
                 return;
             }
@@ -68,10 +65,7 @@ class LoginController {
                     name: name,
                     email: email,
                     phoneNumber: sdt,
-                    title: "Failed",
-                    statusMessage: "Cập nhật không thành công!",
-                    icon: "fa-exclamation-circle",
-                    type: "toast--warning"
+                    failed: "Cập nhật không thành công!"
                 })
                 return;
             }
@@ -85,25 +79,10 @@ class LoginController {
                 name: name,
                 phoneNumber: sdt,
                 email: email,
-                titletoast: "Success",
-                statusMessage: "Cập nhật thành công!",
-                icon: "fa-check-circle",
-                type: "toast--success"
+                success: "Cập nhật thành công!"
             });
         } catch (err) {
             console.log(err);
-            // const passedVariable = req.session.nameCustomer;
-            // const username = new account(req.session.userName);
-            // const inforCustomer = await username.fillInfo();
-            // const { name, email, sdt } = req.body;
-            // res.render('updateinfo', {
-            //     message: 'Số điện thoại đã tồn tại!',
-            //     title: 'Thông tin cá nhân',
-            //     infoLogin: passedVariable,
-            //     name: name,
-            //     email: email,
-            //     phoneNumber: sdt,
-            // })
         }
     }
 }

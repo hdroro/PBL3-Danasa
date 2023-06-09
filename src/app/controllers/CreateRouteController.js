@@ -42,7 +42,8 @@ class CreateRouteController {
                   idRoute: idRoute,
                   title: 'Thêm tuyến xe',
                   listProvinces: listProvinces,
-                  message: "Đã tồn tại tuyến xe!"
+                  message: "Đã tồn tại tuyến xe!",
+                  failed: "Tạo không thành công!"
                 }
                 res.render('admin-taoTX', obj);
               })

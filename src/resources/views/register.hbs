@@ -234,15 +234,32 @@
 </div>
 
 
-{{#if statusMessage}}
+{{#if success}}
 <div id="toast">
-    <div class="toast {{type}}">
+    <div class="toast toast--success">
         <div class="toast__icon">
-            <i class="fas {{icon}}"></i>
+            <i class="fas fa-check-circle"></i>
         </div>
         <div class="toast__body">
-            <h3 class="toast__title">{{title}}</h3>
-            <p class="toast__msg">{{statusMessage}}</p>
+            <h3 class="toast__title">Success</h3>
+            <p class="toast__msg">{{success}}</p>
+        </div>
+        <div class="toast__close">
+            <i class="fas fa-times"></i>
+        </div>
+    </div>
+</div>
+{{/if}}
+
+{{#if failed}}
+<div id="toast">
+    <div class="toast toast--error">
+        <div class="toast__icon">
+            <i class="fas fa-exclamation-circle"></i>
+        </div>
+        <div class="toast__body">
+            <h3 class="toast__title">Failed</h3>
+            <p class="toast__msg">{{failed}}</p>
         </div>
         <div class="toast__close">
             <i class="fas fa-times"></i>

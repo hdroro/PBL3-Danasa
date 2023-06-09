@@ -33,7 +33,7 @@ app.use(flash());
 
 
 app.use(function (req, res, next) {
-  res.locals.statusMessage = req.flash('success');
+  res.locals.success = req.flash('success');
   next();
 });
 

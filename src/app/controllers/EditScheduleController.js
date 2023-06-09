@@ -261,10 +261,7 @@ class EditScheduleController {
                     schedule: info,
                     messageEdit: "Thời gian không hợp lệ !",
                     title: 'Sửa lịch trình',
-                    titletoast: "Failed",
-                    statusMessage: "Cập nhật không thành công!",
-                    icon: "fa-exclamation-circle",
-                    type: "toast--error"
+                    failed: "Cập nhật không thành công!",
                 });
             })
             .catch(err => {

@@ -39,14 +39,12 @@ class LoginController {
             await account.checkUsername();
         }
         catch (err) {
+            
             res.render('login', {
                 title: 'Đăng nhập',
                 infoLogin: "Đăng nhập",
                 message: "Tài khoản không tồn tại",
-                success: "Failed",
-                statusMessage: "Đăng nhập không thành công!",
-                icon: "fa-exclamation-circle",
-                type: "toast--error"
+                failed: "Đăng nhập không thành công!"
             });
             return;
         }
@@ -58,7 +56,7 @@ class LoginController {
             if (authenticatedUser == 1) {
                 const name = await account.match();
                 req.session.nameCustomer = name;
-                req.session.statusMessage = req.flash('success', 'Đăng nhập thành công!');
+                req.flash('success', 'Đăng nhập thành công!');
                 res.redirect('/');
             }
             else {
@@ -71,10 +69,7 @@ class LoginController {
                 title: 'Đăng nhập',
                 infoLogin: "Đăng nhập",
                 message: "Mật khẩu không đúng",
-                success: "Failed",
-                statusMessage: "Đăng nhập không thành công!",
-                icon: "fa-exclamation-circle",
-                type: "toast--error"
+                failed: "Đăng nhập không thành công!"
             });
         }
     }

@@ -30,10 +30,7 @@ class CreateScheduleController {
                         idstation: await st.countStation(),
                         listProvince: await pv.getAllProvince(),
                         message: 'Hiện tại đã có bến này!',
-                        titletoast: "Failed",
-                        statusMessage: "Tạo không thành công!",
-                        icon: "fa-exclamation-circle",
-                        type: "toast--error"
+                        failed: "Tạo không thành công!",
                     })
             }
         }

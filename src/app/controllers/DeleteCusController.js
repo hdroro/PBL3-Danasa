@@ -55,10 +55,7 @@ class DeleteCusController {
             res.render('admin-xoaTK', {
                 title: 'Xóa tài khoản',
                 message: 'Không tồn tại tài khoản!',
-                titletoast: "Warning",
-                statusMessage: "Oops...Có lỗi xảy ra!",
-                icon: "fa-exclamation-circle",
-                type: "toast--warning"
+                failed: "Oops...Có lỗi xảy ra!",
             })
         }
     }
