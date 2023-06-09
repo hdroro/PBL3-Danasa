@@ -164,10 +164,7 @@ class CreateScheduleController {
                         types: types,
                         title: 'Tạo lịch trình',
                         message: 'Thời gian xuất phát không hợp lệ',
-                        titletoast: "Failed",
-                        statusMessage: "Thêm không thành công!",
-                        icon: "fa-exclamation-circle",
-                        type: "toast--error"
+                        failed: "Thêm không thành công!",
                     });
                 })
                 .catch(err => console.error(err));
