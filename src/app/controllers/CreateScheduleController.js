@@ -145,6 +145,34 @@ class CreateScheduleController {
         var timeEnd = new MyDate(`${req.body["start-date"]} ${req.body["start-time"]}`);
         var idCoach = req.body["license-plate"];
         var price = req.body["price"];
+        var timeNow = new MyDate();
+        //console.log('first: ',timeNow)
+        timeNow.setHours(timeNow.getHours()+1);
+        //console.log('last: ',timeNow);
+        if(timeStart < timeNow) {
+            var id;
+            Promise.all([new Route().getAllRouteNotDelete(), new Schedule().getIDLast(), new TypeCoach().getTypeOfCoach(), new Province().getProvince()])
+                .then(([routes, schedules, types, provinces]) => {
+                    for (var r of routes) {
+                        r.firstProvince = provinces.find(province => province.idProvince === r.idFirstProvince).provinceName;
+                        r.secondProvince = provinces.find(province => province.idProvince === r.idSecondProvince).provinceName;
+                    }
+                    id = Number(schedules[0].idSchedule) + 1;
+                    res.render('admin-taoLT', {
+                        idSch: id,
+                        routes: routes,
+                        types: types,
+                        title: 'Tạo lịch trình',
+                        message: 'Thời gian xuất phát không hợp lệ',
+                        titletoast: "Failed",
+                        statusMessage: "Thêm không thành công!",
+                        icon: "fa-exclamation-circle",
+                        type: "toast--error"
+                    });
+                })
+                .catch(err => console.error(err));
+        }
+        else{
         //res.json(req.session.hours);
         new Route().getInfoRoute(req.body["route"])
             .then((route) => {
@@ -174,25 +202,7 @@ class CreateScheduleController {
                 res.redirect('/admin/list-schedule');
             })
             .catch(err => console.log(err))
-    }
-
-
-    //[GET]/updateinfo/:slug
-    show(req, res) {
-        Login.findOne();
-    }
-
-    //[POST] /updateinfo/success
-    checkUser(req, res, next) {
-        account.findOne({
-            userName: req.body.userName,
-            passWord: req.body.passWord,
-        })
-            .then((account) => {
-                if (account !== null) res.render('home');
-                res.send("Tên tài khoản hoặc mật khẩu không chính xác");
-            })
-            .catch(err => next(err))
+        }
     }
 }
 
