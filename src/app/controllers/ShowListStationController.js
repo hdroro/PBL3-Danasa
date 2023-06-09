@@ -21,7 +21,8 @@ class ShowListStationController {
 
                     const prev = page === 1 ? false : page - 1;
                     const lastPage = Math.ceil(listStation.length / perPage);
-                    const next = page === lastPage ? false : page + 1;
+                    var next = page === lastPage ? false : page + 1;
+                    if(listStation.length === 0) next = false;
                     const obj = {
                         title: 'Xem bến xe',
                         listProvince: listProvince,
@@ -50,7 +51,8 @@ class ShowListStationController {
 
                 const prev = page === 1 ? false : page - 1;
                 const lastPage = Math.ceil(listStation.length / perPage);
-                const next = page === lastPage ? false : page + 1;
+                var next = page === lastPage ? false : page + 1;
+                if(listStation.length === 0) next = false;
                 const obj = {
                     title: 'Xem bến xe',
                     listProvince: listProvince,

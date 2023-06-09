@@ -29,7 +29,8 @@ class ShowListRouteController {
                     const end = page * perPage;
                     const prev = page === 1 ? false : page - 1;
                     const lastPage = Math.ceil(listRoute.length / perPage);
-                    const next = page === lastPage ? false : page + 1;
+                    var next = page === lastPage ? false : page + 1;
+                    if(listRoute.length === 0) next = false;
                     const obj = {
                         title: 'Xem tuyến xe',
                         fullListRoute: Array.from(listRoute).slice(start, end),
