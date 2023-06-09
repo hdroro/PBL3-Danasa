@@ -302,10 +302,14 @@
     const messageError = document.querySelector('.message-error');
     const routeDistance = document.querySelector('#routeInputDistance');
     const routeDuration = document.querySelector('#routeInputDuration');
+    const submitBtn = document.querySelector('.form-submit');
+    const createRouteForm = document.querySelector('#create-form__route');
     secondProvinceMessage.style.color = "red";
     routeFirstProvince.addEventListener('change', () => {
         if (routeFirstProvince.value != "0" && routeSecondProvince.value != "0" && routeFirstProvince.value === routeSecondProvince.value) {
             secondProvinceMessage.innerHTML = "Không chọn tinh 1 và tỉnh 2 giống nhau!";
+        } else {
+            secondProvinceMessage.innerHTML = "";
         }
         if (routeFirstProvince.value != "0" && routeSecondProvince.value != "0") {
             nameRoute.value = routeFirstProvince.options[routeFirstProvince.selectedIndex].text + ' - ' +
@@ -316,6 +320,8 @@
     routeSecondProvince.addEventListener('change', () => {
         if (routeFirstProvince.value != "0" && routeSecondProvince.value != "0" && routeFirstProvince.value === routeSecondProvince.value) {
             secondProvinceMessage.innerHTML = "Không chọn tinh 1 và tỉnh 2 giống nhau!";
+        } else {
+            secondProvinceMessage.innerHTML = "";
         }
         if (routeFirstProvince.value != "0" && routeSecondProvince.value != "0") {
             nameRoute.value = routeFirstProvince.options[routeFirstProvince.selectedIndex].text + ' - ' +
@@ -329,7 +335,11 @@
     routeDuration.addEventListener('input', () => {
         messageError.innerHTML = "";
     })
-
+    submitBtn.addEventListener('click', function(e) {
+        if(secondProvinceMessage.innerHTML !== "") {
+            e.preventDefault();
+        }
+    })
 
 </script>
 
