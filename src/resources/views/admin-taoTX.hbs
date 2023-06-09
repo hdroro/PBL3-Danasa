@@ -265,7 +265,7 @@
                         <div class="form-group route-item-input">
                             <label for="routeInputDistance" class="form-label form-route">Khoảng cách (km) <span class="asterisk">*</span>:</label>
                             <input id="routeInputDistance" name="routeInputDistance" type="text"
-                                class="form-control-route" rules="required|noSpace|integer">
+                                class="form-control-route" rules="required|noSpace|integer|nospace">
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group route-item-input">
@@ -292,6 +292,23 @@
 
 </div>
 <a class="changeLink"></a>
+
+{{#if failed}}
+<div id="toast">
+    <div class="toast toast--error">
+        <div class="toast__icon">
+            <i class="fas fa-exclamation-circle"></i>
+        </div>
+        <div class="toast__body">
+            <h3 class="toast__title">Failed</h3>
+            <p class="toast__msg">{{failed}}</p>
+        </div>
+        <div class="toast__close">
+            <i class="fas fa-times"></i>
+        </div>
+    </div>
+</div>
+{{/if}}
 
 <script>
     const routeFirstProvince = document.querySelector('#routeFirstProvince');

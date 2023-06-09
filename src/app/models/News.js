@@ -65,13 +65,14 @@ class News {
     async searchNews() {
         return new Promise((resolve, reject) => {
             const searchQuery = `SELECT * FROM news WHERE idNews = ?`;
-            db.query(searchQuery, [this.idNews], (err, results) => {
+            db.query(searchQuery, [Number(this.idNews)], (err, results) => {
                 if (err) {
                     return reject(err);
                 }
                 if(results.length === 0) {
                     return reject(err);
                 }
+                console.log(results[0])
                 return resolve(results[0]);
             })
         })
@@ -79,10 +80,8 @@ class News {
 
     async deleteNews() {
         return new Promise((resolve, reject) => {
-            console.log(this.idNews);
-
             const deleteQuery = `DELETE FROM news where idNews = ?`;
-            db.query(deleteQuery, [this.idNews], (err, results) => {
+            db.query(deleteQuery, [Number(this.idNews)], (err, results) => {
                 if (err) {
                     return reject(err);
                 }
@@ -97,7 +96,7 @@ class News {
     async editNews() {
         return new Promise((resolve, reject) => {
             const editQuery = `UPDATE news SET titleNews = ?, contentNews = ?, urlImg = ? WHERE idNews = ?`;
-            db.query(editQuery, [this.titleNews, this.contentNews, this.urlImg, this.idNews], (err, results) => {
+            db.query(editQuery, [Number(this.titleNews), this.contentNews, this.urlImg, this.idNews], (err, results) => {
                 if (err) {
                     return reject(err);
                 }

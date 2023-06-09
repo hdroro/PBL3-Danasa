@@ -26,7 +26,8 @@ class DetailStaticsMonthController {
         }
         catch(err){
             res.render('admin-CT-TKDT-thang',{
-                title: 'Chi tiết thống kê doanh thu theo tháng'
+                title: 'Chi tiết thống kê doanh thu theo tháng',
+                current: 1
             });
         }
     }

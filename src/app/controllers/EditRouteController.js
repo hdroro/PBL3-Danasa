@@ -12,10 +12,10 @@ class EditRouteController {
                     const routeInfo = routeItem;
                     const listProvince = Array.from(provinces);
                     listProvince.forEach(pr => {
-                        if(pr.idProvince == routeItem.idFirstProvince) {
+                        if (pr.idProvince == routeItem.idFirstProvince) {
                             routeInfo.nameFirstProvince = pr.provinceName;
                         }
-                        if(pr.idProvince == routeItem.idSecondProvince) {
+                        if (pr.idProvince == routeItem.idSecondProvince) {
                             routeInfo.nameSecondProvince = pr.provinceName;
                         }
                     })
@@ -24,13 +24,18 @@ class EditRouteController {
                         routeInfo: routeInfo,
                     });
                 })
-            
+                .catch(error => {
+                    res.render('errorPage', {
+                        title: 'Error',
+                    });
+                });
+
         }
         catch (err) {
             console.log(err);
-            res.render('admin-suaTX', {
-                title: 'Sửa tuyến xe',
-            })
+            res.render('errorPage', {
+                title: 'Error',
+            });
         }
     }
 
@@ -39,8 +44,11 @@ class EditRouteController {
             await new route().update(req.body.routeInputDistance, req.body.routeInputDuration, req.params.id);
             req.flash('success', 'Cập nhật thành công!');
             res.redirect('../list-route');
-        } catch(err) {
+        } catch (err) {
             console.log(err);
+            res.render('errorPage', {
+                title: 'Error',
+            });
         }
     }
 

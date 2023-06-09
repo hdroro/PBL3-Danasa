@@ -13,10 +13,10 @@ class DeleteRouteController {
                     const routeInfo = routeItem;
                     const listProvince = Array.from(provinces);
                     listProvince.forEach(pr => {
-                        if(pr.idProvince == routeItem.idFirstProvince) {
+                        if (pr.idProvince == routeItem.idFirstProvince) {
                             routeInfo.nameFirstProvince = pr.provinceName;
                         }
-                        if(pr.idProvince == routeItem.idSecondProvince) {
+                        if (pr.idProvince == routeItem.idSecondProvince) {
                             routeInfo.nameSecondProvince = pr.provinceName;
                         }
                     })
@@ -25,13 +25,18 @@ class DeleteRouteController {
                         routeInfo: routeInfo,
                     });
                 })
-            
+                .catch(error => {
+                    res.render('errorPage', {
+                        title: 'Error',
+                    });
+                });
+
         }
         catch (err) {
             console.log(err);
-            res.render('admin-xoaTX', {
-                title: 'Xóa tuyến xe',
-            })
+            res.render('errorPage', {
+                title: 'Error',
+            });
         }
     }
 
@@ -42,11 +47,11 @@ class DeleteRouteController {
             req.flash('success', 'Xóa thành công!');
             res.redirect('../list-route');
         }
-        catch(err){
+        catch (err) {
             console.log(err);
-            res.render('admin-xoaTX', {
-                title: 'Xóa tuyến xe',
-            })
+            res.render('errorPage', {
+                title: 'Error',
+            });
         }
     }
 

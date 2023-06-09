@@ -27,6 +27,7 @@ class ShowListNewsController {
         catch (err) {
             res.render('admin-xemTT', {
                 title: 'Xem tin tức',
+                current: 1,
             })
         }
     }

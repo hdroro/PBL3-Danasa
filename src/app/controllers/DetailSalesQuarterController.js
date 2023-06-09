@@ -27,7 +27,7 @@ class DetailSalesQuarterController {
             res.render('admin-CT-TKDS-quy', obj);
         }
         catch (err) {
-            res.render('admin-CT-TKDS-quy', { title: 'Chi tiết thống kê doanh số theo quý' });
+            res.render('admin-CT-TKDS-quy', { title: 'Chi tiết thống kê doanh số theo quý', current: 1 });
         }
     }
 

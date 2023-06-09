@@ -27,7 +27,8 @@ class DetailStaticsQuarterController {
         }
         catch (err) {
             res.render('admin-CT-TKDT-quy', {
-                title: 'Chi tiết thống kê doanh thu theo quý'
+                title: 'Chi tiết thống kê doanh thu theo quý',
+                current: 1
             });
         }
     }

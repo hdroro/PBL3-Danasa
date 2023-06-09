@@ -18,7 +18,7 @@ class DeleteCusController {
         try {
             const idCus = req.params.id;
             const cus = new customer();
-            const infoCus = await cus.getInfoByIdCustomer(idCus);
+            const infoCus = await cus.getInfoByIdCustomer(Number(idCus));
             res.render('admin-xoaTK', {
                 username: infoCus.userName,
                 name: infoCus.name,
@@ -28,7 +28,9 @@ class DeleteCusController {
             });
         }
         catch(err) {
-            console.log(err);
+            res.render('errorPage', {
+                title: 'Error',
+            });
         }
     }
 
@@ -73,9 +75,9 @@ class DeleteCusController {
             res.redirect('/admin/list-cus');
         }
         catch(err) {
-            res.json({
-                messageError: "lỗi",
-            })
+            res.render('errorPage', {
+                title: 'Error',
+            });
         }
 
     }

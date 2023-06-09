@@ -54,12 +54,14 @@ class NewsController {
                 res.render('news', {
                     title: 'Tin tức',
                     infoLogin: passedVariable,
+                    current: 1,
                 })
             }
             else{
                 res.render('news', {
                     title: 'Tin tức',
                     infoLogin: 'Đăng nhập',
+                    current: 1,
                 })
             }
         }

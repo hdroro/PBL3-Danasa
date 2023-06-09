@@ -29,7 +29,8 @@ class DetailSalesMonthController {
         }
         catch(err){
             res.render('admin-CT-TKDS-thang',{
-                title: 'Chi tiết thống kê doanh số theo tháng'
+                title: 'Chi tiết thống kê doanh số theo tháng',
+                current: 1
             });
         }
     }
