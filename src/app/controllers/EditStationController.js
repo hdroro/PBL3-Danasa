@@ -55,7 +55,7 @@ class EditStationController {
                     title: 'Sửa bến xe',
                     station: station,
                     message: 'Tên bến xe đã tồn tại',
-                    failed: "Cập nhật không thành công!",
+                    failure: "Cập nhật không thành công!",
                 })
             })
             .catch(err => {

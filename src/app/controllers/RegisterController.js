@@ -28,7 +28,7 @@ class RegisterController {
                 title: 'Đăng ký',
                 infoLogin: "Đăng nhập",
                 message: "Số điện thoại đã tồn tại",
-                failed: "Đăng ký không thành công!",
+                failure: "Đăng ký không thành công!",
             });
             return;
         }
@@ -41,7 +41,7 @@ class RegisterController {
                 title: 'Đăng ký',
                 infoLogin: "Đăng nhập",
                 message: "Email đã tồn tại",
-                failed: "Đăng ký không thành công!",
+                failure: "Đăng ký không thành công!",
             });
             return;
         }
@@ -66,7 +66,7 @@ class RegisterController {
                 title: 'Đăng ký',
                 infoLogin: "Đăng nhập",
                 message: "Tên tài khoản đã tồn tại",
-                failed: "Đăng ký không thành công!",
+                failure: "Đăng ký không thành công!",
             });
         }
     }

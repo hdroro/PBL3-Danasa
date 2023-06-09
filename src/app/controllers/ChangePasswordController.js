@@ -23,7 +23,7 @@ class ChangePasswordController {
                 message: "Mật khẩu mới trùng mật khẩu cũ!",
                 infoLogin: passedVariable,
                 title: 'Thay đổi mật khẩu',
-                failed: "Cập nhật không thành công!",
+                failure: "Cập nhật không thành công!",
             })
             return;
         }
@@ -47,7 +47,7 @@ class ChangePasswordController {
                 message: "Mật khẩu cũ không chính xác!",
                 infoLogin: passedVariable,
                 title: 'Thay đổi mật khẩu',
-                failed: "Cập nhật không thành công!",
+                failure: "Cập nhật không thành công!",
             })
         }
     }

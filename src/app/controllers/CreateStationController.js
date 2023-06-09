@@ -30,7 +30,7 @@ class CreateScheduleController {
                         idstation: await st.countStation(),
                         listProvince: await pv.getAllProvince(),
                         message: 'Hiện tại đã có bến này!',
-                        failed: "Tạo không thành công!",
+                        failure: "Tạo không thành công!",
                     })
             }
         }

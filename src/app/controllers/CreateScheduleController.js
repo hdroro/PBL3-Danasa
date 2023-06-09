@@ -164,7 +164,7 @@ class CreateScheduleController {
                         types: types,
                         title: 'Tạo lịch trình',
                         message: 'Thời gian xuất phát không hợp lệ',
-                        failed: "Thêm không thành công!",
+                        failure: "Thêm không thành công!",
                     });
                 })
                 .catch(err => console.error(err));

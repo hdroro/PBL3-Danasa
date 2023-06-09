@@ -57,7 +57,7 @@ class DeleteCusController {
             res.render('admin-xoaTK', {
                 title: 'Xóa tài khoản',
                 message: 'Không tồn tại tài khoản!',
-                failed: "Oops...Có lỗi xảy ra!",
+                failure: "Oops...Có lỗi xảy ra!",
             })
         }
     }

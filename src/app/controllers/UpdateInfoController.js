@@ -49,7 +49,7 @@ class LoginController {
                     name: name,
                     email: email,
                     phoneNumber: sdt,
-                    failed: "Cập nhật không thành công!"
+                    failure: "Cập nhật không thành công!"
                 })
                 return;
             }
@@ -65,7 +65,7 @@ class LoginController {
                     name: name,
                     email: email,
                     phoneNumber: sdt,
-                    failed: "Cập nhật không thành công!"
+                    failure: "Cập nhật không thành công!"
                 })
                 return;
             }

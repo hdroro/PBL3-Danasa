@@ -261,7 +261,7 @@ class EditScheduleController {
                     schedule: info,
                     messageEdit: "Thời gian không hợp lệ !",
                     title: 'Sửa lịch trình',
-                    failed: "Cập nhật không thành công!",
+                    failure: "Cập nhật không thành công!",
                 });
             })
             .catch(err => {

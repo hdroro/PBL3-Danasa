@@ -104,7 +104,7 @@ class CreateCoachController {
           types: types,
           routes: routes,
           messageError: req.session.message,
-          failed: "Thêm không thành công!",
+          failure: "Thêm không thành công!",
         });
       })
       .catch(err => console.error(err))

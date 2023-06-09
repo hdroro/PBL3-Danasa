@@ -44,7 +44,7 @@ class LoginController {
                 title: 'Đăng nhập',
                 infoLogin: "Đăng nhập",
                 message: "Tài khoản không tồn tại",
-                failed: "Đăng nhập không thành công!"
+                failure: "Đăng nhập không thành công!"
             });
             return;
         }
@@ -69,7 +69,7 @@ class LoginController {
                 title: 'Đăng nhập',
                 infoLogin: "Đăng nhập",
                 message: "Mật khẩu không đúng",
-                failed: "Đăng nhập không thành công!"
+                failure: "Đăng nhập không thành công!"
             });
         }
     }
