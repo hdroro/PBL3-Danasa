@@ -30,11 +30,19 @@ class CreateCoachController {
   //[POST] /updateinfo/success
   getNumberSeat(req, res) {
     var idType = req.query["type"];
-    new TypeOfCoach().getTypeByID(idType)
-      .then((type) => {
+    if(idType == undefined) res.json("Not Found");
+    else{
+      new TypeOfCoach().getTypeByID(idType)
+      .then((type)=>{
         res.json(type);
       })
-      .catch(err => console.err(err))
+      .catch(err => {
+        console.error(err);
+        res.render('errorPage',{
+          title: 'Error',
+        })
+      })
+    }
   }
 
   //[POST] 

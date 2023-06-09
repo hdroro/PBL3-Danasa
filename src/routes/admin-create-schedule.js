@@ -9,7 +9,6 @@ router.get('/create-schedule', createScheduleController.index);
 router.get('/create-schedule/getCoach',createScheduleController.getCoach);
 router.get('/create-schedule/getDataStation',createScheduleController.getDataStation);
 router.post('/create-schedule/create',createScheduleController.createSchedule);
-router.get('/create-schedule/:id', createScheduleController.findInfoRoute);
-
+router.get('/create-schedule/getDirect', createScheduleController.findInfoRoute);
 
 module.exports = router;

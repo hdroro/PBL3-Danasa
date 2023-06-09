@@ -39,6 +39,9 @@ class CreateScheduleController {
         }
         catch (err) {
             console.log(err);
+            res.render('errorPage', {
+                title: 'Error',
+            });
         }
     }
 }

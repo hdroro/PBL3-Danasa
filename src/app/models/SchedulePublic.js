@@ -21,14 +21,25 @@ class SchedulePublic {
         })
         return Promise.all([p2, p3]);
     }
+    getScheduleByID(id){
+        var query = `SELECT * FROM (((danasa.schedules as sch join danasa.directedroutes as dr on idDirectedRoute = iddirectedroutes) join danasa.coachs as s on s.idCoach = sch.idCoach) join danasa.typeofcoachs as tp on s.idType = tp.idType) join danasa.routes as r on r.idRoute = dr.idRoute where sch.idSchedule = ${id} and sch.isDeleted = 0`;
+        return new Promise(function (resolve, reject) {
+            db.query(query, function (err, rows) {
+                if (err) {
+                    return reject(err);
+                } 
+                else if (rows.length == 0) return reject('Not Found');
+                else return resolve(rows);
+            })
+        })
+    }
     getSchedule(query) {
         return new Promise(function (resolve, reject) {
             db.query(query, function (err, rows) {
                 if (err) {
                     return reject(err);
-                } else {
-                    return resolve(rows);
-                }
+                } 
+                else return resolve(rows);
             })
         })
     }

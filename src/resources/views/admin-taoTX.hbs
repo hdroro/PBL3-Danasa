@@ -22,7 +22,8 @@
                             <button type="button"
                                 class="nav-link count-indicator dropdown-toggle btn btn-primary-notifi"
                                 fdprocessedid="6335cp" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa-solid fa-hands-clapping" style="font-size: 2.2rem; color: #2a4e8a; margin-right: -0.8rem;"></i>
+                                <i class="fa-solid fa-hands-clapping"
+                                    style="font-size: 2.2rem; color: #2a4e8a; margin-right: -0.8rem;"></i>
                             </button>
                         </div>
                     </div>
@@ -47,7 +48,8 @@
                             </button>
                             <button class="logout-admin">
                                 <a href="/login/logout" class="nav-profile-img">
-                                    <i class="fa-solid fa-right-from-bracket" style="font-size: 2rem; color: #2a4e8a;"></i>
+                                    <i class="fa-solid fa-right-from-bracket"
+                                        style="font-size: 2rem; color: #2a4e8a;"></i>
                                     <span class="availability-status online"></span>
                                 </a>
                             </button>
@@ -122,7 +124,7 @@
                         </li>
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
-                            <a class="content" href="/admin/delete-cus" >Xóa tài khoản</a>
+                            <a class="content" href="/admin/delete-cus">Xóa tài khoản</a>
                         </li>
                     </ul>
                 </div>
@@ -139,7 +141,7 @@
                     <ul class="nav-link-show">
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
-                            <a class="content" href="/admin/list-schedule" >Xem lịch trình</a>
+                            <a class="content" href="/admin/list-schedule">Xem lịch trình</a>
                         </li>
                         <li class="nav-link-show-item">
                             <i class="fa-solid "></i>
@@ -147,7 +149,7 @@
                         </li>
                     </ul>
                 </div>
-                
+
                 <div class="nav-link">
                     <li class="nav-link-parent">
                         <div class="item">
@@ -169,8 +171,8 @@
                     </ul>
                 </div>
 
-               
-                
+
+
                 <div class="nav-link">
                     <li class="nav-link-parent">
                         <div class="item">
@@ -192,7 +194,7 @@
                     </ul>
                 </div>
 
-                 <div class="nav-link">
+                <div class="nav-link">
                     <li class="nav-link-parent">
                         <div class="item">
                             <i class="icon-left fa-solid fa-archway"></i>
@@ -220,55 +222,59 @@
             <div class="title-admin">
                 <i class="fa-solid fa-circle-plus title-icon create-icon"></i>
                 <div class="title-content">THÊM TUYẾN XE</div>
-                <div class="title-line"></div>
             </div>
-
+            <div class="title-line"></div>
             <div class="container-create__route">
                 <form method="POST" action="/admin/create-route" id="create-form__route" class="form">
-                        <div class="form-group width-item-80">
-                            <label for="idRoute" class="form-label form-route">ID :</label>
-                            <input id="idRoute" name="idRoute" type="text" class="form-control-route" style="border-radius: 0;"
-                                value="{{idRoute}}" disabled>
-                        </div>
-                        <div class="form-group width-item-80">
-                            <label for="routeFirstProvince" class="form-label form-route">Tỉnh 1 *:</label>
-                            {{!-- <input id="routeFirstProvince" name="routeFirstProvince" type="text" class="form-control-route" rules="required|noSpace"> --}}
-                            <select id="routeFirstProvince" name="routeFirstProvince" class="form-control-route" rules="required|select">
-                                <option value="0">Chọn tỉnh thứ nhất</option>
-                                {{#each listProvinces}}
-                                <option value="{{this.idProvince}}">{{this.provinceName}}</option>
-                                {{/each}}
-                            </select>
+                    <div class="form-group width-item-80">
+                        <label for="idRoute" class="form-label form-route">ID :</label>
+                        <input id="idRoute" name="idRoute" type="text" class="form-control-route"
+                            style="border-radius: 0;" value="{{idRoute}}" disabled>
+                    </div>
+                    <div class="form-group width-item-80">
+                        <label for="routeFirstProvince" class="form-label form-route">Tỉnh 1 <span class="asterisk">*</span>:</label>
+                        {{!-- <input id="routeFirstProvince" name="routeFirstProvince" type="text"
+                            class="form-control-route" rules="required|noSpace"> --}}
+                        <select id="routeFirstProvince" name="routeFirstProvince" class="form-control-route"
+                            rules="required|select">
+                            <option value="0">Chọn tỉnh thứ nhất</option>
+                            {{#each listProvinces}}
+                            <option value="{{this.idProvince}}">{{this.provinceName}}</option>
+                            {{/each}}
+                        </select>
+                        <span class="form-message"></span>
+                    </div>
+                    <div class="form-group width-item-80">
+                        <label for="routeSecondProvince" class="form-label form-route">Tỉnh 2 <span class="asterisk">*</span>:</label>
+                        {{!-- <input id="routeSecondProvince" name="routeSecondProvince" type="text"
+                            class="form-control-route" rules="required|noSpace"> --}}
+                        <select id="routeSecondProvince" name="routeSecondProvince" class="form-control-route"
+                            rules="required|select">
+                            <option value="0">Chọn tỉnh thứ hai</option>
+                            {{#each listProvinces}}
+                            <option value="{{this.idProvince}}">{{this.provinceName}}</option>
+                            {{/each}}
+                        </select>
+                        <span class="form-message"></span>
+                    </div>
+                    <div class="form-group width-item-80">
+                        <label for="nameRoute" class="form-label form-route">Tuyến :</label>
+                        <input id="nameRoute" name="nameRoute" type="text" class="form-control-route" value="" disabled>
+                    </div>
+                    <div class="form-group--parent" style="margin-top: 2.5rem;">
+                        <div class="form-group route-item-input">
+                            <label for="routeInputDistance" class="form-label form-route">Khoảng cách (km) <span class="asterisk">*</span>:</label>
+                            <input id="routeInputDistance" name="routeInputDistance" type="text"
+                                class="form-control-route" rules="required|noSpace|integer">
                             <span class="form-message"></span>
                         </div>
-                        <div class="form-group width-item-80">
-                            <label for="routeSecondProvince" class="form-label form-route">Tỉnh 2 *:</label>
-                            {{!-- <input id="routeSecondProvince" name="routeSecondProvince" type="text" class="form-control-route" rules="required|noSpace"> --}}
-                            <select id="routeSecondProvince" name="routeSecondProvince" class="form-control-route" rules="required|select">
-                                <option value="0">Chọn tỉnh thứ hai</option>
-                                {{#each listProvinces}}
-                                <option value="{{this.idProvince}}">{{this.provinceName}}</option>
-                                {{/each}}
-                            </select>
+                        <div class="form-group route-item-input">
+                            <label for="routeInputDuration" class="form-label form-route">Thời gian (tiếng) <span class="asterisk">*</span>:</label>
+                            <input id="routeInputDuration" name="routeInputDuration" type="text"
+                                class="form-control-route" rules="required|noSpace|integer">
                             <span class="form-message"></span>
                         </div>
-                        <div class="form-group width-item-80">
-                            <label for="nameRoute" class="form-label form-route">Tuyến :</label>
-                            <input id="nameRoute" name="nameRoute" type="text" class="form-control-route"
-                                value="" disabled>
-                        </div>
-                        <div class="form-group--parent" style="margin-top: 2.5rem;">
-                            <div class="form-group route-item-input">
-                                <label for="routeInputDistance" class="form-label form-route">Khoảng cách (km) *:</label>
-                                <input id="routeInputDistance" name="routeInputDistance" type="text" class="form-control-route" rules="required|noSpace|integer">
-                                <span class="form-message"></span>
-                            </div>
-                            <div class="form-group route-item-input">
-                                <label for="routeInputDuration" class="form-label form-route">Thời gian (tiếng) *:</label>
-                                <input id="routeInputDuration" name="routeInputDuration" type="text" class="form-control-route" rules="required|noSpace|integer">
-                                <span class="form-message"></span>
-                            </div>
-                        </div>
+                    </div>
 
                     <div class="message-error">{{message}}</div>
                     <div class="container-submit">
@@ -298,33 +304,33 @@
     const routeDuration = document.querySelector('#routeInputDuration');
     secondProvinceMessage.style.color = "red";
     routeFirstProvince.addEventListener('change', () => {
-        if(routeFirstProvince.value != "0" && routeSecondProvince.value != "0" && routeFirstProvince.value === routeSecondProvince.value) {
+        if (routeFirstProvince.value != "0" && routeSecondProvince.value != "0" && routeFirstProvince.value === routeSecondProvince.value) {
             secondProvinceMessage.innerHTML = "Không chọn tinh 1 và tỉnh 2 giống nhau!";
         }
-        if(routeFirstProvince.value != "0" && routeSecondProvince.value != "0") {
+        if (routeFirstProvince.value != "0" && routeSecondProvince.value != "0") {
             nameRoute.value = routeFirstProvince.options[routeFirstProvince.selectedIndex].text + ' - ' +
-             routeSecondProvince.options[routeSecondProvince.selectedIndex].text;
+                routeSecondProvince.options[routeSecondProvince.selectedIndex].text;
         }
         messageError.innerHTML = "";
     })
     routeSecondProvince.addEventListener('change', () => {
-        if(routeFirstProvince.value != "0" && routeSecondProvince.value != "0" && routeFirstProvince.value === routeSecondProvince.value) {
+        if (routeFirstProvince.value != "0" && routeSecondProvince.value != "0" && routeFirstProvince.value === routeSecondProvince.value) {
             secondProvinceMessage.innerHTML = "Không chọn tinh 1 và tỉnh 2 giống nhau!";
         }
-        if(routeFirstProvince.value != "0" && routeSecondProvince.value != "0") {
+        if (routeFirstProvince.value != "0" && routeSecondProvince.value != "0") {
             nameRoute.value = routeFirstProvince.options[routeFirstProvince.selectedIndex].text + ' - ' +
-             routeSecondProvince.options[routeSecondProvince.selectedIndex].text;
+                routeSecondProvince.options[routeSecondProvince.selectedIndex].text;
         }
         messageError.innerHTML = "";
-    }) 
+    })
     routeDistance.addEventListener('input', () => {
         messageError.innerHTML = "";
     });
     routeDuration.addEventListener('input', () => {
         messageError.innerHTML = "";
     })
-   
-    
+
+
 </script>
 
 <script>

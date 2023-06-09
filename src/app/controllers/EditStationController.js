@@ -3,14 +3,18 @@ class EditStationController {
     index(req, res) {
         const id = req.params.id;
         new Station().getInfoStationById(id)
-            .then((station) => {
-                if (station == null) res.json("Lỗi");
-                else res.render('admin-suaBen', {
+            .then((station)=>{
+                res.render('admin-suaBen',{
                     title: 'Sửa bến xe',
                     station: station,
                 })
             })
-            .catch(err => console.error(err))
+            .catch(err => {
+                console.error(err);
+                res.render('errorPage',{
+                  title: 'Error'
+                });
+              });    
     }
     edit(req, res) {
         const id = req.params.id;
@@ -46,9 +50,8 @@ class EditStationController {
     fail(req, res) {
         const id = req.params.id;
         new Station().getInfoStationById(id)
-            .then((station) => {
-                if (station == null) res.json("Lỗi");
-                else res.render('admin-suaBen', {
+            .then((station)=>{
+                res.render('admin-suaBen',{
                     title: 'Sửa bến xe',
                     station: station,
                     message: 'Tên bến xe đã tồn tại',
@@ -58,7 +61,12 @@ class EditStationController {
                     type: "toast--error"
                 })
             })
-            .catch(err => console.error(err))
+            .catch(err => {
+                console.error(err);
+                res.render('errorPage',{
+                  title: 'Error'
+                });
+              });    
     }
 }
 module.exports = new EditStationController;

@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="/css/admin-XemBX.css">
     <link rel="stylesheet" href="/css/admin-TaoBX.css">
     <link rel="stylesheet" href="/css/toast.css">
+    <link rel="stylesheet" href="/css/error.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     {{!--
@@ -117,7 +118,7 @@
         toast.addEventListener('animationend', function () {
             setTimeout(function () {
                 toast.style.display = 'none';
-            }, 1000);
+            }, 2000);
         });
 
         var closeIcon = document.querySelector('.toast__close');

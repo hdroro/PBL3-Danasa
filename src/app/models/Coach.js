@@ -9,12 +9,11 @@ class Coach {
     };
     GetIDCoach(id) {
         return new Promise(function (resolve, reject) {
-            db.query(`select idCoach from danasa.schedules where idSchedule = ${id}`, function (err, rows) {
+            db.query(`select idCoach from danasa.schedules where idSchedule = ${id} and isDeleted = 0`, function (err, rows) {
                 if (err) {
                     return reject(err);
-                } else {
-                    return resolve(rows[0]);
-                }
+                } else if (rows.length == 0) return reject('Not Found');
+                else return resolve(rows[0]);
             })
         })
     }
@@ -98,12 +97,11 @@ class Coach {
     // }
     getInfoCoach(id) {
         return new Promise(function (resolve, reject) {
-            db.query(`select * from (coachs as c join typeofcoachs as tc on c.idType = tc.idType) join routes as r on r.idRoute = c.idRoute where c.idCoach = ${id}`, function (err, rows) {
+            db.query(`select * from (coachs as c join typeofcoachs as tc on c.idType = tc.idType) join routes as r on r.idRoute = c.idRoute where c.idCoach = ${id} and c.isDelete = 0`, function (err, rows) {
                 if (err) {
                     return reject(err);
-                } else {
-                    return resolve(rows[0]);
-                }
+                } else if (rows.length == 0) return reject('Not Found');
+                else return resolve(rows[0]);
             })
         })
     }

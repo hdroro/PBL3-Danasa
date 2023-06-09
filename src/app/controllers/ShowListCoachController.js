@@ -46,7 +46,7 @@ class ShowListCoachController {
           idRoute: idRoute
         })
       })
-      .catch(err => console.error(err))
+      .catch(err => res.json(err))
   }
   //[POST] /updateinfo/success
   
