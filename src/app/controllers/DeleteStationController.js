@@ -23,7 +23,12 @@ class DeleteStationController{
                 req.flash('success', 'Xóa thành công!');
                 res.redirect('/admin/list-station');
             })
-            .catch(err => console.error(err))
+            .catch(err => {
+                console.error(err);
+                res.render('errorPage',{
+                    title: 'Error'
+                  });
+            })
     }
 }
 module.exports = new DeleteStationController;

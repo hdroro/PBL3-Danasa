@@ -135,9 +135,11 @@ class BuyTicket2Controller{
                 });
             }
         })
-        .catch(err=>{
+        .catch(err =>{
             console.error(err);
-            res.json("Lỗi");
+            res.render('errorPage',{
+                title: 'Error',
+            })
         });
     }
 

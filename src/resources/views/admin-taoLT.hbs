@@ -286,7 +286,7 @@
                             <span class="form-message"></span>
                         </div>
                     </div>
-                    
+                    <p class="form-message-time" style="font-size: 12px;margin: 0 0 1rem;color:red "><span class="asterisk">*</span>Thời gian xuất phát sớm trước ít nhất 1 tiếng</p>
                     <div class="form-group--large">
                         <div class="form-group width-item-28">
                             <label for="start-time" class="form-label form-schedule">Thời gian khởi hành <span class="asterisk">*</span>:</label>
@@ -337,7 +337,7 @@
                         <div class="number-seat">Số lượng: ... ghế</div>
                     </div>
 
-                    <div class="message-error" style="margin-top: 1rem;"></div>
+                    <div class="message-error" style="margin-top: 1rem;">{{message}}</div>
                     <div class="container-submit">
                         <button class="form-submit">
                             <span>Upload</span>
@@ -387,38 +387,16 @@
     const today = new Date().toISOString().split('T')[0];
     startDay.setAttribute('min', today);
     var hours = 0;
-    function Check(){
-        var timeNow = new Date();
-        var startDayx = startDay.valueAsDate;
-        if(startDayx == null) return;
-        if(timeNow.toDateString() == startDayx.toDateString()) {
-            //thời gian trùng nè
-            var timeStart  = startTime.valueAsDate;
-            //var x = timeStart.toUTCString().substring(17,25);
-            var x = timeStart.toUTCString().split(' ')[4].substring(0,8);
-            var y = timeNow.toLocaleString().substring(0,8);
-            //tự động set thành thời gian hiện tại
-            if(x<y) {
-                startTime.value = y.substring(0,5);
-                var start = startTime.valueAsDate;
-                start.setHours(start.getHours()+hours);
-                endTime.valueAsDate = start;
-            }
-
-        }
-    }
     cbbRoute.onchange = function(){
         fetch__directRoute();
     };
     startTime.onchange = function(){
-        Check();
         var start = startTime.valueAsDate;
         start.setHours(start.getHours()+hours);
         endTime.valueAsDate = start;
         if(cbb__Type.value>0) fetch__Coach();
     }
     startDay.onchange = function(){
-        Check();
         var licensePlate = document.querySelector('#license-plate');
         if(cbb__Type.value>0) fetch__Coach();
     }
