@@ -56,8 +56,11 @@ class BuyTicket4Controller {
     }
 
     //[GET]/buy-ticket-step2/:slug
-    show(req, res) {
-        res.send('Detail');
+    async show(req, res) {
+        res.redirect('./buy-ticket-step3/' + req.query.id);
+    }
+    async showConfirm(req, res) {
+        res.redirect('../buy-ticket-step3/' + req.query.idSchedule);
     }
 
     async confirm(req, res) {
@@ -202,7 +205,9 @@ class BuyTicket4Controller {
 
         } catch (err) {
             console.log(err);
-            res.send('Lỗi');
+            res.render('errorPage',{
+                title: 'Error'
+            });
         }
 
     }
