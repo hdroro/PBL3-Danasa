@@ -64,6 +64,12 @@ class ShowListStationController {
                 };
                 res.render('admin-xemBen', obj);
             })
+            .catch((err) => {
+                console.log(err);
+                res.render('errorPage',{
+                    title: 'Error'
+                });
+            })
         }
     }
 }
