@@ -1,4 +1,6 @@
 const schedulePublic= require('../models/SchedulePublic');
+const Station = require('../models/Station');
+const Province = require('../models/Province');
 const Schedule = require('../models/Schedule');
 const MyDate = require('../models/Date');
 
@@ -11,16 +13,8 @@ class DeleteCusController {
         var enable = true;
         //mặc định là chuyến xe đã chạy
         var run = true;
-        if(!req.session.stations){
-            schedulePublic.getStation__Province()
-                .then(([stations,provinces])=>{
-                    req.session.stations = stations;
-                    req.session.provinces = provinces;
-                })
-                .catch(next);
-        }
-        schedulePublic.getScheduleByID(req.params.id)
-        .then((schedule) => {
+        Promise.all([schedulePublic.getScheduleByID(req.params.id),new Station().getStation(),new Province().getProvince()])
+        .then(([schedule,stations,provinces]) => {
             info = schedule[0];
             const timeNow = new MyDate();
             var time = new MyDate(info.startTime.toString());
@@ -30,12 +24,12 @@ class DeleteCusController {
             info.day = `${time.toDate()}`;
             // Chuyến xe chưa chạy
             if(time > timeNow) run = false;
-            info.firstProvince = req.session.provinces.find(province => province.idProvince === info.idFirstProvince).provinceName;
-            info.secondProvince = req.session.provinces.find(province => province.idProvince === info.idSecondProvince).provinceName;
-            info.startStation = req.session.stations.find(station => station.idStation === info.idStartStation).stationName;
-            info.endStation = req.session.stations.find(station => station.idStation === info.idEndStation).stationName;
-            info.startProvince = req.session.provinces.find(province => province.idProvince === info.idStartProvince).provinceName;
-            info.endProvince = req.session.provinces.find(province => province.idProvince === info.idEndProvince).provinceName;
+            info.firstProvince = provinces.find(province => province.idProvince === info.idFirstProvince).provinceName;
+            info.secondProvince = provinces.find(province => province.idProvince === info.idSecondProvince).provinceName;
+            info.startStation = stations.find(station => station.idStation === info.idStartStation).stationName;
+            info.endStation = stations.find(station => station.idStation === info.idEndStation).stationName;
+            info.startProvince = provinces.find(province => province.idProvince === info.idStartProvince).provinceName;
+            info.endProvince = provinces.find(province => province.idProvince === info.idEndProvince).provinceName;
             var query = `select * from schedules as sch join directedroutes as dr on sch.idDirectedRoute = dr.iddirectedroutes where sch.idCoach = ${info.idCoach} and sch.startTime > '${info.day} ${info.start}' and sch.isDeleted = 0`
             return Promise.all([new Schedule().getSchedulesByCondition(query),new Schedule().getTickets(req.params.id)]);
         })
@@ -81,7 +75,12 @@ class DeleteCusController {
                     req.flash('success', 'Xóa thành công!');
                     res.redirect('/admin/list-schedule');
                 })
-                .catch(next);
+                .catch(err =>{
+                    console.error(err);
+                    res.render('errorPage',{
+                        title: 'Error',
+                    })
+                });
         }
         else{
         schedulePublic.deleteSoftSchedule(req.params.id)
@@ -89,7 +88,12 @@ class DeleteCusController {
                 req.flash('success', 'Xóa thành công!');
                 res.redirect('/admin/list-schedule');
             })
-            .catch(next);
+            .catch(err =>{
+                console.error(err);
+                res.render('errorPage',{
+                    title: 'Error',
+                })
+            });
         }
     }
 }

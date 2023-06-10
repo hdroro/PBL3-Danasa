@@ -44,7 +44,12 @@ class EditStationController {
             })
             .catch(err => {
                 if (!check) res.redirect(`/admin/edit-station/${id}/fail`);
-                else console.error(err)
+                else {
+                    console.error(err);
+                    res.render('errorPage',{
+                        title: 'Error'
+                      });
+                }
             })
     }
     fail(req, res) {

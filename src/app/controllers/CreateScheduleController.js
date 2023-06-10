@@ -30,7 +30,12 @@ class CreateScheduleController {
                     title: 'Tạo lịch trình',
                 });
             })
-            .catch(err => console.error(err));
+            .catch(err =>{
+                console.error(err);
+                res.render('errorPage',{
+                    title: 'Error',
+                })
+            });
 
     }
     //[GET] /admin/create-schedule/getDirect
@@ -167,7 +172,12 @@ class CreateScheduleController {
                         failure: "Thêm không thành công!",
                     });
                 })
-                .catch(err => console.error(err));
+                .catch(err =>{
+                    console.error(err);
+                    res.render('errorPage',{
+                        title: 'Error',
+                    })
+                });
         }
         else{
         //res.json(req.session.hours);
@@ -198,7 +208,12 @@ class CreateScheduleController {
                 req.flash('success', 'Thêm thành công!');
                 res.redirect('/admin/list-schedule');
             })
-            .catch(err => console.log(err))
+            .catch(err =>{
+                console.error(err);
+                res.render('errorPage',{
+                    title: 'Error',
+                })
+            });
         }
     }
 }

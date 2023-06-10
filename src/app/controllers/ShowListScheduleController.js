@@ -1,5 +1,7 @@
 const schedule = require('../models/Schedule');
 const schedulePublic = require('../models/SchedulePublic');
+const Station = require('../models/Station');
+const Province = require('../models/Province');
 const MyDate = require('../models/Date');
 class ShowListScheduleController {
 
@@ -30,16 +32,16 @@ class ShowListScheduleController {
             }
         }
         query += ' order by sch.startTime desc'
-        if(!req.session.stations){
-            schedulePublic.getStation__Province()
-                .then(([stations,provinces])=>{
-                    req.session.stations = stations;
-                    req.session.provinces = provinces;
-                })
-                .catch(next);
-        }
-        schedulePublic.getSchedule(query)
-        .then((schedules) => {
+        // if(!req.session.stations){
+        //     schedulePublic.getStation__Province()
+        //         .then(([stations,provinces])=>{
+        //             req.session.stations = stations;
+        //             req.session.provinces = provinces;
+        //         })
+        //         .catch(next);
+        // }
+        Promise.all([schedulePublic.getSchedule(query),new Station().getStation(),new Province().getProvince()])
+        .then(([schedules,stations,provinces]) => {
             if(idTimeAwhile >=0){
                 var long = awhile[idTimeAwhile];
                 var min = long["min"];
@@ -65,13 +67,13 @@ class ShowListScheduleController {
                 x.start = `${time.toLocaleTimeString()}`;
                 x.end = `${time2.toLocaleTimeString()}`;
                 x.day = `${time.toMyLocaleDateString()}`;
-                x.startStation = req.session.stations.find(station => station.idStation === x.idStartStation).stationName;
-                x.endStation = req.session.stations.find(station => station.idStation === x.idEndStation).stationName;
-                x.startProvince = req.session.provinces.find(province => province.idProvince === x.idStartProvince).provinceName;
-                x.endProvince = req.session.provinces.find(province => province.idProvince === x.idEndProvince).provinceName;
+                x.startStation = stations.find(station => station.idStation === x.idStartStation).stationName;
+                x.endStation = stations.find(station => station.idStation === x.idEndStation).stationName;
+                x.startProvince = provinces.find(province => province.idProvince === x.idStartProvince).provinceName;
+                x.endProvince = provinces.find(province => province.idProvince === x.idEndProvince).provinceName;
             }
             res.render('admin-xemLT', {
-                    provinces: req.session.provinces,
+                    provinces: provinces,
                     start: idProvinceStart,
                     end: idProvinceEnd,
                     time: idTimeAwhile,
@@ -83,25 +85,12 @@ class ShowListScheduleController {
                     title: 'Xem lịch trình',
                 });
         })
-        .catch(next);
-    }
-
-    //[GET]/updateinfo/:slug
-    show(req, res) {
-        res.send("OK")
-    }
-
-    //[POST] /updateinfo/success
-    checkUser(req,res,next){
-        account.findOne({
-            userName: req.body.userName,
-            passWord: req.body.passWord,
-        })
-            .then((account)=>{
-                if(account!==null) res.render('home');
-                res.send("Tên tài khoản hoặc mật khẩu không chính xác");
-            })
-            .catch(err => next(err))
+        .catch((err)=>{
+            console.error(err);
+            res.render('errorPage',{
+                title: 'Error'
+              });
+        });
     }
 }
 
