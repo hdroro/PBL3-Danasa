@@ -112,13 +112,15 @@ class Statistics {
     /*---------------*/
     async totalStatistics_quarter_arranged() {
         return new Promise((resolve, reject) => {
-            const statistic_quarter_arranged = `SELECT idFirstProvince, idSecondProvince, SUM(price) as totalPrice
-                                                FROM tickets 
+            const statistic_quarter_arranged = `SELECT LEAST(idFirstProvince, idSecondProvince) AS province1,
+                                                GREATEST(idFirstProvince, idSecondProvince) AS province2,
+                                                SUM(price) AS totalPrice
+                                                FROM tickets
                                                 INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
                                                 INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
                                                 INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
                                                 WHERE quarter(startTime) = quarter(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE())
-                                                GROUP BY idFirstProvince, idSecondProvince
+                                                GROUP BY province1, province2
                                                 ORDER BY totalPrice desc
                                                 LIMIT 1`;
             db.query(statistic_quarter_arranged, async (err, results) => {
@@ -130,8 +132,8 @@ class Statistics {
                 }
                 const provinces = new province();
                 return resolve({
-                    firstProvince: await provinces.getNameProvinceByID(results[0].idFirstProvince),
-                    secondProvince: await provinces.getNameProvinceByID(results[0].idSecondProvince),
+                    firstProvince: await provinces.getNameProvinceByID(results[0].province1),
+                    secondProvince: await provinces.getNameProvinceByID(results[0].province2),
                     sum: results[0].totalPrice
                 });
             })
@@ -141,13 +143,14 @@ class Statistics {
     /*---------------*/
     async totalStatistics_month_arranged() {
         return new Promise((resolve, reject) => {
-            const statistic_month_arranged = `SELECT idFirstProvince, idSecondProvince, SUM(price) as totalPrice
-                                                FROM tickets 
+            const statistic_month_arranged = `SELECT LEAST(idFirstProvince, idSecondProvince) AS province1,
+                                                GREATEST(idFirstProvince, idSecondProvince) AS province2,
+                                                SUM(price) AS totalPrice FROM tickets
                                                 INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
                                                 INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
                                                 INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
                                                 WHERE MONTH(startTime) = MONTH(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE())
-                                                GROUP BY idFirstProvince, idSecondProvince
+                                                GROUP BY province1, province2
                                                 ORDER BY totalPrice desc
                                                 LIMIT 1`;
             db.query(statistic_month_arranged, async (err, results) => {
@@ -159,8 +162,8 @@ class Statistics {
                 }
                 const provinces = new province();
                 return resolve({
-                    firstProvince: await provinces.getNameProvinceByID(results[0].idFirstProvince),
-                    secondProvince: await provinces.getNameProvinceByID(results[0].idSecondProvince),
+                    firstProvince: await provinces.getNameProvinceByID(results[0].province1),
+                    secondProvince: await provinces.getNameProvinceByID(results[0].province2),
                     sum: results[0].totalPrice
                 });
             })
@@ -170,13 +173,15 @@ class Statistics {
     /*---------------*/
     async listStatistics_quarter_arranged(idSort) {
         return new Promise((resolve, reject) => {
-            var statistic_quarter_arranged = `SELECT idFirstProvince, idSecondProvince, SUM(price) as totalPrice
-                                                FROM tickets 
+            var statistic_quarter_arranged = `SELECT LEAST(idFirstProvince, idSecondProvince) AS province1,
+                                                GREATEST(idFirstProvince, idSecondProvince) AS province2,
+                                                SUM(price) AS totalPrice
+                                                FROM tickets
                                                 INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
                                                 INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
                                                 INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
                                                 WHERE quarter(startTime) = quarter(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE())
-                                                GROUP BY idFirstProvince, idSecondProvince`
+                                                GROUP BY province1, province2`
             if (idSort === "1") statistic_quarter_arranged += ` ORDER BY totalPrice desc`
             else if (idSort === "2") statistic_quarter_arranged += ` ORDER BY totalPrice ASC`
             db.query(statistic_quarter_arranged, async (err, results) => {
@@ -188,8 +193,8 @@ class Statistics {
                 const provinces = new province();
                 const promises = results.map(async (statisticsItem, index) => {
                     var STT = index + 1;
-                    const firstProvincePromise = provinces.getNameProvinceByID(statisticsItem.idFirstProvince);
-                    const secondProvincePromise = provinces.getNameProvinceByID(statisticsItem.idSecondProvince);
+                    const firstProvincePromise = provinces.getNameProvinceByID(statisticsItem.province1);
+                    const secondProvincePromise = provinces.getNameProvinceByID(statisticsItem.province2);
                     const [firstProvince, secondProvince] = await Promise.all([firstProvincePromise, secondProvincePromise]);
                     return {
                         STT: STT,
@@ -207,13 +212,14 @@ class Statistics {
     /*---------------*/
     async listStatistics_month_arranged(idSort) {
         return new Promise((resolve, reject) => {
-            var statistic_month_arranged = `SELECT idFirstProvince, idSecondProvince, SUM(price) as totalPrice
-                                            FROM tickets 
+            var statistic_month_arranged = `SELECT LEAST(idFirstProvince, idSecondProvince) AS province1,
+                                            GREATEST(idFirstProvince, idSecondProvince) AS province2,
+                                            SUM(price) AS totalPrice FROM tickets
                                             INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
                                             INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
                                             INNER JOIN routes ON routes.idRoute = directedroutes.idRoute
                                             WHERE MONTH(startTime) = MONTH(CURDATE()) AND YEAR(startTime) = YEAR(CURDATE())
-                                            GROUP BY idFirstProvince, idSecondProvince`
+                                            GROUP BY province1, province2`
             if (idSort === "1") statistic_month_arranged += ` ORDER BY totalPrice desc`
             else if (idSort === "2") statistic_month_arranged += ` ORDER BY totalPrice ASC`
             db.query(statistic_month_arranged, async (err, results) => {
@@ -225,8 +231,8 @@ class Statistics {
                 const provinces = new province();
                 const promises = results.map(async (statisticsItem, index) => {
                     var STT = index + 1;
-                    const firstProvincePromise = provinces.getNameProvinceByID(statisticsItem.idFirstProvince);
-                    const secondProvincePromise = provinces.getNameProvinceByID(statisticsItem.idSecondProvince);
+                    const firstProvincePromise = provinces.getNameProvinceByID(statisticsItem.province1);
+                    const secondProvincePromise = provinces.getNameProvinceByID(statisticsItem.province2);
                     const [firstProvince, secondProvince] = await Promise.all([firstProvincePromise, secondProvincePromise]);
                     return {
                         STT: STT,
