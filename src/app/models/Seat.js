@@ -55,5 +55,17 @@ class Seat {
             });
         });
     }
+
+    async getStatusSeat(nameSeat, idSchedule) {
+        return new Promise((resolve, reject) => {
+            var query = `select * from seats WHERE nameSeat = ? and idSchedule = ?`;
+            db.query(query, [nameSeat, idSchedule], (err, results) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(results[0].statusSeat);
+            });
+        });
+    }
 }
 module.exports = Seat;
