@@ -39,7 +39,9 @@ class CreateNewsController {
         }
         catch (err) {
           console.log(err);
-          res.render('admin-taoTT');
+          res.render('errorPage', {
+            title: 'Error',
+          });
         }
       }
       else {
@@ -52,7 +54,9 @@ class CreateNewsController {
         }
         catch (err) {
           console.log(err);
-          res.render('admin-taoTT');
+          res.render('errorPage', {
+            title: 'Error',
+          });
         }
       }
     });

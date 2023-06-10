@@ -5,7 +5,6 @@ class DeleteNewsController {
     // [GET] /home
     async index(req, res) {
         try {
-            console.log(req.params.id)
             const idNews = new news(req.params.id)
             const obj = {
                 title: 'Xóa tin tức',

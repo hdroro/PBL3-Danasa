@@ -1,7 +1,5 @@
 const db = require('../../config/db');
 const MyDate = require('../models/Date');
-const moment = require('moment');
-const seat = require('../models/Seat')
 
 class HistoryBuyTicket {
 
@@ -16,7 +14,7 @@ class HistoryBuyTicket {
                             INNER JOIN inforcustomer ON accounts.idUser = inforcustomer.idCustomer
                             INNER JOIN tickets ON inforcustomer.idCustomer = tickets.idUser
                             INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
-                            WHERE accounts.userName = ? AND schedules.isDeleted = 0`;
+                            WHERE accounts.userName = ?`;
             db.query(query_pro, [this.userName], async (err, results1) => {
                 if (err) {
                     return reject(err);
@@ -61,7 +59,7 @@ class HistoryBuyTicket {
                             INNER JOIN tickets ON inforcustomer.idCustomer = tickets.idUser
                             INNER JOIN schedules ON tickets.idSchedule = schedules.idSchedule
                             INNER JOIN directedroutes ON directedroutes.iddirectedroutes = schedules.idDirectedRoute
-                            WHERE accounts.userName = ? AND schedules.isDeleted = 0`;
+                            WHERE accounts.userName = ?`;
             if (idStart > 0) query += ` AND idStartProvince = ${idStart}`;
             if (idEnd > 0) query += ` AND idEndProvince = ${idEnd}`;
 
