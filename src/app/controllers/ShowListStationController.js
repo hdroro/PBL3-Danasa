@@ -34,6 +34,12 @@ class ShowListStationController {
                     };
                     res.render('admin-xemBen', obj);
                 })
+                .catch((err) => {
+                    console.log(err);
+                    res.render('errorPage',{
+                        title: 'Error'
+                    });
+                })
         } else {
             Promise.all([new station().getStationExisted(), new province().getProvince()])
             .then(([stations, provinces]) => {

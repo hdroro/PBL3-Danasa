@@ -96,7 +96,7 @@ class News {
     async editNews() {
         return new Promise((resolve, reject) => {
             const editQuery = `UPDATE news SET titleNews = ?, contentNews = ?, urlImg = ? WHERE idNews = ?`;
-            db.query(editQuery, [Number(this.titleNews), this.contentNews, this.urlImg, this.idNews], (err, results) => {
+            db.query(editQuery, [(this.titleNews), this.contentNews, this.urlImg, this.idNews], (err, results) => {
                 if (err) {
                     return reject(err);
                 }
