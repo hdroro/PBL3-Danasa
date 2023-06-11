@@ -19,7 +19,7 @@
 }
 
 .eye-icon {
-    font-size:1.5rem;
+    font-size: 1.5rem;
     color: #1D38A1;
 }
 
@@ -31,7 +31,7 @@
     top: 1rem;
 }
 
-.container-cbb select{
+.container-cbb select {
     background-color: white;
 }
 
@@ -49,7 +49,7 @@
     border-color: #F5F5F5;
 }
 
-.cbb-admin + .cbb-admin {
+.cbb-admin+.cbb-admin {
     margin-left: 4rem;
 }
 
@@ -72,19 +72,23 @@
     font-weight: 600;
 }
 
-.tbhead-item + .tbhead-item {
+.tbhead-item+.tbhead-item {
     margin-left: 2rem;
 }
 
-.tbhead-start, .tbhead-end {
+.tbhead-start,
+.tbhead-end {
     width: 24rem;
 }
 
-.tbhead-time, .tbhead-price, .tbhead-licenseplate {
+.tbhead-time,
+.tbhead-price,
+.tbhead-licenseplate {
     width: 15rem;
 }
 
-.table-head__schedule .tbhead-delete, .table-head__schedule .tbhead-edit {
+.table-head__schedule .tbhead-delete,
+.table-head__schedule .tbhead-edit {
     width: 2rem;
     background-color: #F5F5F5;
 }
@@ -105,11 +109,12 @@
     font-weight: 600;
 }
 
-.section-item + .section-item {
+.section-item+.section-item {
     margin-left: 2rem;
 }
 
-.section-item.start, .section-item.end {
+.section-item.start,
+.section-item.end {
     width: 24rem;
 }
 
@@ -125,7 +130,8 @@
     width: 14rem;
 }
 
-.icon-delete, .icon-edit {
+.icon-delete,
+.icon-edit {
     text-decoration: none;
     cursor: pointer;
 }
@@ -156,40 +162,54 @@
     margin-top: 0.3rem;
 }
 
-.index{
+.index {
     margin: 5rem 0;
 }
-.page-index{
+
+.page-index {
     justify-content: center;
 }
-.page-index .page-item{
+
+.page-index .page-item {
     list-style-type: none;
     margin: 0 0.5rem;
     border: 0.5px solid rgba(52, 98, 173, 0.5);
 }
-.page-item a{
+
+.page-item a {
     font-size: 24px;
     margin: 0.7rem;
     line-height: 4rem;
 }
-.page-index .page-link{
+
+.page-index .page-link {
     text-decoration: none;
     color: #000;
 }
-.page-index .arrow i{
+
+.page-index .arrow i {
     font-size: 16px;
     color: #000;
 }
-.inline{
+
+.inline {
     display: flex;
     flex-direction: row;
 }
-.page-now{
+
+.page-now {
     background-color: #96BCFA;
 }
-.page-now .page-link{
+
+.page-now .page-link {
     color: #fff;
 }
-.disable-page{
+
+.disable-page {
     cursor: default;
+}
+
+.limited-height {
+    max-height: 150px;
+    overflow-y: auto;
 }

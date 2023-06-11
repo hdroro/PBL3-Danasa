@@ -36,6 +36,7 @@ class EditNewsController {
         try{
             upload(req, res, async function (err) {
                 const { idNews, titleNews, contentNews } = req.body;
+                console.log(titleNews)
                 const oldImage = req.body.oldImage;
                 let newImage = null;
                 if (req.file) {

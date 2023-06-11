@@ -272,26 +272,7 @@ class EditScheduleController {
             });    
     }
 
-    //[GET]/updateinfo/:slug
-    show(req, res) {
-        Login.findOne();
-    }
-
-    //[POST] /updateinfo/success
-    checkUser(req, res, next) {
-        account.
-            account.findOne({
-                userName: req.body.userName,
-                passWord: req.body.passWord,
-            })
-            .then((account) => {
-                if (account !== null) res.render('home');
-                res.send("Tên tài khoản hoặc mật khẩu không chính xác");
-            })
-            .catch(err => next(err))
-
-        console.log('kakak');
-    }
+    
 }
 
 module.exports = new EditScheduleController;

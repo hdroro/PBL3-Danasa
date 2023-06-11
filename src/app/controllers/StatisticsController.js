@@ -9,7 +9,6 @@ class StatisticsController {
             var curYear = parseInt(totalStatisticsYear.replace(/,/g, ""));
             const totalStatisticsYear_Previous = await doanhthu.totalStatisctics_yearPrevious();
             var prevYear = parseInt(totalStatisticsYear_Previous.replace(/,/g, ""));
-            console.log(prevYear)
             if (isNaN(curYear)) curYear = 0;
 
             var trendIcon_updown_year;

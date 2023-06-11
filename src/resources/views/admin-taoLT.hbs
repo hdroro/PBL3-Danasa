@@ -232,7 +232,7 @@
                         </div>
                         <div class="form-group width-item-35">
                             <label for="route" class="form-label form-schedule">Tuyến <span class="asterisk">*</span>:</label>
-                            <select id="route" name="route" class="form-control-schedule" rules="required|select">
+                            <select id="route" name="route" class="limited-height form-control-schedule" rules="required|select">
                                 <option value="0" style="display: none;">Chọn tuyến</option>
                                 {{#each routes}}
                                 <option value="{{this.idRoute}}">{{this.firstProvince}} - {{this.secondProvince}}</option>

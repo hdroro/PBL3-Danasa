@@ -21,11 +21,6 @@ class LoginController {
         }
     }
 
-    //[GET]/updateinfo/:slug
-    show(req, res) {
-        Login.findOne();
-    }
-
     //[POST] /updateinfo/success
     async update(req, res) {
         try {

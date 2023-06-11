@@ -31,10 +31,7 @@ class HomeController {
                 res.json(err);
             })
     }
-    //[GET]/course/:slug
-    show(req, res) {
-        Login.findOne();
-    }
+    
 
 }
 

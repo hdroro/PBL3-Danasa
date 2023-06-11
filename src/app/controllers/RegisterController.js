@@ -10,12 +10,6 @@ class RegisterController {
         }
         res.render('register', obj);
     }
-
-    //[GET]/course/:slug
-    show(req, res) {
-        Login.findOne();
-    }
-
     
     async checkUser(req,res,next){
         const { username, password, phonenumber, fullname, email } = req.body;
