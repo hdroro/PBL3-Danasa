@@ -9,6 +9,7 @@ class StatisticsController {
             var curYear = parseInt(totalStatisticsYear.replace(/,/g, ""));
             const totalStatisticsYear_Previous = await doanhthu.totalStatisctics_yearPrevious();
             var prevYear = parseInt(totalStatisticsYear_Previous.replace(/,/g, ""));
+            console.log(prevYear)
             if (isNaN(curYear)) curYear = 0;
 
             var trendIcon_updown_year;
@@ -53,9 +54,9 @@ class StatisticsController {
             
             const obj = {
                 title: 'Thống kê doanh thu',
-                total: await doanhthu.totalStatisctics(),
+                total: await doanhthu.totalStatisctics() === "NaN" ? 0 : await doanhthu.totalStatisctics(),
 
-                total_year: await doanhthu.totalStatisctics_year() === "NaN" ? "0" : await doanhthu.totalStatisctics_year(),
+                total_year: await doanhthu.totalStatisctics_year() === "NaN"   ? "0" : await doanhthu.totalStatisctics_year(),
                 statisticsRate_year: (isNaN(prevYear)) ? 0 : Math.abs(await (curYear - prevYear) / (prevYear)).toFixed(2),
                 trendIcon_year: trendIcon_updown_year,
 
@@ -69,11 +70,11 @@ class StatisticsController {
 
                 firstProvince: arrange_quarter !== null ? arrange_quarter.firstProvince : "-",
                 secondProvince: arrange_quarter !== null ? arrange_quarter.secondProvince : '-',
-                totalPrice: arrange_quarter !== null ? (parseInt(arrange_quarter.sum)).toLocaleString() : '0',
+                totalPrice: arrange_quarter !== null ? (parseInt(arrange_quarter.sum)).toLocaleString('en-US') : '0',
 
                 firstProvince_month: arrange_month !== null ? arrange_month.firstProvince : "-",
                 secondProvince_month: arrange_month !== null ? arrange_month.secondProvince : '-',
-                totalPrice_month: arrange_month !== null ? (parseInt(arrange_month.sum)).toLocaleString() : '0',
+                totalPrice_month: arrange_month !== null ? (parseInt(arrange_month.sum)).toLocaleString('en-US') : '0',
             }
             res.render('admin-TKDT', obj);
         }

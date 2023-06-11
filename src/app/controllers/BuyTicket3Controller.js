@@ -14,7 +14,7 @@ class BuyTicket3Controller{
             const username = req.session.userName;
             const cus = new account(username);
             const infoCus = await cus.fillInfo();
-            const idSchedule = req.params.slug;
+            const idSchedule = Number(req.params.slug);
             const seats = new seat();
             const listSeat = await seats.getListSeat(idSchedule);
             const sublength = listSeat.length / 2;
@@ -43,7 +43,6 @@ class BuyTicket3Controller{
                     infoCus: infoCus,
                 });
             })
-            
         }
         catch(err) {
             console.log(err);

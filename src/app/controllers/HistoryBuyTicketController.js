@@ -42,6 +42,7 @@ class HistoryBuyTicketController {
                 title: 'Lịch sử đặt vé',
                 infoLogin: passedVariable,
                 message: 'Bạn chưa đặt vé nào!',
+                current: 1
             });
         }
     }

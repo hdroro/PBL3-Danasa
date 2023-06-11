@@ -12,7 +12,7 @@ class Sales {
                 else if (results.length === 0) {
                     return reject(new Error('No data found'));
                 }
-                return resolve((parseInt(results[0]['COUNT(idTicket)'])).toLocaleString());
+                return resolve((parseInt(results[0]['COUNT(idTicket)'])).toLocaleString('en-US'));
             })
         })
     }
@@ -27,7 +27,7 @@ class Sales {
                 else if (results.length === 0) {
                     return reject(new Error('No data found for this year'));
                 }
-                return resolve((parseInt(results[0]['COUNT(idTicket)'])).toLocaleString());
+                return resolve((parseInt(results[0]['COUNT(idTicket)'])).toLocaleString('en-US'));
             })
         })
     }
@@ -42,7 +42,7 @@ class Sales {
                 else if (results.length === 0) {
                     return reject(new Error('No data found for this year'));
                 }
-                return resolve((parseInt(results[0]['COUNT(idTicket)'])).toLocaleString());
+                return resolve((parseInt(results[0]['COUNT(idTicket)'])).toLocaleString('en-US'));
             })
         })
     }
@@ -58,7 +58,7 @@ class Sales {
                 else if (results.length === 0) {
                     return reject(new Error('No data found for this quarter'));
                 }
-                return resolve((parseInt(results[0]['COUNT(idTicket)'])).toLocaleString());
+                return resolve((parseInt(results[0]['COUNT(idTicket)'])).toLocaleString('en-US'));
             })
         })
     }
@@ -73,7 +73,7 @@ class Sales {
                 else if (results.length === 0) {
                     return reject(new Error('No data found for this quarter'));
                 }
-                return resolve((parseInt(results[0]['COUNT(idTicket)'])).toLocaleString());
+                return resolve((parseInt(results[0]['COUNT(idTicket)'])).toLocaleString('en-US'));
             })
         })
     }
@@ -89,7 +89,7 @@ class Sales {
                 else if (results.length === 0) {
                     return reject(new Error('No data found for this month'));
                 }
-                return resolve((parseInt(results[0]['COUNT(idTicket)'])).toLocaleString());
+                return resolve((parseInt(results[0]['COUNT(idTicket)'])).toLocaleString('en-US'));
             })
         })
     }
@@ -104,7 +104,7 @@ class Sales {
                 else if (results.length === 0) {
                     return reject(new Error('No data found for this month'));
                 }
-                return resolve((parseInt(results[0]['COUNT(idTicket)'])).toLocaleString());
+                return resolve((parseInt(results[0]['COUNT(idTicket)'])).toLocaleString('en-US'));
             })
         })
     }
@@ -202,7 +202,7 @@ class Sales {
                         STT: STT,
                         firstProvince: firstProvince,
                         secondProvince: secondProvince,
-                        totalTicket: parseInt(salesItem.totalTicket).toLocaleString(),
+                        totalTicket: parseInt(salesItem.totalTicket).toLocaleString('en-US'),
                     };
                 });
                 const sales = await Promise.all(promises);
@@ -242,7 +242,7 @@ class Sales {
                             STT: STT,
                             firstProvince_month: firstProvince,
                             secondProvince_month: secondProvince,
-                            totalTicket_month: parseInt(salesItem.totalTicket).toLocaleString(),
+                            totalTicket_month: parseInt(salesItem.totalTicket).toLocaleString('en-US'),
                         };
                     });
                     const sales = await Promise.all(promises);

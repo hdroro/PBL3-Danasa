@@ -254,7 +254,7 @@
                             <label for="routeInputDistance" class="form-label form-route">Khoảng cách (km) <span
                                     class="asterisk">*</span>:</label>
                             <input id="routeInputDistance" name="routeInputDistance" type="text"
-                                class="form-control-route" rules="required|noSpace|integer"
+                                class="form-control-route" rules="required|noSpace|integer|nospace"
                                 value="{{routeInfo.distance}}">
                             <span class="form-message"></span>
                         </div>
@@ -262,7 +262,7 @@
                             <label for="routeInputDuration" class="form-label form-route">Thời gian (tiếng) <span
                                     class="asterisk">*</span>:</label>
                             <input id="routeInputDuration" name="routeInputDuration" type="text"
-                                class="form-control-route" rules="required|noSpace|integer" value="{{routeInfo.hours}}">
+                                class="form-control-route" rules="required|noSpace|integer|nospace" value="{{routeInfo.hours}}">
                             <span class="form-message"></span>
                         </div>
                     </div>

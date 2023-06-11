@@ -12,7 +12,7 @@ class Statistics {
                 else if (results.length === 0) {
                     return reject(new Error('No data found'));
                 }
-                return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString());
+                return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString('en-US'));
             })
         })
     }
@@ -27,7 +27,7 @@ class Statistics {
                 else if (results.length === 0) {
                     return reject(new Error('No data found for this year'));
                 }
-                return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString());
+                return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString('en-US'));
             })
         })
     }
@@ -42,7 +42,7 @@ class Statistics {
                 else if (results.length === 0) {
                     return reject(new Error('No data found for this year'));
                 }
-                return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString());
+                return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString('en-US'));
             })
         })
     }
@@ -58,7 +58,7 @@ class Statistics {
                 else if (results.length === 0) {
                     return reject(new Error('No data found for this quarter'));
                 }
-                return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString());
+                return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString('en-US'));
             })
         })
     }
@@ -73,7 +73,7 @@ class Statistics {
                 else if (results.length === 0) {
                     return reject(new Error('No data found for this quarter'));
                 }
-                return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString());
+                return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString('en-US'));
             })
         })
     }
@@ -89,7 +89,7 @@ class Statistics {
                 else if (results.length === 0) {
                     return reject(new Error('No data found for this month'));
                 }
-                return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString());
+                return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString('en-US'));
             })
         })
     }
@@ -104,7 +104,7 @@ class Statistics {
                 else if (results.length === 0) {
                     return reject(new Error('No data found for this month'));
                 }
-                return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString());
+                return resolve((parseInt(results[0]['SUM(price)'])).toLocaleString('en-US'));
             })
         })
     }
@@ -200,7 +200,7 @@ class Statistics {
                         STT: STT,
                         firstProvince: firstProvince,
                         secondProvince: secondProvince,
-                        totalPrice: parseInt(statisticsItem.totalPrice).toLocaleString(),
+                        totalPrice: parseInt(statisticsItem.totalPrice).toLocaleString('en-US'),
                     };
                 });
                 const statistics = await Promise.all(promises);
@@ -238,7 +238,7 @@ class Statistics {
                         STT: STT,
                         firstProvince_month: firstProvince,
                         secondProvince_month: secondProvince,
-                        totalPrice_month: parseInt(statisticsItem.totalPrice).toLocaleString(),
+                        totalPrice_month: parseInt(statisticsItem.totalPrice).toLocaleString('en-US'),
                     };
                 });
                 const statistics = await Promise.all(promises);

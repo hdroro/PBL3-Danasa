@@ -130,7 +130,7 @@ class HistoryBuyTicket {
                             distance: getDistance.distance,
                             hour: getDistance.hours,
                             nameSeat: getNameSeat.nameSeat,
-                            Totalprice: (parseInt(historyItem.price, 10)).toLocaleString(),
+                            Totalprice: (parseInt(historyItem.price)).toLocaleString('en-US'),
                             name: historyItem.name,
                             phonenumber: historyItem.phoneNumber,
                             email: historyItem.email,

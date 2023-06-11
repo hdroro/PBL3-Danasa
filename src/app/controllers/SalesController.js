@@ -45,7 +45,7 @@ class SalesController {
         const arrange_month = await doanhso.totalSales_month_arranged();
         const obj = {
             title: 'Thống kê doanh số',
-            total: await doanhso.totalSales(),
+            total: await doanhso.totalSales() === "NaN" ? 0 : await doanhso.totalSales(),
 
             total_year: await doanhso.totalSales_year() === "NaN" ? "0" :  await doanhso.totalSales_year(),
             salesRate_year: prevYear === 0? "0" : Math.abs(await (curYear - prevYear )/(prevYear)).toFixed(2),
@@ -61,11 +61,11 @@ class SalesController {
             
             firstProvince: arrange_quarter !== null ? arrange_quarter.firstProvince : '-',
             secondProvince: arrange_quarter !== null ? arrange_quarter.secondProvince : '-',
-            totalTicket: arrange_quarter !== null ? (parseInt(arrange_quarter.sum)).toLocaleString() : '0',
+            totalTicket: arrange_quarter !== null ? (parseInt(arrange_quarter.sum)).toLocaleString('en-US') : '0',
 
             firstProvince_month: arrange_month !== null ? arrange_month.firstProvince : '-',
             secondProvince_month: arrange_month !== null ? arrange_month.secondProvince : '-',
-            totalTicket_month: arrange_month !== null ? (parseInt(arrange_month.sum)).toLocaleString() : '0',
+            totalTicket_month: arrange_month !== null ? (parseInt(arrange_month.sum)).toLocaleString('en-US') : '0',
         }
         res.render('admin-TKDS', obj);
         }
@@ -74,23 +74,6 @@ class SalesController {
         }
     }
 
-    //[GET]/updateinfo/:slug
-    show(req, res) {
-        Login.findOne();
-    }
-
-    //[POST] /updateinfo/success
-    checkUser(req,res,next){
-        account.findOne({
-            userName: req.body.userName,
-            passWord: req.body.passWord,
-        })
-            .then((account)=>{
-                if(account!==null) res.render('home');
-                res.send("Tên tài khoản hoặc mật khẩu không chính xác");
-            })
-            .catch(err => next(err))
-    }
 }
 
 module.exports = new SalesController;

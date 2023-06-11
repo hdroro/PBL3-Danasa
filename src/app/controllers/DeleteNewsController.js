@@ -22,7 +22,6 @@ class DeleteNewsController {
     //[GET]/updateinfo/:slug
     async delete(req, res) {
         try {
-            console.log(req.params.id)
             const news_delete = new news(req.params.id);
             await news_delete.deleteNews();
             req.flash('success', 'Xóa thành công!');
